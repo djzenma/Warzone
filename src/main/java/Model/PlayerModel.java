@@ -15,4 +15,12 @@ public class PlayerModel {
     public void setCountry(CountryModel countryModel) {
         this.d_country = countryModel;
     }
+
+    public String getName() {
+        return d_name;
+    }
+
+    public CountryModel getCountry() {
+        return d_country;
+    }
 }

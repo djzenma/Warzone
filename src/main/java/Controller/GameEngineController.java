@@ -18,6 +18,7 @@ public class GameEngineController {
 
 
 
+
     public GameEngineController() {
         d_players = new HashMap<String, PlayerModel>();
         d_countries = new HashMap<Integer, CountryModel>();
@@ -25,6 +26,16 @@ public class GameEngineController {
         d_countries.put(1, new CountryModel("India"));
         d_countries.put(2, new CountryModel("Egypt"));
         d_countries.put(3, new CountryModel("Canada"));
+    }
+
+
+
+    public HashMap<String, PlayerModel> getPlayers() {
+        return d_players;
+    }
+
+    public HashMap<Integer, CountryModel> getCountries() {
+        return d_countries;
     }
 
 
@@ -57,19 +68,19 @@ public class GameEngineController {
 
 
         // get the countries IDs as a List
-        Set countryIDs = this.d_countries.keySet();
-        List<Integer> countryIDsList = new ArrayList<Integer>(countryIDs);
+        Set l_countryIDs = this.d_countries.keySet();
+        List<Integer> l_countryIDsList = new ArrayList<Integer>(l_countryIDs);
 
         // get the player IDs as a List
-        Set playerIDs = this.d_players.keySet();
-        List<String> playerIDsList = new ArrayList<String>(playerIDs);
+        Set l_playerIDs = this.d_players.keySet();
+        List<String> l_playerIDsList = new ArrayList<String>(l_playerIDs);
 
         // assign countries evenly between players
         int l_countriesCounter = 0;
         for(PlayerModel l_player : this.d_players.values()) {
             for(int i=0; i<l_countriesPerPlayer; i++){
-                int countryID = countryIDsList.get(l_countriesCounter);
-                l_player.setCountry(this.d_countries.get(countryID));
+                int l_countryID = l_countryIDsList.get(l_countriesCounter);
+                l_player.setCountry(this.d_countries.get(l_countryID));
                 l_countriesCounter++;
             }
         }
@@ -79,7 +90,7 @@ public class GameEngineController {
             int l_rand = (int) (Math.random() * (this.d_players.size()));
 
 
-            this.d_players.get(playerIDsList.get(l_rand)).setCountry(this.d_countries.get(l_countriesCounter));
+            this.d_players.get(l_playerIDsList.get(l_rand)).setCountry(this.d_countries.get(l_countriesCounter));
             l_countriesCounter++;
         }
     }
