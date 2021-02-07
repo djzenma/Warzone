@@ -11,6 +11,15 @@ public class PlayerController {
     }
 
     public void assignCountry(CountryModel countryModel) {
-        this.d_playerModel.setCountry(countryModel);
+        this.d_playerModel.addCountry(countryModel);
     }
+
+    /*public boolean issueOrder(){
+        OrderController l_order = new DeployController();
+
+    }
+
+    public OrderModel nextOrder(){
+
+    }*/
 }

@@ -44,8 +44,8 @@ public class GameEngineControllerTest {
      * Tests if a player has been removed
      */
     @Test
-    public void removePlayer() {
-        d_gameEngine.removePlayer("Aman");
+    public void removePlayer() throws Exception {
+        d_gameEngine.removePlayer("Mazen");
 
         assertEquals(2, d_gameEngine.getPlayers().size());
     }
@@ -57,7 +57,16 @@ public class GameEngineControllerTest {
     public void assignCountries() {
         d_gameEngine.assignCountries();
         for(PlayerModel l_player: d_gameEngine.getPlayers().values()){
-            assertNotNull(l_player.getCountry());
+            assertNotNull(l_player.getCountries());
         }
+    }
+
+    @Test
+    public void assignReinforcements() {
+        d_gameEngine.assignCountries();
+        d_gameEngine.assignReinforcements();
+        assertEquals(4, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
+        assertEquals(4, d_gameEngine.getPlayers().get("Aman").getReinforcements());
+        assertEquals(4, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
     }
 }

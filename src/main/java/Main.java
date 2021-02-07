@@ -4,12 +4,17 @@ public class Main {
     public static void main(String[] args) {
         GameEngineController gameEngine = new GameEngineController();
 
-        gameEngine.addPlayer("Aman");
         gameEngine.addPlayer("Mazen");
+        gameEngine.addPlayer("Aman");
         gameEngine.addPlayer("Akshat");
 
         gameEngine.assignCountries();
+        gameEngine.assignReinforcements();
 
-        gameEngine.removePlayer("Aman");
+        try{
+            gameEngine.removePlayer("Mazen");
+        } catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
