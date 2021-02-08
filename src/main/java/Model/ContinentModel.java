@@ -3,9 +3,11 @@ package Model;
 import java.util.ArrayList;
 
 public class ContinentModel {
+
     private String d_name;
     private int d_controlValue;
     private ArrayList<CountryModel> d_countries;
+    private String d_color;
 
     public ContinentModel(String p_name, int p_controlValue) {
         this.d_name = p_name;
@@ -34,8 +36,8 @@ public class ContinentModel {
         return this.d_controlValue;
     }
 
-    public void setControlValue(int d_controlValue) {
-        this.d_controlValue = d_controlValue;
+    public void setControlValue(int p_controlValue) {
+        this.d_controlValue = p_controlValue;
     }
 
     public void addCountry(CountryModel p_country){

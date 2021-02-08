@@ -1,7 +1,7 @@
 import Controller.GameEngineController;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
         GameEngineController gameEngine = new GameEngineController();
 
         gameEngine.addPlayer("Mazen");
@@ -11,9 +11,9 @@ public class Main {
         gameEngine.assignCountries();
         gameEngine.assignReinforcements();
 
-        try{
+        try {
             gameEngine.removePlayer("Mazen");
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
