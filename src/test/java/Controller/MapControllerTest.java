@@ -7,4 +7,9 @@ public class MapControllerTest {
     @Test
     public void editContinent() {
     }
+
+    @Test
+    public void editNeighbors() {
+    }
+
 }
