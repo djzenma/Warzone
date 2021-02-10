@@ -3,6 +3,7 @@ package Controller;
 import Model.ContinentModel;
 import Model.CountryModel;
 import Model.PlayerModel;
+import View.PlayerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -128,8 +129,16 @@ public class GameEngineController {
     }
 
 
-    public void issueOrders(){
+    public boolean issueOrders(){
+        boolean end = true;
 
+        for (PlayerModel l_player : this.d_players.values()) {
+            PlayerView.currentPlayer(l_player);
+            // if the player issued an order
+            if (l_player.issueOrder())
+                end = false;
+        }
+        return !end;
     }
 
     public void executeOrders(){
@@ -138,7 +147,9 @@ public class GameEngineController {
 
     public void run(){
         assignReinforcements();
-        issueOrders();
+
+        while (issueOrders()) ;
+
         executeOrders();
     }
 }

@@ -76,6 +76,14 @@ public class GameEngineControllerTest {
         d_gameEngine = new GameEngineController(l_countries, l_continents);
     }
 
+    @Test
+    public void getPlayers() {
+    }
+
+    @Test
+    public void getCountries() {
+    }
+
     /**
      * Adds the players before every test method
       */
@@ -122,5 +130,19 @@ public class GameEngineControllerTest {
         assertEquals(4, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
         assertEquals(4, d_gameEngine.getPlayers().get("Aman").getReinforcements());
         assertEquals(12, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
+    }
+
+
+    @Test
+    public void issueOrders() {
+        // TODO :: d_gameEngine.issueOrders();
+    }
+
+    @Test
+    public void executeOrders() {
+    }
+
+    @Test
+    public void run() {
     }
 }
