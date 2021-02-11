@@ -149,25 +149,31 @@ public class PlayerModel {
             int l_countryId = Integer.parseInt(l_args[1]);
             int l_requestedReinforcements = Integer.parseInt(l_args[2]);
 
+            int l_nReinforcements = this.getReinforcements();
+            for (OrderController order : this.d_orderList) {
+                l_nReinforcements -= order.getReinforcements();
+            }
+
             // handle if the player deploys in a country that it does not owns
             if(!this.containsCountry(l_countryId)) {
                 PlayerView.invalidCountry();
                 issueOrder(); // retake the order from the beginning
             }
 
+
             // handle if the player has enough reinforcements to deploy
-            if(this.getReinforcements() < l_requestedReinforcements) {
-                PlayerView.notEnoughReinforcements(this.getReinforcements());
+            else if(l_nReinforcements < l_requestedReinforcements) {
+                PlayerView.notEnoughReinforcements(l_nReinforcements);
                 issueOrder(); // retake the order from the beginning
             }
 
-            l_order = new DeployController();
-            l_order.setCountry(Integer.parseInt(l_args[1]));
-            l_order.setReinforcements(l_requestedReinforcements);
-
-            this.addOrder(l_order);
-
-            return true;
+            else {
+                l_order = new DeployController();
+                l_order.setCountry(Integer.parseInt(l_args[1]));
+                l_order.setReinforcements(l_requestedReinforcements);
+                this.addOrder(l_order);
+                return true;
+            }
         }
 
         return false;

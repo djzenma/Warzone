@@ -62,7 +62,8 @@ public class Main {
         l_gameEngine.addPlayer("Akshat");
 
         l_gameEngine.assignCountries();
-        l_gameEngine.assignReinforcements();
-        l_gameEngine.issueOrders();
+        /*l_gameEngine.assignReinforcements();
+        l_gameEngine.issueOrders();*/
+        l_gameEngine.run();
     }
 }

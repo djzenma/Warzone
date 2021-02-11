@@ -44,4 +44,8 @@ public class OrderController {
     public void setReinforcements(int p_numReinforcements) {
         this.d_numReinforcements = p_numReinforcements;
     }
+
+    public int getReinforcements() {
+        return d_numReinforcements;
+    }
 }
