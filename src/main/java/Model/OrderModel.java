@@ -5,7 +5,9 @@ package Model;
 public class OrderModel {
     private String d_cmdName;
 
-
+    /**
+     * enum for the commands
+     */
     public enum CMDS {
         DEPLOY("deploy"), PASS("pass");
 
@@ -20,6 +22,10 @@ public class OrderModel {
         }
     }
 
+    /**
+     * Constructor of the OrderModel
+     * @param d_cmdName name of the command that a player issues
+     */
     public OrderModel(String d_cmdName) {
         this.d_cmdName = d_cmdName;
     }

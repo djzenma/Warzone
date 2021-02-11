@@ -2,13 +2,19 @@ package Controller;
 
 import Model.OrderModel;
 
-import java.util.ArrayList;
-
+/**
+ *
+ */
 public class OrderController {
 
-    private String d_countryId;
+    private int d_countryId;
     private int d_numReinforcements;
 
+    /**
+     * Checks whether the order issued by the player is valid or not
+     * @param orderName order issued by the player
+     * @return false if the player issues an invalid order, otherwise true
+     */
     public static boolean isValidOrder(String orderName) {
         OrderModel.CMDS[] l_ordersEnums = OrderModel.CMDS.values();
 
@@ -23,10 +29,18 @@ public class OrderController {
 
     }
 
-    public void setCountry(String p_countryId) {
+    /**
+     * Mutator for the country
+     * @param p_countryId Id of the country
+     */
+    public void setCountry(int p_countryId) {
         this.d_countryId = p_countryId;
     }
 
+    /**
+     * Mutator for the reinforcements
+     * @param p_numReinforcements number of reinforcements
+     */
     public void setReinforcements(int p_numReinforcements) {
         this.d_numReinforcements = p_numReinforcements;
     }

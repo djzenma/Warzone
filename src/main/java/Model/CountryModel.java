@@ -12,6 +12,11 @@ public class CountryModel {
         return d_neighbors.get(this);
     }
 
+    /**
+     * Constructor of CountryModel
+     * @param p_id id of the country
+     * @param p_name name of the country
+     */
     public CountryModel(int p_id, String p_name) {
         this.d_id = p_id;
         this.d_name = p_name;
@@ -55,6 +60,10 @@ public class CountryModel {
         }
     }
 
+    /**
+     * Accessor for the country Id
+     * @return Id of the country
+     */
     public int getId() {
         return d_id;
     }

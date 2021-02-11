@@ -128,7 +128,10 @@ public class GameEngineController {
         }
     }
 
-
+    /**
+     * Loops over each player to get the orders from them
+     * @return false if the player does not have any other orders to issue, otherwise true
+     */
     public boolean issueOrders(){
         boolean end = true;
 
