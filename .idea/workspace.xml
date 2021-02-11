@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Added the GaneEngine Test">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/OrderController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Controller/Orders/DeployController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/ContinentModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/OrderModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Model/Orders/DeployModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameEngineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameEngineController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/PlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PlayerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PlayerModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/GameEngineControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/GameEngineControllerTest.java" afterDir="false" />
-    </list>
+    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Added the Reinforcement Phase" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -143,7 +128,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4" value="" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../DSD 6231/Assignment#1 - Java" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -152,6 +137,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -170,17 +156,6 @@
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Warzone" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -282,7 +257,10 @@
       <workItem from="1612639956728" duration="8647000" />
       <workItem from="1612654816326" duration="347000" />
       <workItem from="1612707086478" duration="6000" />
-      <workItem from="1612721035634" duration="18218000" />
+      <workItem from="1612721035634" duration="19011000" />
+      <workItem from="1612905477238" duration="256000" />
+      <workItem from="1612987591046" duration="1806000" />
+      <workItem from="1613059379265" duration="964000" />
     </task>
     <task id="LOCAL-00001" summary="Added Game Engine, It supports adding/removing players, and assigning countries evenly">
       <created>1612645883012</created>
@@ -291,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612645883013</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added the Reinforcement Phase">
+      <created>1612740157041</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1612740157041</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -381,7 +366,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Game Engine, It supports adding/removing players, and assigning countries evenly" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Game Engine, It supports adding/removing players, and assigning countries evenly" />
+    <MESSAGE value="Added the GaneEngine Test" />
+    <MESSAGE value="Added the Reinforcement Phase" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the Reinforcement Phase" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/main/java/Main.java">
