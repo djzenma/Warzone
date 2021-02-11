@@ -3,6 +3,7 @@ package Controller;
 import Model.ContinentModel;
 import Model.CountryModel;
 import Model.PlayerModel;
+import View.PlayerView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,55 +21,10 @@ public class GameEngineController {
     private HashMap<Integer, CountryModel> d_countries;
     private ArrayList<ContinentModel> d_continents;
 
-    public GameEngineController() {
+    public GameEngineController(HashMap<Integer, CountryModel> p_countries, ArrayList<ContinentModel> p_continents) {
         d_players = new HashMap<String, PlayerModel>();
-        d_countries = new HashMap<Integer, CountryModel>();
-        d_continents = new ArrayList<ContinentModel>();
-
-        CountryModel a = new CountryModel(1,"India");
-        CountryModel b = new CountryModel(2,"Egypt");
-        CountryModel c = new CountryModel(3,"Canada");
-        CountryModel a1 = new CountryModel(4,"Canada1");
-        CountryModel a2 = new CountryModel(5,"Canada2");
-        CountryModel a3 = new CountryModel(6,"Canada2");
-        CountryModel a4 = new CountryModel(7,"Canada2");
-        CountryModel a5 = new CountryModel(8,"Canada2");
-        CountryModel a6 = new CountryModel(9,"Canada2");
-        CountryModel a7 = new CountryModel(10,"Canada2");
-        CountryModel a8 = new CountryModel(11,"Canada2");
-        CountryModel a9 = new CountryModel(12,"Canada2");
-
-        d_countries.put(1, a);
-        d_countries.put(2, b);
-        d_countries.put(3, c);
-        d_countries.put(4, a1);
-        d_countries.put(5, a2);
-        d_countries.put(6, a3);
-        d_countries.put(7, a4);
-        d_countries.put(8, a5);
-        d_countries.put(9, a6);
-        d_countries.put(10, a7);
-        d_countries.put(11, a8);
-        d_countries.put(12, a9);
-
-        ContinentModel c1 = new ContinentModel("Asia",7);
-        ContinentModel c2 = new ContinentModel("Australia",8);
-
-        c1.addCountry(a);
-        c1.addCountry(b);
-        c1.addCountry(c);
-        c1.addCountry(a1);
-        c1.addCountry(a2);
-        c1.addCountry(a3);
-        c1.addCountry(a4);
-        c1.addCountry(a5);
-        c2.addCountry(a6);
-        c2.addCountry(a7);
-        c2.addCountry(a8);
-        c1.addCountry(a9);
-
-        d_continents.add(c1);
-        d_continents.add(c2);
+        d_countries = p_countries;
+        d_continents = p_continents;
     }
 
     public HashMap<String, PlayerModel> getPlayers() {
@@ -148,10 +104,10 @@ public class GameEngineController {
         // iterate over all the players
         for (PlayerModel l_player : this.d_players.values()) {
             l_numberOfArmies = (int) Math.max(3, floor(d_countries.size() / 3.0));
-            l_hasContinent = true;
 
             // iterate over all the continents
             for (ContinentModel l_continent : this.d_continents) {
+                l_hasContinent = true;
 
                 // iterate over all the countries
                 for (CountryModel l_country : l_continent.getCountries()) {
@@ -173,8 +129,16 @@ public class GameEngineController {
     }
 
 
-    public void issueOrders(){
+    public boolean issueOrders(){
+        boolean end = true;
 
+        for (PlayerModel l_player : this.d_players.values()) {
+            PlayerView.currentPlayer(l_player);
+            // if the player issued an order
+            if (l_player.issueOrder())
+                end = false;
+        }
+        return !end;
     }
 
     public void executeOrders(){
@@ -183,7 +147,9 @@ public class GameEngineController {
 
     public void run(){
         assignReinforcements();
-        issueOrders();
+
+        while (issueOrders()) ;
+
         executeOrders();
     }
 }

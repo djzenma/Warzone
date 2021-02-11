@@ -1,7 +1,24 @@
 package Model;
 
+
+
 public class OrderModel {
     private String d_cmdName;
+
+
+    public enum CMDS {
+        DEPLOY("deploy"), PASS("pass");
+
+        private String d_cmdName;
+        private CMDS(String p_cmdName) {
+            this.d_cmdName = p_cmdName;
+        }
+
+        @Override
+        public String toString(){
+            return d_cmdName;
+        }
+    }
 
     public OrderModel(String d_cmdName) {
         this.d_cmdName = d_cmdName;
