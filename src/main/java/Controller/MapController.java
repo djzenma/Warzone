@@ -68,6 +68,50 @@ public class MapController {
     }
 
     /**
+     * A method that handles the editcountry command
+     * @param p_command command in the form of "-add countryID continentID -remove countryID"
+     * @throws Exception if the user tries to add a country to a non-existing continent
+     * @throws Exception if the user tries to remove a non-existing country
+     * @throws Exception if the user tries to use options other than -add or -remove
+     */
+    public void editCountry(String p_command) throws Exception {
+        Scanner l_sc = new Scanner(p_command);
+        String l_tempCountryName;
+        String l_tempContinentName;
+        int l_tempCountryId;
+        CountryModel l_countryModel;
+
+        while (l_sc.hasNext()) {
+            String l_option = l_sc.next();
+            if (l_option.equals("-add")){
+                l_tempCountryName = l_sc.next();
+                l_tempContinentName = l_sc.next();
+                if(!(this.d_continents.containsKey(l_tempContinentName))){
+                    throw new Exception(l_tempContinentName +  " continent does not exists");
+                }
+
+                l_tempCountryId = d_countries.size()+1;
+                l_countryModel = new CountryModel(l_tempCountryId, l_tempCountryName, l_tempContinentName);
+                this.d_countries.put(l_tempCountryName, l_countryModel);
+
+                this.d_continents.get(l_tempContinentName).addCountry(l_countryModel);
+
+            }
+            else if(l_option.equals("-remove")){
+                l_tempCountryName = l_sc.next();
+                if(!(this.d_countries.containsKey(l_tempCountryName))){
+                    throw new Exception(l_tempCountryName + " country does not exists");
+                }
+                this.d_countries.remove(l_tempCountryName);
+            }
+            else{
+                throw new Exception(l_option + " is not supported");
+            }
+        }
+        l_sc.close();
+    }
+
+    /**
      * A method that handles the editneighbor command
      *
      * @param p_command command in the form of "-add countryID neighborCountryID -remove countryID neighborCountryID"

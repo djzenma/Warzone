@@ -5,21 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Added the Reinforcement Phase">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11-02-2021_10_38_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11-02-2021_10_38_PM__Default_Changelist_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameEngineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameEngineController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/PlayerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/PlayerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/ContinentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/ContinentModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/OrderModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/OrderModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PlayerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PlayerModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/MapController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MapController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PlayerModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/PlayerModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Controller/GameEngineControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Controller/GameEngineControllerTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,17 +189,6 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="Warzone" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>

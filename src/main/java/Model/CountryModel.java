@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class CountryModel {
     private int d_id;
     private String d_name;
-    private int d_continentId;
+    private String d_continentId;
     private HashMap<CountryModel, HashMap<String, CountryModel>> d_neighbors;
 
     public HashMap<String, CountryModel> getNeighbors() {
@@ -22,7 +22,7 @@ public class CountryModel {
         this.d_name = p_name;
     }
 
-    public CountryModel(int p_id, String p_name, int p_continentId) {
+    public CountryModel(int p_id, String p_name, String p_continentId) {
         this.d_id = p_id;
         this.d_name = p_name;
         this.d_continentId = p_continentId;
