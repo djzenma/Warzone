@@ -5,7 +5,6 @@ import Model.ContinentModel;
 import Model.CountryModel;
 import Model.PlayerModel;
 import View.PlayerView;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -138,7 +137,7 @@ public class GameEngineController{
         boolean end = true;
 
         for (PlayerModel l_player : this.d_players.values()) {
-            PlayerView.currentPlayer(l_player);
+            PlayerView.CurrentPlayer(l_player);
             // if the player issued an order
             if (l_player.issueOrder())
                 end = false;

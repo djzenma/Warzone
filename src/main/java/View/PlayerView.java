@@ -17,19 +17,20 @@ public class PlayerView {
         return order.split("\\s+");
     }
 
-    public static void notEnoughReinforcements(int p_reinforcements) {
+    public static void NotEnoughReinforcements(int p_reinforcements) {
         System.out.println("You don't have enough reinforcements! You only have " + p_reinforcements);
     }
 
-    public static void reinforcementsRemain(int p_reinforcements) {
+    public static void ReinforcementsRemain(int p_reinforcements) {
         System.out.println("You still have " + p_reinforcements + " reinforcements remaining! Please deploy them all!");
     }
 
-    public static void currentPlayer(PlayerModel p_player) {
+    public static void CurrentPlayer(PlayerModel p_player) {
         System.out.println(p_player.getName() + "'s Turn");
     }
 
-    public static void invalidCountry() {
+    public static void InvalidCountry() {
         System.out.println("You don't own this country!");
     }
+
 }

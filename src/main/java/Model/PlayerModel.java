@@ -144,7 +144,7 @@ public class PlayerModel {
         // checks if the player is trying to pass/skip the turn
         if(l_args[0].equals(OrderModel.CMDS.PASS.toString().toLowerCase())) {
             if(l_nReinforcements != 0) {
-                PlayerView.reinforcementsRemain(this.getReinforcements());
+                PlayerView.ReinforcementsRemain(this.getReinforcements());
                 issueOrder();
             }
             return false;
@@ -158,14 +158,14 @@ public class PlayerModel {
 
             // handle if the player deploys in a country that it does not owns
             if(!this.containsCountry(l_countryId)) {
-                PlayerView.invalidCountry();
+                PlayerView.InvalidCountry();
                 issueOrder(); // retake the order from the beginning
             }
 
 
             // handle if the player has enough reinforcements to deploy
             else if(l_nReinforcements < l_requestedReinforcements) {
-                PlayerView.notEnoughReinforcements(l_nReinforcements);
+                PlayerView.NotEnoughReinforcements(l_nReinforcements);
                 issueOrder(); // retake the order from the beginning
             }
 
