@@ -1,9 +1,11 @@
 package Controller;
 
+import Interfaces.Deploy;
 import Model.ContinentModel;
 import Model.CountryModel;
 import Model.PlayerModel;
 import View.PlayerView;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,14 +17,14 @@ import static java.lang.Math.floor;
 /**
  * Game Engine TODO::
  */
-public class GameEngineController {
+public class GameEngineController{
 
     private HashMap<String, PlayerModel> d_players;
     private HashMap<Integer, CountryModel> d_countries;
     private ArrayList<ContinentModel> d_continents;
 
     public GameEngineController(HashMap<Integer, CountryModel> p_countries, ArrayList<ContinentModel> p_continents) {
-        d_players = new HashMap<String, PlayerModel>();
+        d_players = new HashMap<>();
         d_countries = p_countries;
         d_continents = p_continents;
     }
@@ -144,8 +146,17 @@ public class GameEngineController {
         return !end;
     }
 
-    public void executeOrders(){
+    public boolean executeOrders() {
+        boolean end = true;
 
+        for (PlayerModel l_player : this.d_players.values()) {
+            OrderController l_order = l_player.nextOrder();
+            if(l_order != null){
+                l_order.execute(d_countries);
+                end = false;
+            }
+        }
+        return !end;
     }
 
     public void run(){
@@ -153,6 +164,6 @@ public class GameEngineController {
 
         while (issueOrders()) ;
 
-        executeOrders();
+        while (executeOrders());
     }
 }

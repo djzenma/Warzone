@@ -6,6 +6,7 @@ public class CountryModel {
     private int d_id;
     private String d_name;
     private String d_continentId;
+    private int d_armies;
     private HashMap<CountryModel, HashMap<String, CountryModel>> d_neighbors;
 
     public HashMap<String, CountryModel> getNeighbors() {
@@ -20,12 +21,14 @@ public class CountryModel {
     public CountryModel(int p_id, String p_name) {
         this.d_id = p_id;
         this.d_name = p_name;
+        this.d_armies = 0;
     }
 
     public CountryModel(int p_id, String p_name, String p_continentId) {
         this.d_id = p_id;
         this.d_name = p_name;
         this.d_continentId = p_continentId;
+        this.d_armies = 0;
         this.d_neighbors = new HashMap<CountryModel, HashMap<String, CountryModel>>();
     }
 
@@ -78,5 +81,13 @@ public class CountryModel {
 
     public void setName(String p_name) {
         this.d_name = p_name;
+    }
+
+    public int getArmies() {
+        return d_armies;
+    }
+
+    public void setArmies(int p_armies) {
+        this.d_armies = p_armies;
     }
 }

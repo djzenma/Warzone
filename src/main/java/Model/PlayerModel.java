@@ -1,11 +1,12 @@
 package Model;
 
 import Controller.OrderController;
-import Controller.Orders.DeployController;
 import View.PlayerView;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Queue;
 
 public class PlayerModel {
     private String d_name;
@@ -13,7 +14,7 @@ public class PlayerModel {
 
     private HashMap<Integer, CountryModel> d_countryList;
     private HashMap<Integer, Integer> d_armies;
-    private ArrayList<OrderController> d_orderList;
+    private Queue<OrderController> d_orderList;
 
     /**
      * Constructor of thr PlayerModel
@@ -22,7 +23,7 @@ public class PlayerModel {
     public PlayerModel(String p_name) {
         this.setName(p_name);
         d_reinforcements = 0;
-        d_orderList = new ArrayList<OrderController>();
+        d_orderList = new ArrayDeque<>();
         d_armies = new HashMap<Integer, Integer>();
         d_countryList = new HashMap<Integer, CountryModel>();
     }
@@ -135,9 +136,14 @@ public class PlayerModel {
 
         l_args = takeOrder();
 
+        int l_nReinforcements = this.getReinforcements();
+        for (OrderController order : this.d_orderList) {
+            l_nReinforcements -= order.getReinforcements();
+        }
+
         // checks if the player is trying to pass/skip the turn
         if(l_args[0].equals(OrderModel.CMDS.PASS.toString().toLowerCase())) {
-            if(this.getReinforcements() != 0) {
+            if(l_nReinforcements != 0) {
                 PlayerView.reinforcementsRemain(this.getReinforcements());
                 issueOrder();
             }
@@ -149,10 +155,6 @@ public class PlayerModel {
             int l_countryId = Integer.parseInt(l_args[1]);
             int l_requestedReinforcements = Integer.parseInt(l_args[2]);
 
-            int l_nReinforcements = this.getReinforcements();
-            for (OrderController order : this.d_orderList) {
-                l_nReinforcements -= order.getReinforcements();
-            }
 
             // handle if the player deploys in a country that it does not owns
             if(!this.containsCountry(l_countryId)) {
@@ -168,14 +170,20 @@ public class PlayerModel {
             }
 
             else {
-                l_order = new DeployController();
+                l_order = new OrderController();
                 l_order.setCountry(Integer.parseInt(l_args[1]));
                 l_order.setReinforcements(l_requestedReinforcements);
                 this.addOrder(l_order);
                 return true;
             }
         }
-
         return false;
     }
+
+    public OrderController nextOrder(){
+        OrderController l_order = this.d_orderList.peek();
+        this.d_orderList.poll();
+        return l_order;
+    }
+
 }

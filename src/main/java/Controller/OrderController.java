@@ -1,14 +1,21 @@
 package Controller;
 
+import Interfaces.Deploy;
+import Model.CountryModel;
 import Model.OrderModel;
+
+import java.util.HashMap;
 
 /**
  *
  */
-public class OrderController {
+public class OrderController implements Deploy {
 
     private int d_countryId;
     private int d_numReinforcements;
+
+    public OrderController() {
+    }
 
     /**
      * Checks whether the order issued by the player is valid or not
@@ -25,9 +32,7 @@ public class OrderController {
         return false;
     }
 
-    public void run(){
 
-    }
 
     /**
      * Mutator for the country
@@ -47,5 +52,12 @@ public class OrderController {
 
     public int getReinforcements() {
         return d_numReinforcements;
+    }
+
+    @Override
+    public void execute(HashMap<Integer, CountryModel> p_countries) {
+        CountryModel l_country = p_countries.get(this.d_countryId);
+        l_country.setArmies(l_country.getArmies() + this.d_numReinforcements);
+        p_countries.put(this.d_countryId, l_country);
     }
 }
