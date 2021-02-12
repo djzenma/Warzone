@@ -4,26 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Fixed an issue order bug">
-      <change afterPath="$PROJECT_DIR$/src/main/java/Interfaces/Deploy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameEngineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameEngineController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/Orders/DeployController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Orders/DeployModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/PlayerModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/PlayerModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/MapController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MapController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/Orders/DeployController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/ContinentModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/ContinentModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/CountryModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/CountryModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/OrderModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/OrderModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/Orders/DeployModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/PlayerModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/PlayerModel.class" afterDir="false" />
-    </list>
+    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Fixed an issue order bug" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -264,6 +245,7 @@
       <workItem from="1612780595713" duration="10723000" />
       <workItem from="1612791769363" duration="6982000" />
       <workItem from="1613085886191" duration="10000" />
+      <workItem from="1613147736862" duration="596000" />
     </task>
     <task id="LOCAL-00001" summary="Added Game Engine, It supports adding/removing players, and assigning countries evenly">
       <created>1612645883012</created>
