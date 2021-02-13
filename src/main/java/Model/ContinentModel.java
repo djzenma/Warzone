@@ -57,4 +57,12 @@ public class ContinentModel {
     public void addCountry(CountryModel p_country){
         d_countries.add(p_country);
     }
+
+    public int getId() {
+        return d_id;
+    }
+
+    public String getName() {
+        return d_name;
+    }
 }

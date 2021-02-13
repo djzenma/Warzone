@@ -9,7 +9,16 @@ public class MapControllerTest {
     }
 
     @Test
+    public void editCountry() {
+    }
+
+    @Test
     public void editNeighbors() {
     }
+
+    @Test
+    public void editmap() {
+    }
+    
 
 }
