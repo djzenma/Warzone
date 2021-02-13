@@ -90,4 +90,8 @@ public class CountryModel {
     public void setArmies(int p_armies) {
         this.d_armies = p_armies;
     }
+
+    public String getContinentId() {
+        return d_continentId;
+    }
 }

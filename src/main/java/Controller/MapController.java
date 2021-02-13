@@ -31,6 +31,7 @@ public class MapController {
     public HashMap<String, ContinentModel> getContinents() {
         return d_continents;
     }
+
     public HashMap<String, CountryModel> getCountries() {
         return d_countries;
     }
@@ -156,9 +157,9 @@ public class MapController {
         l_sc.close();
     }
 
-    /** A method that handles the editmap command
-     *
-     * @param p_filename .map filename
+    /**
+     * A method that implements editmap command
+     * @param p_filename
      * @throws IOException
      */
     public void editMap(String p_filename) throws IOException {
@@ -258,6 +259,74 @@ public class MapController {
                     l_tempLine = d_iterator.next().trim();
                 }
             }
+        }
+    }
+
+    /**
+     * A method that handles the showMap command
+     */
+    public void showMap() {
+        d_MapConnectivityGrid = new int[this.d_countries.size()][this.d_countries.size()];
+
+        System.out.println("\n<ContinentID> <ContinentName> <ControlValue>\n");
+
+        d_continents.values().stream().sorted(new Comparator<ContinentModel>() {
+            @Override
+            public int compare(ContinentModel o1, ContinentModel o2) {
+                return Integer.compare(o1.getId(), o2.getId());
+            }
+        }).forEach(new Consumer<ContinentModel>() {
+            @Override
+            public void accept(ContinentModel continentModel) {
+                System.out.println(continentModel.getId() + " " + continentModel.getName() + " " + continentModel.getControlValue());
+            }
+        });
+
+        System.out.println("\n<CountryID> <CountryName> <ContinentName> \n<Neighbor CountryNames List> <Neighbor CountryIDs List>\n");
+
+        this.d_countries.values().stream().sorted(new Comparator<CountryModel>() {
+            @Override
+            public int compare(CountryModel o1, CountryModel o2) {
+                return Integer.compare(o1.getId(), o2.getId());
+            }
+        }).forEach(new Consumer<CountryModel>() {
+            @Override
+            public void accept(CountryModel countryModel) {
+                System.out.print(countryModel.getId() + " ");
+
+                System.out.print(countryModel.getName() + " ");
+                System.out.println(countryModel.getContinentId());
+                System.out.print(countryModel.getNeighbors().keySet() + " [");
+
+                countryModel.getNeighbors().values().forEach(new Consumer<CountryModel>() {
+                    @Override
+                    public void accept(CountryModel countryModel) {
+                        System.out.print(countryModel.getId() + " ");
+                    }
+                });
+
+                System.out.println("\b]");
+                System.out.println();
+
+                countryModel.getNeighbors().values().forEach(new Consumer<CountryModel>() {
+                    @Override
+                    public void accept(CountryModel countryModel2) {
+                        if(countryModel.getNeighbors().containsKey(countryModel2.getName())) {
+                            d_MapConnectivityGrid[countryModel.getId()-1][countryModel2.getId()-1] = 1;
+                        }
+                        else {
+                            d_MapConnectivityGrid[countryModel.getId()-1][countryModel2.getId()-1] = 0;
+                        }
+                    }
+                });
+            }
+        });
+        
+        System.out.println("\n[borders]\n");
+        int l_counter = 1;
+        for (int[] l_row : d_MapConnectivityGrid) {
+            System.out.print(l_counter++ + ": ");
+            System.out.println(Arrays.toString(l_row));
         }
     }
 }
