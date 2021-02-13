@@ -16,6 +16,7 @@ public class MapUtils {
         l_fis.read(l_data);
         l_fis.close();
         String l_str = new String(l_data, StandardCharsets.UTF_8);
+        l_str += " \n";
         return l_str;
     }
 
