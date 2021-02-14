@@ -1,6 +1,7 @@
 package Model;
 
 import Controller.OrderController;
+import Model.Orders.DeployModel;
 import View.PlayerView;
 
 import java.util.ArrayDeque;
@@ -14,7 +15,7 @@ public class PlayerModel {
 
     private HashMap<Integer, CountryModel> d_countryList;
     private HashMap<Integer, Integer> d_armies;
-    private Queue<OrderController> d_orderList;
+    private Queue<OrderModel> d_orderList;
 
     /**
      * Constructor of thr PlayerModel
@@ -24,8 +25,8 @@ public class PlayerModel {
         this.setName(p_name);
         d_reinforcements = 0;
         d_orderList = new ArrayDeque<>();
-        d_armies = new HashMap<Integer, Integer>();
-        d_countryList = new HashMap<Integer, CountryModel>();
+        d_armies = new HashMap<>();
+        d_countryList = new HashMap<>();
     }
 
     /**
@@ -82,7 +83,7 @@ public class PlayerModel {
      * Adds an order to the list of the orders
      * @param p_order object of the OrderController
      */
-    public void addOrder(OrderController p_order){
+    public void addOrder(OrderModel p_order){
         this.d_orderList.add(p_order);
     }
 
@@ -122,7 +123,7 @@ public class PlayerModel {
         String[] l_args;
         do {
             l_args = PlayerView.issueOrderView();
-        } while(!OrderController.isValidOrder(l_args[0]));
+        } while(!OrderModel.isValidOrder(l_args[0]));
         return l_args;
     }
 
@@ -131,13 +132,13 @@ public class PlayerModel {
      * @return false if the order is invalid, otherwise true
      */
     public boolean issueOrder(){
-        OrderController l_order;
+        OrderModel l_order;
         String[] l_args;
 
         l_args = takeOrder();
 
         int l_nReinforcements = this.getReinforcements();
-        for (OrderController order : this.d_orderList) {
+        for (OrderModel order : this.d_orderList) {
             l_nReinforcements -= order.getReinforcements();
         }
 
@@ -159,18 +160,18 @@ public class PlayerModel {
             // handle if the player deploys in a country that it does not owns
             if(!this.containsCountry(l_countryId)) {
                 PlayerView.InvalidCountry();
-                issueOrder(); // retake the order from the beginning
+                return issueOrder(); // retake the order from the beginning
             }
 
 
             // handle if the player has enough reinforcements to deploy
             else if(l_nReinforcements < l_requestedReinforcements) {
                 PlayerView.NotEnoughReinforcements(l_nReinforcements);
-                issueOrder(); // retake the order from the beginning
+                return issueOrder(); // retake the order from the beginning
             }
 
             else {
-                l_order = new OrderController();
+                l_order = new DeployModel();
                 l_order.setCountry(Integer.parseInt(l_args[1]));
                 l_order.setReinforcements(l_requestedReinforcements);
                 this.addOrder(l_order);
@@ -180,8 +181,8 @@ public class PlayerModel {
         return false;
     }
 
-    public OrderController nextOrder(){
-        OrderController l_order = this.d_orderList.peek();
+    public OrderModel nextOrder(){
+        OrderModel l_order = this.d_orderList.peek();
         this.d_orderList.poll();
         return l_order;
     }

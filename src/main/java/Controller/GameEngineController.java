@@ -1,8 +1,8 @@
 package Controller;
 
-import Interfaces.Deploy;
 import Model.ContinentModel;
 import Model.CountryModel;
+import Model.OrderModel;
 import Model.PlayerModel;
 import View.PlayerView;
 
@@ -138,8 +138,10 @@ public class GameEngineController{
 
         for (PlayerModel l_player : this.d_players.values()) {
             PlayerView.CurrentPlayer(l_player);
+            boolean issued = l_player.issueOrder();
+            System.out.println(issued);
             // if the player issued an order
-            if (l_player.issueOrder())
+            if (issued)
                 end = false;
         }
         return !end;
@@ -149,7 +151,7 @@ public class GameEngineController{
         boolean end = true;
 
         for (PlayerModel l_player : this.d_players.values()) {
-            OrderController l_order = l_player.nextOrder();
+            OrderModel l_order = l_player.nextOrder();
             if(l_order != null){
                 l_order.execute(d_countries);
                 end = false;
@@ -161,8 +163,8 @@ public class GameEngineController{
     public void run(){
         assignReinforcements();
 
-        while (issueOrders()) ;
+        while(issueOrders());
 
-        while (executeOrders());
+        while(executeOrders());
     }
 }
