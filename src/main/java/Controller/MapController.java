@@ -158,9 +158,10 @@ public class MapController {
     }
 
     /**
-     * A method that implements editmap command
-     * @param p_filename
-     * @throws IOException
+     * A method that handles the editmap command
+     *
+     * @param p_filename .map file's name
+     * @throws IOException If an I/O error occurred
      */
     public void editMap(String p_filename) throws IOException {
         Iterator<String> d_iterator;
@@ -260,6 +261,7 @@ public class MapController {
                 }
             }
         }
+        validateMap();
     }
 
     /**
@@ -304,24 +306,22 @@ public class MapController {
                         System.out.print(countryModel.getId() + " ");
                     }
                 });
-
                 System.out.println("\b]");
                 System.out.println();
 
                 countryModel.getNeighbors().values().forEach(new Consumer<CountryModel>() {
                     @Override
                     public void accept(CountryModel countryModel2) {
-                        if(countryModel.getNeighbors().containsKey(countryModel2.getName())) {
-                            d_MapConnectivityGrid[countryModel.getId()-1][countryModel2.getId()-1] = 1;
-                        }
-                        else {
-                            d_MapConnectivityGrid[countryModel.getId()-1][countryModel2.getId()-1] = 0;
+                        if (countryModel.getNeighbors().containsKey(countryModel2.getName())) {
+                            d_MapConnectivityGrid[countryModel.getId() - 1][countryModel2.getId() - 1] = 1;
+                        } else {
+                            d_MapConnectivityGrid[countryModel.getId() - 1][countryModel2.getId() - 1] = 0;
                         }
                     }
                 });
             }
         });
-        
+
         System.out.println("\n[borders]\n");
         int l_counter = 1;
         for (int[] l_row : d_MapConnectivityGrid) {
@@ -329,5 +329,81 @@ public class MapController {
             System.out.println(Arrays.toString(l_row));
         }
     }
+
+    /**
+     * A method that handles the validatemap command
+     *
+     * @return false if the map is invalid
+     */
+    public boolean validateMap() {
+        d_MapConnectivityGrid = new int[this.d_countries.size()][this.d_countries.size()];
+        this.d_countries.values().stream().parallel().forEach(new Consumer<CountryModel>() {
+            @Override
+            public void accept(CountryModel countryModel) {
+                countryModel.getNeighbors().values().forEach(countryModel2 -> {
+                    if (countryModel.getNeighbors().containsKey(countryModel2.getName())) {
+                        d_MapConnectivityGrid[countryModel.getId() - 1][countryModel2.getId() - 1] = 1;
+                    } else {
+                        d_MapConnectivityGrid[countryModel.getId() - 1][countryModel2.getId() - 1] = 0;
+                    }
+                });
+            }
+        });
+
+        return (validateMapTypeOne() && validateMapTypeTwo() && validateMapTypeThree());
+    }
+
+    /**
+     * A method to traverse the entire map and visit countries using recursive DFS (Depth first Search) traversal.
+     *
+     * @param p_countryOne Index of country from where the traversal starts
+     * @param p_visited    an array that keeps track of countries visited during traversal
+     */
+    public void traverseMap(int p_countryOne, boolean[] p_visited) {
+        p_visited[p_countryOne] = true;    //mark p_countryOne as visited
+
+        for (int l_countryTwo = 0; l_countryTwo < this.d_countries.size(); l_countryTwo++) {
+            if (d_MapConnectivityGrid[p_countryOne][l_countryTwo] == 1) {
+                if (!p_visited[l_countryTwo])
+                    traverseMap(l_countryTwo, p_visited);
+            }
+        }
+    }
+
+    /**
+     * A method that checks the first type of incorrect map, which is if the map is not connected
+     * i.e. every country in the map should be reachable from every other country.
+     *
+     * @return false if the map is invalid
+     */
+    public boolean validateMapTypeOne() {
+        boolean[] l_visited = new boolean[this.d_countries.size()];
+
+        //for all countries l_countryOne as starting point, check whether all countries are reachable or not
+        for (int l_countryOne = 0; l_countryOne < this.d_countries.size(); l_countryOne++) {
+            for (int l_countryTwo = 0; l_countryTwo < this.d_countries.size(); l_countryTwo++) {
+                //initially no countries are visited
+                l_visited[l_countryTwo] = false;
+            }
+
+            traverseMap(l_countryOne, l_visited);
+            for (int l_countryTwo = 0; l_countryTwo < this.d_countries.size(); l_countryTwo++) {
+                if (!l_visited[l_countryTwo]) {
+                    //if there exists a l_countryTwo, not visited by map traversal, map is not connected.
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean validateMapTypeTwo() {
+        return true;
+    }
+
+    public boolean validateMapTypeThree() {
+        return true;
+    }
+
 }
 

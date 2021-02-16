@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="">
+    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Added implementation of validatemap command!!">
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/MapControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/MapControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/MapController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MapController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/CountryModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/CountryModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Controller/MapControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Controller/MapControllerTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +28,13 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="adeetyapatel12 &lt;adeetyapatel12@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="MIXED" />
     <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -189,7 +198,7 @@
       <recent name="$PROJECT_DIR$/src/main/resources/json" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.All Tests">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="9" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
@@ -199,21 +208,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration name="All Tests" type="JUnit" factoryName="JUnit">
-      <module name="warzone" />
+      <module name="Warzone" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="corretto-1.8" />
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="directory" />
@@ -290,7 +299,21 @@
       <option name="project" value="LOCAL" />
       <updated>1612999504230</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added implementation of validatemap command!!">
+      <created>1613495158554</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1613495158554</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added implementation of validatemap command!!">
+      <created>1613495349112</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1613495349112</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -402,10 +425,19 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="Added Game Engine, It supports adding/removing players, and assigning countries evenly" />
     <MESSAGE value="Fixed Bug in Reinforcement Phase" />
     <MESSAGE value="Finished Issue Orders Phase!!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished Issue Orders Phase!!" />
+    <MESSAGE value="Added implementation of validatemap command!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added implementation of validatemap command!!" />
+    <option name="PRESELECT_EXISTING_CHANGELIST" value="true" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Warzone$All_Tests.ic" NAME="All Tests Coverage Results" MODIFIED="1613492040390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/pom.xml">

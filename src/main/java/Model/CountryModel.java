@@ -24,6 +24,13 @@ public class CountryModel {
         this.d_armies = 0;
     }
 
+    /**
+     * Constructor of CountryModel
+     *
+     * @param p_id          id of the country
+     * @param p_name        name of the country
+     * @param p_continentId name of the continent from which the country belongs
+     */
     public CountryModel(int p_id, String p_name, String p_continentId) {
         this.d_id = p_id;
         this.d_name = p_name;
