@@ -5,6 +5,7 @@ import Model.CountryModel;
 import Model.OrderModel;
 import Model.PlayerModel;
 import View.PlayerView;
+import com.sun.xml.internal.bind.v2.TODO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,10 +20,10 @@ import static java.lang.Math.floor;
 public class GameEngineController{
 
     private HashMap<String, PlayerModel> d_players;
-    private HashMap<Integer, CountryModel> d_countries;
+    private HashMap<String, CountryModel> d_countries;
     private ArrayList<ContinentModel> d_continents;
 
-    public GameEngineController(HashMap<Integer, CountryModel> p_countries, ArrayList<ContinentModel> p_continents) {
+    public GameEngineController(HashMap<String, CountryModel> p_countries, ArrayList<ContinentModel> p_continents) {
         d_players = new HashMap<>();
         d_countries = p_countries;
         d_continents = p_continents;
@@ -32,7 +33,7 @@ public class GameEngineController{
         return d_players;
     }
 
-    public HashMap<Integer, CountryModel> getCountries() {
+    public HashMap<String, CountryModel> getCountries() {
         return d_countries;
     }
 
@@ -69,30 +70,30 @@ public class GameEngineController{
         int l_countriesPerPlayer = this.d_countries.size() / this.d_players.size();
 
         // get the countries IDs as a List
-        Set l_countryIDs = this.d_countries.keySet();
-        List<Integer> l_countryIDsList = new ArrayList<Integer>(l_countryIDs);
+        Set<String> l_countryNames = this.d_countries.keySet();
+        List<String> l_countryNamesList = new ArrayList<String>(l_countryNames);
 
         // get the player IDs as a List
-        Set l_playerIDs = this.d_players.keySet();
+        Set<String> l_playerIDs = this.d_players.keySet();
         List<String> l_playerIDsList = new ArrayList<String>(l_playerIDs);
 
         // assign countries evenly between players
         int l_countriesCounter = 0;
         for(PlayerModel l_player : this.d_players.values()) {
             for(int i=0; i<l_countriesPerPlayer; i++){
-                int l_countryID = l_countryIDsList.get(l_countriesCounter);
-                l_player.addCountry(this.d_countries.get(l_countryID));
+                String l_countryName = l_countryNamesList.get(l_countriesCounter);
+                l_player.addCountry(this.d_countries.get(l_countryName));
                 l_countriesCounter++;
             }
         }
 
-        // assign remaining countries to random players
-        while(l_countriesCounter <= this.d_countries.size()-1) {
+        // assign remaining countries to random players TODO
+        /* while(l_countriesCounter <= this.d_countries.size()-1) {
             int l_rand = (int) (Math.random() * (this.d_players.size()));
 
             this.d_players.get(l_playerIDsList.get(l_rand)).addCountry(this.d_countries.get(l_countriesCounter));
             l_countriesCounter++;
-        }
+        }*/
     }
 
     /**
@@ -114,7 +115,7 @@ public class GameEngineController{
                 for (CountryModel l_country : l_continent.getCountries()) {
 
                     // checks if the player owns the particular country
-                    if(!l_player.containsCountry(l_country.getId())){
+                    if(!l_player.containsCountry(l_country.getName())){
                         l_hasContinent = false;
                         break;
                     }
@@ -139,7 +140,6 @@ public class GameEngineController{
         for (PlayerModel l_player : this.d_players.values()) {
             PlayerView.CurrentPlayer(l_player);
             boolean issued = l_player.issueOrder();
-            System.out.println(issued);
             // if the player issued an order
             if (issued)
                 end = false;

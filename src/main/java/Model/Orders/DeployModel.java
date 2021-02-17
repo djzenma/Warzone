@@ -16,9 +16,9 @@ public class DeployModel extends OrderModel {
     }
 
     @Override
-    public void execute(HashMap<Integer, CountryModel> p_countries) {
-        CountryModel l_country = p_countries.get(this.getCountryId());
+    public void execute(HashMap<String, CountryModel> p_countries) {
+        CountryModel l_country = p_countries.get(this.getCountryName());
         l_country.setArmies(l_country.getArmies() + this.getReinforcements());
-        p_countries.put(this.getCountryId(), l_country);
+        p_countries.put(this.getCountryName(), l_country);
     }
 }

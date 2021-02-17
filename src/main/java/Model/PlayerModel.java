@@ -13,7 +13,7 @@ public class PlayerModel {
     private String d_name;
     private int d_reinforcements;
 
-    private HashMap<Integer, CountryModel> d_countryList;
+    private HashMap<String, CountryModel> d_countries;
     private HashMap<Integer, Integer> d_armies;
     private Queue<OrderModel> d_orderList;
 
@@ -26,7 +26,7 @@ public class PlayerModel {
         d_reinforcements = 0;
         d_orderList = new ArrayDeque<>();
         d_armies = new HashMap<>();
-        d_countryList = new HashMap<>();
+        d_countries = new HashMap<>();
     }
 
     /**
@@ -42,7 +42,7 @@ public class PlayerModel {
      * @param p_countryModel object of the CountryModel
      */
     public void addCountry(CountryModel p_countryModel) {
-        this.d_countryList.put(p_countryModel.getId(),p_countryModel);
+        this.d_countries.put(p_countryModel.getName(),p_countryModel);
     }
 
     /**
@@ -58,8 +58,8 @@ public class PlayerModel {
      * @param p_countryId
      * @return
      */
-    public CountryModel getCountry(int p_countryId) {
-        return d_countryList.get(p_countryId);
+    public CountryModel getCountryById(int p_countryId) {
+        return d_countries.get(p_countryId);
     }
 
     /**
@@ -67,16 +67,16 @@ public class PlayerModel {
      * @return the list of the countries
      */
     public ArrayList<CountryModel> getCountries(){
-        return new ArrayList<CountryModel>(this.d_countryList.values());
+        return new ArrayList<CountryModel>(this.d_countries.values());
     }
 
     /**
      * Checks if the player owns a particular country or not
-     * @param p_countryId Id of the country
+     * @param p_countryName Id of the country
      * @return true if the country belongs the player, otherwise false
      */
-    public boolean containsCountry(int p_countryId){
-        return d_countryList.containsKey(p_countryId);
+    public boolean containsCountry(String p_countryName){
+        return d_countries.containsKey(p_countryName);
     }
 
     /**
@@ -153,12 +153,12 @@ public class PlayerModel {
 
         // checks if the player issued the deploy order
         if(l_args[0].equals(OrderModel.CMDS.DEPLOY.toString().toLowerCase())) {
-            int l_countryId = Integer.parseInt(l_args[1]);
+            String l_countryName = l_args[1];
             int l_requestedReinforcements = Integer.parseInt(l_args[2]);
 
 
             // handle if the player deploys in a country that it does not owns
-            if(!this.containsCountry(l_countryId)) {
+            if(!this.containsCountry(l_countryName)) {
                 PlayerView.InvalidCountry();
                 return issueOrder(); // retake the order from the beginning
             }
@@ -172,7 +172,7 @@ public class PlayerModel {
 
             else {
                 l_order = new DeployModel();
-                l_order.setCountry(Integer.parseInt(l_args[1]));
+                l_order.setCountryName(l_args[1]);
                 l_order.setReinforcements(l_requestedReinforcements);
                 this.addOrder(l_order);
                 return true;

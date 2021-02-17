@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class CountryModel {
     private int d_id;
@@ -20,7 +21,7 @@ public class CountryModel {
      */
     public CountryModel(int p_id, String p_name) {
         this.d_id = p_id;
-        this.d_name = p_name;
+        this.d_name = p_name.toLowerCase();
         this.d_armies = 0;
     }
 

@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public abstract class OrderModel {
     private String d_cmdName;
-    private int d_countryId;
+    private String d_countryName;
     private int d_numReinforcements;
 
     /**
@@ -60,19 +60,19 @@ public abstract class OrderModel {
     }
 
     /**
-     * Mutator for the country
-     * @param p_countryId Id of the country
+     * Mutator for the country name
+     * @param p_countryName name of the country
      */
-    public void setCountry(int p_countryId) {
-        this.d_countryId = p_countryId;
+    public void setCountryName(String p_countryName) {
+        this.d_countryName = p_countryName;
     }
 
     /**
-     * Getter for the country id
-     * @return country id issued in this order
+     * Accessor for the country id
+     * @return country name issued in this order
      */
-    public int getCountryId() {
-        return d_countryId;
+    public String getCountryName() {
+        return d_countryName;
     }
 
 
@@ -94,5 +94,5 @@ public abstract class OrderModel {
     /**
      * Abstract method to be implemented by every order type
      * */
-    public abstract void execute(HashMap<Integer, CountryModel> p_countries);
+    public abstract void execute(HashMap<String, CountryModel> p_countries);
 }
