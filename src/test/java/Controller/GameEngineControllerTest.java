@@ -10,7 +10,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * This is a test class for the GameEngineController
@@ -127,9 +128,9 @@ public class GameEngineControllerTest {
     public void assignReinforcements() {
         d_gameEngine.assignCountries();
         d_gameEngine.assignReinforcements();
-        assertEquals(4, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
+        assertEquals(12, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
         assertEquals(4, d_gameEngine.getPlayers().get("Aman").getReinforcements());
-        assertEquals(12, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
+        assertEquals(4, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
     }
 
 
