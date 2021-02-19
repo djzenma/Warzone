@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Added implementation of validatemap command!!">
+    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Changed HashMaps to LinkedHashMaps to follow XP's simple design!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/GameEngineController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/GameEngineController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/ContinentModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/ContinentModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/CountryModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/MapUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/MapUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/MapControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/MapControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/MapController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MapController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" afterDir="false" />
@@ -337,7 +336,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613757578322</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Changed HashMaps to LinkedHashMaps to follow XP's simple design!">
+      <created>1613758036379</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1613758036379</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
