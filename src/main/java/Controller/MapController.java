@@ -13,26 +13,31 @@ import java.util.function.Consumer;
  * Map TODO::
  */
 public class MapController {
-    private final boolean d_mapFileLoaded;
+    private final String d_defaultColor = "yellow";
+    private final String d_defaultXCoordinate = "000";
+    private final String d_defaultYCoordinate = "000";
+    Scanner scanner = new Scanner(System.in);
+    private boolean d_mapFileLoaded;
+    private String d_currentFile;
     private final String d_mapsPath;
-    private final HashMap<String, ContinentModel> d_continents;
-    private final HashMap<String, CountryModel> d_countries;
+    private LinkedHashMap<String, ContinentModel> d_continents;
+    private LinkedHashMap<String, CountryModel> d_countries;
     int[][] d_MapConnectivityGrid;
     MapUtils d_mapUtils;
 
     public MapController() {
-        this.d_continents = new HashMap<String, ContinentModel>();
-        this.d_countries = new HashMap<String, CountryModel>();
+        this.d_continents = new LinkedHashMap<String, ContinentModel>();
+        this.d_countries = new LinkedHashMap<String, CountryModel>();
         this.d_mapUtils = new MapUtils();
         this.d_mapsPath = d_mapUtils.getMapsPath();
         this.d_mapFileLoaded = false;
     }
 
-    public HashMap<String, ContinentModel> getContinents() {
+    public LinkedHashMap<String, ContinentModel> getContinents() {
         return d_continents;
     }
 
-    public HashMap<String, CountryModel> getCountries() {
+    public LinkedHashMap<String, CountryModel> getCountries() {
         return d_countries;
     }
 
@@ -56,7 +61,7 @@ public class MapController {
                 l_tempContinentName = l_sc.next();
                 l_tempControlValue = Integer.parseInt(l_sc.next());
                 l_tempContinentId = this.d_continents.size() + 1;
-                l_continentModel = new ContinentModel(l_tempContinentId, l_tempContinentName, l_tempControlValue);
+                l_continentModel = new ContinentModel(l_tempContinentId, l_tempContinentName, l_tempControlValue, d_defaultColor);
                 this.d_continents.put(l_tempContinentName, l_continentModel);
             } else if (l_option.equals("-remove")) {
                 l_tempContinentName = l_sc.next();
@@ -96,7 +101,7 @@ public class MapController {
                 }
 
                 l_tempCountryId = d_countries.size() + 1;
-                l_countryModel = new CountryModel(l_tempCountryId, l_tempCountryName, l_tempContinentName);
+                l_countryModel = new CountryModel(l_tempCountryId, l_tempCountryName, l_tempContinentName, d_defaultXCoordinate, d_defaultYCoordinate);
                 this.d_countries.put(l_tempCountryName, l_countryModel);
 
                 this.d_continents.get(l_tempContinentName).addCountry(l_countryModel);
@@ -118,9 +123,9 @@ public class MapController {
      * A method that handles the editneighbor command
      *
      * @param p_command command in the form of "-add countryID neighborCountryID -remove countryID neighborCountryID"
-     * @throws Exception if the user tries to add or remove neighbors of a non-existing country
-     * @throws Exception if the user tries to add or remove a non-existing country as a neighbor of an existing country
-     * @throws Exception if the user tries to use options other than -add or -remove
+     * @throws Exception if user tries to add or remove neighbors of a non-existing country
+     * @throws Exception if user tries to add or remove a non-existing country as a neighbor of an existing country
+     * @throws Exception if user tries to use options other than -add or -remove
      */
     public void editNeighbor(String p_command) throws Exception {
         Scanner l_sc = new Scanner(p_command);
@@ -164,6 +169,9 @@ public class MapController {
      * @throws IOException If an I/O error occurred
      */
     public void editMap(String p_filename) throws IOException {
+
+        this.d_continents = new LinkedHashMap<String, ContinentModel>();
+        this.d_countries = new LinkedHashMap<String, CountryModel>();
         Iterator<String> d_iterator;
         Iterator<String> d_localIterator;
         File l_file;
@@ -182,7 +190,6 @@ public class MapController {
 
         l_fileContent = d_mapUtils.readMapFile(l_file);
         l_fileLines = l_fileContent.split("\n");
-
         d_iterator = Arrays.stream(l_fileLines).iterator();
 
         while (d_iterator.hasNext()) {
@@ -194,7 +201,7 @@ public class MapController {
                     if (l_tempLine.isEmpty())
                         break;
                     l_tempData = l_tempLine.split(" ");
-                    d_continents.put(l_tempData[0].trim(), new ContinentModel(d_continents.size() + 1, l_tempData[0].trim(), Integer.parseInt(l_tempData[1].trim())));
+                    d_continents.put(l_tempData[0].trim(), new ContinentModel(d_continents.size() + 1, l_tempData[0].trim(), Integer.parseInt(l_tempData[1].trim()), l_tempData[2].trim()));
                     l_tempLine = d_iterator.next().trim();
                 }
             }
@@ -217,7 +224,7 @@ public class MapController {
                         }
                     });
 
-                    d_countries.put(l_tempData[1].trim(), new CountryModel(Integer.parseInt(l_tempData[0].trim()), l_tempData[1].trim(), l_tempContinentName[0]));
+                    d_countries.put(l_tempData[1].trim(), new CountryModel(Integer.parseInt(l_tempData[0].trim()), l_tempData[1].trim(), l_tempContinentName[0], l_tempData[3], l_tempData[4]));
                     int l_continentId = Integer.parseInt(l_tempData[2].trim());
                     this.d_continents.values().stream().parallel().forEach(new Consumer<ContinentModel>() {
                         @Override
@@ -239,7 +246,7 @@ public class MapController {
 
                     final String[] l_tempCountryPair = new String[2];
                     int l_firstCountryId = Integer.parseInt(d_localIterator.next().trim());
-                    this.d_countries.values().stream().parallel().forEach(new Consumer<CountryModel>() {
+                    this.d_countries.values().stream().forEach(new Consumer<CountryModel>() {
                         @Override
                         public void accept(CountryModel countryModel) {
                             if (countryModel.getId() == l_firstCountryId)
@@ -248,7 +255,7 @@ public class MapController {
                     });
                     while (d_localIterator.hasNext()) {
                         int l_secondCountryId = Integer.parseInt(d_localIterator.next().trim());
-                        this.d_countries.values().stream().parallel().forEach(new Consumer<CountryModel>() {
+                        this.d_countries.values().stream().forEach(new Consumer<CountryModel>() {
                             @Override
                             public void accept(CountryModel countryModel) {
                                 if (countryModel.getId() == l_secondCountryId)
@@ -262,6 +269,8 @@ public class MapController {
             }
         }
         validateMap();
+        d_mapFileLoaded = true;
+        d_currentFile = p_filename;
     }
 
     /**
@@ -404,6 +413,5 @@ public class MapController {
     public boolean validateMapTypeThree() {
         return true;
     }
-
 }
 

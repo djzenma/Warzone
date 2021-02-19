@@ -16,11 +16,11 @@ import static java.lang.Math.floor;
 /**
  * Game Engine TODO::
  */
-public class GameEngineController{
+public class GameEngineController {
 
-    private HashMap<String, PlayerModel> d_players;
-    private HashMap<String, CountryModel> d_countries;
-    private ArrayList<ContinentModel> d_continents;
+    private final HashMap<String, PlayerModel> d_players;
+    private final HashMap<String, CountryModel> d_countries;
+    private final ArrayList<ContinentModel> d_continents;
 
     public GameEngineController(HashMap<String, CountryModel> p_countries, ArrayList<ContinentModel> p_continents) {
         d_players = new HashMap<>();
@@ -111,10 +111,10 @@ public class GameEngineController{
                 l_hasContinent = true;
 
                 // iterate over all the countries
-                for (CountryModel l_country : l_continent.getCountries()) {
+                for (CountryModel l_country : l_continent.getCountries().values()) {
 
                     // checks if the player owns the particular country
-                    if(!l_player.containsCountry(l_country.getName())){
+                    if (!l_player.containsCountry(l_country.getName())) {
                         l_hasContinent = false;
                         break;
                     }

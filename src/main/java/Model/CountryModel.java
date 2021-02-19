@@ -1,22 +1,20 @@
 package Model;
 
-import java.util.HashMap;
-import java.util.Locale;
+import java.util.LinkedHashMap;
 
 public class CountryModel {
-    private int d_id;
-    private String d_name;
+    private final int d_id;
+    private final String d_name;
     private String d_continentId;
     private int d_armies;
-    private HashMap<CountryModel, HashMap<String, CountryModel>> d_neighbors;
-
-    public HashMap<String, CountryModel> getNeighbors() {
-        return d_neighbors.get(this);
-    }
+    private String d_xCoordinate;
+    private String d_yCoordinate;
+    private LinkedHashMap<CountryModel, LinkedHashMap<String, CountryModel>> d_neighbors;
 
     /**
      * Constructor of CountryModel
-     * @param p_id id of the country
+     *
+     * @param p_id   id of the country
      * @param p_name name of the country
      */
     public CountryModel(int p_id, String p_name) {
@@ -31,13 +29,18 @@ public class CountryModel {
      * @param p_id          id of the country
      * @param p_name        name of the country
      * @param p_continentId name of the continent from which the country belongs
+     * @param p_xCoordinate x_coordinate of the country
+     * @param p_yCoordinate y_coordinate of the country
      */
-    public CountryModel(int p_id, String p_name, String p_continentId) {
+    public CountryModel(int p_id, String p_name, String p_continentId, String p_xCoordinate, String p_yCoordinate) {
         this.d_id = p_id;
         this.d_name = p_name;
         this.d_continentId = p_continentId;
+        this.d_xCoordinate = p_xCoordinate;
+        this.d_yCoordinate = p_yCoordinate;
         this.d_armies = 0;
-        this.d_neighbors = new HashMap<CountryModel, HashMap<String, CountryModel>>();
+        this.d_neighbors = new LinkedHashMap<CountryModel, LinkedHashMap<String, CountryModel>>();
+        this.d_neighbors.put(this, new LinkedHashMap<String, CountryModel>());
     }
 
     /**
@@ -47,7 +50,7 @@ public class CountryModel {
      */
     public void addNeighbor(CountryModel p_countryModel) {
         if (!(this.d_neighbors.containsKey(this))) {
-            this.d_neighbors.put(this, new HashMap<String, CountryModel>());
+            this.d_neighbors.put(this, new LinkedHashMap<String, CountryModel>());
         }
         this.d_neighbors.get(this).put(p_countryModel.d_name, p_countryModel);
     }
@@ -79,16 +82,8 @@ public class CountryModel {
         return d_id;
     }
 
-    public void setId(int p_id) {
-        this.d_id = p_id;
-    }
-
     public String getName() {
         return d_name;
-    }
-
-    public void setName(String p_name) {
-        this.d_name = p_name;
     }
 
     public int getArmies() {
@@ -102,4 +97,17 @@ public class CountryModel {
     public String getContinentId() {
         return d_continentId;
     }
+
+    public String getXCoordinate() {
+        return d_xCoordinate;
+    }
+
+    public String getYCoordinate() {
+        return d_yCoordinate;
+    }
+
+    public LinkedHashMap<String, CountryModel> getNeighbors() {
+        return d_neighbors.get(this);
+    }
+
 }
