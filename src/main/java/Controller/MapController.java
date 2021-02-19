@@ -4,7 +4,6 @@ import Model.ContinentModel;
 import Model.CountryModel;
 import Utils.MapUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -172,7 +171,10 @@ public class MapController {
      * @throws IOException If an I/O error occurred
      */
     public void editMap(String p_filename) throws IOException {
+        loadMap(p_filename);
+    }
 
+    public ArrayList loadMap(String p_filename) throws IOException {
         this.d_continents = new LinkedHashMap<String, ContinentModel>();
         this.d_countries = new LinkedHashMap<String, CountryModel>();
         Iterator<String> d_iterator;
@@ -188,7 +190,7 @@ public class MapController {
         if (!(l_file.exists())) {
             l_file.createNewFile();
             System.out.println(p_filename + " file does not exists!\nCreated new " + p_filename + " file.");
-            return;
+            return null;
         }
 
         l_fileContent = d_mapUtils.readMapFile(l_file);
@@ -274,10 +276,17 @@ public class MapController {
         validateMap();
         d_mapFileLoaded = true;
         d_currentFile = p_filename;
+
+        ArrayList d_countries_continents = new ArrayList();
+        d_countries_continents.add(d_countries);
+        d_countries_continents.add(d_continents);
+        return d_countries_continents;
     }
 
     /**
      * A method that handles the showMap command
+     *
+     * @return
      */
     public void showMap() {
         d_MapConnectivityGrid = new int[this.d_countries.size()][this.d_countries.size()];
