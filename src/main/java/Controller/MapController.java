@@ -4,6 +4,7 @@ import Model.ContinentModel;
 import Model.CountryModel;
 import Utils.MapUtils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -441,7 +442,8 @@ public class MapController {
                 l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
                 l_tempLine = d_iterator.next().trim();
             }
-        } else {
+        }
+        else {
             l_file.createNewFile();
             l_fos = new FileOutputStream(l_file);
 
@@ -473,9 +475,75 @@ public class MapController {
                 }
             }
         });
+
+        // Writes [countries] section
+        l_fos.write("\n[countries]\n".getBytes(StandardCharsets.UTF_8));
+
+        d_countries.values().stream().sorted(new Comparator<CountryModel>() {
+            @Override
+            public int compare(CountryModel o1, CountryModel o2) {
+                return Integer.compare(o1.getId(), o2.getId());
+            }
+        }).forEach(new Consumer<CountryModel>() {
+            @Override
+            public void accept(CountryModel countryModel) {
+
+                try {
+                    l_fos.write((countryModel.getId() + " " +
+                            countryModel.getName() + " " +
+                            this.getContinentId(countryModel.getContinentId()) + " " +
+                            countryModel.getXCoordinate() + " " +
+                            countryModel.getYCoordinate() + "\n"
+                    ).getBytes(StandardCharsets.UTF_8));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            public String getContinentId(String p_continentName){
+                final int[] l_continentId = new int[1];
+                d_continents.values().forEach(new Consumer<ContinentModel>() {
+                    @Override
+                    public void accept(ContinentModel continentModel) {
+                        if(continentModel.getName() == p_continentName) {
+                            l_continentId[0] = continentModel.getId();
+                            return;
+                        }
+                    }
+                });
+
+                return String.valueOf(l_continentId[0]);
+            }
+        });
+
+        //Writes [borders] section
+        l_fos.write("\n[borders]\n".getBytes(StandardCharsets.UTF_8));
+        d_countries.values().stream().forEach(new Consumer<CountryModel>() {
+            String l_tempLine = "";
+            @Override
+            public void accept(CountryModel countryModel) {
+                l_tempLine += countryModel.getId() + " ";
+                countryModel.getNeighbors().values().stream().forEach(new Consumer<CountryModel>() {
+                    @Override
+                    public void accept(CountryModel inCountryModel) {
+                        l_tempLine += inCountryModel.getId() + " ";
+                    }
+                });
+                l_tempLine = l_tempLine.trim();
+                l_tempLine += "\n";
+                try {
+                    l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
+                    l_tempLine = "";
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        l_fos.close();
     }
 
-    public void run() {
+    public void run(){
         System.out.println("Command: ");
         String command = scanner.nextLine();
         //TODO:
