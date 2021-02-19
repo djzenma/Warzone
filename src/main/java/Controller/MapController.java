@@ -165,7 +165,7 @@ public class MapController {
     }
 
     /**
-     * A method that handles the editmap command
+     * handles the editmap command
      *
      * @param p_filename .map file's name
      * @throws IOException If an I/O error occurred
@@ -174,6 +174,13 @@ public class MapController {
         loadMap(p_filename);
     }
 
+    /**
+     * loads the map specified by p_filename to memory
+     *
+     * @param p_filename name of the map file
+     * @return ArrayList of country and continent HashMaps
+     * @throws IOException
+     */
     public ArrayList loadMap(String p_filename) throws IOException {
         this.d_continents = new LinkedHashMap<String, ContinentModel>();
         this.d_countries = new LinkedHashMap<String, CountryModel>();
@@ -285,8 +292,6 @@ public class MapController {
 
     /**
      * A method that handles the showMap command
-     *
-     * @return
      */
     public void showMap() {
         d_MapConnectivityGrid = new int[this.d_countries.size()][this.d_countries.size()];
