@@ -5,7 +5,9 @@ import Model.CountryModel;
 import Utils.MapUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -13,12 +15,12 @@ import java.util.function.Consumer;
  * Map TODO::
  */
 public class MapController {
+    private boolean d_mapFileLoaded;
+    private String d_currentFile;
     private final String d_defaultColor = "yellow";
     private final String d_defaultXCoordinate = "000";
     private final String d_defaultYCoordinate = "000";
     Scanner scanner = new Scanner(System.in);
-    private boolean d_mapFileLoaded;
-    private String d_currentFile;
     private final String d_mapsPath;
     private LinkedHashMap<String, ContinentModel> d_continents;
     private LinkedHashMap<String, CountryModel> d_countries;
@@ -412,6 +414,71 @@ public class MapController {
 
     public boolean validateMapTypeThree() {
         return true;
+    }
+
+    public void saveMap(String p_filename) throws IOException {
+        File l_file;
+        Iterator<String> d_iterator;
+        String l_fileContent;
+        String[] l_fileLines;
+        String l_tempLine = null;
+        FileOutputStream l_fos;
+        l_file = new File(d_mapsPath + p_filename);
+
+        if (!(d_currentFile.equals(p_filename)) && l_file.exists())
+            System.out.print("\nWARNING: The " + p_filename + " file is not loaded currently.");
+
+        // Writes [files] section
+        if (l_file.exists()) {
+            l_fileContent = d_mapUtils.readMapFile(l_file);
+            l_fileLines = l_fileContent.split("\n");
+
+            l_fos = new FileOutputStream(l_file);
+            d_iterator = Arrays.stream(l_fileLines).iterator();
+            l_tempLine = d_iterator.next().trim();
+            while (!(l_tempLine.equals("[continents]"))) {
+                l_tempLine += "\n";
+                l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
+                l_tempLine = d_iterator.next().trim();
+            }
+        } else {
+            l_file.createNewFile();
+            l_fos = new FileOutputStream(l_file);
+
+            l_tempLine = "[files]\n" +
+                    "pic " + p_filename.split("\\.")[0] + "_pic.jpg\n" +
+                    "map " + p_filename.split("\\.")[0] + "_map.gif\n" +
+                    "crd " + p_filename.split("\\.")[0] + ".cards\n\n";
+            l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
+        }
+
+        // Writes [continents] section
+        l_fos.write("[continents]\n".getBytes(StandardCharsets.UTF_8));
+
+        d_continents.values().stream().sorted(new Comparator<ContinentModel>() {
+            @Override
+            public int compare(ContinentModel o1, ContinentModel o2) {
+                return Integer.compare(o1.getId(), o2.getId());
+            }
+        }).forEach(new Consumer<ContinentModel>() {
+            @Override
+            public void accept(ContinentModel continentModel) {
+                try {
+                    l_fos.write((continentModel.getName() + " " +
+                            continentModel.getControlValue() + " " +
+                            continentModel.getColor() + "\n"
+                    ).getBytes(StandardCharsets.UTF_8));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    public void run() {
+        System.out.println("Command: ");
+        String command = scanner.nextLine();
+        //TODO:
     }
 }
 
