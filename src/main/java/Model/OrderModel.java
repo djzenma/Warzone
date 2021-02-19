@@ -12,7 +12,10 @@ public abstract class OrderModel {
      * enum for the commands
      */
     public enum CMDS {
-        DEPLOY("deploy"), PASS("pass");
+        DEPLOY("deploy"),
+        PASS("pass"),
+        GAME_PLAYER("gameplayer"),
+        ASSIGN_COUNTRIES("assigncountries");
 
         private String d_cmdName;
         private CMDS(String p_cmdName) {

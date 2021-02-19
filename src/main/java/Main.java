@@ -1,12 +1,10 @@
-import Controller.GameEngineController;
-import Model.ContinentModel;
-import Model.CountryModel;
-
-import java.util.ArrayList;
-import java.util.HashMap;
+import Utils.CommandsParser;
 
 public class Main {
     public static void main(String[] args){
+        CommandsParser.parse();
+
+        /*
         HashMap<String, CountryModel> l_countries = new HashMap<>();
         ArrayList<ContinentModel> l_continents = new ArrayList<>();
 
@@ -62,8 +60,7 @@ public class Main {
         l_gameEngine.addPlayer("Akshat");
 
         l_gameEngine.assignCountries();
-        /*l_gameEngine.assignReinforcements();
-        l_gameEngine.issueOrders();*/
         l_gameEngine.run();
+        */
     }
 }

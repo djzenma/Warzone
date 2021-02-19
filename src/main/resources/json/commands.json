@@ -1,4 +1,42 @@
 {
-  "PASS": "pass",
-  "DEPLOY": "deploy"
+  "commands": [
+    {
+      "name": "gameplayer",
+      "args": [],
+      "named_args": [
+        {
+          "name": "add",
+          "args_num": 1
+        },
+        {
+          "name": "remove",
+          "args_num": 1
+        }
+      ]
+    },
+
+    {
+      "name": "assigncountries",
+      "args": []
+    },
+
+
+
+    {
+      "name": "deploy",
+      "args": [
+        {
+          "name": "country_name"
+        },
+        {
+          "name": "reinforcements_num"
+        }
+      ]
+    },
+
+    {
+      "name": "pass",
+      "args": []
+    }
+  ]
 }
