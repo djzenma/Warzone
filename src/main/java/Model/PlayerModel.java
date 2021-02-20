@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Queue;
 
 public class PlayerModel {
+    private PlayerView d_view;
+
     private String d_name;
     private int d_reinforcements;
 
@@ -21,12 +23,13 @@ public class PlayerModel {
      * Constructor of thr PlayerModel
      * @param p_name name of the player
      */
-    public PlayerModel(String p_name) {
+    public PlayerModel(String p_name, PlayerView p_view) {
         this.setName(p_name);
         d_reinforcements = 0;
         d_orderList = new ArrayDeque<>();
         d_armies = new HashMap<>();
         d_countries = new HashMap<>();
+        this.d_view = p_view;
     }
 
     /**
@@ -145,10 +148,9 @@ public class PlayerModel {
         // checks if the player is trying to pass/skip the turn
         if(l_args[0].equals(OrderModel.CMDS.PASS.toString().toLowerCase())) {
             if(l_nReinforcements != 0) {
-                PlayerView.ReinforcementsRemain(this.getReinforcements());
-                issueOrder();
+                this.d_view.ReinforcementsRemain(l_nReinforcements);
+                return issueOrder();
             }
-            return false;
         }
 
         // checks if the player issued the deploy order
@@ -159,14 +161,14 @@ public class PlayerModel {
 
             // handle if the player deploys in a country that it does not owns
             if(!this.containsCountry(l_countryName)) {
-                PlayerView.InvalidCountry();
+                this.d_view.InvalidCountry();
                 return issueOrder(); // retake the order from the beginning
             }
 
 
             // handle if the player has enough reinforcements to deploy
             else if(l_nReinforcements < l_requestedReinforcements) {
-                PlayerView.NotEnoughReinforcements(l_nReinforcements);
+                this.d_view.NotEnoughReinforcements(l_nReinforcements);
                 return issueOrder(); // retake the order from the beginning
             }
 

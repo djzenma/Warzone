@@ -3,12 +3,17 @@ package Utils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class CommandsParserTest {
     @BeforeClass
     public static void init() {
-        CommandsParser.parse();
+        CommandsParser.parseJson();
     }
 
     @Test
@@ -47,5 +52,21 @@ public class CommandsParserTest {
         assertFalse(CommandsParser.isValidCommand(cmd14));
         assertFalse(CommandsParser.isValidCommand(cmd15));
         assertFalse(CommandsParser.isValidCommand(cmd16));
+    }
+
+    @Test
+    public void getArguments() {
+        HashMap<String, List<String>> l_correct;
+
+        l_correct = new HashMap<>();
+        String[] cmd1 = {"gameplayer", "add", "Aman", "remove", "Mazen", "add", "Shivangi"};
+        l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Shivangi")));
+        l_correct.put("remove", new ArrayList<>(Arrays.asList("Mazen")));
+        assertEquals(l_correct, CommandsParser.getArguments(cmd1));
+
+        l_correct = new HashMap<>();
+        String[] cmd2 = {"gameplayer", "add", "Aman", "add", "Adeetya"};
+        l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Adeetya")));
+        assertEquals(l_correct, CommandsParser.getArguments(cmd2));
     }
 }

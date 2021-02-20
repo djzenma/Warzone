@@ -14,12 +14,15 @@ import static java.lang.Math.floor;
  * Game Engine TODO::
  */
 public class GameEngineModel {
-    private final HashMap<String, PlayerModel> d_players;
-    private final HashMap<String, CountryModel> d_countries;
-    private final ArrayList<ContinentModel> d_continents;
+    private HashMap<String, PlayerModel> d_players;
+    private HashMap<String, CountryModel> d_countries;
+    private ArrayList<ContinentModel> d_continents;
 
 
-    public GameEngineModel(HashMap<String, CountryModel> p_countries, ArrayList<ContinentModel> p_continents) {
+
+    public GameEngineModel(HashMap<String, CountryModel> p_countries,
+                           ArrayList<ContinentModel> p_continents) {
+
         this.d_players =  new HashMap<>();
         this.d_countries = p_countries;
         this.d_continents = p_continents;
@@ -39,7 +42,7 @@ public class GameEngineModel {
      * @param p_playerName name of the player
      */
     public void addPlayer(String p_playerName) {
-        PlayerModel l_playerModel = new PlayerModel(p_playerName);
+        PlayerModel l_playerModel = new PlayerModel(p_playerName, new PlayerView());
 
         this.d_players.put(p_playerName, l_playerModel);
     }
@@ -127,22 +130,6 @@ public class GameEngineModel {
     }
 
 
-    /**
-     * Loops over each player to get the orders from them
-     * @return false if the player does not have any other orders to issue, otherwise true
-     */
-    public boolean issueOrders(){
-        boolean end = true;
-
-        for (PlayerModel l_player : this.d_players.values()) {
-            PlayerView.CurrentPlayer(l_player);
-            boolean issued = l_player.issueOrder();
-            // if the player issued an order
-            if (issued)
-                end = false;
-        }
-        return !end;
-    }
 
     public boolean executeOrders() {
         boolean end = true;

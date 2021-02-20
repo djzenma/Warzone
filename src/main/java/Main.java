@@ -1,10 +1,18 @@
+import Controller.GameEngineController;
+import Model.ContinentModel;
+import Model.CountryModel;
+import Model.GameEngineModel;
 import Utils.CommandsParser;
+import View.GameEngineView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args){
-        CommandsParser.parse();
+        CommandsParser.parseJson();
 
-        /*
+
         HashMap<String, CountryModel> l_countries = new HashMap<>();
         ArrayList<ContinentModel> l_continents = new ArrayList<>();
 
@@ -53,14 +61,10 @@ public class Main {
         l_continents.add(c1);
         l_continents.add(c2);
 
-        GameEngineController l_gameEngine = new GameEngineController(l_countries, l_continents);
 
-        l_gameEngine.addPlayer("Aman");
-        l_gameEngine.addPlayer("Mazen");
-        l_gameEngine.addPlayer("Akshat");
+        GameEngineModel l_gameEngineModel = new GameEngineModel(l_countries, l_continents);
+        GameEngineController l_gameEngineController = new GameEngineController(l_gameEngineModel, new GameEngineView());
 
-        l_gameEngine.assignCountries();
-        l_gameEngine.run();
-        */
+        l_gameEngineController.run();
     }
 }

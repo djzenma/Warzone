@@ -4,6 +4,9 @@ import Model.*;
 import Utils.CommandsParser;
 import View.GameEngineView;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Game Engine TODO::
  */
@@ -12,28 +15,84 @@ public class GameEngineController {
     private GameEngineModel d_model;
     private GameEngineView d_view;
 
-    public GameEngineController(GameEngineModel p_model) {
+    public GameEngineController(GameEngineModel p_model, GameEngineView p_view) {
         this.d_model = p_model;
-        this.d_view = new GameEngineView();
+        this.d_view = p_view;
     }
 
-    public String[] startup() {
+
+    public void startup() {
+        boolean l_end = false;
         String[] l_args;
-        do {
-            l_args = d_view.startup();
-        } while(!CommandsParser.isValidCommand(l_args));
-        return l_args;
+
+        // stay in the STARTUP phase unless the user assignscountries which moves the game to the next phase
+        while(!l_end) {
+            // get a valid command from the user
+            do {
+                l_args = d_view.listenForStartupCommand();
+                if(!CommandsParser.isValidCommand(l_args))
+                    d_view.commandNotValid();
+            } while (!CommandsParser.isValidCommand(l_args));
+
+            try {
+                // if the command entered is gameplayer
+                if (CommandsParser.isGameplayer(l_args)) {
+                    // get the players to be added or removed
+                    HashMap<String, List<String>> l_gameplayerArgs = CommandsParser.getArguments(l_args);
+
+                    // add all the players specified in the command
+                    if(l_gameplayerArgs.get("add") != null) {
+                        for (String l_player : l_gameplayerArgs.get("add"))
+                            this.d_model.addPlayer(l_player);
+                    }
+
+                    // remove all the players specified in the command
+                    if(l_gameplayerArgs.get("remove") != null) {
+                        for (String l_player : l_gameplayerArgs.get("remove"))
+                            this.d_model.removePlayer(l_player);
+                    }
+                }
+
+                // if the command entered is assigncountries
+                else if (CommandsParser.isAssignCountries(l_args)) {
+                    this.d_model.assignCountries();
+                    l_end = true;
+                }
+            } catch (Exception l_e) {
+                d_view.exception(l_e.getMessage());
+            }
+        }
+    }
+
+
+    /**
+     * Loops over each player to get the orders from them
+     * @return false if the player does not have any other orders to issue, otherwise true
+     */
+    public boolean issueOrders(){
+        boolean end = true;
+
+        for (PlayerModel l_player : this.d_model.getPlayers().values()) {
+            this.d_view.currentPlayer(l_player);
+            boolean issued = l_player.issueOrder();
+            // if the player issued an order
+            if (issued)
+                end = false;
+        }
+        return !end;
     }
 
     public void run(){
         // Startup Phase
-        startup();
+        d_view.startupPhase();
+        this.startup();
 
         // GamePlay Loop
-        d_model.assignReinforcements();
+        d_view.gameplayPhase();
+        this.d_model.assignReinforcements();
 
-        while(d_model.issueOrders());
+        while(this.issueOrders());
 
-        while(d_model.executeOrders());
+        while(this.d_model.executeOrders());
     }
 }

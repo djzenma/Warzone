@@ -8,12 +8,16 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class CommandsParser {
 
     private static Commands d_commands;
 
-    public static void parse() {
+    public static void parseJson() {
         try {
             Gson l_gson = new Gson();
             JsonReader l_reader = new JsonReader(new FileReader("src/main/resources/json/commands.json"));
@@ -94,5 +98,42 @@ public class CommandsParser {
             }
         }
         return false;
+    }
+
+
+    public static HashMap<String, List<String>> getArguments(String[] p_cmd) {
+        HashMap<String, List<String>> l_args = new HashMap<>();
+        String l_cmdName = p_cmd[0];
+
+        for (Command l_command : d_commands.commands) {
+            if(l_command.name.equals(l_cmdName)) {
+                for (NamedArgument namedArg : l_command.named_args) {
+                    for (int i = 1; i < p_cmd.length; i++) {
+                        if(namedArg.name.equals(p_cmd[i])) {
+                            // read old list
+                            List<String> l_currentList = l_args.get(namedArg.name);
+                            // update it
+                            if(l_currentList == null)
+                                l_currentList = new ArrayList<>(Arrays.asList(p_cmd).subList(i + 1, i + namedArg.args_num + 1));
+                            else {
+                                List<String> l_subList = Arrays.asList(p_cmd).subList(i + 1, i + namedArg.args_num + 1);
+                                l_currentList.addAll(l_subList);
+                            }
+                            // write it
+                            l_args.put(namedArg.name, l_currentList);
+                        }
+                    }
+                }
+            }
+        }
+        return l_args;
+    }
+
+    public static boolean isGameplayer(String[] l_args) {
+        return l_args[0].equals("gameplayer");
+    }
+
+    public static boolean isAssignCountries(String[] l_args) {
+        return l_args[0].equals("assigncountries");
     }
 }

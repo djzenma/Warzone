@@ -2,6 +2,7 @@ package Controller;
 
 import Model.CountryModel;
 import Model.PlayerModel;
+import View.PlayerView;
 
 /**
  *
@@ -14,7 +15,7 @@ public class PlayerController {
      * @param p_name name of the player
      */
     public PlayerController(String p_name) {
-        this.d_playerModel = new PlayerModel(p_name);
+        this.d_playerModel = new PlayerModel(p_name, new PlayerView());
     }
 
     /**
