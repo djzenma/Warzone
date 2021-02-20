@@ -1,9 +1,6 @@
-package Controller;
+package Model;
 
-import Model.ContinentModel;
-import Model.CountryModel;
-import Model.GameEngineModel;
-import Model.PlayerModel;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,10 +16,10 @@ import static org.junit.Assert.assertNotNull;
  */
 public class GameEngineModelTest {
 
-    static GameEngineModel d_gameEngine;
+    private static GameEngineModel d_gameEngine;
 
     /**
-     * Initializes the GameEngineController
+     * Initializes the GameEngineModel
      */
     @BeforeClass
     public static void init() {
@@ -133,7 +130,6 @@ public class GameEngineModelTest {
         assertEquals(4, d_gameEngine.getPlayers().get("Aman").getReinforcements());
         assertEquals(4, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
     }
-
 
 
     @Test
