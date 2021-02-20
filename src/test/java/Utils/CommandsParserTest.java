@@ -40,7 +40,7 @@ public class CommandsParserTest {
         assertTrue(CommandsParser.isValidCommand(l_cmd6));
 
 
-        // invalid
+        // invalidK
         String[] l_cmd10 = {"gameplayer", "add"};
         String[] l_cmd11 = {"assigncountries", "remove"};
         String[] l_cmd12 = {"pass", "add"};
@@ -118,7 +118,7 @@ public class CommandsParserTest {
         assertFalse((CommandsParser.isValidCommand(mInCmd10)));
         assertFalse((CommandsParser.isValidCommand(mInCmd11)));
         assertFalse((CommandsParser.isValidCommand(mInCmd12)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd13)));
+        assertTrue((CommandsParser.isValidCommand(mInCmd13)));
     }
 
     /**
