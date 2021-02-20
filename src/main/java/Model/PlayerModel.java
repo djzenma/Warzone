@@ -10,17 +10,18 @@ import java.util.HashMap;
 import java.util.Queue;
 
 public class PlayerModel {
-    private PlayerView d_view;
+    private final PlayerView d_view;
 
     private String d_name;
     private int d_reinforcements;
 
-    private HashMap<String, CountryModel> d_countries;
-    private HashMap<Integer, Integer> d_armies;
-    private Queue<OrderModel> d_orderList;
+    private final HashMap<String, CountryModel> d_countries;
+    private final HashMap<Integer, Integer> d_armies;
+    private final Queue<OrderModel> d_orderList;
 
     /**
      * Constructor of thr PlayerModel
+     *
      * @param p_name name of the player
      */
     public PlayerModel(String p_name, PlayerView p_view) {
@@ -170,9 +171,7 @@ public class PlayerModel {
             else if(l_nReinforcements < l_requestedReinforcements) {
                 this.d_view.NotEnoughReinforcements(l_nReinforcements);
                 return issueOrder(); // retake the order from the beginning
-            }
-
-            else {
+            } else {
                 l_order = new DeployModel();
                 l_order.setCountryName(l_args[1]);
                 l_order.setReinforcements(l_requestedReinforcements);
@@ -183,7 +182,12 @@ public class PlayerModel {
         return false;
     }
 
-    public OrderModel nextOrder(){
+    /**
+     * Takes the next order from the player's list of orders
+     *
+     * @return next order from the list of the orders
+     */
+    public OrderModel nextOrder() {
         OrderModel l_order = this.d_orderList.peek();
         this.d_orderList.poll();
         return l_order;

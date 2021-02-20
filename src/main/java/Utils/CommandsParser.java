@@ -17,6 +17,9 @@ public class CommandsParser {
 
     private static Commands d_commands;
 
+    /**
+     * Parses a JSON file
+     */
     public static void parseJson() {
         try {
             Gson l_gson = new Gson();
@@ -28,17 +31,20 @@ public class CommandsParser {
         }
     }
 
+    /**
+     * Validates the commands entered by the user
+     *
+     * @param p_cmdArgs Array of the commands
+     * @return true if the commands entered by the user are valid; otherwise false
+     */
     public static boolean isValidCommand(String[] p_cmdArgs) {
+        int l_counter = 0;
 
-        int l_i= 0;
-
-        for (Command l_command: d_commands.commands) {
+        for (Command l_command : d_commands.commands) {
             // check for command name
-            if(l_command.name.equals(p_cmdArgs[0])) {
-
-                if(l_command.args == null && l_command.named_args == null)
+            if (l_command.name.equals(p_cmdArgs[0])) {
+                if (l_command.args == null && l_command.named_args == null)
                     return true;
-
 
                 // check if the cmd has args
                 if(l_command.args != null) {
@@ -46,24 +52,23 @@ public class CommandsParser {
                         return true;
                 }
 
-
                 // check if the cmd has named args
                 if(l_command.named_args != null) {
-                    l_i = 1;
-                    while(l_i < p_cmdArgs.length) {
+                    l_counter = 1;
+                    while (l_counter < p_cmdArgs.length) {
                         // ensure that the argument name is valid
-                        if(isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
+                        if (isValidArgName(p_cmdArgs[0], p_cmdArgs[l_counter])) {
 
                             // ensure that the correct number of arguments is passed for this argument name
-                            int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_i]);
+                            int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_counter]);
                             // handles when the required argument is NOT passed
-                            if (l_i + l_num >= p_cmdArgs.length)
+                            if (l_counter + l_num >= p_cmdArgs.length)
                                 return false;
                                 // handles when more arguments are passed than the number required
-                            else if (l_i + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i + l_num + 1]))
+                            else if (l_counter + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_counter + l_num + 1]))
                                 return false;
                             else
-                                l_i += l_num + 1;
+                                l_counter += l_num + 1;
                         } else
                             return false;
                     }
@@ -71,15 +76,21 @@ public class CommandsParser {
                 }
             }
         }
-
         return false;
     }
 
+    /**
+     * Accessor for the number of arguments in a command
+     *
+     * @param p_cmdName name of the command entered by the user
+     * @param p_cmdArg  argument entered after the name of the command
+     * @return number of the arguments
+     */
     private static int getNumberOfArguments(String p_cmdName, String p_cmdArg) {
         for (Command l_command : d_commands.commands) {
-            if(l_command.name.equals(p_cmdName)) {
+            if (l_command.name.equals(p_cmdName)) {
                 for (NamedArgument namedArg : l_command.named_args) {
-                    if(namedArg.name.equals(p_cmdArg))
+                    if (namedArg.name.equals(p_cmdArg))
                         return namedArg.args_num;
                 }
             }
@@ -87,12 +98,19 @@ public class CommandsParser {
         return 0;
     }
 
+    /**
+     * Validates the name of the arguments in the commands entered by the user
+     *
+     * @param p_cmdName name of the command
+     * @param p_cmdArg  arguments entered after the name of the command
+     * @return true if the name of the argument is valid; otherwise false
+     */
     private static boolean isValidArgName(String p_cmdName, String p_cmdArg) {
         for (Command l_command : d_commands.commands) {
-            if(l_command.name.equals(p_cmdName)) {
+            if (l_command.name.equals(p_cmdName)) {
 
                 for (NamedArgument namedArg : l_command.named_args) {
-                    if(namedArg.name.equals(p_cmdArg))
+                    if (namedArg.name.equals(p_cmdArg))
                         return true;
                 }
             }
@@ -100,16 +118,21 @@ public class CommandsParser {
         return false;
     }
 
-
+    /**
+     * Accessor for the list of arguments
+     *
+     * @param p_cmd array of the commands
+     * @return hashmap of the arguments
+     */
     public static HashMap<String, List<String>> getArguments(String[] p_cmd) {
         HashMap<String, List<String>> l_args = new HashMap<>();
         String l_cmdName = p_cmd[0];
 
         for (Command l_command : d_commands.commands) {
-            if(l_command.name.equals(l_cmdName)) {
+            if (l_command.name.equals(l_cmdName)) {
                 for (NamedArgument namedArg : l_command.named_args) {
                     for (int i = 1; i < p_cmd.length; i++) {
-                        if(namedArg.name.equals(p_cmd[i])) {
+                        if (namedArg.name.equals(p_cmd[i])) {
                             // read old list
                             List<String> l_currentList = l_args.get(namedArg.name);
                             // update it
@@ -129,10 +152,22 @@ public class CommandsParser {
         return l_args;
     }
 
+    /**
+     * Checks if the command entered is to add a game player
+     *
+     * @param l_args array of the arguments in a command
+     * @return true if the name is valid; otherwise false
+     */
     public static boolean isGameplayer(String[] l_args) {
         return l_args[0].equals("gameplayer");
     }
 
+    /**
+     * Checks if the command entered is to assign countries to the players
+     *
+     * @param l_args array of the arguments in a command
+     * @return true if the name is valid; otherwise false
+     */
     public static boolean isAssignCountries(String[] l_args) {
         return l_args[0].equals("assigncountries");
     }

@@ -20,42 +20,48 @@ public class CommandsParserTest {
     public void parse() {
     }
 
+    /**
+     * Tests whether the commands are valid or not
+     */
     @Test
     public void isValidCommand() {
         // valid
-        String[] cmd1 = {"gameplayer", "add", "Aman", "remove", "Adeetya"};
-        String[] cmd2 = {"gameplayer", "add", "Aman"};
-        String[] cmd3 = {"assigncountries"};
-        String[] cmd4 = {"pass"};
-        String[] cmd5 = {"deploy", "canada", "5"};
-        String[] cmd6 = {"gameplayer", "add", "Mazen", "add", "Aman"};
-        assertTrue(CommandsParser.isValidCommand(cmd1));
-        assertTrue(CommandsParser.isValidCommand(cmd2));
-        assertTrue(CommandsParser.isValidCommand(cmd3));
-        assertTrue(CommandsParser.isValidCommand(cmd4));
-        assertTrue(CommandsParser.isValidCommand(cmd5));
-        assertTrue(CommandsParser.isValidCommand(cmd6));
+        String[] l_cmd1 = {"gameplayer", "add", "Aman", "remove", "Adeetya"};
+        String[] l_cmd2 = {"gameplayer", "add", "Aman"};
+        String[] l_cmd3 = {"assigncountries"};
+        String[] l_cmd4 = {"pass"};
+        String[] l_cmd5 = {"deploy", "canada", "5"};
+        String[] l_cmd6 = {"gameplayer", "add", "Mazen", "add", "Aman"};
+        assertTrue(CommandsParser.isValidCommand(l_cmd1));
+        assertTrue(CommandsParser.isValidCommand(l_cmd2));
+        assertTrue(CommandsParser.isValidCommand(l_cmd3));
+        assertTrue(CommandsParser.isValidCommand(l_cmd4));
+        assertTrue(CommandsParser.isValidCommand(l_cmd5));
+        assertTrue(CommandsParser.isValidCommand(l_cmd6));
 
 
         // invalid
-        String[] cmd10 = {"gameplayer", "add"};
-        String[] cmd11 = {"assigncountries", "remove"};
-        String[] cmd12 = {"pass", "add"};
-        String[] cmd13 = {"deploy", "5"};
-        String[] cmd14 = {"gameplayer", "add", "Aman", "remove"};
-        String[] cmd15 = {"gameplayer", "add", "Mazen", "Aman"};
-        String[] cmd16 = {"dsaifbsafa", "afsnsajbfaf"};
-        String[] cmd17 = {"gameplayer", "Adeetya", "Adeetya", "remove", "Aman"};
-        assertFalse(CommandsParser.isValidCommand(cmd10));
-        assertFalse(CommandsParser.isValidCommand(cmd11));
-        assertFalse(CommandsParser.isValidCommand(cmd12));
-        assertFalse(CommandsParser.isValidCommand(cmd13));
-        assertFalse(CommandsParser.isValidCommand(cmd14));
-        assertFalse(CommandsParser.isValidCommand(cmd15));
-        assertFalse(CommandsParser.isValidCommand(cmd16));
-        assertFalse(CommandsParser.isValidCommand(cmd17));
+        String[] l_cmd10 = {"gameplayer", "add"};
+        String[] l_cmd11 = {"assigncountries", "remove"};
+        String[] l_cmd12 = {"pass", "add"};
+        String[] l_cmd13 = {"deploy", "5"};
+        String[] l_cmd14 = {"gameplayer", "add", "Aman", "remove"};
+        String[] l_cmd15 = {"gameplayer", "add", "Mazen", "Aman"};
+        String[] l_cmd16 = {"dsaifbsafa", "afsnsajbfaf"};
+        String[] l_cmd17 = {"gameplayer", "Adeetya", "Adeetya", "remove", "Aman"};
+        assertFalse(CommandsParser.isValidCommand(l_cmd10));
+        assertFalse(CommandsParser.isValidCommand(l_cmd11));
+        assertFalse(CommandsParser.isValidCommand(l_cmd12));
+        assertFalse(CommandsParser.isValidCommand(l_cmd13));
+        assertFalse(CommandsParser.isValidCommand(l_cmd14));
+        assertFalse(CommandsParser.isValidCommand(l_cmd15));
+        assertFalse(CommandsParser.isValidCommand(l_cmd16));
+        assertFalse(CommandsParser.isValidCommand(l_cmd17));
     }
 
+    /**
+     * Tests whether the MapEditor commands are valid or not
+     */
     @Test
     public void isMapEditorCommandValid() {
 
@@ -112,6 +118,9 @@ public class CommandsParserTest {
         assertFalse((CommandsParser.isValidCommand(mInCmd12)));
     }
 
+    /**
+     * Tests whether the arguments of the command are equal to expected values
+     */
     @Test
     public void getArguments() {
         HashMap<String, List<String>> l_correct;

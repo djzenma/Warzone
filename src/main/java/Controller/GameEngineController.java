@@ -1,6 +1,7 @@
 package Controller;
 
-import Model.*;
+import Model.GameEngineModel;
+import Model.PlayerModel;
 import Utils.CommandsParser;
 import View.GameEngineView;
 
@@ -12,8 +13,8 @@ import java.util.List;
  */
 public class GameEngineController {
 
-    private GameEngineModel d_model;
-    private GameEngineView d_view;
+    private final GameEngineModel d_model;
+    private final GameEngineView d_view;
 
     public GameEngineController(GameEngineModel p_model, GameEngineView p_view) {
         this.d_model = p_model;
@@ -67,19 +68,20 @@ public class GameEngineController {
 
     /**
      * Loops over each player to get the orders from them
-     * @return false if the player does not have any other orders to issue, otherwise true
+     *
+     * @return false if the player does not have any other orders to issue; otherwise true
      */
     public boolean issueOrders(){
-        boolean end = true;
+        boolean l_end = true;
 
         for (PlayerModel l_player : this.d_model.getPlayers().values()) {
             this.d_view.currentPlayer(l_player);
             boolean issued = l_player.issueOrder();
             // if the player issued an order
             if (issued)
-                end = false;
+                l_end = false;
         }
-        return !end;
+        return !l_end;
     }
 
     public void run(){

@@ -14,24 +14,38 @@ import static java.lang.Math.floor;
  * Game Engine TODO::
  */
 public class GameEngineModel {
-    private HashMap<String, PlayerModel> d_players;
-    private HashMap<String, CountryModel> d_countries;
-    private ArrayList<ContinentModel> d_continents;
+    private final HashMap<String, PlayerModel> d_players;
+    private final HashMap<String, CountryModel> d_countries;
+    private final ArrayList<ContinentModel> d_continents;
 
-
-
+    /**
+     * Constructor of the GameEngineModel
+     *
+     * @param p_countries  countries hashmap
+     * @param p_continents list of the continents
+     */
     public GameEngineModel(HashMap<String, CountryModel> p_countries,
                            ArrayList<ContinentModel> p_continents) {
 
-        this.d_players =  new HashMap<>();
+        this.d_players = new HashMap<>();
         this.d_countries = p_countries;
         this.d_continents = p_continents;
     }
 
+    /**
+     * Accessor for the players
+     *
+     * @return hashmap of the players
+     */
     public HashMap<String, PlayerModel> getPlayers() {
         return d_players;
     }
 
+    /**
+     * Accessor for the countries
+     *
+     * @return hashmap of the countries
+     */
     public HashMap<String, CountryModel> getCountries() {
         return d_countries;
     }
@@ -39,6 +53,7 @@ public class GameEngineModel {
 
     /**
      * Adds a game player
+     *
      * @param p_playerName name of the player
      */
     public void addPlayer(String p_playerName) {
@@ -121,7 +136,7 @@ public class GameEngineModel {
                 }
 
                 // checks if the player has all the countries of a continent
-                if(l_hasContinent){
+                if (l_hasContinent) {
                     l_numberOfArmies += l_continent.getControlValue();
                 }
             }
@@ -129,18 +144,21 @@ public class GameEngineModel {
         }
     }
 
-
-
+    /**
+     * Loops over each player to get the orders from them and ezecute them
+     *
+     * @return false if the player does not have any other orders to be executed; otherwise true
+     */
     public boolean executeOrders() {
-        boolean end = true;
+        boolean l_end = true;
 
         for (PlayerModel l_player : this.d_players.values()) {
             OrderModel l_order = l_player.nextOrder();
-            if(l_order != null){
+            if (l_order != null) {
                 l_order.execute(d_countries);
-                end = false;
+                l_end = false;
             }
         }
-        return !end;
+        return !l_end;
     }
 }
