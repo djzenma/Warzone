@@ -1,9 +1,12 @@
 import Controller.GameEngineController;
+import Controller.MapController;
 import Model.ContinentModel;
 import Model.CountryModel;
 import Model.GameEngineModel;
+import Model.MapModel;
 import Utils.CommandsParser;
 import View.GameEngineView;
+import View.MapView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +14,6 @@ import java.util.HashMap;
 public class Main {
     public static void main(String[] args){
         CommandsParser.parseJson();
-
 
         HashMap<String, CountryModel> l_countries = new HashMap<>();
         ArrayList<ContinentModel> l_continents = new ArrayList<>();
@@ -65,6 +67,19 @@ public class Main {
         GameEngineModel l_gameEngineModel = new GameEngineModel(l_countries, l_continents);
         GameEngineController l_gameEngineController = new GameEngineController(l_gameEngineModel, new GameEngineView());
 
-        l_gameEngineController.run();
+        //l_gameEngineController.run();
+
+
+        // MapEditor Code Below
+
+        MapModel d_mapModel;
+        MapView d_mapView;
+        MapController d_mapController;
+
+        d_mapModel = new MapModel();
+        d_mapView = new MapView();
+        d_mapController = new MapController(d_mapModel, d_mapView);
+
+        d_mapController.run();
     }
 }
