@@ -118,7 +118,7 @@ public class CommandsParserTest {
         assertFalse((CommandsParser.isValidCommand(mInCmd10)));
         assertFalse((CommandsParser.isValidCommand(mInCmd11)));
         assertFalse((CommandsParser.isValidCommand(mInCmd12)));
-        assertTrue((CommandsParser.isValidCommand(mInCmd13)));
+        assertFalse((CommandsParser.isValidCommand(mInCmd13)));
     }
 
     /**

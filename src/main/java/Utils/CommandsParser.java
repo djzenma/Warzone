@@ -38,44 +38,59 @@ public class CommandsParser {
      * @return true if the commands entered by the user are valid; otherwise false
      */
     public static boolean isValidCommand(String[] p_cmdArgs) {
-        int l_counter = 0;
+
+        int l_i = 0;
 
         for (Command l_command : d_commands.commands) {
             // check for command name
             if (l_command.name.equals(p_cmdArgs[0])) {
+
                 if (l_command.args == null && l_command.named_args == null)
                     return true;
 
+                // check if the cmd has named args
+                if (l_command.named_args != null) {
+                    if (p_cmdArgs.length - 1 <= 0)
+                        return false;
+                }
+
                 // check if the cmd has args
-                if(l_command.args != null) {
-                    if(p_cmdArgs.length - 1 == l_command.args.length)
+                if (l_command.args != null) {
+                    if (p_cmdArgs.length - 1 == l_command.args.length)
                         return true;
                 }
 
                 // check if the cmd has named args
-                if(l_command.named_args != null) {
-                    l_counter = 1;
-                    while (l_counter < p_cmdArgs.length) {
+                if (l_command.named_args != null) {
+                    l_i = 1;
+
+                    while (l_i < p_cmdArgs.length) {
+
                         // ensure that the argument name is valid
-                        if (isValidArgName(p_cmdArgs[0], p_cmdArgs[l_counter])) {
+                        if (isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
 
                             // ensure that the correct number of arguments is passed for this argument name
-                            int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_counter]);
+                            int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_i]);
+
                             // handles when the required argument is NOT passed
-                            if (l_counter + l_num >= p_cmdArgs.length)
+                            if (l_i + l_num >= p_cmdArgs.length)
                                 return false;
+
                                 // handles when more arguments are passed than the number required
-                            else if (l_counter + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_counter + l_num + 1]))
+                            else if (l_i + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i + l_num + 1]))
                                 return false;
+
                             else
-                                l_counter += l_num + 1;
+                                l_i += l_num + 1;
                         } else
                             return false;
                     }
                     return true;
                 }
+
             }
         }
+
         return false;
     }
 
@@ -136,7 +151,7 @@ public class CommandsParser {
                             // read old list
                             List<String> l_currentList = l_args.get(namedArg.name);
                             // update it
-                            if(l_currentList == null)
+                            if (l_currentList == null)
                                 l_currentList = new ArrayList<>(Arrays.asList(p_cmd).subList(i + 1, i + namedArg.args_num + 1));
                             else {
                                 List<String> l_subList = Arrays.asList(p_cmd).subList(i + 1, i + namedArg.args_num + 1);
