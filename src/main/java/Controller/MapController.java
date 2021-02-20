@@ -25,11 +25,10 @@ public class MapController {
     public void run() {
         d_mapView.mapEditorPhase();
 
-        boolean l_end = false;
         String[] l_args;
 
         // stay in the MapEditor unless the user exit which moves the game to the GameEngine
-        while (!l_end) {
+        while (true) {
             // get a valid command from the user
             do {
                 l_args = d_mapView.listenForCommands();
