@@ -3,7 +3,7 @@ package Utils;
 import POJO.Command;
 import POJO.Commands;
 import POJO.NamedArgument;
-import com.google.gson.*;
+import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
@@ -56,16 +56,16 @@ public class CommandsParser {
 
                             // ensure that the correct number of arguments is passed for this argument name
                             int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_i]);
-
                             // handles when the required argument is NOT passed
-                            if(l_i+l_num >= p_cmdArgs.length)
+                            if (l_i + l_num >= p_cmdArgs.length)
                                 return false;
-                            // handles when more arguments are passed than the number required
-                            else if(l_i+l_num+1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i+l_num+1]))
-                                    return false;
+                                // handles when more arguments are passed than the number required
+                            else if (l_i + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i + l_num + 1]))
+                                return false;
                             else
                                 l_i += l_num + 1;
-                        }
+                        } else
+                            return false;
                     }
                     return true;
                 }

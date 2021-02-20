@@ -33,9 +33,74 @@
         }
       ]
     },
-
     {
       "name": "pass",
+      "args": []
+    },
+    {
+      "name": "editcontinent",
+      "args": [],
+      "named_args": [
+        {
+          "name": "add",
+          "args_num": 2
+        },
+        {
+          "name": "remove",
+          "args_num": 1
+        }
+      ]
+    },
+    {
+      "name": "editcountry",
+      "args": [],
+      "named_args": [
+        {
+          "name": "add",
+          "args_num": 2
+        },
+        {
+          "name": "remove",
+          "args_num": 1
+        }
+      ]
+    },
+    {
+      "name": "editneighbor",
+      "args": [],
+      "named_args": [
+        {
+          "name": "add",
+          "args_num": 2
+        },
+        {
+          "name": "remove",
+          "args_num": 2
+        }
+      ]
+    },
+    {
+      "name": "savemap",
+      "args": [
+        {
+          "name": "filename"
+        }
+      ]
+    },
+    {
+      "name": "editmap",
+      "args": [
+        {
+          "name": "filename"
+        }
+      ]
+    },
+    {
+      "name": "validatemap",
+      "args": []
+    },
+    {
+      "name": "showmap",
       "args": []
     }
   ]

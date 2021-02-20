@@ -5,6 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Updated Javdocs!">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/CommandsParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/CommandsParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/json/commands.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/json/commands.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/Utils/CommandsParserTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Utils/CommandsParserTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/MapController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MapController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" afterDir="false" />
@@ -181,6 +185,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -250,6 +255,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="CommandsParserTest.isMapEditorCommandValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Utils" />
+      <option name="MAIN_CLASS_NAME" value="Utils.CommandsParserTest" />
+      <option name="METHOD_NAME" value="isMapEditorCommandValid" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CommandsParserTest.isValidCommand" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Utils.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Utils" />
+      <option name="MAIN_CLASS_NAME" value="Utils.CommandsParserTest" />
+      <option name="METHOD_NAME" value="isValidCommand" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="GameEngineControllerTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="warzone" />
       <extension name="coverage">
@@ -269,9 +306,13 @@
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.All Tests" />
       <item itemvalue="JUnit.GameEngineControllerTest (1)" />
+      <item itemvalue="JUnit.CommandsParserTest.isMapEditorCommandValid" />
+      <item itemvalue="JUnit.CommandsParserTest.isValidCommand" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.CommandsParserTest.isMapEditorCommandValid" />
+        <item itemvalue="JUnit.CommandsParserTest.isValidCommand" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.GameEngineControllerTest (1)" />
       </list>
@@ -366,7 +407,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613822801590</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Changed path fetching for map files in MapUtils!">
+      <created>1613823271439</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1613823271440</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -487,7 +535,8 @@
     <MESSAGE value="Added MapUtils methods!" />
     <MESSAGE value="Added implementation of savemap command." />
     <MESSAGE value="Added unit tests for MapEditor!" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added unit tests for MapEditor!" />
+    <MESSAGE value="Changed path fetching for map files in MapUtils!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed path fetching for map files in MapUtils!" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
