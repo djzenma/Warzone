@@ -36,32 +36,41 @@ public class CommandsParser {
             // check for command name
             if(l_command.name.equals(p_cmdArgs[0])) {
 
-                if(l_command.args == null && l_command.named_args == null)
+                if (l_command.args == null && l_command.named_args == null)
                     return true;
 
+                // check if the cmd has named args
+                if (l_command.named_args != null) {
+                    if (p_cmdArgs.length - 1 <= 0)
+                        return false;
+                }
 
                 // check if the cmd has args
-                if(l_command.args != null) {
-                    if(p_cmdArgs.length - 1 == l_command.args.length)
+                if (l_command.args != null) {
+                    if (p_cmdArgs.length - 1 == l_command.args.length)
                         return true;
                 }
 
-
                 // check if the cmd has named args
-                if(l_command.named_args != null) {
+                if (l_command.named_args != null) {
                     l_i = 1;
-                    while(l_i < p_cmdArgs.length) {
+
+                    while (l_i < p_cmdArgs.length) {
+
                         // ensure that the argument name is valid
-                        if(isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
+                        if (isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
 
                             // ensure that the correct number of arguments is passed for this argument name
                             int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_i]);
+
                             // handles when the required argument is NOT passed
                             if (l_i + l_num >= p_cmdArgs.length)
                                 return false;
+
                                 // handles when more arguments are passed than the number required
                             else if (l_i + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i + l_num + 1]))
                                 return false;
+
                             else
                                 l_i += l_num + 1;
                         } else
@@ -69,6 +78,7 @@ public class CommandsParser {
                     }
                     return true;
                 }
+
             }
         }
 

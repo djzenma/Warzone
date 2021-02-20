@@ -85,7 +85,7 @@ public class CommandsParserTest {
         assertTrue(CommandsParser.isValidCommand(mCmd11));
         assertTrue(CommandsParser.isValidCommand(mCmd12));
 
-        //MapEditor valid commands
+        //MapEditor invalid commands
         String[] mInCmd1 = {"editcontinent", "add", "5", "remove", "Europe"};
         String[] mInCmd2 = {"editcountry", "India", "Asia", "remove", "Nepal"};
         String[] mInCmd3 = {"editneighbor", "add", "India", "remove", "Russia", "Spain"};
@@ -98,6 +98,8 @@ public class CommandsParserTest {
         String[] mInCmd10 = {"editcountry", "add", "countryname"};
         String[] mInCmd11 = {"editcontinent", "add", "Australia", "add", "Europe", "5", "remove", "North America"};
         String[] mInCmd12 = {"editmap"};
+        String[] mInCmd13 = {"editcontinent"};
+
         assertFalse((CommandsParser.isValidCommand(mInCmd1)));
         assertFalse((CommandsParser.isValidCommand(mInCmd2)));
         assertFalse((CommandsParser.isValidCommand(mInCmd3)));
@@ -110,6 +112,7 @@ public class CommandsParserTest {
         assertFalse((CommandsParser.isValidCommand(mInCmd10)));
         assertFalse((CommandsParser.isValidCommand(mInCmd11)));
         assertFalse((CommandsParser.isValidCommand(mInCmd12)));
+        assertFalse((CommandsParser.isValidCommand(mInCmd13)));
     }
 
     @Test

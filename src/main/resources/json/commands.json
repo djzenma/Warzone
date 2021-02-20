@@ -102,6 +102,10 @@
     {
       "name": "showmap",
       "args": []
+    },
+    {
+      "name": "exit",
+      "args": []
     }
   ]
 }
