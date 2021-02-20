@@ -4,23 +4,22 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Added implementation of savemap command.">
-      <changelist_data name="1301shivangi" email="ahujashivangi1301@gmail.com" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/MapControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/MapControllerTest.java" afterDir="false" />
+    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Updated Javdocs!">
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/MapController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MapController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/Orders/DeployController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/ContinentModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/ContinentModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/CountryModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/CountryModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/GameEngineModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/GameEngineModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/OrderModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/OrderModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/Orders/DeployModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Orders/DeployModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/PlayerModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/PlayerModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/Controller/GameEngineControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Controller/GameEngineControllerTest.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/Controller/MapControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Controller/MapControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/MainTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/MainTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -360,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1613758898389</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added unit tests for MapEditor!">
+      <created>1613822801590</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1613822801590</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -480,7 +486,8 @@
     <MESSAGE value="Changed HashMaps to LinkedHashMaps to follow XP's simple design!" />
     <MESSAGE value="Added MapUtils methods!" />
     <MESSAGE value="Added implementation of savemap command." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added implementation of savemap command." />
+    <MESSAGE value="Added unit tests for MapEditor!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added unit tests for MapEditor!" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />

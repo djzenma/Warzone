@@ -32,8 +32,8 @@ public class MapUtils {
 
     public String getMapsPath() {
         Path l_currentRelativePath = Paths.get("");
-        String l_mapsPath = l_currentRelativePath.toAbsolutePath().toString() + "\\maps\\";
-        return l_mapsPath;
+        //String l_mapsPath = l_currentRelativePath.toAbsolutePath().toString() + "\\maps\\";
+        return "maps/";
     }
 
     public boolean areMapFilesEqual(String p_firstFile, String p_secondFile) throws IOException {
