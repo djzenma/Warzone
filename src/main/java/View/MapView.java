@@ -12,7 +12,6 @@ public class MapView {
         String l_command = l_scanner.nextLine();
 
         // clean it
-        l_command = l_command.toLowerCase();
         String[] l_commandArgs = l_command.split("\\s+");
 
         // remove any '-' before any named argument
@@ -28,10 +27,24 @@ public class MapView {
     }
 
     public void mapEditorPhase() {
-        System.out.println("\n********** MAPEDITOR PHASE **********\n");
+        System.out.print("\n********** MAP EDITOR PHASE **********\n");
     }
 
     public void commandNotValid() {
         System.out.println("Please Enter a Valid Command!");
+    }
+
+    public void mapNotLoaded() {
+        System.out.println("Domination map file is not loaded currently. \n" +
+                "Must load the domination map file to be edited first!");
+    }
+
+    public void validMap(boolean validateMap) {
+        if (validateMap){
+            System.out.println("The map is valid!");
+        }
+        else{
+            System.out.println("The map is invalid!");
+        }
     }
 }

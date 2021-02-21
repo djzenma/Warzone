@@ -1,4 +1,4 @@
-package Controller;
+package Model;
 
 import Model.MapModel;
 import Utils.MapUtils;
@@ -27,7 +27,7 @@ public class MapModelTest {
     }
 
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         d_map.editMap(l_testMapFileName);
     }
 
@@ -81,15 +81,13 @@ public class MapModelTest {
     }
 
     @Test
-    public void showMap() {
-    }
-
-    @Test
     public void validateMap() throws Exception {
         d_map.editNeighbor("remove Pluto-West Pluto-East");
-        assertFalse(d_map.validateMap());
+        d_map.validateMap();
+        assertFalse(d_map.isMapValid());
 
         d_map.editNeighbor("add Pluto-West Pluto-East");
-        assertTrue(d_map.validateMap());
+        d_map.validateMap();
+        assertTrue(d_map.isMapValid());
     }
 }

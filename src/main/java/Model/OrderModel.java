@@ -36,7 +36,6 @@ public abstract class OrderModel {
         this.d_cmdName = d_cmdName;
     }
 
-
     public String getCmdName() {
         return d_cmdName;
     }

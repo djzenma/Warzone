@@ -3,7 +3,7 @@ package Model;
 import java.util.LinkedHashMap;
 
 public class CountryModel {
-    private final int d_id;
+    private int d_id;
     private final String d_name;
     private String d_continentId;
     private int d_armies;
@@ -110,4 +110,7 @@ public class CountryModel {
         return d_neighbors.get(this);
     }
 
+    public void setId(int p_id) {
+        this.d_id = p_id;
+    }
 }

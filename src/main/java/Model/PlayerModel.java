@@ -135,7 +135,7 @@ public class PlayerModel {
      * Player issues an order. In this various conditions are checked and the method is recursively called until user issues a valid order
      * @return false if the order is invalid, otherwise true
      */
-    public boolean issueOrder(){
+    public boolean issueOrder() {
         OrderModel l_order;
         String[] l_args;
 
@@ -159,13 +159,11 @@ public class PlayerModel {
             String l_countryName = l_args[1];
             int l_requestedReinforcements = Integer.parseInt(l_args[2]);
 
-
             // handle if the player deploys in a country that it does not owns
             if(!this.containsCountry(l_countryName)) {
                 this.d_view.InvalidCountry();
                 return issueOrder(); // retake the order from the beginning
             }
-
 
             // handle if the player has enough reinforcements to deploy
             else if(l_nReinforcements < l_requestedReinforcements) {

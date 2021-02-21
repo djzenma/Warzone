@@ -75,4 +75,8 @@ public class ContinentModel {
     public String getColor() {
         return d_color;
     }
+
+    public void setId(int p_id) {
+        this.d_id= p_id;
+    }
 }
