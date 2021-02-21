@@ -2,6 +2,7 @@ package Model;
 
 import Controller.OrderController;
 import Model.Orders.DeployModel;
+import Utils.CommandsParser;
 import View.PlayerView;
 
 import java.util.ArrayDeque;
@@ -128,7 +129,7 @@ public class PlayerModel {
         String[] l_args;
         do {
             l_args = PlayerView.issueOrderView();
-        } while(!OrderModel.isValidOrder(l_args[0]));
+        } while (!CommandsParser.isValidCommand(l_args));
         return l_args;
     }
 
@@ -143,9 +144,6 @@ public class PlayerModel {
         l_args = takeOrder();
 
         int l_nReinforcements = this.getReinforcements();
-        for (OrderModel order : this.d_orderList) {
-            l_nReinforcements -= order.getReinforcements();
-        }
 
         // checks if the player is trying to pass/skip the turn
         if(l_args[0].equals(OrderModel.CMDS.PASS.toString().toLowerCase())) {
@@ -158,7 +156,7 @@ public class PlayerModel {
         // checks if the player issued the deploy order
         if(l_args[0].equals(OrderModel.CMDS.DEPLOY.toString().toLowerCase())) {
             String l_countryName = l_args[1];
-            int l_requestedReinforcements = Integer.parseInt(l_args[2]);
+            int l_requestedReinforcements = (int) (Float.parseFloat(l_args[2]));
 
             // handle if the player deploys in a country that it does not owns
             if(!this.containsCountry(l_countryName)) {
@@ -175,6 +173,7 @@ public class PlayerModel {
                 l_order.setCountryName(l_args[1]);
                 l_order.setReinforcements(l_requestedReinforcements);
                 this.addOrder(l_order);
+                this.setReinforcements(this.getReinforcements() - l_requestedReinforcements);
                 return true;
             }
         }

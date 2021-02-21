@@ -58,6 +58,8 @@ public class GameEngineController {
                 else if (CommandsParser.isAssignCountries(l_args)) {
                     this.d_model.assignCountries();
                     l_end = true;
+                } else {
+                    this.d_view.isMapEditorCommand();
                 }
             } catch (Exception l_e) {
                 d_view.exception(l_e.getMessage());
@@ -84,17 +86,25 @@ public class GameEngineController {
         return !l_end;
     }
 
-    public void run(){
+    public void run() {
         // Startup Phase
         d_view.startupPhase();
         this.startup();
 
+        int l_turnNumber = 1;
+
         // GamePlay Loop
         d_view.gameplayPhase();
-        this.d_model.assignReinforcements();
 
-        while(this.issueOrders());
+        while (true) {
+            d_view.gamePlayTurnNumber(l_turnNumber);
+            this.d_model.assignReinforcements();
 
-        while(this.d_model.executeOrders());
+            while (this.issueOrders()) ;
+
+            while (this.d_model.executeOrders()) ;
+
+            l_turnNumber++;
+        }
     }
 }

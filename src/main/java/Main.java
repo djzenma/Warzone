@@ -64,8 +64,7 @@ public class Main {
         l_continents.add(c2);
 
 
-        GameEngineModel l_gameEngineModel = new GameEngineModel(l_countries, l_continents);
-        GameEngineController l_gameEngineController = new GameEngineController(l_gameEngineModel, new GameEngineView());
+
 
         //l_gameEngineController.run();
 
@@ -80,6 +79,19 @@ public class Main {
         d_mapView = new MapView();
         d_mapController = new MapController(d_mapModel, d_mapView);
 
-        d_mapController.run();
+        MapModel l_map = d_mapController.run();
+
+        GameEngineModel l_gameEngineModel = new GameEngineModel(l_map.getCountries(), new ArrayList<ContinentModel>(l_map.getContinents().values()));
+        GameEngineController l_gameEngineController = new GameEngineController(l_gameEngineModel, new GameEngineView());
+        l_gameEngineController.run();
     }
+
+    public void init() {
+        System.out.println("***********************WARZONE***********************" + "\n" + "\n");
+        System.out.println("Choose from the menu: ");
+        System.out.println("1. Create a new map");
+        System.out.println("2. Use an existing map");
+        System.out.println("3. Exit");
+    }
+
 }

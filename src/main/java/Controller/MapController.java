@@ -5,9 +5,8 @@ import Model.CountryModel;
 import Model.GameEngineModel;
 import Model.MapModel;
 import Utils.CommandsParser;
-import View.GameEngineView;
 import View.MapView;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
@@ -19,8 +18,8 @@ import java.util.function.Consumer;
 public class MapController {
 
 
-    private MapModel d_mapModel;
-    private MapView d_mapView;
+    private final MapModel d_mapModel;
+    private final MapView d_mapView;
     private GameEngineModel l_gameEngineModel;
     private GameEngineController l_gameEngineController;
     private LinkedHashMap<String, ContinentModel> d_continents;
@@ -33,7 +32,7 @@ public class MapController {
         this.d_mapView = p_mapView;
     }
 
-    public void run() {
+    public MapModel run() {
         d_mapView.mapEditorPhase();
 
         String[] l_args;
@@ -110,17 +109,20 @@ public class MapController {
                         showContinents();
                         break;
                     case "showcountries":
-                        if(!d_mapModel.isMapFileLoaded()){
+                        if (!d_mapModel.isMapFileLoaded()) {
                             d_mapView.mapNotLoaded();
                             continue;
                         }
                         showCountries();
                         break;
-                    case "exit":
-                        l_gameEngineModel= new GameEngineModel(d_mapModel.getCountries(),
-                                new ArrayList(Arrays.asList(d_mapModel.getContinents().values())));
-                        l_gameEngineController = new GameEngineController(l_gameEngineModel, new GameEngineView());
-                        l_gameEngineController.run();
+                    case "loadmap":
+                        boolean l_isExistingFile;
+                        l_isExistingFile = d_mapModel.editMap(String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length)));
+
+                        if (!l_isExistingFile) {
+                            d_mapModel.validateMap();
+                            d_mapView.validMap(d_mapModel.isMapValid());
+                        }
                         break;
                     default:
                         d_mapView.commandNotValid();
@@ -128,7 +130,11 @@ public class MapController {
             } catch (Exception l_e) {
                 d_mapView.exception(l_e.toString());
             }
+
+            if (l_args[0].equals("loadmap"))
+                break;
         }
+        return d_mapModel;
     }
 
     /**

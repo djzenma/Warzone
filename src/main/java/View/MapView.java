@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class MapView {
 
     public String[] listenForCommands() {
-        System.out.print("\n>>");
+        System.out.print("\n>> ");
 
         // take the command
         Scanner l_scanner = new Scanner(System.in);
