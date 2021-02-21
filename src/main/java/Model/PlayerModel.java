@@ -23,6 +23,7 @@ public class PlayerModel {
      * Constructor of thr PlayerModel
      *
      * @param p_name name of the player
+     * @param p_view
      */
     public PlayerModel(String p_name, PlayerView p_view) {
         this.setName(p_name);
@@ -59,8 +60,8 @@ public class PlayerModel {
 
     /**
      *
-     * @param p_countryId
-     * @return
+     * @param p_countryId id of the country
+     * @return country object
      */
     public CountryModel getCountryById(int p_countryId) {
         return d_countries.get(p_countryId);

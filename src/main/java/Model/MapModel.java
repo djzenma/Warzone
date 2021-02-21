@@ -339,7 +339,7 @@ public class MapModel {
      *
      * @param p_filename name of the map file
      * @return ArrayList of country and continent HashMaps
-     * @throws IOException
+     * @throws IOException in case of any I/O error
      */
     public ArrayList<LinkedHashMap> loadMap(String p_filename) throws Exception {
         this.d_continents = new LinkedHashMap<String, ContinentModel>();
@@ -454,7 +454,6 @@ public class MapModel {
     /**
      * A method that handles the validatemap command
      *
-     * @return false if the map is invalid
      */
     public void validateMap() {
 
