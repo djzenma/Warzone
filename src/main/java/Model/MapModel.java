@@ -319,7 +319,6 @@ public class MapModel {
      *
      * @param p_file .map file object
      * @throws IOException If an I/O error occurred
-     * @return true if the file exists
      */
     public void editMap(File p_file) throws Exception {
         this.d_mapFileLoaded = true;
@@ -331,7 +330,6 @@ public class MapModel {
      * loads the map specified by p_filename to memory
      *
      * @param p_file .map file object
-     * @return ArrayList of country and continent HashMaps
      * @throws IOException in case of any I/O error
      */
     public void loadMap(File p_file) throws Exception {
