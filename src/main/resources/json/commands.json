@@ -50,6 +50,7 @@
         }
       ]
     },
+
     {
       "name": "editcountry",
       "args": [],
@@ -64,6 +65,7 @@
         }
       ]
     },
+
     {
       "name": "editneighbor",
       "args": [],
@@ -78,6 +80,7 @@
         }
       ]
     },
+
     {
       "name": "savemap",
       "args": [
@@ -86,6 +89,7 @@
         }
       ]
     },
+
     {
       "name": "editmap",
       "args": [
@@ -94,22 +98,32 @@
         }
       ]
     },
+
     {
       "name": "validatemap",
       "args": []
     },
+
     {
       "name": "showmap",
       "args": []
     },
+
     {
       "name": "showcontinents",
       "args": []
     },
+
     {
       "name": "showcountries",
       "args": []
     },
+
+    {
+      "name": "exit",
+      "args": []
+    },
+
     {
       "name": "loadmap",
       "args": [

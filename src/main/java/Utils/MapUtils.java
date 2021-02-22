@@ -32,7 +32,8 @@ public class MapUtils {
 
     public String getMapsPath() {
         Path l_currentRelativePath = Paths.get("");
-        //String l_mapsPath = l_currentRelativePath.toAbsolutePath().toString() + "\\maps\\";
+        String l_mapsPath = l_currentRelativePath.toAbsolutePath().toString() + "\\maps\\";
+        //return l_mapsPath;
         return "maps/";
     }
 

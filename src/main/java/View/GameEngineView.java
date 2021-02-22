@@ -14,7 +14,7 @@ public class GameEngineView {
         String l_command = l_scanner.nextLine();
 
         // clean it
-        l_command = l_command.toLowerCase();
+        //l_command = l_command.toLowerCase();
         String[] l_commandArgs = l_command.split("\\s+");
 
         // remove any '-' before any named argument
@@ -55,6 +55,10 @@ public class GameEngineView {
     }
 
     public void isMapEditorCommand() {
-        System.out.println("Please enter a valid Game Engine Command");
+        System.out.println("Please enter a valid Game Engine Startup Command");
+    }
+
+    public void mapNotLoaded() {
+        System.out.println("You have not loaded any map yet. Please load a map first!");
     }
 }

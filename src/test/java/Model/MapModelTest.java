@@ -1,12 +1,13 @@
 package Model;
 
-import Model.MapModel;
+import Controller.MapController;
 import Utils.MapUtils;
+import View.MapView;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.IOException;
+import java.io.File;
 
 import static org.junit.Assert.*;
 
@@ -17,52 +18,58 @@ import static org.junit.Assert.*;
 public class MapModelTest {
 
     private static final String l_testMapFileName = "solar.map";
-    private static MapModel d_map;
+    private static MapModel d_mapModel;
+    private static MapView d_mapView;
+    private static MapController d_mapController;
     private static MapUtils d_mapUtils;
 
     @BeforeClass
     public static void init() throws Exception {
-        d_map = new MapModel();
+        d_mapModel = new MapModel();
+        d_mapView = new MapView();
+        d_mapController = new MapController(d_mapModel, d_mapView);
+
         d_mapUtils = new MapUtils();
     }
 
     @Before
     public void setUp() throws Exception {
-        d_map.editMap(l_testMapFileName);
+        File l_file = (File) d_mapController.getMapFile(l_testMapFileName, false).get(0);
+        d_mapModel.editMap(l_file);
     }
 
     @Test
     public void editContinent() throws Exception {
-        d_map.editContinent("add Asia 5");
-        assertNotNull(d_map.getContinents().get("Asia"));
-        assertEquals(5, d_map.getContinents().get("Asia").getControlValue());
+        d_mapModel.editContinent("add Asia 5");
+        assertNotNull(d_mapModel.getContinents().get("Asia"));
+        assertEquals(5, d_mapModel.getContinents().get("Asia").getControlValue());
 
-        d_map.editContinent("remove Asia");
-        assertFalse(d_map.getContinents().containsKey("Asia"));
+        d_mapModel.editContinent("remove Asia");
+        assertFalse(d_mapModel.getContinents().containsKey("Asia"));
     }
 
     @Test
     public void editCountry() throws Exception {
-        d_map.editCountry("add Australia Earth");
-        assertNotNull(d_map.getCountries().get("Australia"));
-        assertEquals("Earth", d_map.getCountries().get("Australia").getContinentId());
+        d_mapModel.editCountry("add Australia Earth");
+        assertNotNull(d_mapModel.getCountries().get("Australia"));
+        assertEquals("Earth", d_mapModel.getCountries().get("Australia").getContinentId());
 
-        d_map.editCountry("remove Australia");
-        assertFalse(d_map.getCountries().containsKey("Australia"));
+        d_mapModel.editCountry("remove Australia");
+        assertFalse(d_mapModel.getCountries().containsKey("Australia"));
     }
 
     @Test
     public void editNeighbor() throws Exception {
-        d_map.editNeighbor("add Mars-Northwest Mercury-South");
-        assertTrue(d_map.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
+        d_mapModel.editNeighbor("add Mars-Northwest Mercury-South");
+        assertTrue(d_mapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
 
-        d_map.editNeighbor("remove Mars-Northwest Mercury-South");
-        assertFalse(d_map.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
+        d_mapModel.editNeighbor("remove Mars-Northwest Mercury-South");
+        assertFalse(d_mapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
 
-        d_map.editNeighbor("add Mars-Northwest Mercury-South remove Mars-Northwest Mars-Central");
-        assertTrue(d_map.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
-        assertFalse(d_map.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mars-Central"));
-        d_map.editNeighbor("remove Mars-Northwest Mercury-South add Mars-Northwest Mars-Central");
+        d_mapModel.editNeighbor("add Mars-Northwest Mercury-South remove Mars-Northwest Mars-Central");
+        assertTrue(d_mapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
+        assertFalse(d_mapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mars-Central"));
+        d_mapModel.editNeighbor("remove Mars-Northwest Mercury-South add Mars-Northwest Mars-Central");
     }
 
     @Test
@@ -72,22 +79,22 @@ public class MapModelTest {
         int[] l_continentControlValues = {6, 8, 10, 10, 4, 12, 8, 6, 6, 2};
 
         //compare continent names
-        assertArrayEquals(l_continentList, d_map.getContinents().keySet().toArray());
+        assertArrayEquals(l_continentList, d_mapModel.getContinents().keySet().toArray());
 
         //compare continent control values
         for (int l_i = 0; l_i < l_continentList.length; l_i++) {
-            assertEquals(l_continentControlValues[l_i], d_map.getContinents().get(l_continentList[l_i]).getControlValue());
+            assertEquals(l_continentControlValues[l_i], d_mapModel.getContinents().get(l_continentList[l_i]).getControlValue());
         }
     }
 
     @Test
     public void validateMap() throws Exception {
-        d_map.editNeighbor("remove Pluto-West Pluto-East");
-        d_map.validateMap();
-        assertFalse(d_map.isMapValid());
+        d_mapModel.editNeighbor("remove Pluto-West Pluto-East");
+        d_mapModel.validateMap();
+        assertFalse(d_mapModel.isMapValid());
 
-        d_map.editNeighbor("add Pluto-West Pluto-East");
-        d_map.validateMap();
-        assertTrue(d_map.isMapValid());
+        d_mapModel.editNeighbor("add Pluto-West Pluto-East");
+        d_mapModel.validateMap();
+        assertTrue(d_mapModel.isMapValid());
     }
 }

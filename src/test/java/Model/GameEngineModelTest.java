@@ -72,7 +72,10 @@ public class GameEngineModelTest {
         l_continents.add(c1);
         l_continents.add(c2);
 
-        d_gameEngine = new GameEngineModel(l_countries, l_continents);
+        d_gameEngine = new GameEngineModel();
+        d_gameEngine.setCountries(l_countries);
+        d_gameEngine.setContinents(l_continents);
+
     }
 
     @Test

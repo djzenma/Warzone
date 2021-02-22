@@ -186,4 +186,11 @@ public class CommandsParser {
     public static boolean isAssignCountries(String[] l_args) {
         return l_args[0].equals("assigncountries");
     }
+
+    public static boolean isLoadMap(String[] l_args) {
+        return l_args[0].equals("loadmap");
+    }
+
+    public static boolean isShowMap(String[] l_args) { return l_args[0].equals("showmap");
+    }
 }

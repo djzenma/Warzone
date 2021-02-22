@@ -47,4 +47,8 @@ public class MapView {
             System.out.println("The map is invalid!");
         }
     }
+
+    public void showMsg(String p_msg) {
+        System.out.println(p_msg);
+    }
 }

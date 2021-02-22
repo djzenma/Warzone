@@ -1,10 +1,15 @@
 package Controller;
 
+import Model.ContinentModel;
 import Model.GameEngineModel;
+import Model.MapModel;
 import Model.PlayerModel;
 import Utils.CommandsParser;
+import Utils.MapUtils;
 import View.GameEngineView;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -16,17 +21,20 @@ public class GameEngineController {
     private final GameEngineModel d_model;
     private final GameEngineView d_view;
 
+    private final MapModel d_mapModel;
+
     public GameEngineController(GameEngineModel p_model, GameEngineView p_view) {
         this.d_model = p_model;
         this.d_view = p_view;
+        this.d_mapModel = new MapModel();
     }
-
 
     public void startup() {
         boolean l_end = false;
+        boolean l_isMapLoaded = false;
         String[] l_args;
 
-        // stay in the STARTUP phase unless the user assignscountries which moves the game to the next phase
+        // stay in the STARTUP phase unless the user assigns countries which moves the game to the next phase
         while(!l_end) {
             // get a valid command from the user
             do {
@@ -35,9 +43,16 @@ public class GameEngineController {
                     d_view.commandNotValid();
             } while (!CommandsParser.isValidCommand(l_args));
 
+            // if map is not yet loaded keep asking to load map first
+            if(!l_isMapLoaded && !CommandsParser.isLoadMap(l_args)){
+                this.d_view.mapNotLoaded();
+                continue;
+            }
+
             try {
                 // if the command entered is gameplayer
                 if (CommandsParser.isGameplayer(l_args)) {
+
                     // get the players to be added or removed
                     HashMap<String, List<String>> l_gameplayerArgs = CommandsParser.getArguments(l_args);
 
@@ -53,11 +68,17 @@ public class GameEngineController {
                             this.d_model.removePlayer(l_player);
                     }
                 }
-
                 // if the command entered is assigncountries
                 else if (CommandsParser.isAssignCountries(l_args)) {
                     this.d_model.assignCountries();
                     l_end = true;
+                }
+                // if the command entered is loadmap
+                else if (CommandsParser.isLoadMap(l_args)) {
+                    this.d_mapModel.loadMap(new File(new MapUtils().getMapsPath() + l_args[1]));
+                    l_isMapLoaded = true;
+                    this.d_model.setContinents(new ArrayList<ContinentModel>(this.d_mapModel.getContinents().values()));
+                    this.d_model.setCountries(this.d_mapModel.getCountries());
                 } else {
                     this.d_view.isMapEditorCommand();
                 }

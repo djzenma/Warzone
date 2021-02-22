@@ -15,21 +15,25 @@ import static java.lang.Math.floor;
  */
 public class GameEngineModel {
     private final HashMap<String, PlayerModel> d_players;
-    private final HashMap<String, CountryModel> d_countries;
-    private final ArrayList<ContinentModel> d_continents;
+    private  HashMap<String, CountryModel> d_countries;
+    private  ArrayList<ContinentModel> d_continents;
 
     /**
      * Constructor of the GameEngineModel
      *
-     * @param p_countries  countries hashmap
-     * @param p_continents list of the continents
      */
-    public GameEngineModel(HashMap<String, CountryModel> p_countries,
-                           ArrayList<ContinentModel> p_continents) {
-
+    public GameEngineModel() {
         this.d_players = new HashMap<>();
-        this.d_countries = p_countries;
-        this.d_continents = p_continents;
+        this.d_continents = new ArrayList<>();
+        this.d_countries = new HashMap<>();
+    }
+
+    public void setCountries(HashMap<String, CountryModel> d_countries) {
+        this.d_countries = d_countries;
+    }
+
+    public void setContinents(ArrayList<ContinentModel> d_continents) {
+        this.d_continents = d_continents;
     }
 
     /**

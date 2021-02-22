@@ -2,43 +2,39 @@ package Model;
 
 import Utils.MapUtils;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 public class MapModel {
 
-    private final String DEFAULT_COLOR = "yellow";
-    private final String DEFAULT_X_COORDINATE = "000";
-    private final String DEFAULT_Y_COORDINATE = "000";
     private final String MAPS_PATH;
-
-    private int[][] d_mapAdjacencyMatrix;
-    private LinkedHashMap<String, LinkedHashMap<String, Integer>> d_mapAdjacency;
+    private final MapUtils d_mapUtils;
 
     private boolean d_IsMapValid;
     private boolean d_mapFileLoaded;
-    private String d_currentFile;
 
-    private MapUtils d_mapUtils;
+    private String d_currentFileName;
 
     private LinkedHashMap<String, ContinentModel> d_continents;
     private LinkedHashMap<String, CountryModel> d_countries;
 
+
     public MapModel() {
-        this.d_continents = new LinkedHashMap<String, ContinentModel>();
-        this.d_countries = new LinkedHashMap<String, CountryModel>();
-        this.d_mapAdjacency = new LinkedHashMap<>();
+        this.d_continents = new LinkedHashMap<>();
+        this.d_countries = new LinkedHashMap<>();
         this.d_mapUtils = new MapUtils();
         this.MAPS_PATH = d_mapUtils.getMapsPath();
         this.d_mapFileLoaded = false;
         this.d_IsMapValid = false;
+    }
+
+    public String getCurrentFileName() {
+        return d_currentFileName;
     }
 
     public boolean isMapValid() {
@@ -46,7 +42,7 @@ public class MapModel {
     }
 
     public boolean isMapFileLoaded() {
-        return d_mapFileLoaded;
+        return !d_mapFileLoaded;
     }
 
     public LinkedHashMap<String, ContinentModel> getContinents() {
@@ -60,16 +56,18 @@ public class MapModel {
     /**
      * A method that handles the editcontinent command
      *
-     * @param p_command command in the form of "add continentID continentValue remove continentID"
+     * @param p_command command in the form of "add continentID controlValue remove continentID"
      * @throws Exception if the user tries to remove a non-existing continent
      * @throws Exception if the user tries to use options other than -add or -remove
      */
     public void editContinent(String p_command) throws Exception {
 
         Scanner l_sc = new Scanner(p_command);
+
         String l_tempContinentName;
         int l_tempControlValue;
         int l_tempContinentId;
+
         ContinentModel l_continentModel;
 
         while (l_sc.hasNext()) {
@@ -81,8 +79,17 @@ public class MapModel {
                     throw new Exception("Continent name cannot be a number!");
                 }
 
-                l_tempControlValue = Integer.parseInt(l_sc.next());
+                String l_temp = l_sc.next();
+
+                if(!(isNameNumber(String.valueOf(l_temp)))){
+                    throw new Exception("Control Value must be a number!");
+                }
+
+                l_tempControlValue = Integer.parseInt(l_temp);
+
                 l_tempContinentId = this.d_continents.size() + 1;
+
+                String DEFAULT_COLOR = "yellow";
                 l_continentModel = new ContinentModel(l_tempContinentId, l_tempContinentName, l_tempControlValue, DEFAULT_COLOR);
                 this.d_continents.put(l_tempContinentName, l_continentModel);
             }
@@ -104,12 +111,9 @@ public class MapModel {
                 // Update all continent ids
                 final int[] l_id = {1};
 
-                this.d_continents.replaceAll(new BiFunction<String, ContinentModel, ContinentModel>() {
-                    @Override
-                    public ContinentModel apply(String p_continentName, ContinentModel p_continentModel) {
-                        p_continentModel.setId(l_id[0]++);
-                        return p_continentModel;
-                    }
+                this.d_continents.replaceAll((p_continentName, p_continentModel) -> {
+                    p_continentModel.setId(l_id[0]++);
+                    return p_continentModel;
                 });
             }
             else {
@@ -128,9 +132,12 @@ public class MapModel {
     public void updateCountries(String p_continentName) {
         ArrayList<CountryModel> l_countryModels = new ArrayList<>();
 
-        this.d_countries.values().forEach(countryModel -> {
-            if(countryModel.getContinentId().trim().equals(p_continentName.trim())){
-                l_countryModels.add(countryModel);
+        this.d_countries.values().forEach(new Consumer<CountryModel>() {
+            @Override
+            public void accept(CountryModel countryModel) {
+                if(countryModel.getContinentId().trim().equals(p_continentName.trim())){
+                    l_countryModels.add(countryModel);
+                }
             }
         });
 
@@ -142,12 +149,9 @@ public class MapModel {
         final int[] l_id = {1};
 
         // Update all countries' ids
-        this.d_countries.replaceAll(new BiFunction<String, CountryModel, CountryModel>() {
-            @Override
-            public CountryModel apply(String p_countryName, CountryModel p_countryModel) {
-                p_countryModel.setId(l_id[0]++);
-                return p_countryModel;
-            }
+        this.d_countries.replaceAll((p_countryName, p_countryModel) -> {
+            p_countryModel.setId(l_id[0]++);
+            return p_countryModel;
         });
     }
 
@@ -186,6 +190,8 @@ public class MapModel {
                 }
 
                 l_tempCountryId = d_countries.size() + 1;
+                String DEFAULT_Y_COORDINATE = "000";
+                String DEFAULT_X_COORDINATE = "000";
                 l_countryModel = new CountryModel(l_tempCountryId, l_tempCountryName, l_tempContinentName, DEFAULT_X_COORDINATE, DEFAULT_Y_COORDINATE);
                 this.d_countries.put(l_tempCountryName, l_countryModel);
 
@@ -208,12 +214,9 @@ public class MapModel {
                 final int[] l_id = {1};
 
                 // Update all countries' ids
-                this.d_countries.replaceAll(new BiFunction<String, CountryModel, CountryModel>() {
-                    @Override
-                    public CountryModel apply(String p_countryName, CountryModel p_countryModel) {
-                        p_countryModel.setId(l_id[0]++);
-                        return p_countryModel;
-                    }
+                this.d_countries.replaceAll((p_countryName, p_countryModel) -> {
+                    p_countryModel.setId(l_id[0]++);
+                    return p_countryModel;
                 });
 
                 updateNeighbors(l_tempCountryName);
@@ -234,14 +237,11 @@ public class MapModel {
      */
     public void updateNeighbors(String p_countryName) {
 
-        ArrayList<CountryModel> l_countryModels = new ArrayList<CountryModel>();
+        ArrayList<CountryModel> l_countryModels = new ArrayList<>();
 
-        this.d_countries.values().forEach(new Consumer<CountryModel>() {
-            @Override
-            public void accept(CountryModel countryModel) {
-                if(countryModel.getNeighbors().containsKey(p_countryName)){
-                    l_countryModels.add(countryModel);
-                }
+        this.d_countries.values().forEach(countryModel -> {
+            if(countryModel.getNeighbors().containsKey(p_countryName)){
+                l_countryModels.add(countryModel);
             }
         });
 
@@ -317,50 +317,34 @@ public class MapModel {
     /**
      * handles the editmap command
      *
-     * @param p_filename .map file's name
+     * @param p_file .map file object
      * @throws IOException If an I/O error occurred
+     * @return true if the file exists
      */
-    public boolean editMap(String p_filename) throws Exception {
-
-        String l_fileExt = p_filename.split("\\.")[p_filename.split("\\.").length - 1].trim();
-        if(!(l_fileExt.equals("map"))){
-            throw new Exception("." + l_fileExt + " files are not acceptable! Please enter .map filename.");
-        }
-
+    public void editMap(File p_file) throws Exception {
         this.d_mapFileLoaded = true;
-        this.d_currentFile = p_filename;
-        ArrayList<LinkedHashMap> l_mapInfo = loadMap(p_filename);
-
-        return l_mapInfo == null;
+        this.d_currentFileName = p_file.getName();
+        loadMap(p_file);
     }
 
     /**
      * loads the map specified by p_filename to memory
      *
-     * @param p_filename name of the map file
+     * @param p_file .map file object
      * @return ArrayList of country and continent HashMaps
      * @throws IOException in case of any I/O error
      */
-    public ArrayList<LinkedHashMap> loadMap(String p_filename) throws Exception {
+    public void loadMap(File p_file) throws Exception {
         this.d_continents = new LinkedHashMap<String, ContinentModel>();
         this.d_countries = new LinkedHashMap<String, CountryModel>();
         Iterator<String> d_iterator;
         Iterator<String> d_localIterator;
-        File l_file;
         String l_fileContent;
         String[] l_fileLines;
         String l_tempLine;
         String[] l_tempData;
 
-        l_file = new File(MAPS_PATH + p_filename);
-
-        if (!(l_file.exists())) {
-            l_file.createNewFile();
-            System.out.println(p_filename + " file does not exists!\nCreated new " + p_filename + " file.");
-            return null;
-        }
-
-        l_fileContent = d_mapUtils.readMapFile(l_file);
+        l_fileContent = d_mapUtils.readMapFile(p_file);
         l_fileLines = l_fileContent.split("\n");
         d_iterator = Arrays.stream(l_fileLines).iterator();
 
@@ -444,11 +428,6 @@ public class MapModel {
                 }
             }
         }
-
-        ArrayList<LinkedHashMap> l_countries_continents = new ArrayList<LinkedHashMap>();
-        l_countries_continents.add(d_countries);
-        l_countries_continents.add(d_continents);
-        return l_countries_continents;
     }
 
     /**
@@ -456,7 +435,6 @@ public class MapModel {
      *
      */
     public void validateMap() {
-
         d_IsMapValid = validateMapTypeOne() && validateMapTypeTwo() && validateMapTypeThree();
     }
 
@@ -526,32 +504,24 @@ public class MapModel {
         return l_valid.get();
     }
 
-    public void saveMap(String p_filename) throws Exception {
+    public void saveMap(File p_file) throws Exception {
         validateMap();
         if(!d_IsMapValid){
             throw new Exception("The map is invalid. Cannot be saved!");
         }
 
         File l_file;
-        Iterator<String> l_iterator;
-        String l_fileContent;
-        String[] l_fileLines;
         String l_tempLine = null;
         FileOutputStream l_fos;
-        l_file = new File(MAPS_PATH + p_filename);
-
-        if (!(d_currentFile.equals(p_filename)) && l_file.exists())
-            System.out.println("\nWARNING: The " + p_filename + " file is not loaded currently.");
 
         // Writes [files] section
-
-        l_file.createNewFile();
-        l_fos = new FileOutputStream(l_file);
+        p_file.createNewFile();
+        l_fos = new FileOutputStream(p_file);
 
         l_tempLine = "[files]\n" +
-                "pic " + p_filename.split("\\.")[0] + "_pic.jpg\n" +
-                "map " + p_filename.split("\\.")[0] + "_map.gif\n" +
-                "crd " + p_filename.split("\\.")[0] + ".cards\n\n";
+                "pic " + p_file.getName().split("\\.")[0] + "_pic.jpg\n" +
+                "map " + p_file.getName().split("\\.")[0] + "_map.gif\n" +
+                "crd " + p_file.getName().split("\\.")[0] + ".cards\n\n";
         l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
 
 
@@ -588,7 +558,6 @@ public class MapModel {
         }).forEach(new Consumer<CountryModel>() {
             @Override
             public void accept(CountryModel countryModel) {
-
                 try {
                     l_fos.write((countryModel.getId() + " " +
                             countryModel.getName() + " " +
