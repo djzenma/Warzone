@@ -129,9 +129,9 @@ public class GameEngineModelTest {
     public void assignReinforcements() {
         d_gameEngine.assignCountries();
         d_gameEngine.assignReinforcements();
-        assertEquals(12, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
-        assertEquals(4, d_gameEngine.getPlayers().get("Aman").getReinforcements());
-        assertEquals(4, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
+        assertEquals(11, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
+        assertEquals(3, d_gameEngine.getPlayers().get("Aman").getReinforcements());
+        assertEquals(3, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
     }
 
 
