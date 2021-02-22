@@ -28,4 +28,8 @@ public class PlayerView {
     public void InvalidCountry() {
         System.out.println("You don't own this country!");
     }
+
+    public void InvalidNumber() {
+        System.out.println("Please enter a valid number!");
+    }
 }

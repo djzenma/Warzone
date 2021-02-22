@@ -11,6 +11,16 @@ public class CountryModel {
     private String d_yCoordinate;
     private LinkedHashMap<CountryModel, LinkedHashMap<String, CountryModel>> d_neighbors;
 
+    private String d_ownerName;
+
+    public String getOwnerName() {
+        return this.d_ownerName;
+    }
+
+    public void setOwnerName(String p_ownerName) {
+        this.d_ownerName = p_ownerName;
+    }
+
     /**
      * Constructor of CountryModel
      *

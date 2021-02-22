@@ -191,6 +191,11 @@ public class CommandsParser {
         return l_args[0].equals("loadmap");
     }
 
-    public static boolean isShowMap(String[] l_args) { return l_args[0].equals("showmap");
+    public static boolean isShowMap(String[] l_args) {
+        return l_args[0].equals("showmap");
+    }
+
+    public static boolean isPass(String[] l_args) {
+        return l_args[0].equals("pass");
     }
 }

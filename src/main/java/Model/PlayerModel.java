@@ -135,42 +135,47 @@ public class PlayerModel {
 
     /**
      * Player issues an order. In this various conditions are checked and the method is recursively called until user issues a valid order
+     *
      * @return false if the order is invalid, otherwise true
      */
-    public boolean issueOrder() {
+    public boolean issueOrder(String[] p_args) {
         OrderModel l_order;
-        String[] l_args;
-
-        l_args = takeOrder();
 
         int l_nReinforcements = this.getReinforcements();
 
         // checks if the player is trying to pass/skip the turn
-        if(l_args[0].equals(OrderModel.CMDS.PASS.toString().toLowerCase())) {
-            if(l_nReinforcements != 0) {
+        if (p_args[0].equals(OrderModel.CMDS.PASS.toString().toLowerCase())) {
+            if (l_nReinforcements != 0) {
                 this.d_view.ReinforcementsRemain(l_nReinforcements);
-                return issueOrder();
+                return false; // impossible command
             }
+            return true;
         }
 
         // checks if the player issued the deploy order
-        if(l_args[0].equals(OrderModel.CMDS.DEPLOY.toString().toLowerCase())) {
-            String l_countryName = l_args[1];
-            int l_requestedReinforcements = (int) (Float.parseFloat(l_args[2]));
+        if (p_args[0].equals(OrderModel.CMDS.DEPLOY.toString().toLowerCase())) {
+            String l_countryName = p_args[1];
+
+            // validate that the number of reinforcements is a valid number
+            if (!p_args[2].matches("[-+]?[0-9]*\\.?[0-9]+")) {
+                this.d_view.InvalidNumber();
+                return false;
+            }
+            int l_requestedReinforcements = (int) (Float.parseFloat(p_args[2]));
 
             // handle if the player deploys in a country that it does not owns
-            if(!this.containsCountry(l_countryName)) {
+            if (!this.containsCountry(l_countryName)) {
                 this.d_view.InvalidCountry();
-                return issueOrder(); // retake the order from the beginning
+                return false; // impossible command
             }
 
             // handle if the player has enough reinforcements to deploy
-            else if(l_nReinforcements < l_requestedReinforcements) {
+            else if (l_nReinforcements < l_requestedReinforcements) {
                 this.d_view.NotEnoughReinforcements(l_nReinforcements);
-                return issueOrder(); // retake the order from the beginning
+                return false; // impossible command
             } else {
                 l_order = new DeployModel();
-                l_order.setCountryName(l_args[1]);
+                l_order.setCountryName(p_args[1]);
                 l_order.setReinforcements(l_requestedReinforcements);
                 this.addOrder(l_order);
                 this.setReinforcements(this.getReinforcements() - l_requestedReinforcements);

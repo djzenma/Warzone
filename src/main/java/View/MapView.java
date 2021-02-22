@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public class MapView {
 
+    public void gameName() {
+        System.out.println("***********************WARZONE***********************");
+        System.out.println("-----------------------------------------------------");
+    }
+
     public String[] listenForCommands() {
         System.out.print("\n>> ");
 

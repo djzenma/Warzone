@@ -100,7 +100,13 @@ public class GameEngineModel {
         for(PlayerModel l_player : this.d_players.values()) {
             for(int i=0; i<l_countriesPerPlayer; i++){
                 String l_countryName = l_countryNamesList.get(l_countriesCounter);
-                l_player.addCountry(this.d_countries.get(l_countryName));
+                // get the country
+                CountryModel country = this.d_countries.get(l_countryName);
+                // update its owner
+                country.setOwnerName(l_player.getName());
+                // TODO::remove: this.d_countries.put(l_countryName, country);
+                // give it to the player
+                l_player.addCountry(country);
                 l_countriesCounter++;
             }
         }

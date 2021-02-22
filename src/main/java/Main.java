@@ -19,13 +19,4 @@ public class Main {
         GameEngineController l_gameEngineController = new GameEngineController(new GameEngineModel(), new GameEngineView());
         l_gameEngineController.run();
     }
-
-    public void init() {
-        System.out.println("***********************WARZONE***********************" + "\n" + "\n");
-        System.out.println("Choose from the menu: ");
-        System.out.println("1. Create a new map");
-        System.out.println("2. Use an existing map");
-        System.out.println("3. Exit");
-    }
-
 }

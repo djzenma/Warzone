@@ -1,9 +1,13 @@
 package View;
 
+import Model.ContinentModel;
 import Model.CountryModel;
 import Model.PlayerModel;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class GameEngineView {
     public String[] listenForStartupCommand() {
@@ -61,4 +65,79 @@ public class GameEngineView {
     public void mapNotLoaded() {
         System.out.println("You have not loaded any map yet. Please load a map first!");
     }
+
+    public void showMap(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
+        showCountries(p_countries, p_continents);
+    }
+
+    public void showContinents(HashMap<String, ContinentModel> p_continents) {
+        System.out.println("\n<ContinentID> <ContinentName> <ControlValue>\n");
+
+        p_continents.values()
+                .forEach(new Consumer<ContinentModel>() {
+                    @Override
+                    public void accept(ContinentModel continentModel) {
+                        System.out.println("(" + continentModel.getId() + ") " +
+                                continentModel.getName() +
+                                " \"" + continentModel.getControlValue() + "\"");
+                    }
+                });
+    }
+
+    public void showCountries(HashMap<String, CountryModel> p_countries, HashMap<String, ContinentModel> p_continents) {
+        int l_rowsNum = p_countries.values().stream().mapToInt(countryModel -> countryModel.getNeighbors().keySet().size()).sum();
+
+        String l_border = "--------------------";
+        String l_format = "%20s|%20s|%20s|%20s|%20s\n";
+        final Object[][][] l_row = {new String[l_rowsNum][]};
+        l_row[0][0] = new String[]{"Country Name".toUpperCase(),
+                "Continent Name (CV)".toUpperCase(),
+                "Number Of Armies".toUpperCase(),
+                "Owner Name".toUpperCase(),
+                "Neighbor Countries".toUpperCase()};
+        System.out.println();
+        System.out.format(l_format, l_row[0][0]);
+        System.out.format(l_format, (Object[]) new String[]{l_border, l_border, l_border, l_border, l_border});
+
+        final int[] i = {0};
+        p_countries.values().forEach(countryModel -> {
+            Iterator<String> l_it = countryModel.getNeighbors().keySet().iterator();
+            if (countryModel.getNeighbors().keySet().isEmpty()) {
+                l_row[0][i[0]] = new String[]{
+                        countryModel.getName(),
+                        countryModel.getContinentId(),
+                        String.valueOf(countryModel.getArmies()),
+                        (countryModel.getOwnerName() == null ? "Not Assigned" : countryModel.getOwnerName()),
+                        "[No Neighbors]"
+                };
+                System.out.format(l_format, l_row[0][i[0]]);
+                i[0]++;
+            } else {
+                for (int j = 0; j < countryModel.getNeighbors().keySet().size(); j++) {
+                    if (j != 0)
+                        l_row[0][i[0]] = new String[]{
+                                " ",
+                                " ",
+                                " ",
+                                " ",
+                                (j + 1) + ". " + l_it.next()
+                        };
+                    else
+                        l_row[0][i[0]] = new String[]{
+                                countryModel.getName(),
+                                countryModel.getContinentId() + "(" + p_continents.get(countryModel.getContinentId()).getControlValue() + ")",
+                                String.valueOf(countryModel.getArmies()),
+                                (countryModel.getOwnerName() == null ? "Not Assigned" : countryModel.getOwnerName()),
+                                (j + 1) + ". " + (countryModel.getNeighbors().keySet().isEmpty() ? "[No Neighbors]" : l_it.next())
+                        };
+
+                    System.out.format(l_format, l_row[0][i[0]]);
+                    i[0]++;
+                }
+            }
+            System.out.format(l_format, (Object[]) new String[]{l_border, l_border, l_border, l_border, l_border});
+        });
+        System.out.println();
+    }
+
 }

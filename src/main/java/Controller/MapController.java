@@ -1,14 +1,18 @@
 package Controller;
+
 import Model.ContinentModel;
 import Model.CountryModel;
-import Model.GameEngineModel;
 import Model.MapModel;
 import Utils.CommandsParser;
 import Utils.MapUtils;
 import View.MapView;
+
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.function.Consumer;
 
 /**
@@ -24,14 +28,15 @@ public class MapController {
     private LinkedHashMap<String, CountryModel> d_countries;
 
     public MapController(MapModel p_mapModel, MapView p_mapView) {
-        this.d_continents = new LinkedHashMap<String, ContinentModel>();
-        this.d_countries = new LinkedHashMap<String, CountryModel>();
+        this.d_continents = new LinkedHashMap<>();
+        this.d_countries = new LinkedHashMap<>();
         this.d_mapModel = p_mapModel;
         this.d_mapView = p_mapView;
         this.d_mapUtils = new MapUtils();
     }
 
     public void run() {
+        d_mapView.gameName();
         d_mapView.mapEditorPhase();
 
         String[] l_args;
