@@ -433,7 +433,7 @@ public class MapModel {
      *
      */
     public void validateMap() {
-        d_IsMapValid = validateMapTypeOne() && validateMapTypeTwo() && validateMapTypeThree();
+        d_IsMapValid = validateMapTypeOne(this.d_countries) && validateMapTypeTwo() && validateMapTypeThree() && validateMapTypeFour();
     }
 
     /**
@@ -442,13 +442,14 @@ public class MapModel {
      * @param p_countryOne Index of country from where the traversal starts
      * @param p_visited    an array that keeps track of countries visited during traversal
      */
-    public void traverseMap(CountryModel p_countryOne, LinkedHashMap<String, Boolean> p_visited) {
+    public void traverseMap(CountryModel p_countryOne, LinkedHashMap<String, Boolean> p_visited,
+                            LinkedHashMap<String, CountryModel> p_countries) {
         p_visited.put(p_countryOne.getName(), true);    //mark p_countryOne as visited
 
-        for (CountryModel l_countryTwo: this.d_countries.values()) {
+        for (CountryModel l_countryTwo: p_countries.values()) {
             if (p_countryOne.getNeighbors().containsKey(l_countryTwo.getName())) {
                 if (!p_visited.get(l_countryTwo.getName()))
-                    traverseMap(l_countryTwo, p_visited);
+                    traverseMap(l_countryTwo, p_visited, p_countries);
             }
         }
     }
@@ -459,18 +460,18 @@ public class MapModel {
      *
      * @return false if the map is invalid
      */
-    public boolean validateMapTypeOne() {
+    public boolean validateMapTypeOne(LinkedHashMap<String, CountryModel> p_countries) {
         LinkedHashMap<String, Boolean> l_visited = new LinkedHashMap<>();
 
         //for all countries l_countryOne as starting point, check whether all countries are reachable or not
-        for (CountryModel l_countryOne: this.d_countries.values()) {
-            for (CountryModel l_countryTwo: this.d_countries.values()) {
+        for (CountryModel l_countryOne: p_countries.values()) {
+            for (CountryModel l_countryTwo: p_countries.values()) {
                 //initially no countries are visited
                 l_visited.put(l_countryTwo.getName(), false);
             }
 
-            traverseMap(l_countryOne, l_visited);
-            for (CountryModel l_countryTwo: this.d_countries.values()) {
+            traverseMap(l_countryOne, l_visited, p_countries);
+            for (CountryModel l_countryTwo: p_countries.values()) {
                 if (!l_visited.get(l_countryTwo.getName())) {
                     //if there exists a l_countryTwo, not visited by map traversal, map is not connected.
                     return false;
@@ -498,6 +499,20 @@ public class MapModel {
                     l_valid.set(false);
                 }
             });
+        });
+        return l_valid.get();
+    }
+
+    //check if all continents are subgraph or not
+    public boolean validateMapTypeFour() {
+        AtomicBoolean l_valid = new AtomicBoolean(true);
+
+        this.d_continents.values().forEach(new Consumer<ContinentModel>() {
+            @Override
+            public void accept(ContinentModel continentModel) {
+                if(!validateMapTypeOne(continentModel.getCountries()))
+                    l_valid.set(false);
+            }
         });
         return l_valid.get();
     }
