@@ -47,7 +47,7 @@ public class GameEngineView {
     }
 
     public void gamePlayTurnNumber(int p_turnNumber) {
-        System.out.println("Turn #" + p_turnNumber);
+        System.out.println("\nTurn #" + p_turnNumber);
     }
 
     public void commandNotValid() {

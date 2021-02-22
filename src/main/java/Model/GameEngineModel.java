@@ -123,7 +123,7 @@ public class GameEngineModel {
 
         // iterate over all the players
         for (PlayerModel l_player : this.d_players.values()) {
-            l_numberOfArmies = (int) Math.max(3, floor(d_countries.size() / 3.0));
+            l_numberOfArmies = (int) Math.max(3, floor(l_player.getCountries().size() / 3.0));
 
             // iterate over all the continents
             for (ContinentModel l_continent : this.d_continents) {
@@ -149,7 +149,7 @@ public class GameEngineModel {
     }
 
     /**
-     * Loops over each player to get the orders from them and ezecute them
+     * Loops over each player to get the orders from them and execute them
      *
      * @return false if the player does not have any other orders to be executed; otherwise true
      */
