@@ -23,7 +23,9 @@ public class MapModel {
     private LinkedHashMap<String, ContinentModel> d_continents;
     private LinkedHashMap<String, CountryModel> d_countries;
 
-
+    /**
+     * Instantiates countries and continents
+     */
     public MapModel() {
         this.d_continents = new LinkedHashMap<>();
         this.d_countries = new LinkedHashMap<>();
@@ -42,7 +44,7 @@ public class MapModel {
     }
 
     public boolean isMapFileLoaded() {
-        return !d_mapFileLoaded;
+        return d_mapFileLoaded;
     }
 
     public LinkedHashMap<String, ContinentModel> getContinents() {
@@ -54,7 +56,9 @@ public class MapModel {
     }
 
     /**
-     * A method that handles the editcontinent command
+     * handles the editcontinent command; used
+     * used to add or remove entire continents from the map
+     * when a continent is being removed, all countries belonging to the continent are also removed
      *
      * @param p_command command in the form of "add continentID controlValue remove continentID"
      * @throws Exception if the user tries to remove a non-existing continent
@@ -156,7 +160,9 @@ public class MapModel {
     }
 
     /**
-     * A method that handles the editcountry command
+     * handles the editcountry command
+     * used to add or remove countries from the map
+     * when a country is being removed, neighbor countries' borders are also updated.
      *
      * @param p_command command in the form of "add countryID continentID remove countryID"
      * @throws Exception if the user tries to add a country to a non-existing continent
@@ -251,7 +257,8 @@ public class MapModel {
     }
 
     /**
-     * A method that handles the editneighbor command
+     * handles the editneighbor command
+     * used to add or remove neighbors of countries
      *
      * @param p_command command in the form of "add countryID neighborCountryID remove countryID neighborCountryID"
      * @throws Exception if user tries to add or remove neighbors of a non-existing country
@@ -305,6 +312,12 @@ public class MapModel {
         l_sc.close();
     }
 
+    /**
+     * checks whether the passed string contains only digits
+     *
+     * @param p_name string to be checked
+     * @return true, if the string passed only contains digits; false otherwise
+     */
     public boolean isNameNumber(String p_name){
         try{
             Integer.parseInt(p_name);
@@ -315,24 +328,24 @@ public class MapModel {
     }
 
     /**
-     * handles the editmap command
+     * handles the editmap command and loads the map specified by p_file to memory
      *
      * @param p_file .map file object
-     * @throws IOException If an I/O error occurred
+     * @throws IOException if I/O exception of some sort has occurred.
      */
-    public void editMap(File p_file) throws Exception {
+    public void editMap(File p_file) throws IOException {
         this.d_mapFileLoaded = true;
         this.d_currentFileName = p_file.getName();
         loadMap(p_file);
     }
 
     /**
-     * loads the map specified by p_filename to memory
+     * loads the map specified by p_file to memory
      *
-     * @param p_file .map file object
-     * @throws IOException in case of any I/O error
+     * @param p_file .map file object from which the map file is being loaded
+     * @throws IOException if I/O exception of some sort has occurred.
      */
-    public void loadMap(File p_file) throws Exception {
+    public void loadMap(File p_file) throws IOException {
         this.d_continents = new LinkedHashMap<String, ContinentModel>();
         this.d_countries = new LinkedHashMap<String, CountryModel>();
         Iterator<String> d_iterator;
@@ -419,6 +432,11 @@ public class MapModel {
                         });
                         if(l_tempCountryPair[0]!= null && l_tempCountryPair[1]!=null)
                             this.d_countries.get(l_tempCountryPair[0]).addNeighbor(this.d_countries.get(l_tempCountryPair[1]));
+
+                        /**
+                         * TODO:
+                         */
+
                         /*else
                             throw new Exception("The map is invalid!");*/
                     }
@@ -455,8 +473,8 @@ public class MapModel {
     }
 
     /**
-     * A method that checks the first type of incorrect map, which is if the map is not connected
-     * i.e. every country in the map should be reachable from every other country.
+     * checks whether the map is fully connected
+     * i.e. every country should be reachable from every other country.
      *
      * @return false if the map is invalid
      */
@@ -481,6 +499,12 @@ public class MapModel {
         return true;
     }
 
+    /**
+     * checks whether continent exists for all countries
+     * i.e. each country should belong to a continent that exists in the map.
+     *
+     * @return true if all continents are present in the map; false otherwise
+     */
     public boolean validateMapTypeTwo() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
         this.d_countries.values().forEach(countryModel -> {
@@ -491,6 +515,12 @@ public class MapModel {
         return l_valid.get();
     }
 
+    /**
+     * checks whether any country has neighbors that does not exist in the map
+     * i.e. every country in a continent should be reachable from every other country in that continent.
+     *
+     * @return true if every countries' neighbors are present in a map; false otherwise
+     */
     public boolean validateMapTypeThree() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
         this.d_countries.values().forEach(countryModel -> {
@@ -503,7 +533,11 @@ public class MapModel {
         return l_valid.get();
     }
 
-    //check if all continents are subgraph or not
+    /**
+     * checks whether all continents are connected subgraphs
+     * i.e. every country in each continent should belong to a continent that exists in the map.
+     * @return true if every continent is valid; false otherwise.
+     */
     public boolean validateMapTypeFour() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
 
@@ -517,6 +551,11 @@ public class MapModel {
         return l_valid.get();
     }
 
+    /**
+     * handles savemap command
+     * @param p_file file object where the map should be saved
+     * @throws Exception if the map being saved is an invalid map
+     */
     public void saveMap(File p_file) throws Exception {
         validateMap();
         if(!d_IsMapValid){
@@ -585,10 +624,13 @@ public class MapModel {
 
             public String getContinentId(String p_continentName) {
                 final int[] l_continentId = new int[1];
-                d_continents.values().forEach(continentModel -> {
-                    if (continentModel.getName().trim().equals(p_continentName.trim())) {
-                        l_continentId[0] = continentModel.getId();
-                        return;
+                d_continents.values().forEach(new Consumer<ContinentModel>() {
+                    @Override
+                    public void accept(ContinentModel continentModel) {
+                        if (continentModel.getName().trim().equals(p_continentName.trim())) {
+                            l_continentId[0] = continentModel.getId();
+                            return;
+                        }
                     }
                 });
                 return String.valueOf(l_continentId[0]);
@@ -600,6 +642,10 @@ public class MapModel {
         d_countries.values().stream().forEach(new Consumer<CountryModel>() {
             String l_tempLine = "";
 
+            /**
+             * TODO:
+             * @param countryModel
+             */
             @Override
             public void accept(CountryModel countryModel) {
                 l_tempLine += countryModel.getId() + " ";

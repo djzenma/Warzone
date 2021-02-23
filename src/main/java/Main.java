@@ -7,7 +7,7 @@ import View.GameEngineView;
 import View.MapView;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         CommandsParser.parseJson();
 
         MapModel d_mapModel = new MapModel();

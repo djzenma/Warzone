@@ -125,6 +125,16 @@
     },
 
     {
+      "name": "showcommands",
+      "args": []
+    },
+
+    {
+      "name": "showallfiles",
+      "args": []
+    },
+
+    {
       "name": "loadmap",
       "args": [
         {
