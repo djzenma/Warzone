@@ -474,7 +474,7 @@ public class MapModel {
     }
 
     /**
-     * A method to traverse the entire map and visit countries using recursive DFS (Depth first Search) traversal.
+     * Traverse the entire map and visit countries using recursive DFS (Depth first Search) traversal.
      *
      * @param p_countryOne Index of country from where the traversal starts
      * @param p_visited    an array that keeps track of countries visited during traversal
@@ -519,7 +519,7 @@ public class MapModel {
     }
 
     /**
-     * checks whether continent exists for all countries
+     * Checks whether continent exists for all countries
      * i.e. each country should belong to a continent that exists in the map.
      *
      * @return true if all continents are present in the map; false otherwise

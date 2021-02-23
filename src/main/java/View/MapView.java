@@ -179,7 +179,13 @@ public class MapView {
     }
 
     public void showCountries(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
-        int l_rowsNum = p_countries.values().stream().mapToInt(countryModel -> countryModel.getNeighbors().keySet().size()).sum();
+        int l_rowsNum = p_countries
+                .values()
+                .stream()
+                .mapToInt(countryModel -> (countryModel.getNeighbors().size() == 0) ?
+                        1 :
+                        countryModel.getNeighbors().size())
+                .sum();
 
         final int[] l_longestNameOfContinent = {0};
         final int[] l_longestNameOfCountry = {0};

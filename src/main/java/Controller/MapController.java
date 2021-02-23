@@ -55,7 +55,8 @@ public class MapController {
                 switch (l_args[0]) {
                     case "showallfiles":
                         String[] l_allFileNames = getAllAvailableFileNames();
-                        d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
+                        //d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
+                        d_mapView.showMsg(l_args[0] + " is not supported as of now!");
                         break;
                     case "showcommands":
                         d_mapView.showAvailableCommands(true);
@@ -156,9 +157,10 @@ public class MapController {
             }
         } catch (Exception l_e) {
             System.out.println(l_mapFile.getName() + " file follows different format than supported map files.");
-            l_mapFile.delete();
+            //TODO l_mapFile.delete();
+            System.out.println(l_e.toString());
             String[] l_allFileNames = getAllAvailableFileNames();
-            d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
+            //d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
             return null;
         }
         return l_allFilesValidation;
