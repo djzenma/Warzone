@@ -2,8 +2,13 @@ package View;
 
 import Model.ContinentModel;
 import Model.CountryModel;
+import org.apache.commons.lang3.StringUtils;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
+import java.util.function.Consumer;
 
 public class MapView {
     Scanner d_scanner = new Scanner(System.in);
@@ -43,7 +48,7 @@ public class MapView {
 
     public void showGameTitle() {
         System.out.println("\n");
-        System.out.println("******************************************WARZONE********************************************");
+        System.out.println("***************************************** WARZONE *******************************************");
         System.out.println("---------------------------------------------------------------------------------------------");
     }
 
@@ -62,14 +67,14 @@ public class MapView {
     }
 
     public void mapEditorPhase() {
-        System.out.print("\n**************************************MAP-EDITOR PHASE***************************************\n\n");
+        System.out.print("\n************************************* MAP-EDITOR PHASE **************************************\n\n");
         this.showAvailableCommands(false);
     }
 
     public void showAvailableCommands(boolean p_withTitle){
 
         if(p_withTitle) {
-            System.out.println("\n=====================================Map-Editor Commands=====================================".toUpperCase());
+            System.out.println("\n==================================== Map-Editor Commands ====================================".toUpperCase());
             System.out.println("---------------------------------------------------------------------------------------------\n");
         }
 
@@ -91,16 +96,16 @@ public class MapView {
 
         if(p_allFilesValidation == null) return;
 
-        System.out.println("\n============Available Domination Map Files==========".toUpperCase());
+        System.out.println("\n=========== Available Domination Map Files =========".toUpperCase());
         System.out.print("----------------------------------------------------\n");
 
-        int l_longest_name_size = 0;
+        int l_longestNameSize = 0;
 
         for (String l_fileName:p_allFilesValidation.keySet()) {
-            if(l_fileName.length() > l_longest_name_size)
-                l_longest_name_size = l_fileName.length();
+            if (l_fileName.length() > l_longestNameSize)
+                l_longestNameSize = l_fileName.length();
         }
-        String l_format = "|%2s|%"+ l_longest_name_size +"s|%9s|\n";
+        String l_format = "|%2s|%" + l_longestNameSize + "s|%9s|\n";
 
         String[] l_row;
         int l_counter = 1;
@@ -115,20 +120,41 @@ public class MapView {
     }
 
     public void showMap(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
+
+        if (p_continents.size() == 0 || p_countries.size() == 0) {
+            System.out.println("The Map File is Empty!");
+            return;
+        }
         this.showContinents(p_continents);
         this.showCountries(p_continents, p_countries);
     }
 
     public void showContinents(HashMap<String, ContinentModel> p_continents) {
-        String l_border = "---------------";
+
+        final int[] l_longestNameOfContinent = {0};
+
+        p_continents.values().forEach(new Consumer<ContinentModel>() {
+            @Override
+            public void accept(ContinentModel continentModel) {
+                if (continentModel.getName().length() > l_longestNameOfContinent[0])
+                    l_longestNameOfContinent[0] = continentModel.getName().length();
+            }
+        });
+
+        if ("Continent Name".length() > l_longestNameOfContinent[0])
+            l_longestNameOfContinent[0] = "Continent Name".length();
+
+        String l_border = new String(new char[l_longestNameOfContinent[0]]).replace("\0", "-");
+        System.out.println(l_longestNameOfContinent[0]);
         String[] l_separator = new String[]{l_border, l_border, l_border, l_border};
 
-        String l_format = "|%15s|%15s|%15s|%15s|\n";
+        String l_format = "|%15s|%" + l_longestNameOfContinent[0] + "s|%15s|%15s|\n";
         final Object[][][] l_row = {new String[p_continents.size()][]};
-        l_row[0][0] = new String[]{"Continent ID".toUpperCase(),
-                "Continent Name".toUpperCase(),
-                "Control Value".toUpperCase(),
-                "# of Countries".toUpperCase()};
+        l_row[0][0] = new String[]{
+                StringUtils.center("Continent ID".toUpperCase(), l_border.length()),
+                StringUtils.center("Continent Name".toUpperCase(), l_border.length()),
+                StringUtils.center("Control Value".toUpperCase(), l_border.length()),
+                StringUtils.center("# of Countries".toUpperCase(), l_border.length())};
 
         System.out.println();
         System.out.format(l_format, l_separator);
@@ -139,10 +165,10 @@ public class MapView {
         p_continents.values()
                 .forEach(continentModel -> {
                     l_row[0][i[0]] = new String[]{
-                            String.valueOf(continentModel.getId()),
-                            continentModel.getName(),
-                            String.valueOf(continentModel.getControlValue()),
-                            String.valueOf(continentModel.getCountries().size())};
+                            StringUtils.center(String.valueOf(continentModel.getId()), l_border.length()),
+                            StringUtils.center(continentModel.getName(), l_border.length()),
+                            StringUtils.center(String.valueOf(continentModel.getControlValue()), l_border.length()),
+                            StringUtils.center(String.valueOf(continentModel.getCountries().size()), l_border.length())};
 
                     System.out.format(l_format, l_row[0][i[0]]);
                     i[0]++;
@@ -154,14 +180,45 @@ public class MapView {
     public void showCountries(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
         int l_rowsNum = p_countries.values().stream().mapToInt(countryModel -> countryModel.getNeighbors().keySet().size()).sum();
 
-        String l_border = "--------------------";
-        String[] l_separator = new String[]{l_border, l_border, l_border};
+        final int[] l_longestNameOfContinent = {0};
+        final int[] l_longestNameOfCountry = {0};
 
-        String l_format = "|%20s|%20s|%20s|\n";
+        p_continents.values().forEach(new Consumer<ContinentModel>() {
+            @Override
+            public void accept(ContinentModel continentModel) {
+                if (continentModel.getName().length() > l_longestNameOfContinent[0])
+                    l_longestNameOfContinent[0] = continentModel.getName().length();
+            }
+        });
+
+        l_longestNameOfContinent[0] += 4;
+
+        p_countries.values().forEach(new Consumer<CountryModel>() {
+            @Override
+            public void accept(CountryModel countryModel) {
+                if (countryModel.getName().length() > l_longestNameOfCountry[0])
+                    l_longestNameOfCountry[0] = countryModel.getName().length();
+            }
+        });
+
+        l_longestNameOfContinent[0] = Math.max(l_longestNameOfContinent[0] + 3, "Continent Name (CV)".length());
+        l_longestNameOfCountry[0] = Math.max(l_longestNameOfCountry[0] + 3, "Neighbor Countries".length());
+
+
+        String l_continentBorder = new String(new char[l_longestNameOfContinent[0]]).replace("\0", "-");
+        String l_countryBorder = new String(new char[l_longestNameOfCountry[0]]).replace("\0", "-");
+
+        String[] l_separator = new String[]{l_countryBorder, l_continentBorder, l_countryBorder};
+
+        String l_format = "|%" + l_countryBorder.length() + "s|%" +
+                l_continentBorder.length() + "s|%" +
+                l_countryBorder.length() + "s|\n";
+
         final Object[][][] l_row = {new String[l_rowsNum][]};
-        l_row[0][0] = new String[]{"Country Name".toUpperCase(),
-                "Continent Name (CV)".toUpperCase(),
-                "Neighbor Countries".toUpperCase()};
+        l_row[0][0] = new String[]{
+                StringUtils.center("Country Name".toUpperCase(), l_countryBorder.length()),
+                StringUtils.center("Continent Name (CV)".toUpperCase(), l_continentBorder.length()),
+                StringUtils.center("Neighbor Countries".toUpperCase(), l_countryBorder.length())};
         System.out.println();
         System.out.format(l_format, l_separator);
         System.out.format(l_format, l_row[0][0]);
@@ -172,9 +229,10 @@ public class MapView {
             Iterator<String> l_it = countryModel.getNeighbors().keySet().iterator();
             if (countryModel.getNeighbors().keySet().isEmpty()) {
                 l_row[0][i[0]] = new String[]{
-                        countryModel.getName(),
-                        countryModel.getContinentId() + "(" + p_continents.get(countryModel.getContinentId()).getControlValue() + ")",
-                        "[No Neighbors]"
+                        StringUtils.center(countryModel.getName(), l_countryBorder.length()),
+                        StringUtils.center(countryModel.getContinentId() + "(" + p_continents.
+                                get(countryModel.getContinentId()).getControlValue() + ")", l_continentBorder.length()),
+                        StringUtils.center("[No Neighbors]", l_countryBorder.length())
                 };
                 System.out.format(l_format, l_row[0][i[0]]);
                 i[0]++;
@@ -184,13 +242,15 @@ public class MapView {
                         l_row[0][i[0]] = new String[]{
                                 " ",
                                 " ",
-                                (j + 1) + ". " + l_it.next()
+                                StringUtils.center((j + 1) + ". " + l_it.next(), l_countryBorder.length())
                         };
                     else
                         l_row[0][i[0]] = new String[]{
-                                countryModel.getName(),
-                                countryModel.getContinentId() + "(" + p_continents.get(countryModel.getContinentId()).getControlValue() + ")",
-                                (j + 1) + ". " + (countryModel.getNeighbors().keySet().isEmpty() ? "[No Neighbors]" : l_it.next())
+                                StringUtils.center(countryModel.getName(), l_countryBorder.length()),
+                                StringUtils.center(countryModel.getContinentId() + "(" + p_continents.
+                                        get(countryModel.getContinentId()).getControlValue() + ")", l_continentBorder.length()),
+                                StringUtils.center((j + 1) + ". " + (countryModel.getNeighbors().keySet().isEmpty() ?
+                                        "[No Neighbors]" : l_it.next()), l_countryBorder.length())
                         };
 
                     System.out.format(l_format, l_row[0][i[0]]);

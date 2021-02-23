@@ -1,8 +1,10 @@
 package Controller;
+
 import Model.MapModel;
 import Utils.CommandsParser;
 import Utils.MapUtils;
 import View.MapView;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -65,7 +67,7 @@ public class MapController {
 
                         //if existing map file is loaded, validate the map
                         //i.e don't validate for newly created files
-                        if (!(boolean) l_fileData.get(1)) {
+                        if (((File) l_fileData.get(0)).length() != 0) {
                             d_mapModel.validateMap();
                             d_mapView.validMap(d_mapModel.isMapValid());
                         }
