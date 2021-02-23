@@ -23,15 +23,15 @@ public class MapView {
         String[] l_commandArgs = l_command.split("\\s+");
 
         // remove any '-' before any named argument
-        for (int i = 0; i < l_commandArgs.length; i++) {
-            if (l_commandArgs[i].startsWith("-"))
-                l_commandArgs[i] = l_commandArgs[i].replace("-", "");
+        for (int l_i = 0; l_i < l_commandArgs.length; l_i++) {
+            if (l_commandArgs[l_i].startsWith("-"))
+                l_commandArgs[l_i] = l_commandArgs[l_i].replace("-", "");
         }
         return l_commandArgs;
     }
 
-    public void exception(String message) {
-        System.out.println(message);
+    public void exception(String p_message) {
+        System.out.println(p_message);
     }
 
     public void showMsg(String p_msg) {
@@ -57,11 +57,10 @@ public class MapView {
                 "Must load the domination map file using editmap command.");
     }
 
-    public void validMap(boolean validateMap) {
-        if (validateMap){
+    public void validMap(boolean p_validateMap) {
+        if (p_validateMap) {
             System.out.println("The map is valid!");
-        }
-        else{
+        } else {
             System.out.println("The map is invalid!");
         }
     }
@@ -131,24 +130,26 @@ public class MapView {
 
     public void showContinents(HashMap<String, ContinentModel> p_continents) {
 
-        final int[] l_longestNameOfContinent = {0};
+        //TODO: check if this is considered constant or not
+        final int[] l_LONGEST_CONTINENT_NAME = {0};
+
 
         p_continents.values().forEach(new Consumer<ContinentModel>() {
             @Override
             public void accept(ContinentModel continentModel) {
-                if (continentModel.getName().length() > l_longestNameOfContinent[0])
-                    l_longestNameOfContinent[0] = continentModel.getName().length();
+                if (continentModel.getName().length() > l_LONGEST_CONTINENT_NAME[0])
+                    l_LONGEST_CONTINENT_NAME[0] = continentModel.getName().length();
             }
         });
 
-        if ("Continent Name".length() > l_longestNameOfContinent[0])
-            l_longestNameOfContinent[0] = "Continent Name".length();
+        if ("Continent Name".length() > l_LONGEST_CONTINENT_NAME[0])
+            l_LONGEST_CONTINENT_NAME[0] = "Continent Name".length();
 
-        String l_border = new String(new char[l_longestNameOfContinent[0]]).replace("\0", "-");
-        System.out.println(l_longestNameOfContinent[0]);
+        String l_border = new String(new char[l_LONGEST_CONTINENT_NAME[0]]).replace("\0", "-");
+        System.out.println(l_LONGEST_CONTINENT_NAME[0]);
         String[] l_separator = new String[]{l_border, l_border, l_border, l_border};
 
-        String l_format = "|%15s|%" + l_longestNameOfContinent[0] + "s|%15s|%15s|\n";
+        String l_format = "|%15s|%" + l_LONGEST_CONTINENT_NAME[0] + "s|%15s|%15s|\n";
         final Object[][][] l_row = {new String[p_continents.size()][]};
         l_row[0][0] = new String[]{
                 StringUtils.center("Continent ID".toUpperCase(), l_border.length()),

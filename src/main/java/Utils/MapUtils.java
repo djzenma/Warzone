@@ -1,3 +1,6 @@
+/**
+ * Checked for conventions
+ */
 package Utils;
 
 import java.io.BufferedReader;
@@ -11,16 +14,18 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 
 public class MapUtils {
+
     FileInputStream d_fis;
     byte[] d_data;
 
     public String readMapFile(File p_file) throws IOException {
+
         d_fis = new FileInputStream(p_file);
         d_data = new byte[(int) p_file.length()];
         d_fis.read(d_data);
         d_fis.close();
         String l_str = new String(d_data, StandardCharsets.UTF_8);
-        l_str += " \n";
+        l_str += " \n ";
         return l_str;
     }
 
@@ -31,9 +36,6 @@ public class MapUtils {
     }
 
     public String getMapsPath() {
-        Path l_currentRelativePath = Paths.get("");
-        String l_mapsPath = l_currentRelativePath.toAbsolutePath().toString() + "\\maps\\";
-        //return l_mapsPath;
         return "maps/";
     }
 

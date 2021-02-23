@@ -10,11 +10,11 @@ public class Main {
     public static void main(String[] args) {
         CommandsParser.parseJson();
 
-        MapModel d_mapModel = new MapModel();
-        MapView d_mapView = new MapView();
-        MapController d_mapController = new MapController(d_mapModel, d_mapView);
+        MapModel l_mapModel = new MapModel();
+        MapView l_mapView = new MapView();
+        MapController l_mapController = new MapController(l_mapModel, l_mapView);
 
-        d_mapController.run();
+        l_mapController.run();
 
         GameEngineController l_gameEngineController = new GameEngineController(new GameEngineModel(), new GameEngineView());
         l_gameEngineController.run();

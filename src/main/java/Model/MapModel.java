@@ -349,7 +349,11 @@ public class MapModel {
         load(p_file);
         validateMap();
         if (!isMapValid()) {
-            editMap(new File("empty.map"));
+            if (!p_file.exists()) {
+                p_file.createNewFile();
+                editMap(new File(d_mapUtils.getMapsPath() + "empty.map"));
+                p_file.delete();
+            }
             throw new Exception("This Map is Invalid! Please Load a valid one...");
         }
     }
