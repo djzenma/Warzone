@@ -30,11 +30,6 @@ public class GameEngineController {
     }
 
     private String[] takeCommand() {
-        /*Method l_viewMethod = null;
-        Class[] parameterTypes = new Class[1];
-        parameterTypes[0] = String.class;
-        l_viewMethod = GameEngineView.class.getMethod(p_methodName, parameterTypes);*/
-
         String[] l_args;
         do {
             l_args = d_view.listenForStartupCommand();

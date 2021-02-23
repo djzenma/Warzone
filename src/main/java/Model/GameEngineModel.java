@@ -101,23 +101,31 @@ public class GameEngineModel {
             for(int i=0; i<l_countriesPerPlayer; i++){
                 String l_countryName = l_countryNamesList.get(l_countriesCounter);
                 // get the country
-                CountryModel country = this.d_countries.get(l_countryName);
+                CountryModel l_country = this.d_countries.get(l_countryName);
                 // update its owner
-                country.setOwnerName(l_player.getName());
-                // TODO::remove: this.d_countries.put(l_countryName, country);
+                l_country.setOwnerName(l_player.getName());
                 // give it to the player
-                l_player.addCountry(country);
+                l_player.addCountry(l_country);
                 l_countriesCounter++;
             }
         }
 
-        // assign remaining countries to random players TODO
-        /* while(l_countriesCounter <= this.d_countries.size()-1) {
+        // assign remaining countries to random players
+        while (l_countriesCounter <= this.d_countries.size() - 1) {
+            // get the random player
             int l_rand = (int) (Math.random() * (this.d_players.size()));
+            PlayerModel l_player = this.d_players.get(l_playerIDsList.get(l_rand));
 
-            this.d_players.get(l_playerIDsList.get(l_rand)).addCountry(this.d_countries.get(l_countriesCounter));
+            // get the name of this country
+            String l_countryName = l_countryNamesList.get(l_countriesCounter);
+            CountryModel l_country = this.d_countries.get(l_countryName);
+            // update its owner
+            l_country.setOwnerName(l_player.getName());
+
+            // assign to him the country
+            l_player.addCountry(l_country);
             l_countriesCounter++;
-        }*/
+        }
     }
 
     /**

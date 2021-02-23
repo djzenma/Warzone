@@ -7,7 +7,6 @@ import Model.PlayerModel;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.function.Consumer;
 
 public class GameEngineView {
     public String[] listenForStartupCommand() {
@@ -66,30 +65,26 @@ public class GameEngineView {
         System.out.println("You have not loaded any map yet. Please load a map first!");
     }
 
+
     public void showMap(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
-        showCountries(p_countries, p_continents);
-    }
+        // Number of Entries  = Number of Neighbors of every country or 1 if it has none
+        int l_rowsNum = p_countries
+                .values()
+                .stream()
+                .mapToInt(countryModel -> (countryModel.getNeighbors().size() == 0) ?
+                        1 :
+                        countryModel.getNeighbors().size())
+                .sum();
 
-    public void showContinents(HashMap<String, ContinentModel> p_continents) {
-        System.out.println("\n<ContinentID> <ContinentName> <ControlValue>\n");
 
-        p_continents.values()
-                .forEach(new Consumer<ContinentModel>() {
-                    @Override
-                    public void accept(ContinentModel continentModel) {
-                        System.out.println("(" + continentModel.getId() + ") " +
-                                continentModel.getName() +
-                                " \"" + continentModel.getControlValue() + "\"");
-                    }
-                });
-    }
-
-    public void showCountries(HashMap<String, CountryModel> p_countries, HashMap<String, ContinentModel> p_continents) {
-        int l_rowsNum = p_countries.values().stream().mapToInt(countryModel -> countryModel.getNeighbors().keySet().size()).sum();
-
-        String l_border = "--------------------";
+        // The format of the table row
         String l_format = "%20s|%20s|%20s|%20s|%20s\n";
+        String l_border = "--------------------";
+
+        // the table
         final Object[][][] l_row = {new String[l_rowsNum][]};
+
+        // The Column Names
         l_row[0][0] = new String[]{"Country Name".toUpperCase(),
                 "Continent Name (CV)".toUpperCase(),
                 "Number Of Armies".toUpperCase(),
@@ -99,10 +94,14 @@ public class GameEngineView {
         System.out.format(l_format, l_row[0][0]);
         System.out.format(l_format, (Object[]) new String[]{l_border, l_border, l_border, l_border, l_border});
 
+        // iterate over all the countries
         final int[] i = {0};
         p_countries.values().forEach(countryModel -> {
+            // get its next neighbor
             Iterator<String> l_it = countryModel.getNeighbors().keySet().iterator();
+            // if no neighbors
             if (countryModel.getNeighbors().keySet().isEmpty()) {
+                // Display all country's information
                 l_row[0][i[0]] = new String[]{
                         countryModel.getName(),
                         countryModel.getContinentId(),
@@ -112,7 +111,10 @@ public class GameEngineView {
                 };
                 System.out.format(l_format, l_row[0][i[0]]);
                 i[0]++;
-            } else {
+            }
+            // If the country has neighbors Display all country's information
+            else {
+                // display the neighbors line by line
                 for (int j = 0; j < countryModel.getNeighbors().keySet().size(); j++) {
                     if (j != 0)
                         l_row[0][i[0]] = new String[]{
@@ -135,6 +137,7 @@ public class GameEngineView {
                     i[0]++;
                 }
             }
+
             System.out.format(l_format, (Object[]) new String[]{l_border, l_border, l_border, l_border, l_border});
         });
         System.out.println();
