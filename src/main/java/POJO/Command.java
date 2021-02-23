@@ -7,13 +7,13 @@ public class Command {
     /**
      * Name of the command
      */
-    public String name;
+    public String d_name;
     /**
      * Array of the arguments
      */
-    public Argument[] args;
+    public Argument[] d_args;
     /**
      * Array of the named arguments
      */
-    public NamedArgument[] named_args;
+    public NamedArgument[] d_namedArgs;
 }

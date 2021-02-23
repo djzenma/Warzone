@@ -41,27 +41,27 @@ public class CommandsParser {
 
         int l_i = 0;
 
-        for (Command l_command : d_commands.commands) {
+        for (Command l_command : d_commands.d_commands) {
             // check for command name
-            if (l_command.name.equals(p_cmdArgs[0])) {
+            if (l_command.d_name.equals(p_cmdArgs[0])) {
 
-                if (l_command.args == null && l_command.named_args == null)
+                if (l_command.d_args == null && l_command.d_namedArgs == null)
                     return true;
 
                 // check if the cmd has named args
-                if (l_command.named_args != null) {
+                if (l_command.d_namedArgs != null) {
                     if (p_cmdArgs.length - 1 <= 0)
                         return false;
                 }
 
                 // check if the cmd has args
-                if (l_command.args != null) {
-                    if (p_cmdArgs.length - 1 == l_command.args.length)
+                if (l_command.d_args != null) {
+                    if (p_cmdArgs.length - 1 == l_command.d_args.length)
                         return true;
                 }
 
                 // check if the cmd has named args
-                if (l_command.named_args != null) {
+                if (l_command.d_namedArgs != null) {
                     l_i = 1;
 
                     while (l_i < p_cmdArgs.length) {
@@ -102,11 +102,11 @@ public class CommandsParser {
      * @return number of the arguments
      */
     private static int getNumberOfArguments(String p_cmdName, String p_cmdArg) {
-        for (Command l_command : d_commands.commands) {
-            if (l_command.name.equals(p_cmdName)) {
-                for (NamedArgument namedArg : l_command.named_args) {
-                    if (namedArg.name.equals(p_cmdArg))
-                        return namedArg.args_num;
+        for (Command l_command : d_commands.d_commands) {
+            if (l_command.d_name.equals(p_cmdName)) {
+                for (NamedArgument namedArg : l_command.d_namedArgs) {
+                    if (namedArg.d_name.equals(p_cmdArg))
+                        return namedArg.d_argsNum;
                 }
             }
         }
@@ -121,11 +121,11 @@ public class CommandsParser {
      * @return true if the name of the argument is valid; otherwise false
      */
     private static boolean isValidArgName(String p_cmdName, String p_cmdArg) {
-        for (Command l_command : d_commands.commands) {
-            if (l_command.name.equals(p_cmdName)) {
+        for (Command l_command : d_commands.d_commands) {
+            if (l_command.d_name.equals(p_cmdName)) {
 
-                for (NamedArgument namedArg : l_command.named_args) {
-                    if (namedArg.name.equals(p_cmdArg))
+                for (NamedArgument namedArg : l_command.d_namedArgs) {
+                    if (namedArg.d_name.equals(p_cmdArg))
                         return true;
                 }
             }
@@ -143,22 +143,22 @@ public class CommandsParser {
         HashMap<String, List<String>> l_args = new HashMap<>();
         String l_cmdName = p_cmd[0];
 
-        for (Command l_command : d_commands.commands) {
-            if (l_command.name.equals(l_cmdName)) {
-                for (NamedArgument namedArg : l_command.named_args) {
+        for (Command l_command : d_commands.d_commands) {
+            if (l_command.d_name.equals(l_cmdName)) {
+                for (NamedArgument namedArg : l_command.d_namedArgs) {
                     for (int i = 1; i < p_cmd.length; i++) {
-                        if (namedArg.name.equals(p_cmd[i])) {
+                        if (namedArg.d_name.equals(p_cmd[i])) {
                             // read old list
-                            List<String> l_currentList = l_args.get(namedArg.name);
+                            List<String> l_currentList = l_args.get(namedArg.d_name);
                             // update it
                             if (l_currentList == null)
-                                l_currentList = new ArrayList<>(Arrays.asList(p_cmd).subList(i + 1, i + namedArg.args_num + 1));
+                                l_currentList = new ArrayList<>(Arrays.asList(p_cmd).subList(i + 1, i + namedArg.d_argsNum + 1));
                             else {
-                                List<String> l_subList = Arrays.asList(p_cmd).subList(i + 1, i + namedArg.args_num + 1);
+                                List<String> l_subList = Arrays.asList(p_cmd).subList(i + 1, i + namedArg.d_argsNum + 1);
                                 l_currentList.addAll(l_subList);
                             }
                             // write it
-                            l_args.put(namedArg.name, l_currentList);
+                            l_args.put(namedArg.d_name, l_currentList);
                         }
                     }
                 }

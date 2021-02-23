@@ -7,5 +7,5 @@ public class Commands {
     /**
      * Array of the commands
      */
-    public Command[] commands;
+    public Command[] d_commands;
 }

@@ -7,5 +7,5 @@ public class Argument {
     /**
      * Name of the argument
      */
-    public String name;
+    public String d_name;
 }

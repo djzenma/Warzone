@@ -7,9 +7,9 @@ public class NamedArgument {
     /**
      * Name of the argument
      */
-    public String name;
+    public String d_name;
     /**
      * Number of arguments in the NamedArguments
      */
-    public int args_num;
+    public int d_argsNum;
 }
