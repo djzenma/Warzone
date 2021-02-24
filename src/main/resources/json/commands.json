@@ -1,144 +1,144 @@
 {
-  "d_commands": [
+  "commands": [
     {
-      "d_name": "gameplayer",
-      "d_args": [],
-      "d_namedArgs": [
+      "name": "gameplayer",
+      "args": [],
+      "namedArgs": [
         {
-          "d_name": "add",
-          "d_argsNum": 1
+          "name": "add",
+          "argsNum": 1
         },
         {
-          "d_name": "remove",
-          "d_argsNum": 1
+          "name": "remove",
+          "argsNum": 1
         }
       ]
     },
 
     {
-      "d_name": "assigncountries",
-      "d_args": []
+      "name": "assigncountries",
+      "args": []
     },
 
     {
-      "d_name": "deploy",
-      "d_args": [
+      "name": "deploy",
+      "args": [
         {
-          "d_name": "country_name"
+          "name": "country_name"
         },
         {
-          "d_name": "reinforcements_num"
+          "name": "reinforcements_num"
         }
       ]
     },
     {
-      "d_name": "pass",
-      "d_args": []
+      "name": "pass",
+      "args": []
     },
 
     {
-      "d_name": "editcontinent",
-      "d_args": [],
-      "d_namedArgs": [
+      "name": "editcontinent",
+      "args": [],
+      "namedArgs": [
         {
-          "d_name": "add",
-          "d_argsNum": 2
+          "name": "add",
+          "argsNum": 2
         },
         {
-          "d_name": "remove",
-          "d_argsNum": 1
+          "name": "remove",
+          "argsNum": 1
         }
       ]
     },
 
     {
-      "d_name": "editcountry",
-      "d_args": [],
-      "d_namedArgs": [
+      "name": "editcountry",
+      "args": [],
+      "namedArgs": [
         {
-          "d_name": "add",
-          "d_argsNum": 2
+          "name": "add",
+          "argsNum": 2
         },
         {
-          "d_name": "remove",
-          "d_argsNum": 1
+          "name": "remove",
+          "argsNum": 1
         }
       ]
     },
 
     {
-      "d_name": "editneighbor",
-      "d_args": [],
-      "d_namedArgs": [
+      "name": "editneighbor",
+      "args": [],
+      "namedArgs": [
         {
-          "d_name": "add",
-          "d_argsNum": 2
+          "name": "add",
+          "argsNum": 2
         },
         {
-          "d_name": "remove",
-          "d_argsNum": 2
+          "name": "remove",
+          "argsNum": 2
         }
       ]
     },
 
     {
-      "d_name": "savemap",
-      "d_args": [
+      "name": "savemap",
+      "args": [
         {
-          "d_name": "filename"
+          "name": "filename"
         }
       ]
     },
 
     {
-      "d_name": "editmap",
-      "d_args": [
+      "name": "editmap",
+      "args": [
         {
-          "d_name": "filename"
+          "name": "filename"
         }
       ]
     },
 
     {
-      "d_name": "validatemap",
-      "d_args": []
+      "name": "validatemap",
+      "args": []
     },
 
     {
-      "d_name": "showmap",
-      "d_args": []
+      "name": "showmap",
+      "args": []
     },
 
     {
-      "d_name": "showcontinents",
-      "d_args": []
+      "name": "showcontinents",
+      "args": []
     },
 
     {
-      "d_name": "showcountries",
-      "d_args": []
+      "name": "showcountries",
+      "args": []
     },
 
     {
-      "d_name": "exit",
-      "d_args": []
+      "name": "exit",
+      "args": []
     },
 
     {
-      "d_name": "showcommands",
-      "d_args": []
+      "name": "showcommands",
+      "args": []
     },
 
     {
-      "d_name": "listmaps",
-      "d_args": []
+      "name": "listmaps",
+      "args": []
     },
 
     {
-      "d_name": "loadmap",
-      "d_args": [
+      "name": "loadmap",
+      "args": [
         {
-          "d_name": "filename"
+          "name": "filename"
         }
       ]
     }
