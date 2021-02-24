@@ -336,7 +336,7 @@ public class MapModel {
     public void editMap(File p_file) throws IOException {
         this.d_mapFileLoaded = true;
         this.d_currentFileName = p_file.getName();
-        load(p_file);
+        loadMap(p_file);
     }
 
     /**
@@ -345,8 +345,8 @@ public class MapModel {
      * @param p_file .map file object from which the map file is being loaded
      * @throws IOException if I/O exception of some sort has occurred.
      */
-    public void loadMap(File p_file) throws Exception {
-        load(p_file);
+    public void loadOnlyValidMap(File p_file) throws Exception {
+        loadMap(p_file);
         validateMap();
         if (!isMapValid()) {
             if (!p_file.exists()) {
@@ -364,7 +364,7 @@ public class MapModel {
      * @param p_file .map file object from which the map file is being loaded
      * @throws IOException if I/O exception of some sort has occurred.
      */
-    public void load(File p_file) throws IOException {
+    public void loadMap(File p_file) throws IOException {
         this.d_continents = new LinkedHashMap<>();
         this.d_countries = new LinkedHashMap<>();
         Iterator<String> d_iterator;

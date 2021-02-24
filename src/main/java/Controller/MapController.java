@@ -53,10 +53,9 @@ public class MapController {
                 String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
 
                 switch (l_args[0]) {
-                    case "showallfiles":
+                    case "listmaps":
                         String[] l_allFileNames = getAllAvailableFileNames();
-                        //d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
-                        d_mapView.showMsg(l_args[0] + " is not supported as of now!");
+                        d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
                         break;
                     case "showcommands":
                         d_mapView.showAvailableCommands(true);
@@ -138,6 +137,7 @@ public class MapController {
         LinkedHashMap<String, String> l_allFilesValidation = new LinkedHashMap<String, String>();
         File l_mapFile = null;
         String l_fileExt;
+
         try{
             for (int l_counter = 0; l_counter < p_allFileNames.length; l_counter++) {
                 l_mapFile = new File(d_mapUtils.getMapsPath() + p_allFileNames[l_counter]);
@@ -157,10 +157,10 @@ public class MapController {
             }
         } catch (Exception l_e) {
             System.out.println(l_mapFile.getName() + " file follows different format than supported map files.");
-            //TODO l_mapFile.delete();
+            l_mapFile.delete();
             System.out.println(l_e.toString());
             String[] l_allFileNames = getAllAvailableFileNames();
-            //d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
+            d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
             return null;
         }
         return l_allFilesValidation;

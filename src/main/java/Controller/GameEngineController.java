@@ -82,7 +82,7 @@ public class GameEngineController {
                 }
                 // if the command entered is loadmap
                 else if (CommandsParser.isLoadMap(l_args)) {
-                    this.d_mapModel.loadMap(new File(new MapUtils().getMapsPath() + l_args[1]));
+                    this.d_mapModel.loadOnlyValidMap(new File(new MapUtils().getMapsPath() + l_args[1]));
                     l_isMapLoaded = true;
                     this.d_model.setContinents(new ArrayList<ContinentModel>(this.d_mapModel.getContinents().values()));
                     this.d_model.setCountries(this.d_mapModel.getCountries());

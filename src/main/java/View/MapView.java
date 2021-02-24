@@ -87,7 +87,7 @@ public class MapView {
         System.out.println("8.  showcontinents");
         System.out.println("9.  showcountries");
         System.out.println("10. showcommands");
-        System.out.println("11. showallfiles");
+        System.out.println("11. listmaps (shows all available domination map files)");
         System.out.println("12. exit");
     }
 
