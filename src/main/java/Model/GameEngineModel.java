@@ -128,10 +128,14 @@ public class GameEngineModel {
         }
     }
 
+    public boolean isInValidCommand() {
+        return this.d_players.size() == 0;
+    }
+
     /**
      * Assigns the reinforcements to every player
      */
-    public void assignReinforcements(){
+    public void assignReinforcements() {
         int l_numberOfArmies;
         boolean l_hasContinent;
 

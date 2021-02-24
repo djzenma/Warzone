@@ -77,8 +77,13 @@ public class GameEngineController {
                 }
                 // if the command entered is assigncountries
                 else if (CommandsParser.isAssignCountries(l_args)) {
-                    this.d_model.assignCountries();
-                    l_end = true;
+                    if (d_model.isInValidCommand()) {
+                        this.d_view.isInvalidAssignment();
+                        l_end = false;
+                    } else {
+                        this.d_model.assignCountries();
+                        l_end = true;
+                    }
                 }
                 // if the command entered is loadmap
                 else if (CommandsParser.isLoadMap(l_args)) {
