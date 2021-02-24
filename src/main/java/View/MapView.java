@@ -70,6 +70,16 @@ public class MapView {
         this.showAvailableCommands(false);
     }
 
+    public String askForUserInput(String p_msg){
+        System.out.print("\n" + p_msg + ": ");
+        String l_input = new Scanner(System.in).nextLine().trim().toLowerCase();
+        if(l_input.equals("y") || l_input.equals("n"))
+            return l_input;
+        else
+            l_input = askForUserInput("Invalid input, please enter again (Y/N)?");
+            return l_input;
+    }
+
     public void showAvailableCommands(boolean p_withTitle){
 
         if(p_withTitle) {
@@ -146,7 +156,6 @@ public class MapView {
             l_LONGEST_CONTINENT_NAME[0] = "Continent Name".length();
 
         String l_border = new String(new char[l_LONGEST_CONTINENT_NAME[0]]).replace("\0", "-");
-        System.out.println(l_LONGEST_CONTINENT_NAME[0]);
         String[] l_separator = new String[]{l_border, l_border, l_border, l_border};
 
         String l_format = "|%15s|%" + l_LONGEST_CONTINENT_NAME[0] + "s|%15s|%15s|\n";

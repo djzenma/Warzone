@@ -576,11 +576,6 @@ public class MapModel {
      * @throws Exception if the map being saved is an invalid map
      */
     public void saveMap(File p_file) throws Exception {
-        validateMap();
-        if(!d_IsMapValid){
-            throw new Exception("The map is invalid. Cannot be saved!");
-        }
-
         File l_file;
         String l_tempLine = null;
         FileOutputStream l_fos;

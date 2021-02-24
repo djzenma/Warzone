@@ -90,6 +90,13 @@ public class MapController {
                     case "savemap":
                         if (!this.isMapFileLoaded(l_args[0]))
                             continue;
+                        d_mapModel.validateMap();
+                        if(!d_mapModel.isMapValid()){
+                            String l_input = d_mapView.askForUserInput("The map being edited is invalid, " +
+                                    "do you still want to save it (Y/N)? ");
+                            if(l_input.equals("n"))
+                                continue;
+                        }
                         l_fileName = getValidFileName(l_args);
                         l_fileData = getMapFile(l_fileName, false);
                         this.savemapWarning(l_fileName, l_fileData);
