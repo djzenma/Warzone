@@ -3,38 +3,48 @@ pic solar_pic.jpg
 map solar_map.gif
 crd solar.cards
 
-[continents]
-Mercury 6 yellow  
-Venus 8 yellow    
-Earth 10 yellow   
-Mars 10 yellow
-Comet 4 yellow
-Jupiter 12 yellow 
-Saturn 8 yellow   
-Uranus 6 yellow   
-Neptune 6 yellow  
-Pluto 2 yellow    
+         [continents]
+         Mercury 6 yellow
+         Venus 8 yellow
+         Earth 10 yellow
+               Mars 10 yellow
+               Comet 4 yellow
+               Jupiter 12 yellow
+                          Saturn 8 yellow
+                          Uranus 6 yellow
+                          Neptune 6 yellow
+Pluto 2 yellow
 
 [countries]
 1 Mercury-South 1 523 359
-2 Mercury-East 1 534 333
-3 Mercury-West 1 500 345 
-4 Mercury-North 1 510 323
-5 Venus-South 2 536 246
-6 Venus-East 2 548 197
-7 Venus-Southwest 2 514 226
-8 Venus-Northwest 2 505 201
+                      2 Mercury-East 1 534 333
+                      3 Mercury-West 1 500 345
+                               4 Mercury-North 1 510 323
+                                                 5 Venus-South 2 536 246
+                                                 6 Venus-East 2 548 197
+                                                   7 Venus-Southwest 2 514 226
+                                                                     8 Venus-Northwest 2 505 201
 9 Venus-North 2 505 174
+10 Earth-SouthPole 3 429 295
+         11 Earth-SouthAmerica 3 458 255
+                                     12 Earth-Atlantic 3 452 216
+                                     13 Earth-Pacific 3 407 258
+                                             14 Earth-NorthAmerica 3 420 200
+                                                                     15 Earth-NorthPole 3 385 196
+                                                                     16 Earth-NorthPacific 3 370 229
+                                                                        17 Mars-South 4 419 415
+                                                                                      18 Mars-Southeast 4 401 374
+19 Mars-Southwest 4 355 412
 20 Mars-Central 4 371 371
-21 Mars-Northeast 4 364 344
-22 Mars-Northwest 4 336 369
-23 Mars-North 4 337 334
-24 Comet-Head 5 163 383
-25 Comet-Tail 5 89 361
-26 Jupiter-South 6 264 252
-27 Jupiter-Southeast 6 285 210
-28 Jupiter-Southwest 6 212 230
-29 Jupiter-RedSpot 6 240 203
+        21 Mars-Northeast 4 364 344
+                                22 Mars-Northwest 4 336 369
+                                23 Mars-North 4 337 334
+                                       24 Comet-Head 5 163 383
+                                                       25 Comet-Tail 5 89 361
+                                                       26 Jupiter-South 6 264 252
+                                                          27 Jupiter-Southeast 6 285 210
+                                                                               28 Jupiter-Southwest 6 212 230
+                                       29 Jupiter-RedSpot 6 240 203
 30 Jupiter-East 6 300 160
 31 Jupiter-Central 6 247 172
 32 Jupiter-West 6 187 187

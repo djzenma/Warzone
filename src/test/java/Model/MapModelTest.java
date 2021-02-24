@@ -8,125 +8,152 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 import static org.junit.Assert.*;
 
 /**
- * TODO::
- * Add more tests for each method
+ * Test class for the MapModel
  */
 public class MapModelTest {
 
-    private static final String l_testMapFileName = "solar.map";
-    private static MapModel d_mapModel;
-    private static MapView d_mapView;
-    private static MapController d_mapController;
-    private static MapUtils d_mapUtils;
+    private static final String d_TestMapFileName = "solar.map";
+    private static MapModel d_MapModel;
+    private static MapView d_MapView;
+    private static MapController d_MapController;
+    private static MapUtils d_MapUtils;
 
     /**
-     * TODO
+     * Initializes the MapModel and MapUtils
+     *
      * @throws Exception
      */
     @BeforeClass
-    public static void init() throws Exception {
-        d_mapModel = new MapModel();
-        d_mapView = new MapView();
-        d_mapController = new MapController(d_mapModel, d_mapView);
-
-        d_mapUtils = new MapUtils();
+    public static void init() {
+        d_MapModel = new MapModel();
+        d_MapView = new MapView();
+        d_MapController = new MapController(d_MapModel, d_MapView);
+        d_MapUtils = new MapUtils();
     }
 
+    /**
+     * Sets the context before every test method
+     *
+     * @throws Exception
+     */
     @Before
     public void setUp() throws Exception {
-        File l_file = (File) d_mapController.getMapFile(l_testMapFileName, false).get(0);
-        d_mapModel.editMap(l_file);
+        File l_file = (File) d_MapController.getMapFile(d_TestMapFileName, false).get(0);
+        d_MapModel.editMap(l_file);
     }
 
+    /**
+     * Tests editcontinent command
+     *
+     * @throws Exception If user tries to remove non-existing continent
+     */
     @Test
     public void editContinent() throws Exception {
-        d_mapModel.editContinent("add Asia 5");
-        assertNotNull(d_mapModel.getContinents().get("Asia"));
-        assertEquals(5, d_mapModel.getContinents().get("Asia").getControlValue());
+        d_MapModel.editContinent("add Asia 5");
+        assertNotNull(d_MapModel.getContinents().get("Asia"));
+        assertEquals(5, d_MapModel.getContinents().get("Asia").getControlValue());
 
-        d_mapModel.editContinent("remove Asia");
-        assertFalse(d_mapModel.getContinents().containsKey("Asia"));
+        d_MapModel.editContinent("remove Asia");
+        assertFalse(d_MapModel.getContinents().containsKey("Asia"));
     }
 
+    /**
+     * Tests editcountry command
+     *
+     * @throws Exception If user tries to add non-existing continent
+     */
     @Test
     public void editCountry() throws Exception {
-        d_mapModel.editCountry("add Australia Earth");
-        assertNotNull(d_mapModel.getCountries().get("Australia"));
-        assertEquals("Earth", d_mapModel.getCountries().get("Australia").getContinentId());
+        d_MapModel.editCountry("add Australia Earth");
+        assertNotNull(d_MapModel.getCountries().get("Australia"));
+        assertEquals("Earth", d_MapModel.getCountries().get("Australia").getContinentId());
 
-        d_mapModel.editCountry("remove Australia");
-        assertFalse(d_mapModel.getCountries().containsKey("Australia"));
+        d_MapModel.editCountry("remove Australia");
+        assertFalse(d_MapModel.getCountries().containsKey("Australia"));
     }
 
+    /**
+     * Tests editneighbor command
+     *
+     * @throws Exception If user tries to add borders for non-existing countries
+     */
     @Test
     public void editNeighbor() throws Exception {
-        d_mapModel.editNeighbor("add Mars-Northwest Mercury-South");
-        assertTrue(d_mapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
+        d_MapModel.editNeighbor("add Mars-Northwest Mercury-South");
+        assertTrue(d_MapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
 
-        d_mapModel.editNeighbor("remove Mars-Northwest Mercury-South");
-        assertFalse(d_mapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
+        d_MapModel.editNeighbor("remove Mars-Northwest Mercury-South");
+        assertFalse(d_MapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
 
-        d_mapModel.editNeighbor("add Mars-Northwest Mercury-South remove Mars-Northwest Mars-Central");
-        assertTrue(d_mapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
-        assertFalse(d_mapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mars-Central"));
-        d_mapModel.editNeighbor("remove Mars-Northwest Mercury-South add Mars-Northwest Mars-Central");
+        d_MapModel.editNeighbor("add Mars-Northwest Mercury-South remove Mars-Northwest Mars-Central");
+        assertTrue(d_MapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mercury-South"));
+        assertFalse(d_MapModel.getCountries().get("Mars-Northwest").getNeighbors().containsKey("Mars-Central"));
+        d_MapModel.editNeighbor("remove Mars-Northwest Mercury-South add Mars-Northwest Mars-Central");
     }
 
     /**
      * Tests for editmap on continents only
-     *
-     * @throws Exception
      */
     @Test
-    public void editMapContinentTests() throws Exception {
-
+    public void editMapContinentTests() {
         String[] l_continentList = {"Mercury", "Venus", "Earth", "Mars", "Comet", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
         int[] l_continentControlValues = {6, 8, 10, 10, 4, 12, 8, 6, 6, 2};
 
         //compare continent names
-        assertArrayEquals(l_continentList, d_mapModel.getContinents().keySet().toArray());
+        assertArrayEquals(l_continentList, d_MapModel.getContinents().keySet().toArray());
 
         //compare continent control values
         for (int l_i = 0; l_i < l_continentList.length; l_i++) {
-            assertEquals(l_continentControlValues[l_i], d_mapModel.getContinents().get(l_continentList[l_i]).getControlValue());
+            assertEquals(l_continentControlValues[l_i], d_MapModel.getContinents().get(l_continentList[l_i]).getControlValue());
         }
     }
 
     /**
      * Tests for entire map validation
      *
-     * @throws Exception
+     * @throws Exception If user tries to add borders for non-existing countries
      */
     @Test
     public void validateMap() throws Exception {
-        d_mapModel.editNeighbor("remove Pluto-West Pluto-East");
-        d_mapModel.validateMap();
-        assertFalse(d_mapModel.isMapValid());
+        d_MapModel.editNeighbor("remove Pluto-West Pluto-East");
+        d_MapModel.validateMap();
+        assertFalse(d_MapModel.isMapValid());
 
-        d_mapModel.editNeighbor("add Pluto-West Pluto-East");
-        d_mapModel.validateMap();
-        assertTrue(d_mapModel.isMapValid());
+        d_MapModel.editNeighbor("add Pluto-West Pluto-East");
+        d_MapModel.validateMap();
+        assertTrue(d_MapModel.isMapValid());
     }
 
     /**
      * Tests for continent validation
      *
-     * @throws Exception
+     * @throws Exception If user tries to add borders for non-existing countries
      */
     @Test
     public void validateContinentConnectivity() throws Exception {
-        d_mapModel.editNeighbor("remove Neptune-North Neptune-East");
-        d_mapModel.editNeighbor("remove Neptune-North Neptune-West");
+        d_MapModel.editNeighbor("remove Neptune-North Neptune-East");
+        d_MapModel.editNeighbor("remove Neptune-North Neptune-West");
 
         // validate the entire map
-        d_mapModel.validateMap();
-        assertFalse(d_mapModel.isMapValid());
+        d_MapModel.validateMap();
+        assertFalse(d_MapModel.isMapValid());
 
         // validate only continent
-        assertFalse(d_mapModel.validateContinentConnectivity());
+        assertFalse(d_MapModel.validateContinentConnectivity());
+    }
+
+    /**
+     * Tests savemap command
+     */
+    @Test
+    public void saveMap() throws IOException {
+        d_MapModel.editMap(new File(d_MapUtils.getMapsPath() + "solar.map"));
+        d_MapModel.saveMap(new File(d_MapUtils.getMapsPath() + "savemaptest.map"));
+        assertTrue(d_MapUtils.areMapFilesEqual("solar.map", "savemaptest.map"));
     }
 }
