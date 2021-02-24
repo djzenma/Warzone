@@ -11,10 +11,16 @@ import java.util.Set;
 import static java.lang.Math.floor;
 
 /**
- * Game Engine TODO::
+ * Implements the Gameplay Phase
+ * <ul>
+ *     <li> Add/remove players </li>
+ *     <li> Assign the countries to the players </li>
+ *     <li> Assign the reinforcements to the players </li>
+ *     <li> Executes the Orders issued by the players </li>
+ * </ul>
  */
 public class GameEngineModel {
-    private final HashMap<String, PlayerModel> PLAYERS;
+    private final HashMap<String, PlayerModel> d_players;
     private HashMap<String, CountryModel> d_countries;
     private ArrayList<ContinentModel> d_continents;
 
@@ -22,7 +28,7 @@ public class GameEngineModel {
      * Initialises the HashMap of PlayerModel, CountryModel and Arraylist of ContinentModel
      */
     public GameEngineModel() {
-        this.PLAYERS = new HashMap<>();
+        this.d_players = new HashMap<>();
         this.d_continents = new ArrayList<>();
         this.d_countries = new HashMap<>();
     }
@@ -42,7 +48,7 @@ public class GameEngineModel {
      * @return HashMap of the players
      */
     public HashMap<String, PlayerModel> getPlayers() {
-        return PLAYERS;
+        return d_players;
     }
 
     /**
@@ -70,20 +76,21 @@ public class GameEngineModel {
      */
     public void addPlayer(String p_playerName) {
         PlayerModel l_playerModel = new PlayerModel(p_playerName, new PlayerView());
-        this.PLAYERS.put(p_playerName, l_playerModel);
+        this.d_players.put(p_playerName, l_playerModel);
     }
 
     /**
      * Removes a game player
      *
      * @param p_playerName Name of the player
+     * @throws Exception When the player being removed does not exists
      */
     public void removePlayer(String p_playerName) throws Exception {
         //handle playerName
-        if (!(this.PLAYERS.containsKey(p_playerName))) {
+        if (!(this.d_players.containsKey(p_playerName))) {
             throw new Exception("Player does not exists");
         }
-        this.PLAYERS.remove(p_playerName);
+        this.d_players.remove(p_playerName);
     }
 
     /**
@@ -92,20 +99,20 @@ public class GameEngineModel {
      */
     public void assignCountries() {
         // get the number of countries to be assigned per player
-        int l_countriesPerPlayer = this.d_countries.size() / this.PLAYERS.size();
+        int l_countriesPerPlayer = this.d_countries.size() / this.d_players.size();
 
         // get the countries IDs as a List
         Set<String> l_countryNames = this.d_countries.keySet();
         List<String> l_countryNamesList = new ArrayList<String>(l_countryNames);
 
         // get the player IDs as a List
-        Set<String> l_playerIDs = this.PLAYERS.keySet();
+        Set<String> l_playerIDs = this.d_players.keySet();
         List<String> l_playerIDsList = new ArrayList<String>(l_playerIDs);
 
         // assign countries evenly between players
         int l_countriesCounter = 0;
-        for (PlayerModel l_player : this.PLAYERS.values()) {
-            for (int i = 0; i < l_countriesPerPlayer; i++) {
+        for (PlayerModel l_player : this.d_players.values()) {
+            for (int l_i = 0; l_i < l_countriesPerPlayer; l_i++) {
                 String l_countryName = l_countryNamesList.get(l_countriesCounter);
                 // get the country
                 CountryModel l_country = this.d_countries.get(l_countryName);
@@ -120,8 +127,8 @@ public class GameEngineModel {
         // assign remaining countries to random players
         while (l_countriesCounter <= this.d_countries.size() - 1) {
             // get the random player
-            int l_rand = (int) (Math.random() * (this.PLAYERS.size()));
-            PlayerModel l_player = this.PLAYERS.get(l_playerIDsList.get(l_rand));
+            int l_rand = (int) (Math.random() * (this.d_players.size()));
+            PlayerModel l_player = this.d_players.get(l_playerIDsList.get(l_rand));
 
             // get the name of this country
             String l_countryName = l_countryNamesList.get(l_countriesCounter);
@@ -141,7 +148,7 @@ public class GameEngineModel {
      * @return True if the there are no players added in the game; Otherwise false
      */
     public boolean isInValidCommand() {
-        return this.PLAYERS.size() == 0;
+        return this.d_players.size() == 0;
     }
 
     /**
@@ -152,7 +159,7 @@ public class GameEngineModel {
         boolean l_hasContinent;
 
         // iterate over all the players
-        for (PlayerModel l_player : this.PLAYERS.values()) {
+        for (PlayerModel l_player : this.d_players.values()) {
             l_numberOfArmies = (int) Math.max(3, floor(l_player.getCountries().size() / 3.0));
 
             // iterate over all the continents
@@ -186,7 +193,7 @@ public class GameEngineModel {
     public boolean executeOrders() {
         boolean l_end = true;
 
-        for (PlayerModel l_player : this.PLAYERS.values()) {
+        for (PlayerModel l_player : this.d_players.values()) {
             OrderModel l_order = l_player.nextOrder();
             if (l_order != null) {
                 l_order.execute(d_countries);

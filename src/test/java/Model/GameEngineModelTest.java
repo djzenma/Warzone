@@ -12,14 +12,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * This is the test class for the GameEngineModel
+ * Test class for the GameEngineModel
  */
 public class GameEngineModelTest {
 
     private static GameEngineModel d_gameEngine;
 
     /**
-     * Initializes the GameEngineModel
+     * Initializes the GameEngineModel and a context scenario
      */
     @BeforeClass
     public static void init() {
@@ -27,63 +27,54 @@ public class GameEngineModelTest {
         HashMap<String, CountryModel> l_countries = new HashMap<>();
         ArrayList<ContinentModel> l_continents = new ArrayList<>();
 
-        CountryModel a = new CountryModel(1,"India");
-        CountryModel b = new CountryModel(2,"Egypt");
-        CountryModel c = new CountryModel(3,"Canada");
-        CountryModel a1 = new CountryModel(4,"Canada1");
-        CountryModel a2 = new CountryModel(5,"Canada2");
-        CountryModel a3 = new CountryModel(6,"Canada3");
-        CountryModel a4 = new CountryModel(7,"Canada4");
-        CountryModel a5 = new CountryModel(8,"Canada5");
-        CountryModel a6 = new CountryModel(9,"Canada6");
-        CountryModel a7 = new CountryModel(10,"Canada7");
-        CountryModel a8 = new CountryModel(11,"Canada8");
-        CountryModel a9 = new CountryModel(12,"Canada9");
+        CountryModel l_a = new CountryModel(1, "India");
+        CountryModel l_b = new CountryModel(2, "Egypt");
+        CountryModel l_c = new CountryModel(3, "Canada");
+        CountryModel l_d = new CountryModel(4, "Canada1");
+        CountryModel l_e = new CountryModel(5, "Canada2");
+        CountryModel l_f = new CountryModel(6, "Canada3");
+        CountryModel l_g = new CountryModel(7, "Canada4");
+        CountryModel l_h = new CountryModel(8, "Canada5");
+        CountryModel l_i = new CountryModel(9, "Canada6");
+        CountryModel l_j = new CountryModel(10, "Canada7");
+        CountryModel l_k = new CountryModel(11, "Canada8");
+        CountryModel l_l = new CountryModel(12, "Canada9");
 
-        l_countries.put(a.getName(), a);
-        l_countries.put(b.getName(), b);
-        l_countries.put(c.getName(), c);
-        l_countries.put(a1.getName(), a1);
-        l_countries.put(a2.getName(), a2);
-        l_countries.put(a3.getName(), a3);
-        l_countries.put(a4.getName(), a4);
-        l_countries.put(a5.getName(), a5);
-        l_countries.put(a6.getName(), a6);
-        l_countries.put(a7.getName(), a7);
-        l_countries.put(a8.getName(), a8);
-        l_countries.put(a9.getName(), a9);
+        l_countries.put(l_a.getName(), l_a);
+        l_countries.put(l_b.getName(), l_b);
+        l_countries.put(l_c.getName(), l_c);
+        l_countries.put(l_d.getName(), l_d);
+        l_countries.put(l_e.getName(), l_e);
+        l_countries.put(l_f.getName(), l_f);
+        l_countries.put(l_g.getName(), l_g);
+        l_countries.put(l_h.getName(), l_h);
+        l_countries.put(l_i.getName(), l_i);
+        l_countries.put(l_j.getName(), l_j);
+        l_countries.put(l_k.getName(), l_k);
+        l_countries.put(l_l.getName(), l_l);
 
-        ContinentModel c1 = new ContinentModel("Asia",7);
-        ContinentModel c2 = new ContinentModel("Australia",8);
+        ContinentModel l_c1 = new ContinentModel("Asia", 7);
+        ContinentModel l_c2 = new ContinentModel("Australia", 8);
 
-        c1.addCountry(a);
-        c1.addCountry(b);
-        c1.addCountry(c);
-        c1.addCountry(a1);
-        c1.addCountry(a2);
-        c1.addCountry(a3);
-        c1.addCountry(a4);
-        c1.addCountry(a5);
-        c2.addCountry(a6);
-        c2.addCountry(a7);
-        c2.addCountry(a8);
-        c1.addCountry(a9);
+        l_c1.addCountry(l_a);
+        l_c1.addCountry(l_b);
+        l_c1.addCountry(l_c);
+        l_c1.addCountry(l_d);
+        l_c1.addCountry(l_e);
+        l_c1.addCountry(l_f);
+        l_c1.addCountry(l_g);
+        l_c1.addCountry(l_h);
+        l_c2.addCountry(l_i);
+        l_c2.addCountry(l_j);
+        l_c2.addCountry(l_k);
+        l_c1.addCountry(l_l);
 
-        l_continents.add(c1);
-        l_continents.add(c2);
+        l_continents.add(l_c1);
+        l_continents.add(l_c2);
 
         d_gameEngine = new GameEngineModel();
         d_gameEngine.setCountries(l_countries);
         d_gameEngine.setContinents(l_continents);
-
-    }
-
-    @Test
-    public void getPlayers() {
-    }
-
-    @Test
-    public void getCountries() {
     }
 
     /**
@@ -108,23 +99,29 @@ public class GameEngineModelTest {
      * Tests if a player has been removed
      */
     @Test
-    public void removePlayer() throws Exception {
-        d_gameEngine.removePlayer("Mazen");
-
-        assertEquals(2, d_gameEngine.getPlayers().size());
+    public void removePlayer() {
+        try {
+            d_gameEngine.removePlayer("Mazen");
+            assertEquals(2, d_gameEngine.getPlayers().size());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
-     * Tests whether every player has been assigned a country
-     * */
+     * Tests whether every player has been assigned at least one country
+     */
     @Test
     public void assignCountries() {
         d_gameEngine.assignCountries();
-        for(PlayerModel l_player: d_gameEngine.getPlayers().values()){
+        for (PlayerModel l_player : d_gameEngine.getPlayers().values()) {
             assertNotNull(l_player.getCountries());
         }
     }
 
+    /**
+     * Tests the number of assigned reinforcement armies for every player
+     */
     @Test
     public void assignReinforcements() {
         d_gameEngine.assignCountries();
@@ -132,10 +129,5 @@ public class GameEngineModelTest {
         assertEquals(11, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
         assertEquals(3, d_gameEngine.getPlayers().get("Aman").getReinforcements());
         assertEquals(3, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
-    }
-
-
-    @Test
-    public void executeOrders() {
     }
 }

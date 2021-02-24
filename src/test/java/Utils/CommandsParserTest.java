@@ -10,14 +10,16 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests the CommandParser
+ */
 public class CommandsParserTest {
+    /**
+     * Parses the JSON
+     */
     @BeforeClass
     public static void init() {
         CommandsParser.parseJson();
-    }
-
-    @Test
-    public void parse() {
     }
 
     /**
@@ -65,59 +67,59 @@ public class CommandsParserTest {
     public void isMapEditorCommandValid() {
 
         //MapEditor valid commands
-        String[] mCmd1 = {"editcontinent", "add", "Australia", "5", "remove", "Europe"};
-        String[] mCmd2 = {"editcountry", "add", "Australia", "Australia", "remove", "Nepal"};
-        String[] mCmd3 = {"editneighbor", "add", "India", "Pakistan", "remove", "Russia", "Spain"};
-        String[] mCmd4 = {"savemap", "solar.map"};
-        String[] mCmd5 = {"showmap"};
-        String[] mCmd6 = {"validatemap"};
-        String[] mCmd7 = {"editcontinent", "add", "Australia", "5", "remove", "Europe", "add", "South America", "3"};
-        String[] mCmd8 = {"editcountry", "add", "Australia", "Australia", "remove", "Nepal", "add", "India", "Asia"};
-        String[] mCmd9 = {"editneighbor", "add", "India", "Pakistan"};
-        String[] mCmd10 = {"editcountry", "remove", "Nepal"};
-        String[] mCmd11 = {"editcontinent", "add", "Australia", "5", "add", "Europe", "5", "remove", "North America"};
-        String[] mCmd12 = {"editmap", "file.map"};
-        assertTrue(CommandsParser.isValidCommand(mCmd1));
-        assertTrue(CommandsParser.isValidCommand(mCmd2));
-        assertTrue(CommandsParser.isValidCommand(mCmd3));
-        assertTrue(CommandsParser.isValidCommand(mCmd4));
-        assertTrue(CommandsParser.isValidCommand(mCmd5));
-        assertTrue(CommandsParser.isValidCommand(mCmd6));
-        assertTrue(CommandsParser.isValidCommand(mCmd7));
-        assertTrue(CommandsParser.isValidCommand(mCmd8));
-        assertTrue(CommandsParser.isValidCommand(mCmd9));
-        assertTrue(CommandsParser.isValidCommand(mCmd10));
-        assertTrue(CommandsParser.isValidCommand(mCmd11));
-        assertTrue(CommandsParser.isValidCommand(mCmd12));
+        String[] l_mCmd1 = {"editcontinent", "add", "Australia", "5", "remove", "Europe"};
+        String[] l_mCmd2 = {"editcountry", "add", "Australia", "Australia", "remove", "Nepal"};
+        String[] l_mCmd3 = {"editneighbor", "add", "India", "Pakistan", "remove", "Russia", "Spain"};
+        String[] l_mCmd4 = {"savemap", "solar.map"};
+        String[] l_mCmd5 = {"showmap"};
+        String[] l_mCmd6 = {"validatemap"};
+        String[] l_mCmd7 = {"editcontinent", "add", "Australia", "5", "remove", "Europe", "add", "South America", "3"};
+        String[] l_mCmd8 = {"editcountry", "add", "Australia", "Australia", "remove", "Nepal", "add", "India", "Asia"};
+        String[] l_mCmd9 = {"editneighbor", "add", "India", "Pakistan"};
+        String[] l_mCmd10 = {"editcountry", "remove", "Nepal"};
+        String[] l_mCmd11 = {"editcontinent", "add", "Australia", "5", "add", "Europe", "5", "remove", "North America"};
+        String[] l_mCmd12 = {"editmap", "file.map"};
+        assertTrue(CommandsParser.isValidCommand(l_mCmd1));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd2));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd3));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd4));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd5));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd6));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd7));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd8));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd9));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd10));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd11));
+        assertTrue(CommandsParser.isValidCommand(l_mCmd12));
 
         //MapEditor invalid commands
-        String[] mInCmd1 = {"editcontinent", "add", "5", "remove", "Europe"};
-        String[] mInCmd2 = {"editcountry", "India", "Asia", "remove", "Nepal"};
-        String[] mInCmd3 = {"editneighbor", "add", "India", "remove", "Russia", "Spain"};
-        String[] mInCmd4 = {"savemap"};
-        String[] mInCmd5 = {"showmap", "file.map"};
-        String[] mInCmd6 = {"validatemap", "file.map"};
-        String[] mInCmd7 = {"editcontinent", "add", "Australia", "5", "remove", "Europe", "add"};
-        String[] mInCmd8 = {"editcountry", "add", "Australia", "Australia", "remove", "add", "India", "Asia"};
-        String[] mInCmd9 = {"editneighbor", "India", "Pakistan"};
-        String[] mInCmd10 = {"editcountry", "add", "countryname"};
-        String[] mInCmd11 = {"editcontinent", "add", "Australia", "add", "Europe", "5", "remove", "North America"};
-        String[] mInCmd12 = {"editmap"};
-        String[] mInCmd13 = {"editcontinent"};
+        String[] l_mInCmd1 = {"editcontinent", "add", "5", "remove", "Europe"};
+        String[] l_mInCmd2 = {"editcountry", "India", "Asia", "remove", "Nepal"};
+        String[] l_mInCmd3 = {"editneighbor", "add", "India", "remove", "Russia", "Spain"};
+        String[] l_mInCmd4 = {"savemap"};
+        String[] l_mInCmd5 = {"showmap", "file.map"};
+        String[] l_mInCmd6 = {"validatemap", "file.map"};
+        String[] l_mInCmd7 = {"editcontinent", "add", "Australia", "5", "remove", "Europe", "add"};
+        String[] l_mInCmd8 = {"editcountry", "add", "Australia", "Australia", "remove", "add", "India", "Asia"};
+        String[] l_mInCmd9 = {"editneighbor", "India", "Pakistan"};
+        String[] l_mInCmd10 = {"editcountry", "add", "countryname"};
+        String[] l_mInCmd11 = {"editcontinent", "add", "Australia", "add", "Europe", "5", "remove", "North America"};
+        String[] l_mInCmd12 = {"editmap"};
+        String[] l_mInCmd13 = {"editcontinent"};
 
-        assertFalse((CommandsParser.isValidCommand(mInCmd1)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd2)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd3)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd4)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd5)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd6)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd7)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd8)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd9)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd10)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd11)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd12)));
-        assertFalse((CommandsParser.isValidCommand(mInCmd13)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd1)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd2)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd3)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd4)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd5)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd6)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd7)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd8)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd9)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd10)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd11)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd12)));
+        assertFalse((CommandsParser.isValidCommand(l_mInCmd13)));
     }
 
     /**
@@ -128,14 +130,14 @@ public class CommandsParserTest {
         HashMap<String, List<String>> l_correct;
 
         l_correct = new HashMap<>();
-        String[] cmd1 = {"gameplayer", "add", "Aman", "remove", "Mazen", "add", "Shivangi"};
+        String[] l_cmd1 = {"gameplayer", "add", "Aman", "remove", "Mazen", "add", "Shivangi"};
         l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Shivangi")));
         l_correct.put("remove", new ArrayList<>(Arrays.asList("Mazen")));
-        assertEquals(l_correct, CommandsParser.getArguments(cmd1));
+        assertEquals(l_correct, CommandsParser.getArguments(l_cmd1));
 
         l_correct = new HashMap<>();
-        String[] cmd2 = {"gameplayer", "add", "Aman", "add", "Adeetya"};
+        String[] l_cmd2 = {"gameplayer", "add", "Aman", "add", "Adeetya"};
         l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Adeetya")));
-        assertEquals(l_correct, CommandsParser.getArguments(cmd2));
+        assertEquals(l_correct, CommandsParser.getArguments(l_cmd2));
     }
 }

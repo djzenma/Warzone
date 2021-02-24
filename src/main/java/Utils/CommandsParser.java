@@ -13,6 +13,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * JSONParser to parse the commands and validates them
+ */
 public class CommandsParser {
 
     private static Commands d_commands;
@@ -187,14 +190,32 @@ public class CommandsParser {
         return l_args[0].equals("assigncountries");
     }
 
+    /**
+     * Checks if the command entered is to load map
+     *
+     * @param l_args array of the arguments in a command
+     * @return true if the name is valid; otherwise false
+     */
     public static boolean isLoadMap(String[] l_args) {
         return l_args[0].equals("loadmap");
     }
 
+    /**
+     * Checks if the command entered is to show map
+     *
+     * @param l_args array of the arguments in a command
+     * @return true if the name is valid; otherwise false
+     */
     public static boolean isShowMap(String[] l_args) {
         return l_args[0].equals("showmap");
     }
 
+    /**
+     * Checks if the command entered is to pass
+     *
+     * @param l_args array of the arguments in a command
+     * @return true if the name is valid; otherwise false
+     */
     public static boolean isPass(String[] l_args) {
         return l_args[0].equals("pass");
     }

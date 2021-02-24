@@ -11,7 +11,7 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 
 /**
- * TODO::
+ * Handles the user inputs and prints the user game experience
  */
 public class GameEngineView {
     /**
@@ -26,14 +26,12 @@ public class GameEngineView {
         Scanner l_scanner = new Scanner(System.in);
         String l_command = l_scanner.nextLine();
 
-        // clean it
-        //l_command = l_command.toLowerCase();
         String[] l_commandArgs = l_command.split("\\s+");
 
         // remove any '-' before any named argument
-        for (int i = 0; i < l_commandArgs.length; i++) {
-            if (l_commandArgs[i].startsWith("-"))
-                l_commandArgs[i] = l_commandArgs[i].replace("-", "");
+        for (int l_i = 0; l_i < l_commandArgs.length; l_i++) {
+            if (l_commandArgs[l_i].startsWith("-"))
+                l_commandArgs[l_i] = l_commandArgs[l_i].replace("-", "");
         }
         return l_commandArgs;
     }
@@ -129,8 +127,8 @@ public class GameEngineView {
      *     <li> Name of the Neighbors of the country </li>
      * </ul>
      *
-     * @param p_continents
-     * @param p_countries
+     * @param p_continents HashMap of the continents
+     * @param p_countries HashMap of the countries
      */
     public void showMap(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
         // Number of Entries  = Number of Neighbors of every country or 1 if it has none
@@ -142,32 +140,32 @@ public class GameEngineView {
                         countryModel.getNeighbors().size())
                 .sum();
 
-        final int[] LONGEST_NAME_OF_THE_CONTINENT = {0};
-        final int[] LONGEST_NAME_OF_THE_COUNTRY = {0};
+        int[] l_longestNameOfTheContinent = {0};
+        int[] l_longestNameOfTheCountry = {0};
 
         p_continents.values().forEach(new Consumer<ContinentModel>() {
             @Override
             public void accept(ContinentModel p_continentModel) {
-                if (p_continentModel.getName().length() > LONGEST_NAME_OF_THE_CONTINENT[0])
-                    LONGEST_NAME_OF_THE_CONTINENT[0] = p_continentModel.getName().length();
+                if (p_continentModel.getName().length() > l_longestNameOfTheContinent[0])
+                    l_longestNameOfTheContinent[0] = p_continentModel.getName().length();
             }
         });
 
-        LONGEST_NAME_OF_THE_CONTINENT[0] += 4;
+        l_longestNameOfTheContinent[0] += 4;
 
         p_countries.values().forEach(new Consumer<CountryModel>() {
             @Override
             public void accept(CountryModel p_countryModel) {
-                if (p_countryModel.getName().length() > LONGEST_NAME_OF_THE_COUNTRY[0])
-                    LONGEST_NAME_OF_THE_COUNTRY[0] = p_countryModel.getName().length();
+                if (p_countryModel.getName().length() > l_longestNameOfTheCountry[0])
+                    l_longestNameOfTheCountry[0] = p_countryModel.getName().length();
             }
         });
 
-        LONGEST_NAME_OF_THE_CONTINENT[0] = Math.max(LONGEST_NAME_OF_THE_CONTINENT[0] + 3, "Continent Name (CV)".length());
-        LONGEST_NAME_OF_THE_COUNTRY[0] = Math.max(LONGEST_NAME_OF_THE_COUNTRY[0] + 3, "Neighbor Countries".length());
+        l_longestNameOfTheContinent[0] = Math.max(l_longestNameOfTheContinent[0] + 3, "Continent Name (CV)".length());
+        l_longestNameOfTheCountry[0] = Math.max(l_longestNameOfTheCountry[0] + 3, "Neighbor Countries".length());
 
-        String l_continentBorder = new String(new char[LONGEST_NAME_OF_THE_CONTINENT[0]]).replace("\0", "-");
-        String l_countryBorder = new String(new char[LONGEST_NAME_OF_THE_COUNTRY[0]]).replace("\0", "-");
+        String l_continentBorder = new String(new char[l_longestNameOfTheContinent[0]]).replace("\0", "-");
+        String l_countryBorder = new String(new char[l_longestNameOfTheCountry[0]]).replace("\0", "-");
 
         String[] l_separator = new String[]{l_countryBorder, l_continentBorder, l_countryBorder, l_countryBorder, l_countryBorder};
 
@@ -176,65 +174,65 @@ public class GameEngineView {
                 l_countryBorder.length() + "s|\n";
 
         // the table
-        final Object[][][] ROW = {new String[l_rowsNum][]};
+        final Object[][][] l_row = {new String[l_rowsNum][]};
 
         // The Column Names
-        ROW[0][0] = new String[]{StringUtils.center("Country Name".toUpperCase(), l_countryBorder.length()),
+        l_row[0][0] = new String[]{StringUtils.center("Country Name".toUpperCase(), l_countryBorder.length()),
                 StringUtils.center("Continent Name (CV)".toUpperCase(), l_continentBorder.length()),
                 StringUtils.center("Number Of Armies".toUpperCase(), l_countryBorder.length()),
                 StringUtils.center("Owner Name".toUpperCase(), l_countryBorder.length()),
                 StringUtils.center("Neighbor Countries".toUpperCase(), l_countryBorder.length())};
         System.out.println();
         System.out.format(l_format, l_separator);
-        System.out.format(l_format, ROW[0][0]);
+        System.out.format(l_format, l_row[0][0]);
         System.out.format(l_format, l_separator);
 
         // iterate over all the countries
-        final int[] I = {0};
-        p_countries.values().forEach(countryModel -> {
+        final int[] l_i = {0};
+        p_countries.values().forEach(p_countryModel -> {
 
             // get its next neighbor
-            Iterator<String> l_it = countryModel.getNeighbors().keySet().iterator();
+            Iterator<String> l_it = p_countryModel.getNeighbors().keySet().iterator();
 
             // if no neighbors
-            if (countryModel.getNeighbors().keySet().isEmpty()) {
+            if (p_countryModel.getNeighbors().keySet().isEmpty()) {
 
                 // Display all country's information
-                ROW[0][I[0]] = new String[]{
-                        StringUtils.center(countryModel.getName(), l_countryBorder.length()),
-                        StringUtils.center(countryModel.getContinentId(), l_continentBorder.length()),
-                        StringUtils.center(String.valueOf(countryModel.getArmies()), l_countryBorder.length()),
-                        StringUtils.center((countryModel.getOwnerName() == null ? "Not Assigned" : countryModel.getOwnerName()), l_countryBorder.length()),
+                l_row[0][l_i[0]] = new String[]{
+                        StringUtils.center(p_countryModel.getName(), l_countryBorder.length()),
+                        StringUtils.center(p_countryModel.getContinentId(), l_continentBorder.length()),
+                        StringUtils.center(String.valueOf(p_countryModel.getArmies()), l_countryBorder.length()),
+                        StringUtils.center((p_countryModel.getOwnerName() == null ? "Not Assigned" : p_countryModel.getOwnerName()), l_countryBorder.length()),
                         StringUtils.center("[No Neighbors]", l_countryBorder.length())
                 };
-                System.out.format(l_format, ROW[0][I[0]]);
-                I[0]++;
+                System.out.format(l_format, l_row[0][l_i[0]]);
+                l_i[0]++;
             }
 
             // If the country has neighbors Display all country's information
             else {
 
                 // display the neighbors line by line
-                for (int j = 0; j < countryModel.getNeighbors().keySet().size(); j++) {
-                    if (j != 0)
-                        ROW[0][I[0]] = new String[]{
+                for (int l_j = 0; l_j < p_countryModel.getNeighbors().keySet().size(); l_j++) {
+                    if (l_j != 0)
+                        l_row[0][l_i[0]] = new String[]{
                                 " ",
                                 " ",
                                 " ",
                                 " ",
-                                StringUtils.center((j + 1) + ". " + l_it.next(), l_countryBorder.length())
+                                StringUtils.center((l_j + 1) + ". " + l_it.next(), l_countryBorder.length())
                         };
                     else
-                        ROW[0][I[0]] = new String[]{
-                                StringUtils.center(countryModel.getName(), l_countryBorder.length()),
-                                StringUtils.center(countryModel.getContinentId() + "(" + p_continents.get(countryModel.getContinentId()).getControlValue() + ")", l_continentBorder.length()),
-                                StringUtils.center(String.valueOf(countryModel.getArmies()), l_countryBorder.length()),
-                                StringUtils.center((countryModel.getOwnerName() == null ? "Not Assigned" : countryModel.getOwnerName()), l_countryBorder.length()),
-                                StringUtils.center((j + 1) + ". " + (countryModel.getNeighbors().keySet().isEmpty() ?
+                        l_row[0][l_i[0]] = new String[]{
+                                StringUtils.center(p_countryModel.getName(), l_countryBorder.length()),
+                                StringUtils.center(p_countryModel.getContinentId() + "(" + p_continents.get(p_countryModel.getContinentId()).getControlValue() + ")", l_continentBorder.length()),
+                                StringUtils.center(String.valueOf(p_countryModel.getArmies()), l_countryBorder.length()),
+                                StringUtils.center((p_countryModel.getOwnerName() == null ? "Not Assigned" : p_countryModel.getOwnerName()), l_countryBorder.length()),
+                                StringUtils.center((l_j + 1) + ". " + (p_countryModel.getNeighbors().keySet().isEmpty() ?
                                         "[No Neighbors]" : l_it.next()), l_countryBorder.length())
                         };
-                    System.out.format(l_format, ROW[0][I[0]]);
-                    I[0]++;
+                    System.out.format(l_format, l_row[0][l_i[0]]);
+                    l_i[0]++;
                 }
             }
             System.out.format(l_format, l_separator);

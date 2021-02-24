@@ -14,13 +14,18 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Game Engine TODO::
+ * Controls the Game Play loop.
+ * Iterates the following phases:
+ * <ul>
+ *     <li> Startup Phase </li>
+ *     <li> Gameplay Phase </li>
+ * </ul>
  */
 public class GameEngineController {
 
-    private final GameEngineModel MODEL;
-    private final GameEngineView VIEW;
-    private final MapModel MAP_MODEL;
+    private final GameEngineModel d_model;
+    private final GameEngineView d_view;
+    private final MapModel d_mapModel;
 
     /**
      * Initialises GameEngineModel, GameEngineView and MapModel
@@ -29,9 +34,9 @@ public class GameEngineController {
      * @param p_view  Object of the GameEngineView
      */
     public GameEngineController(GameEngineModel p_model, GameEngineView p_view) {
-        this.MODEL = p_model;
-        this.VIEW = p_view;
-        this.MAP_MODEL = new MapModel();
+        this.d_model = p_model;
+        this.d_view = p_view;
+        this.d_mapModel = new MapModel();
     }
 
     /**
@@ -42,9 +47,9 @@ public class GameEngineController {
     private String[] takeCommand() {
         String[] l_args;
         do {
-            l_args = VIEW.listenForStartupCommand();
+            l_args = d_view.listenForStartupCommand();
             if (!CommandsParser.isValidCommand(l_args))
-                VIEW.commandNotValid();
+                d_view.commandNotValid();
         } while (!CommandsParser.isValidCommand(l_args));
 
         return l_args;
@@ -67,7 +72,7 @@ public class GameEngineController {
 
             // if map is not yet loaded keep asking to load map first
             if(!l_isMapLoaded && !CommandsParser.isLoadMap(l_args)){
-                this.VIEW.mapNotLoaded();
+                this.d_view.mapNotLoaded();
                 continue;
             }
 
@@ -81,43 +86,43 @@ public class GameEngineController {
                     // add all the players specified in the command
                     if(l_gameplayerArgs.get("add") != null) {
                         for (String l_player : l_gameplayerArgs.get("add"))
-                            this.MODEL.addPlayer(l_player);
+                            this.d_model.addPlayer(l_player);
                     }
 
                     // remove all the players specified in the command
                     if(l_gameplayerArgs.get("remove") != null) {
                         for (String l_player : l_gameplayerArgs.get("remove"))
-                            this.MODEL.removePlayer(l_player);
+                            this.d_model.removePlayer(l_player);
                     }
                 }
 
                 // if the command entered is assigncountries
                 else if (CommandsParser.isAssignCountries(l_args)) {
-                    if (MODEL.isInValidCommand()) {
-                        this.VIEW.isInvalidAssignment();
+                    if (d_model.isInValidCommand()) {
+                        this.d_view.isInvalidAssignment();
                         l_end = false;
                     } else {
-                        this.MODEL.assignCountries();
+                        this.d_model.assignCountries();
                         l_end = true;
                     }
                 }
 
                 // if the command entered is loadmap
                 else if (CommandsParser.isLoadMap(l_args)) {
-                    this.MAP_MODEL.loadOnlyValidMap(new File(new MapUtils().getMapsPath() + l_args[1]));
+                    this.d_mapModel.loadOnlyValidMap(new File(new MapUtils().getMapsPath() + l_args[1]));
                     l_isMapLoaded = true;
-                    this.MODEL.setContinents(new ArrayList<ContinentModel>(this.MAP_MODEL.getContinents().values()));
-                    this.MODEL.setCountries(this.MAP_MODEL.getCountries());
+                    this.d_model.setContinents(new ArrayList<ContinentModel>(this.d_mapModel.getContinents().values()));
+                    this.d_model.setCountries(this.d_mapModel.getCountries());
                 }
 
                 // if the command entered is showmap
                 else if (CommandsParser.isShowMap(l_args)) {
-                    this.VIEW.showMap(this.MAP_MODEL.getContinents(), this.MAP_MODEL.getCountries());
+                    this.d_view.showMap(this.d_mapModel.getContinents(), this.d_mapModel.getCountries());
                 } else {
-                    this.VIEW.isMapEditorCommand();
+                    this.d_view.isMapEditorCommand();
                 }
             } catch (Exception l_e) {
-                VIEW.exception(l_e.getMessage());
+                d_view.exception(l_e.getMessage());
             }
         }
     }
@@ -133,15 +138,15 @@ public class GameEngineController {
         boolean l_moveToNextPhase = true;
         String[] l_args = null;
 
-        for (PlayerModel l_player : this.MODEL.getPlayers().values()) {
-            this.VIEW.currentPlayer(l_player);
+        for (PlayerModel l_player : this.d_model.getPlayers().values()) {
+            this.d_view.currentPlayer(l_player);
             l_isValidOrder = false;
             while (!l_isValidOrder) {
                 l_args = takeCommand();
 
                 // if the command is showmap
                 if (CommandsParser.isShowMap(l_args)) {
-                    this.VIEW.showMap(this.MAP_MODEL.getContinents(), this.MAP_MODEL.getCountries());
+                    this.d_view.showMap(this.d_mapModel.getContinents(), this.d_mapModel.getCountries());
                 }
 
                 // if the command is an order
@@ -161,20 +166,20 @@ public class GameEngineController {
      */
     public void run() {
         // Startup Phase
-        VIEW.startupPhase();
+        d_view.startupPhase();
         this.startup();
 
         int l_turnNumber = 1;
 
         // Gameplay Loop
-        VIEW.gameplayPhase();
+        d_view.gameplayPhase();
         while (true) {
-            VIEW.gameplayTurnNumber(l_turnNumber);
-            this.MODEL.assignReinforcements();
+            d_view.gameplayTurnNumber(l_turnNumber);
+            this.d_model.assignReinforcements();
 
             while (this.issueOrders()) ;
 
-            while (this.MODEL.executeOrders()) ;
+            while (this.d_model.executeOrders()) ;
 
             l_turnNumber++;
         }
