@@ -188,8 +188,8 @@ public class MapView {
      *     <li> ID of the Continent </li>
      *     <li> Name of the Continent </li>
      *     <li> Control Value of the continent </li>
-     * <ul/>
-     * <p>
+     * </ul>
+     *
      * The second table has the following information- <br>
      * <ul>
      *     <li> Name of the Country </li>
