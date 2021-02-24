@@ -1,6 +1,7 @@
 package Model;
 
 import Utils.MapUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -531,7 +532,7 @@ public class MapModel {
      * Handles the validatemap command
      */
     public void validateMap() {
-        this.d_isMapValid = validateMapTypeOne(this.d_countries) && validateMapTypeTwo() && validateMapTypeThree() && validateMapTypeFour();
+        this.d_isMapValid = validateFullConnectivity(this.d_countries) && validateContinentExistence() && validateNeighborExistence() && validateContinentConnectivity();
     }
 
     /**
@@ -561,7 +562,7 @@ public class MapModel {
      *
      * @return True, if the map is connected; False otherwise
      */
-    public boolean validateMapTypeOne(LinkedHashMap<String, CountryModel> p_countries) {
+    public boolean validateFullConnectivity(LinkedHashMap<String, CountryModel> p_countries) {
         LinkedHashMap<String, Boolean> l_visited = new LinkedHashMap<>();
 
         //for all countries l_countryOne as starting point, check whether all countries are reachable or not
@@ -590,7 +591,7 @@ public class MapModel {
      *
      * @return True, if all continents are present in the map; False otherwise
      */
-    public boolean validateMapTypeTwo() {
+    public boolean validateContinentExistence() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
         this.d_countries.values().forEach(p_countryModel -> {
             if (!(this.d_continents.containsKey(p_countryModel.getContinentId()))) {
@@ -605,7 +606,7 @@ public class MapModel {
      *
      * @return True, if every country's neighbors are present in the map; False otherwise
      */
-    public boolean validateMapTypeThree() {
+    public boolean validateNeighborExistence() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
         this.d_countries.values().forEach(p_countryModel -> {
             p_countryModel.getNeighbors().values().forEach(p_countryModel1 -> {
@@ -623,10 +624,10 @@ public class MapModel {
      *
      * @return True if every continent is fully connected; False otherwise
      */
-    public boolean validateMapTypeFour() {
+    public boolean validateContinentConnectivity() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
         this.d_continents.values().forEach(p_continentModel -> {
-            if (!validateMapTypeOne(p_continentModel.getCountries()))
+            if (!validateFullConnectivity(p_continentModel.getCountries()))
                 l_valid.set(false);
         });
         return l_valid.get();

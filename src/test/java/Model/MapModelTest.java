@@ -6,7 +6,9 @@ import View.MapView;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import java.io.File;
+
 import static org.junit.Assert.*;
 
 /**
@@ -74,6 +76,11 @@ public class MapModelTest {
         d_mapModel.editNeighbor("remove Mars-Northwest Mercury-South add Mars-Northwest Mars-Central");
     }
 
+    /**
+     * Tests for editmap on continents only
+     *
+     * @throws Exception
+     */
     @Test
     public void editMapContinentTests() throws Exception {
 
@@ -89,6 +96,11 @@ public class MapModelTest {
         }
     }
 
+    /**
+     * Tests for entire map validation
+     *
+     * @throws Exception
+     */
     @Test
     public void validateMap() throws Exception {
         d_mapModel.editNeighbor("remove Pluto-West Pluto-East");
@@ -98,5 +110,23 @@ public class MapModelTest {
         d_mapModel.editNeighbor("add Pluto-West Pluto-East");
         d_mapModel.validateMap();
         assertTrue(d_mapModel.isMapValid());
+    }
+
+    /**
+     * Tests for continent validation
+     *
+     * @throws Exception
+     */
+    @Test
+    public void validateContinentConnectivity() throws Exception {
+        d_mapModel.editNeighbor("remove Neptune-North Neptune-East");
+        d_mapModel.editNeighbor("remove Neptune-North Neptune-West");
+
+        // validate the entire map
+        d_mapModel.validateMap();
+        assertFalse(d_mapModel.isMapValid());
+
+        // validate only continent
+        assertFalse(d_mapModel.validateContinentConnectivity());
     }
 }
