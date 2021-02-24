@@ -1,10 +1,11 @@
 package Controller;
 
+import Model.ContinentModel;
+import Model.CountryModel;
 import Model.MapModel;
 import Utils.CommandsParser;
 import Utils.MapUtils;
 import View.MapView;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 
 /**
- * Map TODO::
+ * Takes inputs from the MapView and controls the flow of execution of MapEditor
  */
 public class MapController {
 
@@ -20,7 +21,11 @@ public class MapController {
     private final MapView d_mapView;
     private final MapUtils d_mapUtils;
 
-
+    /**
+     * Initializes MapModel, MapView and MapUtils objects
+     * @param p_mapModel MapModel object
+     * @param p_mapView MapView object
+     */
     public MapController(MapModel p_mapModel, MapView p_mapView) {
         this.d_mapModel = p_mapModel;
         this.d_mapView = p_mapView;
@@ -141,6 +146,11 @@ public class MapController {
     }
 
     private LinkedHashMap<String, String> checkAllFilesValidation(String[] p_allFileNames) throws IOException {
+
+        //copy currently being edited map to restore later
+        LinkedHashMap<String, ContinentModel> l_currentContinents = d_mapModel.getContinents();
+        LinkedHashMap<String, CountryModel> l_currentCountries = d_mapModel.getCountries();
+
         LinkedHashMap<String, String> l_allFilesValidation = new LinkedHashMap<String, String>();
         File l_mapFile = null;
         String l_fileExt;
@@ -170,6 +180,11 @@ public class MapController {
             d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
             return null;
         }
+
+        //restore the current map to memory
+        d_mapModel.setContinents(l_currentContinents);
+        d_mapModel.setCountries(l_currentCountries);
+
         return l_allFilesValidation;
     }
 

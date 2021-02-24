@@ -1,7 +1,6 @@
 package Model;
 
 import Utils.MapUtils;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,59 +9,103 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
+/**
+ * Maintains the state of the map in MapEditor <br>
+ * Implements methods to handle MapEditor commands
+ */
 public class MapModel {
 
-    private final String MAPS_PATH;
-    private final MapUtils d_mapUtils;
+    private static MapUtils d_MapUtils;
 
-    private boolean d_IsMapValid;
+    private boolean d_isMapValid;
     private boolean d_mapFileLoaded;
-
     private String d_currentFileName;
 
     private LinkedHashMap<String, ContinentModel> d_continents;
     private LinkedHashMap<String, CountryModel> d_countries;
 
     /**
-     * Instantiates countries and continents
+     * Initializes countries and continents
      */
     public MapModel() {
         this.d_continents = new LinkedHashMap<>();
         this.d_countries = new LinkedHashMap<>();
-        this.d_mapUtils = new MapUtils();
-        this.MAPS_PATH = d_mapUtils.getMapsPath();
+        d_MapUtils = new MapUtils();
         this.d_mapFileLoaded = false;
-        this.d_IsMapValid = false;
+        this.d_isMapValid = false;
     }
 
+    /**
+     * Accessor of d_currentFileName
+     *
+     * @return Name of currently loaded map file
+     */
     public String getCurrentFileName() {
         return d_currentFileName;
     }
 
+    /**
+     * Accessor for the isMapValid
+     *
+     * @return True, if currently loaded map is valid; False otherwise
+     */
     public boolean isMapValid() {
-        return d_IsMapValid;
+        return d_isMapValid;
     }
 
+    /**
+     * Accessor for the isMapFileLoaded
+     *
+     * @return True, if the map is loaded; False otherwise
+     */
     public boolean isMapFileLoaded() {
         return d_mapFileLoaded;
     }
 
+    /**
+     * Accessor for the continents
+     *
+     * @return Continents of the currently loaded map
+     */
     public LinkedHashMap<String, ContinentModel> getContinents() {
         return d_continents;
     }
 
+    /**
+     * Mutator for the continents
+     *
+     * @param p_continents Continents to be loaded in the map
+     */
+    public void setContinents(LinkedHashMap<String, ContinentModel> p_continents) {
+        this.d_continents = p_continents;
+    }
+
+    /**
+     * Accessor for the countries
+     *
+     * @return Countries of the currently loaded map
+     */
     public LinkedHashMap<String, CountryModel> getCountries() {
         return d_countries;
     }
 
     /**
-     * handles the editcontinent command; used
-     * used to add or remove entire continents from the map
-     * when a continent is being removed, all countries belonging to the continent are also removed
+     * Mutator for the countries
      *
-     * @param p_command command in the form of "add continentID controlValue remove continentID"
-     * @throws Exception if the user tries to remove a non-existing continent
-     * @throws Exception if the user tries to use options other than -add or -remove
+     * @param p_countries Countries to be loaded in the map
+     */
+    public void setCountries(LinkedHashMap<String, CountryModel> p_countries) {
+        this.d_countries = p_countries;
+    }
+
+    /**
+     * Handles the editcontinent command <br>
+     * Used to add or remove entire continents from the map <br>
+     * When a continent is being removed, all countries belonging to the continent are also removed
+     *
+     * @param p_command Command in the form of "add continentID controlValue remove continentID"
+     * @throws Exception If the user tries to remove a non-existing continent
+     * @throws Exception If the user tries to use options other than -add or -remove
      */
     public void editContinent(String p_command) throws Exception {
 
@@ -76,16 +119,20 @@ public class MapModel {
 
         while (l_sc.hasNext()) {
             String l_option = l_sc.next();
+
+            // handles add option
             if (l_option.equals("add")) {
                 l_tempContinentName = l_sc.next();
 
-                if(isNameNumber(l_tempContinentName)){
+                // ensures that entered continent name is a string
+                if (this.isNameNumber(l_tempContinentName)) {
                     throw new Exception("Continent name cannot be a number!");
                 }
 
                 String l_temp = l_sc.next();
 
-                if(!(isNameNumber(String.valueOf(l_temp)))){
+                // ensures that entered control value is a number
+                if (!(this.isNameNumber(String.valueOf(l_temp)))) {
                     throw new Exception("Control Value must be a number!");
                 }
 
@@ -93,34 +140,37 @@ public class MapModel {
 
                 l_tempContinentId = this.d_continents.size() + 1;
 
-                String DEFAULT_COLOR = "yellow";
-                l_continentModel = new ContinentModel(l_tempContinentId, l_tempContinentName, l_tempControlValue, DEFAULT_COLOR);
+                String l_defaultColor = "yellow";
+                l_continentModel = new ContinentModel(l_tempContinentId, l_tempContinentName, l_tempControlValue, l_defaultColor);
                 this.d_continents.put(l_tempContinentName, l_continentModel);
             }
+
+            // handles remove option
             else if (l_option.equals("remove")) {
                 l_tempContinentName = l_sc.next();
 
-                if(isNameNumber(l_tempContinentName)){
+                // ensures that entered continent name is a string
+                if (this.isNameNumber(l_tempContinentName)) {
                     throw new Exception("Continent name cannot be a number!");
                 }
 
+                // ensures that entered continent exists
                 if (!(this.d_continents.containsKey(l_tempContinentName))) {
                     throw new Exception(l_tempContinentName + " continent does not exists");
                 }
 
-                // ensure that removing continent also removes countries that belonged to this continent
+                // ensures that removing continent also removes countries that belong to this continent
                 this.updateCountries(l_tempContinentName);
                 this.d_continents.remove(l_tempContinentName);
 
-                // Update all continent ids
-                final int[] l_id = {1};
+                // update all continents' ids
+                int[] l_id = {1};
 
                 this.d_continents.replaceAll((p_continentName, p_continentModel) -> {
                     p_continentModel.setId(l_id[0]++);
                     return p_continentModel;
                 });
-            }
-            else {
+            } else {
                 throw new Exception(l_option + " is not supported");
             }
         }
@@ -128,31 +178,29 @@ public class MapModel {
     }
 
     /**
-     * updates the list of all countries when triggered
-     * triggered on removal of a continent (which in turn removes all countries belonging to the continent)
+     * Updates the list of all countries on removal of a continent (which in turn removes all countries belonging to the continent)
      *
-     * @param p_continentName name of the continent being removed
+     * @param p_continentName Name of the continent being removed
      */
     public void updateCountries(String p_continentName) {
         ArrayList<CountryModel> l_countryModels = new ArrayList<>();
 
-        this.d_countries.values().forEach(new Consumer<CountryModel>() {
-            @Override
-            public void accept(CountryModel countryModel) {
-                if(countryModel.getContinentId().trim().equals(p_continentName.trim())){
-                    l_countryModels.add(countryModel);
-                }
+        // get countries to be removed from the continent
+        this.d_countries.values().forEach(p_countryModel -> {
+            if (p_countryModel.getContinentId().trim().equals(p_continentName.trim())) {
+                l_countryModels.add(p_countryModel);
             }
         });
 
-        for (CountryModel l_countryModel: l_countryModels) {
+        // update neighbors of countries being removed
+        for (CountryModel l_countryModel : l_countryModels) {
             this.d_countries.remove(l_countryModel.getName());
             updateNeighbors(l_countryModel.getName());
         }
 
-        final int[] l_id = {1};
+        int[] l_id = {1};
 
-        // Update all countries' ids
+        // update all countries' ids
         this.d_countries.replaceAll((p_countryName, p_countryModel) -> {
             p_countryModel.setId(l_id[0]++);
             return p_countryModel;
@@ -160,14 +208,13 @@ public class MapModel {
     }
 
     /**
-     * handles the editcountry command
-     * used to add or remove countries from the map
-     * when a country is being removed, neighbor countries' borders are also updated.
+     * Handles the editcountry command <br>
+     * Used to add or remove countries from the map
      *
-     * @param p_command command in the form of "add countryID continentID remove countryID"
-     * @throws Exception if the user tries to add a country to a non-existing continent
-     * @throws Exception if the user tries to remove a non-existing country
-     * @throws Exception if the user tries to use options other than -add or -remove
+     * @param p_command Command in the format "add countryID continentID remove countryID"
+     * @throws Exception If the user tries to add a country to a non-existing continent
+     * @throws Exception If the user tries to remove a non-existing country
+     * @throws Exception If the user tries to use options other than add or remove
      */
     public void editCountry(String p_command) throws Exception {
         Scanner l_sc = new Scanner(p_command);
@@ -178,55 +225,66 @@ public class MapModel {
 
         while (l_sc.hasNext()) {
             String l_option = l_sc.next();
+
+            // handles add option
             if (l_option.equals("add")) {
                 l_tempCountryName = l_sc.next();
 
-                if(isNameNumber(l_tempCountryName)){
+                // ensures that entered country name is a string
+                if (this.isNameNumber(l_tempCountryName)) {
                     throw new Exception("Country name cannot be a number!");
                 }
 
                 l_tempContinentName = l_sc.next();
 
-                if(isNameNumber(l_tempContinentName)){
+                // ensures that entered continent name is a string
+                if (this.isNameNumber(l_tempContinentName)) {
                     throw new Exception("Continent name cannot be a number!");
                 }
 
+                // ensures that entered continent name exists
                 if (!(this.d_continents.containsKey(l_tempContinentName))) {
                     throw new Exception(l_tempContinentName + " continent does not exists");
                 }
 
                 l_tempCountryId = d_countries.size() + 1;
-                String DEFAULT_Y_COORDINATE = "000";
-                String DEFAULT_X_COORDINATE = "000";
-                l_countryModel = new CountryModel(l_tempCountryId, l_tempCountryName, l_tempContinentName, DEFAULT_X_COORDINATE, DEFAULT_Y_COORDINATE);
+                String l_defaultXCoordinate = "000";
+                String l_defaultYCoordinate = "000";
+
+                l_countryModel = new CountryModel(l_tempCountryId, l_tempCountryName, l_tempContinentName, l_defaultXCoordinate, l_defaultYCoordinate);
                 this.d_countries.put(l_tempCountryName, l_countryModel);
 
+                // add newly added country to continent's countries list
                 this.d_continents.get(l_tempContinentName).addCountry(l_countryModel);
+            }
 
-            } else if (l_option.equals("remove")) {
+            // handles remove option
+            else if (l_option.equals("remove")) {
                 l_tempCountryName = l_sc.next();
 
-                if(isNameNumber(l_tempCountryName)){
+                // ensures that entered country name is a string
+                if (this.isNameNumber(l_tempCountryName)) {
                     throw new Exception("Country name cannot be a number!");
                 }
 
+                // ensures that entered country exists
                 if (!(this.d_countries.containsKey(l_tempCountryName))) {
                     throw new Exception(l_tempCountryName + " country does not exists");
                 }
 
                 this.d_countries.remove(l_tempCountryName);
 
-                // Update all continent ids
-                final int[] l_id = {1};
+                // update all continents' ids
+                int[] l_id = {1};
 
-                // Update all countries' ids
+                // update all countries' ids
                 this.d_countries.replaceAll((p_countryName, p_countryModel) -> {
                     p_countryModel.setId(l_id[0]++);
                     return p_countryModel;
                 });
 
+                // ensures that neighbors of applicable countries are updated
                 updateNeighbors(l_tempCountryName);
-
             } else {
                 throw new Exception(l_option + " is not supported");
             }
@@ -235,35 +293,33 @@ public class MapModel {
     }
 
     /**
-     * updates applicable countries' neighbors when triggered
-     * triggered on removal of a country
-     * notifies all the countries to update their border information
+     * Notifies all the countries to update their border information on removal of a country
      *
-     * @param p_countryName name of the country being removed
+     * @param p_countryName Name of the country being removed
      */
     public void updateNeighbors(String p_countryName) {
-
         ArrayList<CountryModel> l_countryModels = new ArrayList<>();
 
-        this.d_countries.values().forEach(countryModel -> {
-            if(countryModel.getNeighbors().containsKey(p_countryName)){
-                l_countryModels.add(countryModel);
+        // get the countries of which the country being removed is a neighbor
+        this.d_countries.values().forEach(p_countryModel -> {
+            if (p_countryModel.getNeighbors().containsKey(p_countryName)) {
+                l_countryModels.add(p_countryModel);
             }
         });
 
-        for (CountryModel l_countryModel: l_countryModels) {
+        for (CountryModel l_countryModel : l_countryModels) {
             this.d_countries.get(l_countryModel.getName()).getNeighbors().remove(p_countryName.trim());
         }
     }
 
     /**
-     * handles the editneighbor command
-     * used to add or remove neighbors of countries
+     * Handles the editneighbor command <br>
+     * Used to add or remove neighbors of countries
      *
-     * @param p_command command in the form of "add countryID neighborCountryID remove countryID neighborCountryID"
-     * @throws Exception if user tries to add or remove neighbors of a non-existing country
-     * @throws Exception if user tries to add or remove a non-existing country as a neighbor of an existing country
-     * @throws Exception if user tries to use options other than -add or -remove
+     * @param p_command Command in the format "add countryID neighborCountryID remove countryID neighborCountryID"
+     * @throws Exception If user tries to add or remove neighbors of a non-existing country
+     * @throws Exception If user tries to add or remove a non-existing country as a neighbor of an existing country
+     * @throws Exception If user tries to use options other than add or remove
      */
     public void editNeighbor(String p_command) throws Exception {
         Scanner l_sc = new Scanner(p_command);
@@ -272,33 +328,41 @@ public class MapModel {
 
         while (l_sc.hasNext()) {
             String l_option = l_sc.next().trim();
+
+            // handles add option
             if (l_option.equals("add")) {
                 l_tempCountryName = l_sc.next().trim();
                 l_tempNeighborCountryName = l_sc.next().trim();
 
-                if(isNameNumber(l_tempCountryName) || isNameNumber(l_tempNeighborCountryName)){
+                // ensures that entered country names are strings
+                if (this.isNameNumber(l_tempCountryName) || this.isNameNumber(l_tempNeighborCountryName)) {
                     throw new Exception("Country name cannot be a number!");
                 }
 
+                // ensure that both entered countries exist
                 if (!(this.d_countries.containsKey(l_tempCountryName))) {
                     throw new Exception(l_tempCountryName + " country does not exists");
                 } else if (!(this.d_countries.containsKey(l_tempNeighborCountryName))) {
                     throw new Exception(l_tempNeighborCountryName + " country does not exists");
                 }
 
-                if(l_tempCountryName.trim().equals(l_tempNeighborCountryName.trim())){
+                if (l_tempCountryName.trim().equals(l_tempNeighborCountryName.trim())) {
                     throw new Exception("You cannot add the country as a neighbor of itself!");
                 }
 
                 this.d_countries.get(l_tempCountryName).addNeighbor(this.d_countries.get(l_tempNeighborCountryName));
-            } else if (l_option.equals("remove")) {
+            }
+            // handles the remove option
+            else if (l_option.equals("remove")) {
                 l_tempCountryName = l_sc.next();
                 l_tempNeighborCountryName = l_sc.next();
 
-                if(isNameNumber(l_tempCountryName) || isNameNumber(l_tempNeighborCountryName)){
+                // ensures that entered country names are strings
+                if (this.isNameNumber(l_tempCountryName) || this.isNameNumber(l_tempNeighborCountryName)) {
                     throw new Exception("Country name cannot be a number!");
                 }
 
+                // ensure that both entered countries exist
                 if (!(this.d_countries.containsKey(l_tempCountryName))) {
                     throw new Exception(l_tempCountryName + " country does not exists");
                 } else if (!(this.d_countries.containsKey(l_tempNeighborCountryName))) {
@@ -313,25 +377,25 @@ public class MapModel {
     }
 
     /**
-     * checks whether the passed string contains only digits
+     * Checks whether the string contains only digits
      *
-     * @param p_name string to be checked
-     * @return true, if the string passed only contains digits; false otherwise
+     * @param p_name String to be checked
+     * @return True, if the string passed only contains digits; False otherwise
      */
-    public boolean isNameNumber(String p_name){
-        try{
+    public boolean isNameNumber(String p_name) {
+        try {
             Integer.parseInt(p_name);
-        }catch (Exception l_e){
+        } catch (Exception l_e) {
             return false;
         }
         return true;
     }
 
     /**
-     * handles the editmap command and loads the map specified by p_file to memory
+     * Handles the editmap command and loads the map, specified by p_file, to memory
      *
-     * @param p_file .map file object
-     * @throws IOException if I/O exception of some sort has occurred.
+     * @param p_file .map file object from which the map file is being loaded
+     * @throws IOException If I/O exception of some sort has occurred
      */
     public void editMap(File p_file) throws IOException {
         this.d_mapFileLoaded = true;
@@ -340,18 +404,18 @@ public class MapModel {
     }
 
     /**
-     * loads the map specified by p_file to memory if valid
+     * Loads the map, specified by p_file, to memory, if map is valid
      *
      * @param p_file .map file object from which the map file is being loaded
-     * @throws IOException if I/O exception of some sort has occurred.
+     * @throws IOException If I/O exception of some sort has occurred
      */
     public void loadOnlyValidMap(File p_file) throws Exception {
-        loadMap(p_file);
-        validateMap();
-        if (!isMapValid()) {
+        this.loadMap(p_file);
+        this.validateMap();
+        if (!this.isMapValid()) {
             if (!p_file.exists()) {
                 p_file.createNewFile();
-                editMap(new File(d_mapUtils.getMapsPath() + "empty.map"));
+                this.editMap(new File(d_MapUtils.getMapsPath() + "empty.map"));
                 p_file.delete();
             }
             throw new Exception("This Map is Invalid! Please Load a valid one...");
@@ -359,158 +423,160 @@ public class MapModel {
     }
 
     /**
-     * loads the map specified by p_file to memory
+     * Loads the map, specified by p_file, to memory
      *
      * @param p_file .map file object from which the map file is being loaded
-     * @throws IOException if I/O exception of some sort has occurred.
+     * @throws IOException If I/O exception of some sort has occurred
      */
     public void loadMap(File p_file) throws IOException {
         this.d_continents = new LinkedHashMap<>();
         this.d_countries = new LinkedHashMap<>();
-        Iterator<String> d_iterator;
-        Iterator<String> d_localIterator;
+        Iterator<String> l_iterator;
+        Iterator<String> l_borderIterator;
         String l_fileContent;
         String[] l_fileLines;
         String l_tempLine;
         String[] l_tempData;
 
-        l_fileContent = d_mapUtils.readMapFile(p_file);
+        // fetches the map file content
+        l_fileContent = d_MapUtils.readMapFile(p_file);
         l_fileLines = l_fileContent.split("\n");
-        d_iterator = Arrays.stream(l_fileLines).iterator();
+        l_iterator = Arrays.stream(l_fileLines).iterator();
 
-        while (d_iterator.hasNext()) {
-            l_tempLine = d_iterator.next().trim();
+        // iterate through all lines of the map file
+        while (l_iterator.hasNext()) {
+            l_tempLine = l_iterator.next().trim();
 
+            // read and load continents
             if (l_tempLine.equals("[continents]")) {
-                l_tempLine = d_iterator.next().trim();
+                l_tempLine = l_iterator.next().trim();
                 while (!(l_tempLine.startsWith("["))) {
                     if (l_tempLine.isEmpty())
                         break;
                     l_tempData = l_tempLine.split(" ");
-                    d_continents.put(l_tempData[0].trim(), new ContinentModel(d_continents.size() + 1, l_tempData[0].trim(), Integer.parseInt(l_tempData[1].trim()), l_tempData[2].trim()));
-                    l_tempLine = d_iterator.next().trim();
+                    d_continents.put(l_tempData[0].trim(), new ContinentModel(d_continents.size() + 1,
+                            l_tempData[0].trim(), Integer.parseInt(l_tempData[1].trim()), l_tempData[2].trim()));
+                    l_tempLine = l_iterator.next().trim();
                 }
             }
 
+            // read and load countries
             if (l_tempLine.equals("[countries]")) {
                 final String[] l_continentName = new String[1];
-                l_tempLine = d_iterator.next().trim();
+                l_tempLine = l_iterator.next().trim();
                 while (!(l_tempLine.startsWith("[")) && !(l_tempLine.isEmpty())) {
                     l_tempData = l_tempLine.split(" ");
 
                     int l_tempContinentId = Integer.parseInt(l_tempData[2].trim());
-                    final String[] l_tempContinentName = new String[1];
+                    String[] l_tempContinentName = new String[1];
 
-                    this.d_continents.values().stream().parallel().forEach(new Consumer<ContinentModel>() {
-                        @Override
-                        public void accept(ContinentModel continentModel) {
-                            if (continentModel.getId() == l_tempContinentId) {
-                                l_tempContinentName[0] = continentModel.getName();
-                            }
+                    // fetches the continent name based on the continent id
+                    this.d_continents.values().stream().parallel().forEach(p_continentModel -> {
+                        if (p_continentModel.getId() == l_tempContinentId) {
+                            l_tempContinentName[0] = p_continentModel.getName();
                         }
                     });
 
-                    d_countries.put(l_tempData[1].trim(), new CountryModel(Integer.parseInt(l_tempData[0].trim()), l_tempData[1].trim(), l_tempContinentName[0], l_tempData[3], l_tempData[4]));
+                    d_countries.put(l_tempData[1].trim(), new CountryModel(Integer.parseInt(l_tempData[0].trim()),
+                            l_tempData[1].trim(), l_tempContinentName[0], l_tempData[3], l_tempData[4]));
                     int l_continentId = Integer.parseInt(l_tempData[2].trim());
-                    this.d_continents.values().stream().parallel().forEach(new Consumer<ContinentModel>() {
-                        @Override
-                        public void accept(ContinentModel continentModel) {
-                            if (continentModel.getId() == l_continentId)
-                                l_continentName[0] = continentModel.getName();
-                        }
+
+                    // fetches the continent name based on the continent id
+                    this.d_continents.values().stream().parallel().forEach(p_continentModel -> {
+                        if (p_continentModel.getId() == l_continentId)
+                            l_continentName[0] = p_continentModel.getName();
                     });
+
                     this.d_continents.get(l_continentName[0]).addCountry(this.d_countries.get(l_tempData[1].trim()));
-                    l_tempLine = d_iterator.next().trim();
+                    l_tempLine = l_iterator.next().trim();
                 }
             }
 
+            // read and load borders
             if (l_tempLine.equals("[borders]")) {
-                l_tempLine = d_iterator.next().trim();
-                while (!(l_tempLine.startsWith("[")) && !(l_tempLine.isEmpty()) && d_iterator.hasNext()) {
+                l_tempLine = l_iterator.next().trim();
+                while (!(l_tempLine.startsWith("[")) && !(l_tempLine.isEmpty()) && l_iterator.hasNext()) {
                     l_tempData = l_tempLine.split(" ");
-                    d_localIterator = Arrays.stream(l_tempData).iterator();
+                    l_borderIterator = Arrays.stream(l_tempData).iterator();
 
-                    final String[] l_tempCountryPair = {null , null};
+                    String[] l_tempCountryPair = {null, null};
 
-                    int l_firstCountryId = Integer.parseInt(d_localIterator.next().trim());
-                    this.d_countries.values().stream().forEach(new Consumer<CountryModel>() {
-                        @Override
-                        public void accept(CountryModel countryModel) {
-                            if (countryModel.getId() == l_firstCountryId)
-                                l_tempCountryPair[0] = countryModel.getName();
-                        }
+                    int l_firstCountryId = Integer.parseInt(l_borderIterator.next().trim());
+
+                    // fetches the name of first country based on country id
+                    this.d_countries.values().forEach(p_countryModel -> {
+                        if (p_countryModel.getId() == l_firstCountryId)
+                            l_tempCountryPair[0] = p_countryModel.getName();
                     });
-                    while (d_localIterator.hasNext()) {
-                        int l_secondCountryId = Integer.parseInt(d_localIterator.next().trim());
-                        this.d_countries.values().stream().forEach(new Consumer<CountryModel>() {
-                            @Override
-                            public void accept(CountryModel countryModel) {
-                                if (countryModel.getId() == l_secondCountryId)
-                                    l_tempCountryPair[1] = countryModel.getName();
-                            }
+
+                    // fetches the second country's name and updates both as neighbors
+                    while (l_borderIterator.hasNext()) {
+                        int l_secondCountryId = Integer.parseInt(l_borderIterator.next().trim());
+                        this.d_countries.values().forEach(p_countryModel -> {
+                            if (p_countryModel.getId() == l_secondCountryId)
+                                l_tempCountryPair[1] = p_countryModel.getName();
                         });
-                        if(l_tempCountryPair[0]!= null && l_tempCountryPair[1]!=null)
+
+                        // if only both countries exist, add them as neighbors
+                        if (l_tempCountryPair[0] != null && l_tempCountryPair[1] != null)
                             this.d_countries.get(l_tempCountryPair[0]).addNeighbor(this.d_countries.get(l_tempCountryPair[1]));
-
-                        /**
-                         * TODO:
-                         */
-
-                        /*else
-                            throw new Exception("The map is invalid!");*/
                     }
-                    l_tempLine = d_iterator.next().trim();
+                    l_tempLine = l_iterator.next().trim();
                 }
             }
         }
     }
 
     /**
-     * A method that handles the validatemap command
-     *
+     * Handles the validatemap command
      */
     public void validateMap() {
-        d_IsMapValid = validateMapTypeOne(this.d_countries) && validateMapTypeTwo() && validateMapTypeThree() && validateMapTypeFour();
+        this.d_isMapValid = validateMapTypeOne(this.d_countries) && validateMapTypeTwo() && validateMapTypeThree() && validateMapTypeFour();
     }
 
     /**
-     * Traverse the entire map and visit countries using recursive DFS (Depth first Search) traversal.
+     * Traverse the entire map and visit countries using recursive DFS (Depth first Search) traversal
      *
      * @param p_countryOne Index of country from where the traversal starts
-     * @param p_visited    an array that keeps track of countries visited during traversal
+     * @param p_visited    Data structure that keeps track of countries visited during traversal
      */
     public void traverseMap(CountryModel p_countryOne, LinkedHashMap<String, Boolean> p_visited,
                             LinkedHashMap<String, CountryModel> p_countries) {
-        p_visited.put(p_countryOne.getName(), true);    //mark p_countryOne as visited
 
-        for (CountryModel l_countryTwo: p_countries.values()) {
+        //mark p_countryOne as visited
+        p_visited.put(p_countryOne.getName(), true);
+
+        // recursively traverse the map by setting second country as a starting node
+        for (CountryModel l_countryTwo : p_countries.values()) {
             if (p_countryOne.getNeighbors().containsKey(l_countryTwo.getName())) {
                 if (!p_visited.get(l_countryTwo.getName()))
-                    traverseMap(l_countryTwo, p_visited, p_countries);
+                    this.traverseMap(l_countryTwo, p_visited, p_countries);
             }
         }
     }
 
     /**
-     * checks whether the map is fully connected
-     * i.e. every country should be reachable from every other country.
+     * Checks whether the map is fully connected graph or not <br>
+     * i.e. every country should be reachable from every other country
      *
-     * @return false if the map is invalid
+     * @return True, if the map is connected; False otherwise
      */
     public boolean validateMapTypeOne(LinkedHashMap<String, CountryModel> p_countries) {
         LinkedHashMap<String, Boolean> l_visited = new LinkedHashMap<>();
 
         //for all countries l_countryOne as starting point, check whether all countries are reachable or not
-        for (CountryModel l_countryOne: p_countries.values()) {
-            for (CountryModel l_countryTwo: p_countries.values()) {
+        for (CountryModel l_countryOne : p_countries.values()) {
+            for (CountryModel l_countryTwo : p_countries.values()) {
+
                 //initially no countries are visited
                 l_visited.put(l_countryTwo.getName(), false);
             }
 
             traverseMap(l_countryOne, l_visited, p_countries);
-            for (CountryModel l_countryTwo: p_countries.values()) {
+            for (CountryModel l_countryTwo : p_countries.values()) {
+
+                //if there exists a l_countryTwo, not visited by map traversal, map is not connected.
                 if (!l_visited.get(l_countryTwo.getName())) {
-                    //if there exists a l_countryTwo, not visited by map traversal, map is not connected.
                     return false;
                 }
             }
@@ -519,15 +585,15 @@ public class MapModel {
     }
 
     /**
-     * Checks whether continent exists for all countries
-     * i.e. each country should belong to a continent that exists in the map.
+     * Checks whether continent exists for all countries <br>
+     * i.e. each country should belong to a continent that exists in the map
      *
-     * @return true if all continents are present in the map; false otherwise
+     * @return True, if all continents are present in the map; False otherwise
      */
     public boolean validateMapTypeTwo() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
-        this.d_countries.values().forEach(countryModel -> {
-            if(!(this.d_continents.containsKey(countryModel.getContinentId()))){
+        this.d_countries.values().forEach(p_countryModel -> {
+            if (!(this.d_continents.containsKey(p_countryModel.getContinentId()))) {
                 l_valid.set(false);
             }
         });
@@ -535,16 +601,15 @@ public class MapModel {
     }
 
     /**
-     * checks whether any country has neighbors that does not exist in the map
-     * i.e. every country in a continent should be reachable from every other country in that continent.
+     * Checks whether any country has neighbors that does not exist in the map
      *
-     * @return true if every countries' neighbors are present in a map; false otherwise
+     * @return True, if every country's neighbors are present in the map; False otherwise
      */
     public boolean validateMapTypeThree() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
-        this.d_countries.values().forEach(countryModel -> {
-            countryModel.getNeighbors().values().forEach(countryModel1 ->{
-                if(!(this.d_countries.containsKey(countryModel1.getName()))){
+        this.d_countries.values().forEach(p_countryModel -> {
+            p_countryModel.getNeighbors().values().forEach(p_countryModel1 -> {
+                if (!(this.d_countries.containsKey(p_countryModel1.getName()))) {
                     l_valid.set(false);
                 }
             });
@@ -553,34 +618,31 @@ public class MapModel {
     }
 
     /**
-     * checks whether all continents are connected subgraphs
-     * i.e. every country in each continent should belong to a continent that exists in the map.
-     * @return true if every continent is valid; false otherwise.
+     * Checks whether all continents are fully connected subgraphs <br>
+     * i.e. every country in a continent should be reachable from every other country in that continent
+     *
+     * @return True if every continent is fully connected; False otherwise
      */
     public boolean validateMapTypeFour() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
-
-        this.d_continents.values().forEach(new Consumer<ContinentModel>() {
-            @Override
-            public void accept(ContinentModel continentModel) {
-                if(!validateMapTypeOne(continentModel.getCountries()))
-                    l_valid.set(false);
-            }
+        this.d_continents.values().forEach(p_continentModel -> {
+            if (!validateMapTypeOne(p_continentModel.getCountries()))
+                l_valid.set(false);
         });
         return l_valid.get();
     }
 
     /**
-     * handles savemap command
-     * @param p_file file object where the map should be saved
-     * @throws Exception if the map being saved is an invalid map
+     * Handles savemap command
+     *
+     * @param p_file File object where the current map should be saved
+     * @throws IOException If I/O exception of some sort has occurred
      */
-    public void saveMap(File p_file) throws Exception {
-        File l_file;
+    public void saveMap(File p_file) throws IOException {
         String l_tempLine = null;
         FileOutputStream l_fos;
 
-        // Writes [files] section
+        // writes [files] section
         p_file.createNewFile();
         l_fos = new FileOutputStream(p_file);
 
@@ -590,80 +652,65 @@ public class MapModel {
                 "crd " + p_file.getName().split("\\.")[0] + ".cards\n\n";
         l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
 
-
-        // Writes [continents] section
+        // writes [continents] section
         l_fos.write("[continents]\n".getBytes(StandardCharsets.UTF_8));
 
-        d_continents.values().stream().sorted(new Comparator<ContinentModel>() {
-            @Override
-            public int compare(ContinentModel o1, ContinentModel o2) {
-                return Integer.compare(o1.getId(), o2.getId());
-            }
-        }).forEach(new Consumer<ContinentModel>() {
-            @Override
-            public void accept(ContinentModel continentModel) {
-                try {
-                    l_fos.write((continentModel.getName() + " " +
-                            continentModel.getControlValue() + " " +
-                            continentModel.getColor() + "\n"
-                    ).getBytes(StandardCharsets.UTF_8));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        // sort continents based on id
+        // write each continent to map file in given format
+        d_continents.values().stream().sorted(Comparator.comparingInt(ContinentModel::getId)).forEach(p_continentModel -> {
+            try {
+                l_fos.write((p_continentModel.getName() + " " +
+                        p_continentModel.getControlValue() + " " +
+                        p_continentModel.getColor() + "\n"
+                ).getBytes(StandardCharsets.UTF_8));
+            } catch (IOException l_e) {
+                l_e.printStackTrace();
             }
         });
 
-        // Writes [countries] section
+        // writes [countries] section
         l_fos.write("\n[countries]\n".getBytes(StandardCharsets.UTF_8));
 
-        d_countries.values().stream().sorted(new Comparator<CountryModel>() {
+        // sort countries based on id
+        // write each country to map file in given format
+        d_countries.values().stream().sorted(Comparator.comparingInt(CountryModel::getId)).forEach(new Consumer<CountryModel>() {
             @Override
-            public int compare(CountryModel o1, CountryModel o2) {
-                return Integer.compare(o1.getId(), o2.getId());
-            }
-        }).forEach(new Consumer<CountryModel>() {
-            @Override
-            public void accept(CountryModel countryModel) {
+            public void accept(CountryModel p_countryModel) {
                 try {
-                    l_fos.write((countryModel.getId() + " " +
-                            countryModel.getName() + " " +
-                            this.getContinentId(countryModel.getContinentId()) + " " +
-                            countryModel.getXCoordinate() + " " +
-                            countryModel.getYCoordinate() + "\n"
+                    l_fos.write((p_countryModel.getId() + " " +
+                            p_countryModel.getName() + " " +
+                            this.getContinentId(p_countryModel.getContinentId()) + " " +
+                            p_countryModel.getXCoordinate() + " " +
+                            p_countryModel.getYCoordinate() + "\n"
                     ).getBytes(StandardCharsets.UTF_8));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (IOException l_e) {
+                    l_e.printStackTrace();
                 }
             }
 
+            // fetches the id of the specified continent
             public String getContinentId(String p_continentName) {
-                final int[] l_continentId = new int[1];
-                d_continents.values().forEach(new Consumer<ContinentModel>() {
-                    @Override
-                    public void accept(ContinentModel continentModel) {
-                        if (continentModel.getName().trim().equals(p_continentName.trim())) {
-                            l_continentId[0] = continentModel.getId();
-                            return;
-                        }
+                int[] l_continentId = new int[1];
+                d_continents.values().forEach(p_continentModel -> {
+                    if (p_continentModel.getName().trim().equals(p_continentName.trim())) {
+                        l_continentId[0] = p_continentModel.getId();
                     }
                 });
                 return String.valueOf(l_continentId[0]);
             }
         });
 
-        //Writes [borders] section
+        // writes [borders] section
         l_fos.write("\n[borders]\n".getBytes(StandardCharsets.UTF_8));
-        d_countries.values().stream().forEach(new Consumer<CountryModel>() {
+
+        // get the ids of all the neighbor countries and writes them in map format
+        d_countries.values().forEach(new Consumer<CountryModel>() {
             String l_tempLine = "";
 
-            /**
-             * TODO:
-             * @param countryModel
-             */
             @Override
-            public void accept(CountryModel countryModel) {
-                l_tempLine += countryModel.getId() + " ";
-                countryModel.getNeighbors().values().forEach(inCountryModel -> l_tempLine += inCountryModel.getId() + " ");
+            public void accept(CountryModel p_countryModel) {
+                l_tempLine += p_countryModel.getId() + " ";
+                p_countryModel.getNeighbors().values().forEach(p_inCountryModel -> l_tempLine += p_inCountryModel.getId() + " ");
                 l_tempLine = l_tempLine.trim();
                 l_tempLine += "\n";
                 try {
@@ -674,9 +721,7 @@ public class MapModel {
                 }
             }
         });
-
         l_fos.flush();
         l_fos.close();
     }
-
 }

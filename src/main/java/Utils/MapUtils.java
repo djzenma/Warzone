@@ -1,6 +1,3 @@
-/**
- * Checked for conventions
- */
 package Utils;
 
 import java.io.BufferedReader;
