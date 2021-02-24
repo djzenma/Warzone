@@ -1,8 +1,8 @@
 package Utils;
 
-import POJO.Command;
-import POJO.Commands;
-import POJO.NamedArgument;
+import Model.POJO.Command;
+import Model.POJO.Commands;
+import Model.POJO.NamedArgument;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
