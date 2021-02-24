@@ -15,7 +15,7 @@ import java.util.function.Consumer;
  */
 public class MapModel {
 
-    private static MapUtils d_MapUtils;
+    private final MapUtils MAP_UTILS;
 
     private boolean d_isMapValid;
     private boolean d_mapFileLoaded;
@@ -30,7 +30,7 @@ public class MapModel {
     public MapModel() {
         this.d_continents = new LinkedHashMap<>();
         this.d_countries = new LinkedHashMap<>();
-        d_MapUtils = new MapUtils();
+        MAP_UTILS = new MapUtils();
         this.d_mapFileLoaded = false;
         this.d_isMapValid = false;
     }
@@ -415,7 +415,7 @@ public class MapModel {
         if (!this.isMapValid()) {
             if (!p_file.exists()) {
                 p_file.createNewFile();
-                this.editMap(new File(d_MapUtils.getMapsPath() + "empty.map"));
+                this.editMap(new File(MAP_UTILS.getMapsPath() + "empty.map"));
                 p_file.delete();
             }
             throw new Exception("This Map is Invalid! Please Load a valid one...");
@@ -439,7 +439,7 @@ public class MapModel {
         String[] l_tempData;
 
         // fetches the map file content
-        l_fileContent = d_MapUtils.readMapFile(p_file);
+        l_fileContent = MAP_UTILS.readMapFile(p_file);
         l_fileLines = l_fileContent.split("\n");
         l_iterator = Arrays.stream(l_fileLines).iterator();
 
@@ -462,7 +462,7 @@ public class MapModel {
 
             // read and load countries
             if (l_tempLine.equals("[countries]")) {
-                final String[] l_continentName = new String[1];
+                String[] l_continentName = new String[1];
                 l_tempLine = l_iterator.next().trim();
                 while (!(l_tempLine.startsWith("[")) && !(l_tempLine.isEmpty())) {
                     l_tempData = l_tempLine.split(" ");
@@ -509,7 +509,7 @@ public class MapModel {
                             l_tempCountryPair[0] = p_countryModel.getName();
                     });
 
-                    // fetches the second country's name and updates both as neighbors
+                    // fetches the second country's name based on id and add them as neighbors
                     while (l_borderIterator.hasNext()) {
                         int l_secondCountryId = Integer.parseInt(l_borderIterator.next().trim());
                         this.d_countries.values().forEach(p_countryModel -> {

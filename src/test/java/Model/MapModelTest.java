@@ -6,9 +6,7 @@ import View.MapView;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import java.io.File;
-
 import static org.junit.Assert.*;
 
 /**
@@ -23,6 +21,10 @@ public class MapModelTest {
     private static MapController d_mapController;
     private static MapUtils d_mapUtils;
 
+    /**
+     * TODO
+     * @throws Exception
+     */
     @BeforeClass
     public static void init() throws Exception {
         d_mapModel = new MapModel();
