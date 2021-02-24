@@ -16,7 +16,7 @@ import java.util.function.Consumer;
  */
 public class MapModel {
 
-    private final MapUtils MAP_UTILS;
+    private final MapUtils d_mapUtils;
 
     private boolean d_isMapValid;
     private boolean d_mapFileLoaded;
@@ -31,7 +31,7 @@ public class MapModel {
     public MapModel() {
         this.d_continents = new LinkedHashMap<>();
         this.d_countries = new LinkedHashMap<>();
-        MAP_UTILS = new MapUtils();
+        d_mapUtils = new MapUtils();
         this.d_mapFileLoaded = false;
         this.d_isMapValid = false;
     }
@@ -416,7 +416,7 @@ public class MapModel {
         if (!this.isMapValid()) {
             if (!p_file.exists()) {
                 p_file.createNewFile();
-                this.editMap(new File(MAP_UTILS.getMapsPath() + "empty.map"));
+                this.editMap(new File(d_mapUtils.getMapsPath() + "empty.map"));
                 p_file.delete();
             }
             throw new Exception("This Map is Invalid! Please Load a valid one...");
@@ -440,7 +440,7 @@ public class MapModel {
         String[] l_tempData;
 
         // fetches the map file content
-        l_fileContent = MAP_UTILS.readMapFile(p_file);
+        l_fileContent = d_mapUtils.readMapFile(p_file);
         l_fileLines = l_fileContent.split("\n");
         l_iterator = Arrays.stream(l_fileLines).iterator();
 

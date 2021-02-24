@@ -18,9 +18,9 @@ import java.util.LinkedHashMap;
  */
 public class MapController {
 
-    private final MapModel MAP_MODEL;
-    private final MapView MAP_VIEW;
-    private final MapUtils MAP_UTILS;
+    private final MapModel d_mapModel;
+    private final MapView d_mapView;
+    private final MapUtils d_mapUtils;
 
     /**
      * Initializes MapModel, MapView and MapUtils objects
@@ -29,17 +29,17 @@ public class MapController {
      * @param p_mapView  MapView object
      */
     public MapController(MapModel p_mapModel, MapView p_mapView) {
-        this.MAP_MODEL = p_mapModel;
-        this.MAP_VIEW = p_mapView;
-        this.MAP_UTILS = new MapUtils();
+        this.d_mapModel = p_mapModel;
+        this.d_mapView = p_mapView;
+        this.d_mapUtils = new MapUtils();
     }
 
     /**
-     * TODO Runs the controller
+     * Runs the MapController
      */
     public void run() {
-        MAP_VIEW.showGameTitle();
-        MAP_VIEW.mapEditorPhase();
+        d_mapView.showGameTitle();
+        d_mapView.mapEditorPhase();
 
         String[] l_args;
         String l_fileName;
@@ -50,10 +50,10 @@ public class MapController {
             try {
                 //get a valid command from the user
                 do {
-                    l_args = MAP_VIEW.listenForCommands();
+                    l_args = d_mapView.listenForCommands();
 
                     if (!CommandsParser.isValidCommand(l_args))
-                        MAP_VIEW.commandNotValid();
+                        d_mapView.commandNotValid();
                 } while (!CommandsParser.isValidCommand(l_args));
 
                 if (l_args[0].equals("exit"))
@@ -64,46 +64,46 @@ public class MapController {
                 switch (l_args[0]) {
                     case "listmaps":
                         String[] l_allFileNames = getAllAvailableFileNames();
-                        MAP_VIEW.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
+                        d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
                         break;
                     case "showcommands":
-                        MAP_VIEW.showAvailableCommands(true);
+                        d_mapView.showAvailableCommands(true);
                         break;
                     case "editmap":
                         l_fileName = getValidFileName(l_args);
                         l_fileData = getMapFile(l_fileName, false);
-                        MAP_MODEL.editMap((File) l_fileData.get(0));
+                        d_mapModel.editMap((File) l_fileData.get(0));
 
                         //if existing map file is loaded, validate the map
                         //i.e don't validate for newly created files
                         if (((File) l_fileData.get(0)).length() != 0) {
-                            MAP_MODEL.validateMap();
-                            MAP_VIEW.validMap(MAP_MODEL.isMapValid());
+                            d_mapModel.validateMap();
+                            d_mapView.validMap(d_mapModel.isMapValid());
                         }
                         break;
                     case "editcontinent":
                         if (!this.isMapFileLoaded())
                             continue;
-                        MAP_MODEL.editContinent(l_commandArgs);
+                        d_mapModel.editContinent(l_commandArgs);
                         break;
                     case "editcountry":
                         if (!this.isMapFileLoaded())
                             continue;
-                        MAP_MODEL.editCountry(l_commandArgs);
+                        d_mapModel.editCountry(l_commandArgs);
                         break;
                     case "editneighbor":
                         if (!this.isMapFileLoaded())
                             continue;
-                        MAP_MODEL.editNeighbor(l_commandArgs);
+                        d_mapModel.editNeighbor(l_commandArgs);
                         break;
                     case "savemap":
                         if (!this.isMapFileLoaded())
                             continue;
-                        MAP_MODEL.validateMap();
+                        d_mapModel.validateMap();
 
                         // if the currently loaded map is invalid, ask for user input
-                        if (!MAP_MODEL.isMapValid()) {
-                            String l_input = MAP_VIEW.askForUserInput("The map being edited is invalid, " +
+                        if (!d_mapModel.isMapValid()) {
+                            String l_input = d_mapView.askForUserInput("The map being edited is invalid, " +
                                     "do you still want to save it (Y/N)? ");
                             if (l_input.equals("n"))
                                 continue;
@@ -111,34 +111,34 @@ public class MapController {
                         l_fileName = getValidFileName(l_args);
                         l_fileData = getMapFile(l_fileName, false);
                         this.saveMapWarning(l_fileName, l_fileData);
-                        MAP_MODEL.saveMap((File) l_fileData.get(0));
+                        d_mapModel.saveMap((File) l_fileData.get(0));
                         break;
                     case "validatemap":
                         if (!this.isMapFileLoaded())
                             continue;
-                        MAP_MODEL.validateMap();
-                        MAP_VIEW.validMap(MAP_MODEL.isMapValid());
+                        d_mapModel.validateMap();
+                        d_mapView.validMap(d_mapModel.isMapValid());
                         break;
                     case "showmap":
                         if (!this.isMapFileLoaded())
                             continue;
-                        MAP_VIEW.showMap(MAP_MODEL.getContinents(), MAP_MODEL.getCountries());
+                        d_mapView.showMap(d_mapModel.getContinents(), d_mapModel.getCountries());
                         break;
                     case "showcontinents":
                         if (!this.isMapFileLoaded())
                             continue;
-                        MAP_VIEW.showContinents(MAP_MODEL.getContinents());
+                        d_mapView.showContinents(d_mapModel.getContinents());
                         break;
                     case "showcountries":
                         if (!this.isMapFileLoaded())
                             continue;
-                        MAP_VIEW.showCountries(MAP_MODEL.getContinents(), MAP_MODEL.getCountries());
+                        d_mapView.showCountries(d_mapModel.getContinents(), d_mapModel.getCountries());
                         break;
                     default:
-                        MAP_VIEW.notMapEditorCommand();
+                        d_mapView.notMapEditorCommand();
                 }
             } catch (Exception l_e) {
-                MAP_VIEW.exception(l_e.toString());
+                d_mapView.exception(l_e.toString());
             }
         }
     }
@@ -149,8 +149,8 @@ public class MapController {
      * @return True, if any map is currently loaded; False otherwise
      */
     public boolean isMapFileLoaded() {
-        if (!MAP_MODEL.isMapFileLoaded()) {
-            MAP_VIEW.mapNotLoaded();
+        if (!d_mapModel.isMapFileLoaded()) {
+            d_mapView.mapNotLoaded();
             return false;
         }
         return true;
@@ -166,8 +166,8 @@ public class MapController {
     private LinkedHashMap<String, String> checkAllFilesValidation(String[] p_allFileNames) throws IOException {
 
         //copy currently being edited map to restore later
-        LinkedHashMap<String, ContinentModel> l_currentContinents = MAP_MODEL.getContinents();
-        LinkedHashMap<String, CountryModel> l_currentCountries = MAP_MODEL.getCountries();
+        LinkedHashMap<String, ContinentModel> l_currentContinents = d_mapModel.getContinents();
+        LinkedHashMap<String, CountryModel> l_currentCountries = d_mapModel.getCountries();
 
         LinkedHashMap<String, String> l_allFilesValidation = new LinkedHashMap<>();
         File l_mapFile = null;
@@ -176,7 +176,7 @@ public class MapController {
         try {
             // iterate through all the files, check extensions and assign validations
             for (String l_allFileName : p_allFileNames) {
-                l_mapFile = new File(MAP_UTILS.getMapsPath() + l_allFileName);
+                l_mapFile = new File(d_mapUtils.getMapsPath() + l_allFileName);
                 l_fileExt = l_mapFile.getName().split("\\.")[l_mapFile.getName().split("\\.").length - 1];
 
                 // check extension
@@ -189,22 +189,22 @@ public class MapController {
                     l_allFilesValidation.put(l_mapFile.getName(), "Empty");
                     continue;
                 }
-                MAP_MODEL.loadMap(l_mapFile);
-                MAP_MODEL.validateMap();
-                l_allFilesValidation.put(l_mapFile.getName(), MAP_MODEL.isMapValid() ? "Valid" : "Invalid");
+                d_mapModel.loadMap(l_mapFile);
+                d_mapModel.validateMap();
+                l_allFilesValidation.put(l_mapFile.getName(), d_mapModel.isMapValid() ? "Valid" : "Invalid");
             }
         } catch (Exception l_e) {
             System.out.println(l_mapFile.getName() + " file follows different format than supported map files.");
             l_mapFile.delete();
             System.out.println(l_e.toString());
             String[] l_allFileNames = getAllAvailableFileNames();
-            MAP_VIEW.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
+            d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
             return null;
         }
 
         //restore the current map to memory
-        MAP_MODEL.setContinents(l_currentContinents);
-        MAP_MODEL.setCountries(l_currentCountries);
+        d_mapModel.setContinents(l_currentContinents);
+        d_mapModel.setCountries(l_currentCountries);
 
         return l_allFilesValidation;
     }
@@ -215,7 +215,7 @@ public class MapController {
      * @return Names of all the files
      */
     private String[] getAllAvailableFileNames() {
-        File l_maps = new File(MAP_UTILS.getMapsPath());
+        File l_maps = new File(d_mapUtils.getMapsPath());
         return l_maps.list();
     }
 
@@ -227,8 +227,8 @@ public class MapController {
      */
     private void saveMapWarning(String p_fileName, ArrayList p_fileData) {
         // Give Warning for overwriting already existing file
-        if (!(MAP_MODEL.getCurrentFileName().equals(p_fileName)) && ((File) p_fileData.get(0)).exists()) {
-            MAP_VIEW.showMsg("\nWARNING: The " + p_fileName + " file is not loaded currently.");
+        if (!(d_mapModel.getCurrentFileName().equals(p_fileName)) && ((File) p_fileData.get(0)).exists()) {
+            d_mapView.showMsg("\nWARNING: The " + p_fileName + " file is not loaded currently.");
         }
     }
 
@@ -258,12 +258,12 @@ public class MapController {
      */
     public ArrayList getMapFile(String p_fileName, boolean p_isNewFile) throws IOException {
         File l_file;
-        l_file = new File(MAP_UTILS.getMapsPath() + p_fileName);
+        l_file = new File(d_mapUtils.getMapsPath() + p_fileName);
 
         if (!(l_file.exists())) {
             l_file.createNewFile();
             p_isNewFile = true;
-            MAP_VIEW.showMsg(p_fileName + " file does not exists!\nCreated new " + p_fileName + " file.");
+            d_mapView.showMsg(p_fileName + " file does not exists!\nCreated new " + p_fileName + " file.");
         }
         return new ArrayList(Arrays.asList(l_file, p_isNewFile));
     }

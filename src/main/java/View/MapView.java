@@ -240,10 +240,10 @@ public class MapView {
         String l_format = "|%15s|%" + l_longestContinentName[0] + "s|%15s|%15s|\n";
 
         // the table
-        final Object[][][] ROW = {new String[p_continents.size()][]};
+        Object[][][] l_row = {new String[p_continents.size()][]};
 
         // The Column Names
-        ROW[0][0] = new String[]{
+        l_row[0][0] = new String[]{
                 StringUtils.center("Continent ID".toUpperCase(), l_border.length()),
                 StringUtils.center("Continent Name".toUpperCase(), l_border.length()),
                 StringUtils.center("Control Value".toUpperCase(), l_border.length()),
@@ -251,7 +251,7 @@ public class MapView {
 
         System.out.println();
         System.out.format(l_format, l_separator);
-        System.out.format(l_format, ROW[0][0]);
+        System.out.format(l_format, l_row[0][0]);
         System.out.format(l_format, l_separator);
 
         // iterate over all the continents
@@ -259,13 +259,13 @@ public class MapView {
         p_continents.values().forEach(p_continentModel -> {
 
             // display a row
-            ROW[0][l_i[0]] = new String[]{
+            l_row[0][l_i[0]] = new String[]{
                     StringUtils.center(String.valueOf(p_continentModel.getId()), l_border.length()),
                     StringUtils.center(p_continentModel.getName(), l_border.length()),
                     StringUtils.center(String.valueOf(p_continentModel.getControlValue()), l_border.length()),
                     StringUtils.center(String.valueOf(p_continentModel.getCountries().size()), l_border.length())};
 
-            System.out.format(l_format, ROW[0][l_i[0]]);
+            System.out.format(l_format, l_row[0][l_i[0]]);
             l_i[0]++;
         });
         System.out.format(l_format, l_separator);
@@ -325,16 +325,16 @@ public class MapView {
                 l_countryBorder.length() + "s|\n";
 
         // the table
-        final Object[][][] ROW = {new String[l_rowsNum][]};
+        Object[][][] l_row = {new String[l_rowsNum][]};
 
         // The Column Names
-        ROW[0][0] = new String[]{
+        l_row[0][0] = new String[]{
                 StringUtils.center("Country Name".toUpperCase(), l_countryBorder.length()),
                 StringUtils.center("Continent Name (CV)".toUpperCase(), l_continentBorder.length()),
                 StringUtils.center("Neighbor Countries".toUpperCase(), l_countryBorder.length())};
         System.out.println();
         System.out.format(l_format, l_separator);
-        System.out.format(l_format, ROW[0][0]);
+        System.out.format(l_format, l_row[0][0]);
         System.out.format(l_format, l_separator);
 
         // iterate over all the countries
@@ -348,13 +348,13 @@ public class MapView {
             if (p_countryModel.getNeighbors().keySet().isEmpty()) {
 
                 // display all country's information
-                ROW[0][l_i[0]] = new String[]{
+                l_row[0][l_i[0]] = new String[]{
                         StringUtils.center(p_countryModel.getName(), l_countryBorder.length()),
                         StringUtils.center(p_countryModel.getContinentId() + "(" + p_continents.
                                 get(p_countryModel.getContinentId()).getControlValue() + ")", l_continentBorder.length()),
                         StringUtils.center("[No Neighbors]", l_countryBorder.length())
                 };
-                System.out.format(l_format, ROW[0][l_i[0]]);
+                System.out.format(l_format, l_row[0][l_i[0]]);
                 l_i[0]++;
             }
 
@@ -363,13 +363,13 @@ public class MapView {
                 // display the neighbors line by line
                 for (int l_j = 0; l_j < p_countryModel.getNeighbors().keySet().size(); l_j++) {
                     if (l_j != 0)
-                        ROW[0][l_i[0]] = new String[]{
+                        l_row[0][l_i[0]] = new String[]{
                                 " ",
                                 " ",
                                 StringUtils.center((l_j + 1) + ". " + l_it.next(), l_countryBorder.length())
                         };
                     else
-                        ROW[0][l_i[0]] = new String[]{
+                        l_row[0][l_i[0]] = new String[]{
                                 StringUtils.center(p_countryModel.getName(), l_countryBorder.length()),
                                 StringUtils.center(p_countryModel.getContinentId() + "(" + p_continents.
                                         get(p_countryModel.getContinentId()).getControlValue() + ")", l_continentBorder.length()),
@@ -377,7 +377,7 @@ public class MapView {
                                         "[No Neighbors]" : l_it.next()), l_countryBorder.length())
                         };
 
-                    System.out.format(l_format, ROW[0][l_i[0]]);
+                    System.out.format(l_format, l_row[0][l_i[0]]);
                     l_i[0]++;
                 }
             }
