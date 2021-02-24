@@ -2,7 +2,6 @@ package Model;
 
 import Controller.OrderController;
 import Model.Orders.DeployModel;
-import Utils.CommandsParser;
 import View.PlayerView;
 
 import java.util.ArrayDeque;
@@ -121,17 +120,6 @@ public class PlayerModel {
         this.d_reinforcements = p_reinforcements;
     }
 
-    /**
-     * Takes an order from the player
-     * @return array of the arguments of the order command
-     */
-    private String[] takeOrder() {
-        String[] l_args;
-        do {
-            l_args = PlayerView.issueOrderView();
-        } while (!CommandsParser.isValidCommand(l_args));
-        return l_args;
-    }
 
     /**
      * Player issues an order. In this various conditions are checked and the method is recursively called until user issues a valid order
