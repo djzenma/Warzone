@@ -1,8 +1,8 @@
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-
+/**
+ * Test class for the Main
+ */
 public class MainTest {
 
     @Test

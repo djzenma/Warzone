@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
  */
 public class ContinentModel {
 
-    private final LinkedHashMap<String, CountryModel> COUNTRIES;
-    private final String NAME;
-    private final int CONTROL_VALUE;
+    private final LinkedHashMap<String, CountryModel> d_countries;
+    private final String d_name;
+    private final int d_controlValue;
     private int d_id;
     private String d_color;
 
@@ -20,9 +20,9 @@ public class ContinentModel {
      * @param p_controlValue Number of bonus reinforcements every player will get if it owns all the countries of a continent
      */
     public ContinentModel(String p_name, int p_controlValue) {
-        this.NAME = p_name;
-        this.CONTROL_VALUE = p_controlValue;
-        COUNTRIES = new LinkedHashMap<>();
+        this.d_name = p_name;
+        this.d_controlValue = p_controlValue;
+        d_countries = new LinkedHashMap<>();
     }
 
     /**
@@ -35,10 +35,10 @@ public class ContinentModel {
      */
     public ContinentModel(int p_id, String p_name, int p_controlValue, String p_color) {
         this.d_id = p_id;
-        this.NAME = p_name;
+        this.d_name = p_name;
         this.d_color = p_color;
-        this.CONTROL_VALUE = p_controlValue;
-        COUNTRIES = new LinkedHashMap<>();
+        this.d_controlValue = p_controlValue;
+        d_countries = new LinkedHashMap<>();
     }
 
     /**
@@ -47,7 +47,7 @@ public class ContinentModel {
      * @return Countries of the continent
      */
     public LinkedHashMap<String, CountryModel> getCountries() {
-        return COUNTRIES;
+        return d_countries;
     }
 
     /**
@@ -56,7 +56,7 @@ public class ContinentModel {
      * @return Control value of the continent
      */
     public int getControlValue() {
-        return this.CONTROL_VALUE;
+        return this.d_controlValue;
     }
 
     /**
@@ -83,7 +83,7 @@ public class ContinentModel {
      * @return Name of the continent
      */
     public String getName() {
-        return NAME;
+        return d_name;
     }
 
     /**
@@ -101,6 +101,6 @@ public class ContinentModel {
      * @param p_country Country to be added
      */
     public void addCountry(CountryModel p_country) {
-        COUNTRIES.put(p_country.getName(), p_country);
+        d_countries.put(p_country.getName(), p_country);
     }
 }

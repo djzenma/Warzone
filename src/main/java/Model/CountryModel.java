@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
  */
 public class CountryModel {
     private int d_id;
-    private final String NAME;
+    private final String d_name;
     private String d_continentId;
     private int d_armies;
     private String d_xCoordinate;
@@ -39,7 +39,7 @@ public class CountryModel {
      */
     public CountryModel(int p_id, String p_name) {
         this.d_id = p_id;
-        this.NAME = p_name.toLowerCase();
+        this.d_name = p_name.toLowerCase();
         this.d_armies = 0;
     }
 
@@ -54,7 +54,7 @@ public class CountryModel {
      */
     public CountryModel(int p_id, String p_name, String p_continentId, String p_xCoordinate, String p_yCoordinate) {
         this.d_id = p_id;
-        this.NAME = p_name;
+        this.d_name = p_name;
         this.d_continentId = p_continentId;
         this.d_xCoordinate = p_xCoordinate;
         this.d_yCoordinate = p_yCoordinate;
@@ -72,7 +72,7 @@ public class CountryModel {
         if (!(this.d_neighbors.containsKey(this))) {
             this.d_neighbors.put(this, new LinkedHashMap<>());
         }
-        this.d_neighbors.get(this).put(p_countryModel.NAME, p_countryModel);
+        this.d_neighbors.get(this).put(p_countryModel.d_name, p_countryModel);
     }
 
     /**
@@ -84,12 +84,12 @@ public class CountryModel {
      */
     public void removeNeighbor(CountryModel p_countryModel) throws Exception {
         if (!(this.d_neighbors.containsKey(this))) {
-            throw new Exception(this.NAME + " does not have any neighbors");
+            throw new Exception(this.d_name + " does not have any neighbors");
         } else {
-            if (!(this.d_neighbors.get(this).containsKey(p_countryModel.NAME))) {
-                throw new Exception(p_countryModel.NAME + " is not a neighbor of " + this.NAME);
+            if (!(this.d_neighbors.get(this).containsKey(p_countryModel.d_name))) {
+                throw new Exception(p_countryModel.d_name + " is not a neighbor of " + this.d_name);
             } else {
-                this.d_neighbors.get(this).remove(p_countryModel.NAME);
+                this.d_neighbors.get(this).remove(p_countryModel.d_name);
             }
         }
     }
@@ -118,7 +118,7 @@ public class CountryModel {
      * @return Name of the country
      */
     public String getName() {
-        return NAME;
+        return d_name;
     }
 
     /**
