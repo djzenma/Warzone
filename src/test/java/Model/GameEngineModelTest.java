@@ -72,9 +72,9 @@ public class GameEngineModelTest {
         l_continents.add(l_c1);
         l_continents.add(l_c2);
 
-        d_gameEngine = new GameEngineModel();
-        d_gameEngine.setCountries(l_countries);
-        d_gameEngine.setContinents(l_continents);
+        d_GameEngine = new GameEngineModel();
+        d_GameEngine.setCountries(l_countries);
+        d_GameEngine.setContinents(l_continents);
     }
 
     /**
@@ -82,9 +82,9 @@ public class GameEngineModelTest {
       */
     @Before
     public void addPlayers() {
-        d_gameEngine.addPlayer("Mazen");
-        d_gameEngine.addPlayer("Aman");
-        d_gameEngine.addPlayer("Akshat");
+        d_GameEngine.addPlayer("Mazen");
+        d_GameEngine.addPlayer("Aman");
+        d_GameEngine.addPlayer("Akshat");
     }
 
     /**
@@ -92,7 +92,7 @@ public class GameEngineModelTest {
      */
     @Test
     public void addPlayer() {
-        assertEquals(3, d_gameEngine.getPlayers().size());
+        assertEquals(3, d_GameEngine.getPlayers().size());
     }
 
     /**
@@ -101,8 +101,8 @@ public class GameEngineModelTest {
     @Test
     public void removePlayer() {
         try {
-            d_gameEngine.removePlayer("Mazen");
-            assertEquals(2, d_gameEngine.getPlayers().size());
+            d_GameEngine.removePlayer("Mazen");
+            assertEquals(2, d_GameEngine.getPlayers().size());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,8 +113,8 @@ public class GameEngineModelTest {
      */
     @Test
     public void assignCountries() {
-        d_gameEngine.assignCountries();
-        for (PlayerModel l_player : d_gameEngine.getPlayers().values()) {
+        d_GameEngine.assignCountries();
+        for (PlayerModel l_player : d_GameEngine.getPlayers().values()) {
             assertNotNull(l_player.getCountries());
         }
     }
@@ -124,10 +124,10 @@ public class GameEngineModelTest {
      */
     @Test
     public void assignReinforcements() {
-        d_gameEngine.assignCountries();
-        d_gameEngine.assignReinforcements();
-        assertEquals(11, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
-        assertEquals(3, d_gameEngine.getPlayers().get("Aman").getReinforcements());
-        assertEquals(3, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
+        d_GameEngine.assignCountries();
+        d_GameEngine.assignReinforcements();
+        assertEquals(11, d_GameEngine.getPlayers().get("Mazen").getReinforcements());
+        assertEquals(3, d_GameEngine.getPlayers().get("Aman").getReinforcements());
+        assertEquals(3, d_GameEngine.getPlayers().get("Akshat").getReinforcements());
     }
 }
