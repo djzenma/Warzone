@@ -16,7 +16,7 @@ import java.util.function.Consumer;
  */
 public class MapModel {
 
-    private final MapUtils d_mapUtils;
+    private MapUtils d_mapUtils;
 
     private boolean d_isMapValid;
     private boolean d_mapFileLoaded;

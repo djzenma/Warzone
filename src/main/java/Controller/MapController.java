@@ -18,9 +18,9 @@ import java.util.LinkedHashMap;
  */
 public class MapController {
 
-    private final MapModel d_mapModel;
-    private final MapView d_mapView;
-    private final MapUtils d_mapUtils;
+    private MapModel d_mapModel;
+    private MapView d_mapView;
+    private MapUtils d_mapUtils;
 
     /**
      * Initializes MapModel, MapView and MapUtils objects
