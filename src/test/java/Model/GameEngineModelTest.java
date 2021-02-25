@@ -16,7 +16,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class GameEngineModelTest {
 
-    private static GameEngineModel d_gameEngine;
+    private static GameEngineModel d_GameEngine;
 
     /**
      * Initializes the GameEngineModel and a context scenario
