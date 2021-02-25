@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
  */
 public class PlayerModelTest {
     private static PlayerModel d_PlayerModel;
-    private static GameEngineModel d_gameEngine;
+    private static GameEngineModel d_GameEngine;
 
     /**
      * Initializes the PlayerModel
@@ -70,19 +70,19 @@ public class PlayerModelTest {
         l_continents.add(l_c1);
         l_continents.add(l_c2);
 
-        d_gameEngine = new GameEngineModel();
-        d_gameEngine.setCountries(l_countries);
-        d_gameEngine.setContinents(l_continents);
+        d_GameEngine = new GameEngineModel();
+        d_GameEngine.setCountries(l_countries);
+        d_GameEngine.setContinents(l_continents);
 
         // add the players
-        d_gameEngine.addPlayer("Mazen");
-        d_gameEngine.addPlayer("Aman");
-        d_gameEngine.addPlayer("Akshat");
+        d_GameEngine.addPlayer("Mazen");
+        d_GameEngine.addPlayer("Aman");
+        d_GameEngine.addPlayer("Akshat");
 
         // assign countries and reinforcements
-        d_gameEngine.assignCountries();
-        d_gameEngine.assignReinforcements();
-        d_PlayerModel = d_gameEngine.getPlayers().get("Mazen");
+        d_GameEngine.assignCountries();
+        d_GameEngine.assignReinforcements();
+        d_PlayerModel = d_GameEngine.getPlayers().get("Mazen");
     }
 
     /**
@@ -90,9 +90,9 @@ public class PlayerModelTest {
      */
     @Test
     public void issueOrder() {
-        assertEquals(11, d_gameEngine.getPlayers().get("Mazen").getReinforcements());
-        assertEquals(3, d_gameEngine.getPlayers().get("Aman").getReinforcements());
-        assertEquals(3, d_gameEngine.getPlayers().get("Akshat").getReinforcements());
+        assertEquals(11, d_GameEngine.getPlayers().get("Mazen").getReinforcements());
+        assertEquals(3, d_GameEngine.getPlayers().get("Aman").getReinforcements());
+        assertEquals(3, d_GameEngine.getPlayers().get("Akshat").getReinforcements());
 
         assertFalse(d_PlayerModel.issueOrder(new String[]{"deploy", "canada8", "12"}));
         assertTrue(d_PlayerModel.issueOrder(new String[]{"deploy", "canada8", "10"}));
