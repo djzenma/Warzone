@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  */
 public class MapModelTest {
 
-    private static final String d_TestMapFileName = "solar.map";
+    private static String d_TestMapFileName = "solar.map";
     private static MapModel d_MapModel;
     private static MapView d_MapView;
     private static MapController d_MapController;
