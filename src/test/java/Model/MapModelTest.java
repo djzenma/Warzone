@@ -26,7 +26,6 @@ public class MapModelTest {
     /**
      * Initializes the MapModel and MapUtils
      *
-     * @throws Exception
      */
     @BeforeClass
     public static void init() {
@@ -39,10 +38,10 @@ public class MapModelTest {
     /**
      * Sets the context before every test method
      *
-     * @throws Exception
+     * @throws IOException If I/O exception of some sort has occurred
      */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws IOException {
         File l_file = (File) d_MapController.getMapFile(d_TestMapFileName, false).get(0);
         d_MapModel.editMap(l_file);
     }
@@ -149,6 +148,8 @@ public class MapModelTest {
 
     /**
      * Tests savemap command
+     *
+     * @throws IOException If I/O exception of some sort has occurred
      */
     @Test
     public void saveMap() throws IOException {

@@ -540,6 +540,7 @@ public class MapModel {
      *
      * @param p_countryOne Index of country from where the traversal starts
      * @param p_visited    Data structure that keeps track of countries visited during traversal
+     * @param p_countries  All countries in the map
      */
     public void traverseMap(CountryModel p_countryOne, LinkedHashMap<String, Boolean> p_visited,
                             LinkedHashMap<String, CountryModel> p_countries) {
@@ -560,6 +561,7 @@ public class MapModel {
      * Checks whether the map is fully connected graph or not <br>
      * i.e. every country should be reachable from every other country
      *
+     * @param p_countries  All countries in the map
      * @return True, if the map is connected; False otherwise
      */
     public boolean validateFullConnectivity(LinkedHashMap<String, CountryModel> p_countries) {

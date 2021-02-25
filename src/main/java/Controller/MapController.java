@@ -35,7 +35,8 @@ public class MapController {
     }
 
     /**
-     * Runs the MapController
+     * Map-Editor phase of the game. <br>
+     * User stays in this phase until it is ready to move to Gameplay start-up phase.
      */
     public void run() {
         d_mapView.showGameTitle();
