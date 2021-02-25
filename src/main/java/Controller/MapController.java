@@ -139,7 +139,7 @@ public class MapController {
                         d_mapView.notMapEditorCommand();
                 }
             } catch (Exception l_e) {
-                d_mapView.exception(l_e.toString());
+                d_mapView.exception(l_e.getMessage());
             }
         }
     }
