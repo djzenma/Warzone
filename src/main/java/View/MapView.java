@@ -221,7 +221,7 @@ public class MapView {
      *
      * @param p_continents Continents to be displayed
      */
-    public void showContinents(HashMap<String, ContinentModel> p_continents) {
+    public void showContinents(HashMap<String, ContinentModel> p_continents) {  //TODO:: 14Refactor: Lambda expressions
 
         int[] l_longestContinentName = {0};
 
@@ -284,7 +284,7 @@ public class MapView {
      * @param p_continents Continents to be displayed
      * @param p_countries  Countries to be displayed
      */
-    public void showCountries(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
+    public void showCountries(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) { //TODO:: 15Refactor: Lambda expressions
         // Number of Entries  = Number of Neighbors of every country or 1 if it has none
         int l_rowsNum = p_countries
                 .values()

@@ -147,7 +147,7 @@ public class PlayerModel {
      * @param p_args Arguments of the command
      * @return False if the order is invalid; Otherwise true
      */
-    public boolean issueOrder(String[] p_args) {
+    public boolean issueOrder(String[] p_args) {   //TODO:: 12Refactor: Replace enum
         OrderModel l_order;
 
         int l_nReinforcements = this.getReinforcements();
