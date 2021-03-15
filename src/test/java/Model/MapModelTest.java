@@ -157,4 +157,15 @@ public class MapModelTest {
         d_MapModel.saveMap(new File(d_MapUtils.getMapsPath() + "savemaptest.map"));
         assertTrue(d_MapUtils.areMapFilesEqual("solar.map", "savemaptest.map"));
     }
+
+    /**
+     * Tests whether the name is a string or not
+     */
+    @Test
+    public void isNameNumber() {
+        assertTrue(d_MapModel.isNameNumber("5"));
+        assertFalse(d_MapModel.isNameNumber("Asia"));
+        assertFalse(d_MapModel.isNameNumber("Asia1"));
+        assertFalse(d_MapModel.isNameNumber("1Asia"));
+    }
 }
