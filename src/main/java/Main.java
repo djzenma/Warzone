@@ -21,7 +21,6 @@ public class Main {
         MapModel l_mapModel = new MapModel();
         MapView l_mapView = new MapView();
         MapController l_mapController = new MapController(l_mapModel, l_mapView);
-
         l_mapController.run();
 
         GameEngineController l_gameEngineController = new GameEngineController(new GameEngineModel(), new GameEngineView());

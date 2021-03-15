@@ -142,5 +142,24 @@
         }
       ]
     }
-  ]
+  ],
+  "commandNames": {
+    "listmaps": "listmaps",
+    "editcontinent": "editcontinent",
+    "editcountry": "editcountry",
+    "editneighbor": "editneighbor",
+    "savemap": "savemap",
+    "editmap": "editmap",
+    "showmap": "showmap",
+    "validatemap": "validatemap",
+    "showcontinents": "showcontinents",
+    "showcountries": "showcountries",
+    "showcommands": "showcommands",
+    "exit": "exit",
+    "loadmap": "loadmap",
+    "gameplayer": "gameplayer",
+    "assigncountries": "assigncountries",
+    "deploy": "deploy",
+    "pass": "pass"
+  }
 }

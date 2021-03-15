@@ -1,6 +1,8 @@
 package Model;
 
+import Utils.CommandsParser;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,6 +16,14 @@ import static org.junit.Assert.*;
 public class PlayerModelTest {
     private static PlayerModel d_PlayerModel;
     private static GameEngineModel d_GameEngine;
+
+    /**
+     * Initializes the Commands Parser
+     */
+    @BeforeClass
+    public static void init() {
+        CommandsParser.parseJson();
+    }
 
     /**
      * Initializes the PlayerModel

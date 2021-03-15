@@ -11,4 +11,7 @@ public class Commands {
      */
     @SerializedName(value = "commands")
     public Command[] d_commands;
+
+    @SerializedName(value = "commandNames")
+    public CommandNames d_commandNames;
 }

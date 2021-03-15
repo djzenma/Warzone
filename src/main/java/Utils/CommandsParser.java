@@ -177,7 +177,7 @@ public class CommandsParser {
      * @return true if the name is valid; otherwise false
      */
     public static boolean isGameplayer(String[] l_args) {
-        return l_args[0].equals("gameplayer");
+        return l_args[0].equals(d_commands.d_commandNames.d_gameplayer);
     }
 
     /**
@@ -187,7 +187,7 @@ public class CommandsParser {
      * @return true if the name is valid; otherwise false
      */
     public static boolean isAssignCountries(String[] l_args) {
-        return l_args[0].equals("assigncountries");
+        return l_args[0].equals(d_commands.d_commandNames.d_assigncountries);
     }
 
     /**
@@ -197,7 +197,7 @@ public class CommandsParser {
      * @return true if the name is valid; otherwise false
      */
     public static boolean isLoadMap(String[] l_args) {
-        return l_args[0].equals("loadmap");
+        return l_args[0].equals(d_commands.d_commandNames.d_loadmap);
     }
 
     /**
@@ -207,7 +207,7 @@ public class CommandsParser {
      * @return true if the name is valid; otherwise false
      */
     public static boolean isShowMap(String[] l_args) {
-        return l_args[0].equals("showmap");
+        return l_args[0].equals(d_commands.d_commandNames.d_showmap);
     }
 
     /**
@@ -217,7 +217,7 @@ public class CommandsParser {
      * @return true if the name is valid; otherwise false
      */
     public static boolean isPass(String[] l_args) {
-        return l_args[0].equals("pass");
+        return l_args[0].equals(d_commands.d_commandNames.d_pass);
     }
 
     /**
@@ -227,7 +227,7 @@ public class CommandsParser {
      * @return true if the name is valid; otherwise false
      */
     public static boolean isDeploy(String[] l_args) {
-        return l_args[0].equals("deploy");
+        return l_args[0].equals(d_commands.d_commandNames.d_deploy);
     }
 
 }
