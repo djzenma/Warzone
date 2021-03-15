@@ -384,12 +384,7 @@ public class MapModel {
      * @return True, if the string passed only contains digits; False otherwise
      */
     public boolean isNameNumber(String p_name) { //TODO::11Refactor: Add regular expression
-        try {
-            Integer.parseInt(p_name);
-        } catch (Exception l_e) {
-            return false;
-        }
-        return true;
+        return p_name.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
 
     /**
@@ -451,6 +446,7 @@ public class MapModel {
             // read and load continents
             if (l_tempLine.equals("[continents]")) {
                 l_tempLine = l_iterator.next().trim();
+
                 while (!(l_tempLine.startsWith("["))) {
                     if (l_tempLine.isEmpty())
                         break;
@@ -465,6 +461,7 @@ public class MapModel {
             if (l_tempLine.equals("[countries]")) {
                 String[] l_continentName = new String[1];
                 l_tempLine = l_iterator.next().trim();
+
                 while (!(l_tempLine.startsWith("[")) && !(l_tempLine.isEmpty())) {
                     l_tempData = l_tempLine.split(" ");
 
@@ -480,6 +477,7 @@ public class MapModel {
 
                     d_countries.put(l_tempData[1].trim(), new CountryModel(Integer.parseInt(l_tempData[0].trim()),
                             l_tempData[1].trim(), l_tempContinentName[0], l_tempData[3], l_tempData[4]));
+
                     int l_continentId = Integer.parseInt(l_tempData[2].trim());
 
                     // fetches the continent name based on the continent id
