@@ -63,24 +63,6 @@ public abstract class OrderModel {
      */
     public abstract void execute(HashMap<String, CountryModel> p_countries);
 
-    /**
-     * Enum for the commands
-     */
-    public enum CMDS {
-        DEPLOY("deploy"),
-        PASS("pass"),
-        GAME_PLAYER("gameplayer"),
-        ASSIGN_COUNTRIES("assigncountries");
 
-        private final String d_cmdName;
 
-        CMDS(String p_cmdName) {
-            this.d_cmdName = p_cmdName;
-        }
-
-        @Override
-        public String toString() {
-            return d_cmdName;
-        }
-    }
 }

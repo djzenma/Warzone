@@ -219,4 +219,15 @@ public class CommandsParser {
     public static boolean isPass(String[] l_args) {
         return l_args[0].equals("pass");
     }
+
+    /**
+     * Checks if the command entered is to deploy
+     *
+     * @param l_args array of the arguments in a command
+     * @return true if the name is valid; otherwise false
+     */
+    public static boolean isDeploy(String[] l_args) {
+        return l_args[0].equals("deploy");
+    }
+
 }

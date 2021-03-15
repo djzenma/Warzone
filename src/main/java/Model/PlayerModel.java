@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Orders.DeployModel;
+import Utils.CommandsParser;
 import View.PlayerView;
 
 import java.util.ArrayDeque;
@@ -153,7 +154,7 @@ public class PlayerModel {
         int l_nReinforcements = this.getReinforcements();
 
         // checks if the player is trying to pass/skip the turn
-        if (p_args[0].equals(OrderModel.CMDS.PASS.toString().toLowerCase())) {
+        if (CommandsParser.isPass(p_args)) {
             if (l_nReinforcements != 0) {
                 this.d_view.ReinforcementsRemain(l_nReinforcements);
                 return false; // impossible command
@@ -162,7 +163,7 @@ public class PlayerModel {
         }
 
         // checks if the player issued the deploy order
-        if (p_args[0].equals(OrderModel.CMDS.DEPLOY.toString().toLowerCase())) {
+        if (CommandsParser.isDeploy(p_args)) {
             String l_countryName = p_args[1];
 
             // validate that the number of reinforcements is a valid number

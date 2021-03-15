@@ -14,11 +14,10 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Controls the Game Play loop.
- * Iterates the following phases:
+ * Controls the game play phase.
+ * The table has the following information-
  * <ul>
- *     <li> Startup Phase </li>
- *     <li> Gameplay Phase </li>
+ *     <li>  </li>
  * </ul>
  */
 public class GameEngineController {
