@@ -15,7 +15,7 @@ import static org.junit.Assert.*;
  */
 public class PlayerModelTest {
     private static PlayerModel d_PlayerModel;
-    private static GameEngineModel d_GameEngine;
+    private static GamePlayModel d_GameEngine;
 
     /**
      * Initializes the Commands Parser
@@ -80,7 +80,7 @@ public class PlayerModelTest {
         l_continents.add(l_c1);
         l_continents.add(l_c2);
 
-        d_GameEngine = new GameEngineModel();
+        d_GameEngine = new GamePlayModel();
         d_GameEngine.setCountries(l_countries);
         d_GameEngine.setContinents(l_continents);
 

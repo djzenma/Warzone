@@ -1,9 +1,7 @@
-import Controller.GameEngineController;
+import Controller.GamePlayController;
 import Controller.MapController;
-import Model.GameEngineModel;
 import Model.MapModel;
 import Utils.CommandsParser;
-import View.GameEngineView;
 import View.MapView;
 
 /**
@@ -23,7 +21,7 @@ public class Main {
         MapController l_mapController = new MapController(l_mapModel, l_mapView);
         l_mapController.run();
 
-        GameEngineController l_gameEngineController = new GameEngineController(new GameEngineModel(), new GameEngineView());
-        l_gameEngineController.run();
+        GamePlayController l_gamePlayController = new GamePlayController();
+        l_gamePlayController.run();
     }
 }

@@ -19,7 +19,7 @@ import static java.lang.Math.floor;
  *     <li> Executes the Orders issued by the players </li>
  * </ul>
  */
-public class GameEngineModel {
+public class GamePlayModel {
     private final HashMap<String, PlayerModel> d_players;
     private HashMap<String, CountryModel> d_countries;
     private ArrayList<ContinentModel> d_continents;
@@ -27,7 +27,7 @@ public class GameEngineModel {
     /**
      * Initialises the HashMap of PlayerModel, CountryModel and Arraylist of ContinentModel
      */
-    public GameEngineModel() {
+    public GamePlayModel() {
         this.d_players = new HashMap<>();
         this.d_continents = new ArrayList<>();
         this.d_countries = new HashMap<>();

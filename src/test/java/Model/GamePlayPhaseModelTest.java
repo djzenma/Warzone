@@ -12,14 +12,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * Test class for the GameEngineModel
+ * Test class for the GamePlayModel
  */
-public class GameEngineModelTest {
+public class GamePlayPhaseModelTest {
 
-    private static GameEngineModel d_GameEngine;
+    private static GamePlayModel d_GameEngine;
 
     /**
-     * Initializes the GameEngineModel and a context scenario
+     * Initializes the GamePlayModel and a context scenario
      */
     @BeforeClass
     public static void init() {
@@ -72,7 +72,7 @@ public class GameEngineModelTest {
         l_continents.add(l_c1);
         l_continents.add(l_c2);
 
-        d_GameEngine = new GameEngineModel();
+        d_GameEngine = new GamePlayModel();
         d_GameEngine.setCountries(l_countries);
         d_GameEngine.setContinents(l_continents);
     }

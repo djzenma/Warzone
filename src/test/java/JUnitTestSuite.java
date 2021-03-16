@@ -1,4 +1,4 @@
-import Model.GameEngineModelTest;
+import Model.GamePlayPhaseModelTest;
 import Model.MapModelTest;
 import Model.PlayerModelTest;
 import Utils.CommandsParserTest;
@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        GameEngineModelTest.class,
+        GamePlayPhaseModelTest.class,
         PlayerModelTest.class,
         MapModelTest.class,
         CommandsParserTest.class})

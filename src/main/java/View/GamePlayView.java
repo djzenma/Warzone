@@ -3,6 +3,7 @@ package View;
 import Model.ContinentModel;
 import Model.CountryModel;
 import Model.PlayerModel;
+import Utils.CommandsParser;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import java.util.function.Consumer;
 /**
  * TODO::
  */
-public class GameEngineView {
+public class GamePlayView {
     /**
      * Listens for the startup commands from the user
      *
@@ -241,4 +242,22 @@ public class GameEngineView {
         });
         System.out.println();
     }
+
+
+    /**
+     * Takes the Command from the user
+     *
+     * @return Array of arguments of the command
+     */
+    public String[] takeCommand() {
+        String[] l_args;
+        do {
+            l_args = listenForStartupCommand();
+            if (!CommandsParser.isValidCommand(l_args))
+                commandNotValid();
+        } while (!CommandsParser.isValidCommand(l_args));
+
+        return l_args;
+    }
+
 }
