@@ -9,22 +9,21 @@ import View.MapView;
 /**
  * Takes inputs from the MapView and controls the flow of execution of MapEditor
  */
-public class MapController extends GameEngineController {
+public class MapController {
 
     private final MapModel d_mapModel;
     private final MapView d_mapView;
+    private final GameEngineController d_gameEngineController;
 
     /**
      * Initializes MapModel, MapView and MapUtils objects
-     *
-     * @param p_mapModel MapModel object
-     * @param p_mapView  MapView object
      */
-    public MapController(MapModel p_mapModel, MapView p_mapView) {
+    public MapController(GameEngineController p_gameEngineController) {
         super();
-        this.d_mapModel = p_mapModel;
-        this.d_mapView = p_mapView;
-        setPhase(new MapEditor(this));
+        this.d_mapModel = p_gameEngineController.d_mapModel;
+        this.d_mapView = p_gameEngineController.d_mapView;
+        this.d_gameEngineController = p_gameEngineController;
+        d_gameEngineController.setPhase(new MapEditor(p_gameEngineController));
     }
 
     /**
@@ -36,7 +35,7 @@ public class MapController extends GameEngineController {
         d_mapView.mapEditorPhase();
 
         String[] l_args;
-        setPhase(new PreLoad(this));
+        d_gameEngineController.setPhase(new PreLoad(d_gameEngineController));
 
         //stay in the MapEditor unless the user exits which moves the game to the GameEngine
         while (true) {
@@ -51,40 +50,40 @@ public class MapController extends GameEngineController {
 
                 switch (l_args[0]) {
                     case "exit":
-                        d_currentPhase.exit();
-                        break;
+                        d_gameEngineController.d_currentPhase.exit();
+                        return;
                     case "listmaps":
-                        d_currentPhase.listMaps();
+                        d_gameEngineController.d_currentPhase.listMaps();
                         break;
                     case "showcommands":
-                        d_currentPhase.showCommands();
+                        d_gameEngineController.d_currentPhase.showCommands();
                         break;
                     case "editmap":
-                        d_currentPhase.editMap(l_args);
+                        d_gameEngineController.d_currentPhase.editMap(l_args);
                         break;
                     case "editcontinent":
-                        d_currentPhase.editContinent(l_args);
+                        d_gameEngineController.d_currentPhase.editContinent(l_args);
                         break;
                     case "editcountry":
-                        d_currentPhase.editCountry(l_args);
+                        d_gameEngineController.d_currentPhase.editCountry(l_args);
                         break;
                     case "editneighbor":
-                        d_currentPhase.editNeighbor(l_args);
+                        d_gameEngineController.d_currentPhase.editNeighbor(l_args);
                         break;
                     case "savemap":
-                        d_currentPhase.saveMap(l_args);
+                        d_gameEngineController.d_currentPhase.saveMap(l_args);
                         break;
                     case "validatemap":
-                        d_currentPhase.validateMap(l_args);
+                        d_gameEngineController.d_currentPhase.validateMap(l_args);
                         break;
                     case "showmap":
-                        d_currentPhase.showMap();
+                        d_gameEngineController.d_currentPhase.showMap();
                         break;
                     case "showcontinents":
-                        d_currentPhase.showContinents();
+                        d_gameEngineController.d_currentPhase.showContinents();
                         break;
                     case "showcountries":
-                        d_currentPhase.showCountries();
+                        d_gameEngineController.d_currentPhase.showCountries();
                         break;
                     default:
                         d_mapView.notMapEditorCommand();

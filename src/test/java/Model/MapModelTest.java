@@ -1,5 +1,6 @@
 package Model;
 
+import Controller.GameEngineController;
 import Controller.MapController;
 import Utils.MapUtils;
 import View.MapView;
@@ -31,7 +32,7 @@ public class MapModelTest {
     public static void init() {
         d_MapModel = new MapModel();
         d_MapView = new MapView();
-        d_MapController = new MapController(d_MapModel, d_MapView);
+        d_MapController = new MapController(new GameEngineController());
         d_MapUtils = new MapUtils();
     }
 

@@ -2,7 +2,6 @@ package Controller;
 
 import Model.GamePlayModel;
 import Model.MapModel;
-import States.GamePlayPhase;
 import States.Phase;
 import View.GamePlayView;
 import View.MapView;
@@ -27,6 +26,10 @@ public class GameEngineController {
     }
 
     public void run() {
-        setPhase(new GamePlayPhase(this));
+        MapController l_mapController = new MapController(this);
+        l_mapController.run();
+
+        GamePlayController l_gamePlayController = new GamePlayController(this);
+        l_gamePlayController.run();
     }
 }
