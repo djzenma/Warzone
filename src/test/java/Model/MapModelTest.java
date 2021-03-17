@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
  */
 public class MapModelTest {
 
-    private static String d_TestMapFileName = "solar.map";
+    private static final String d_TestMapFileName = "solar.map";
     private static MapModel d_MapModel;
     private static MapView d_MapView;
     private static MapController d_MapController;
@@ -42,7 +42,7 @@ public class MapModelTest {
      */
     @Before
     public void setUp() throws IOException {
-        File l_file = (File) d_MapController.getMapFile(d_TestMapFileName, false).get(0);
+        File l_file = (File) MapUtils.getMapFile(d_TestMapFileName, false).get(0);
         d_MapModel.editMap(l_file);
     }
 
@@ -153,8 +153,8 @@ public class MapModelTest {
      */
     @Test
     public void saveMap() throws IOException {
-        d_MapModel.editMap(new File(d_MapUtils.getMapsPath() + "solar.map"));
-        d_MapModel.saveMap(new File(d_MapUtils.getMapsPath() + "savemaptest.map"));
+        d_MapModel.editMap(new File(MapUtils.getMapsPath() + "solar.map"));
+        d_MapModel.saveMap(new File(MapUtils.getMapsPath() + "savemaptest.map"));
         assertTrue(d_MapUtils.areMapFilesEqual("solar.map", "savemaptest.map"));
     }
 

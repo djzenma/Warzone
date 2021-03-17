@@ -18,9 +18,9 @@ import java.util.LinkedHashMap;
  */
 public class MapController {
 
-    private MapModel d_mapModel;
-    private MapView d_mapView;
-    private MapUtils d_mapUtils;
+    private final MapModel d_mapModel;
+    private final MapView d_mapView;
+    private final MapUtils d_mapUtils;
 
     /**
      * Initializes MapModel, MapView and MapUtils objects
@@ -71,16 +71,7 @@ public class MapController {
                         d_mapView.showAvailableCommands(true);
                         break;
                     case "editmap":
-                        l_fileName = getValidFileName(l_args);
-                        l_fileData = getMapFile(l_fileName, false);
-                        d_mapModel.editMap((File) l_fileData.get(0));
 
-                        //if existing map file is loaded, validate the map
-                        //i.e don't validate for newly created files
-                        if (((File) l_fileData.get(0)).length() != 0) {
-                            d_mapModel.validateMap();
-                            d_mapView.validMap(d_mapModel.isMapValid());
-                        }
                         break;
                     case "editcontinent":
                         if (!this.isMapFileLoaded())
@@ -109,8 +100,8 @@ public class MapController {
                             if (l_input.equals("n"))
                                 continue;
                         }
-                        l_fileName = getValidFileName(l_args);
-                        l_fileData = getMapFile(l_fileName, false);
+                        l_fileName = MapUtils.getValidFileName(l_args);
+                        l_fileData = MapUtils.getMapFile(l_fileName, false);
                         this.saveMapWarning(l_fileName, l_fileData);
                         d_mapModel.saveMap((File) l_fileData.get(0));
                         break;
@@ -177,7 +168,7 @@ public class MapController {
         try {
             // iterate through all the files, check extensions and assign validations
             for (String l_allFileName : p_allFileNames) {
-                l_mapFile = new File(d_mapUtils.getMapsPath() + l_allFileName);
+                l_mapFile = new File(MapUtils.getMapsPath() + l_allFileName);
                 l_fileExt = l_mapFile.getName().split("\\.")[l_mapFile.getName().split("\\.").length - 1];
 
                 // check extension
@@ -216,7 +207,7 @@ public class MapController {
      * @return Names of all the files
      */
     private String[] getAllAvailableFileNames() {
-        File l_maps = new File(d_mapUtils.getMapsPath());
+        File l_maps = new File(MapUtils.getMapsPath());
         return l_maps.list();
     }
 
@@ -233,40 +224,6 @@ public class MapController {
         }
     }
 
-    /**
-     * Ensures that the file extension is .map file
-     *
-     * @param p_args Name of the file
-     * @return Name of .map file
-     * @throws Exception If the file is not .map file
-     */
-    private String getValidFileName(String[] p_args) throws Exception {
-        String l_fileName = String.join(" ", Arrays.copyOfRange(p_args, 1, p_args.length));
-        String l_fileExt = l_fileName.split("\\.")[l_fileName.split("\\.").length - 1].trim();
-        if (!(l_fileExt.equals("map"))) {
-            throw new Exception("." + l_fileExt + " files are not acceptable! Please enter .map filename.");
-        }
-        return l_fileName;
-    }
 
-    /**
-     * Gets the object of map file
-     *
-     * @param p_fileName  Name of the map file
-     * @param p_isNewFile Specifies whether the map file is newly created or not
-     * @return Map file object and information about the file
-     * @throws IOException If I/O exception of some sort has occurred
-     */
-    public ArrayList getMapFile(String p_fileName, boolean p_isNewFile) throws IOException {
-        File l_file;
-        l_file = new File(d_mapUtils.getMapsPath() + p_fileName);
-
-        if (!(l_file.exists())) {
-            l_file.createNewFile();
-            p_isNewFile = true;
-            d_mapView.showMsg(p_fileName + " file does not exists!\nCreated new " + p_fileName + " file.");
-        }
-        return new ArrayList(Arrays.asList(l_file, p_isNewFile));
-    }
 }
 

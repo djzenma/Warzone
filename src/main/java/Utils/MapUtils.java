@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -35,28 +36,34 @@ public class MapUtils {
     }
 
     /**
-     * Read map file specified by filename
-     * @param p_fileName Name of the map file
-     * @return Buffer reader for the map file
-     * @throws IOException If I/O exception of some sort has occurred
-     */
-    public BufferedReader readMapFileByName(String p_fileName) throws IOException {
-        Path l_File = Paths.get(this.getMapsPath() + p_fileName);
-        BufferedReader l_first = Files.newBufferedReader(l_File);
-        return l_first;
-    }
-
-    /**
      * Gets the path of the "maps/" directory
+     *
      * @return Path of the "maps/" directory
      */
-    public String getMapsPath() {
+    public static String getMapsPath() {
         return "maps/";
     }
 
     /**
+     * Ensures that the file extension is .map file
+     *
+     * @param p_args Name of the file
+     * @return Name of .map file
+     * @throws Exception If the file is not .map file
+     */
+    public static String getValidFileName(String[] p_args) throws Exception {
+        String l_fileName = String.join(" ", Arrays.copyOfRange(p_args, 1, p_args.length));
+        String l_fileExt = l_fileName.split("\\.")[l_fileName.split("\\.").length - 1].trim();
+        if (!(l_fileExt.equals("map"))) {
+            throw new Exception("." + l_fileExt + " files are not acceptable! Please enter .map filename.");
+        }
+        return l_fileName;
+    }
+
+    /**
      * Checks whether both map files are identical or not
-     * @param p_firstFile Name of first map file
+     *
+     * @param p_firstFile  Name of first map file
      * @param p_secondFile Name of second map file
      * @return True, if both map files are identical; False otherwise
      * @throws IOException If I/O exception of some sort has occurred
@@ -102,6 +109,39 @@ public class MapUtils {
             return Arrays.equals(l_firstCountryNeighbors, l_secondCountryNeighbors);
         }
         return true;
+    }
+
+    /**
+     * Gets the object of map file
+     *
+     * @param p_fileName  Name of the map file
+     * @param p_isNewFile Specifies whether the map file is newly created or not
+     * @return Map file object and information about the file
+     * @throws IOException If I/O exception of some sort has occurred
+     */
+    public static ArrayList getMapFile(String p_fileName, boolean p_isNewFile) throws IOException {
+        File l_file;
+        l_file = new File(getMapsPath() + p_fileName);
+
+        if (!(l_file.exists())) {
+            l_file.createNewFile();
+            p_isNewFile = true;
+
+        }
+        return new ArrayList(Arrays.asList(l_file, p_isNewFile));
+    }
+
+    /**
+     * Read map file specified by filename
+     *
+     * @param p_fileName Name of the map file
+     * @return Buffer reader for the map file
+     * @throws IOException If I/O exception of some sort has occurred
+     */
+    public BufferedReader readMapFileByName(String p_fileName) throws IOException {
+        Path l_File = Paths.get(getMapsPath() + p_fileName);
+        BufferedReader l_first = Files.newBufferedReader(l_File);
+        return l_first;
     }
 
 }

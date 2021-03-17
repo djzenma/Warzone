@@ -38,7 +38,7 @@ public abstract class Phase {
         printInvalidCommandMessage();
     }
 
-    public void editMap(String[] l_args) {
+    public void editMap(String[] l_args) throws Exception {
         printInvalidCommandMessage();
     }
 
@@ -50,8 +50,9 @@ public abstract class Phase {
         printInvalidCommandMessage();
     }
 
-    public void saveMap(String[] l_args) {
+    public boolean saveMap(String[] l_args) {
         printInvalidCommandMessage();
+        return false;
     }
 
     public void exit() {
