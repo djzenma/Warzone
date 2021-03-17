@@ -26,7 +26,12 @@ public class PreLoad extends MapEditor {
             d_gameEngineController.d_mapModel.validateMap();
             d_gameEngineController.d_mapView.validMap(d_gameEngineController.d_mapModel.isMapValid());
         }
+        this.next();
     }
 
+    @Override
+    public void next() {
+        d_gameEngineController.setPhase(new PostLoad(d_gameEngineController));
+    }
 
 }

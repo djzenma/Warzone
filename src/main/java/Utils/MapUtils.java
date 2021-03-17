@@ -144,4 +144,14 @@ public class MapUtils {
         return l_first;
     }
 
+    /**
+     * Gets names of all the files from the "maps/" directory
+     *
+     * @return Names of all the files
+     */
+    public static String[] getAllAvailableFileNames() {
+        File l_maps = new File(MapUtils.getMapsPath());
+        return l_maps.list();
+    }
+
 }

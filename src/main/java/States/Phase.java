@@ -2,6 +2,8 @@ package States;
 
 import Controller.GameEngineController;
 
+import java.io.IOException;
+
 public abstract class Phase {
     protected GameEngineController d_gameEngineController;
 
@@ -26,15 +28,15 @@ public abstract class Phase {
         printInvalidCommandMessage();
     }
 
-    public void editContinent(String[] l_args) {
+    public void editContinent(String[] l_args) throws Exception {
         printInvalidCommandMessage();
     }
 
-    public void editCountry(String[] l_args) {
+    public void editCountry(String[] l_args) throws Exception {
         printInvalidCommandMessage();
     }
 
-    public void editNeighbor(String[] l_args) {
+    public void editNeighbor(String[] l_args) throws Exception {
         printInvalidCommandMessage();
     }
 
@@ -46,11 +48,11 @@ public abstract class Phase {
         printInvalidCommandMessage();
     }
 
-    public void listMaps() {
+    public void listMaps() throws IOException {
         printInvalidCommandMessage();
     }
 
-    public boolean saveMap(String[] l_args) {
+    public boolean saveMap(String[] l_args) throws Exception {
         printInvalidCommandMessage();
         return false;
     }
