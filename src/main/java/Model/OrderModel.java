@@ -11,6 +11,16 @@ public abstract class OrderModel {
     private String d_countryName;
     private int d_numReinforcements;
 
+    private PlayerModel d_currentPlayer;
+
+    public PlayerModel getCurrentPlayer() {
+        return this.d_currentPlayer;
+    }
+
+    public void setCurrentPlayer(PlayerModel p_currentPlayer) {
+        this.d_currentPlayer = p_currentPlayer;
+    }
+
     /**
      * Constructor of the OrderModel
      *

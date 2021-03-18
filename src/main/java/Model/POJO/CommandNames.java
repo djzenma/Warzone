@@ -103,6 +103,12 @@ public class CommandNames {
     /**
      * Name of the command
      */
+    @SerializedName(value = "advance")
+    public String d_advance;
+
+    /**
+     * Name of the command
+     */
     @SerializedName(value = "pass")
     public String d_pass;
 }

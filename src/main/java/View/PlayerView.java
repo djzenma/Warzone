@@ -38,4 +38,11 @@ public class PlayerView {
     public void InvalidNumber() {
         System.out.println("Please enter a valid number!");
     }
+
+    /**
+     * Prints if the order is invalid
+     */
+    public void invalidOrder() {
+        System.out.println("Please enter a valid order!");
+    }
 }

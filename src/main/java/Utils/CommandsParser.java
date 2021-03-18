@@ -1,5 +1,6 @@
 package Utils;
 
+import Model.POJO.Argument;
 import Model.POJO.Command;
 import Model.POJO.Commands;
 import Model.POJO.NamedArgument;
@@ -148,21 +149,32 @@ public class CommandsParser {
 
         for (Command l_command : d_commands.d_commands) {
             if (l_command.d_name.equals(l_cmdName)) {
-                for (NamedArgument namedArg : l_command.d_namedArgs) {
-                    for (int i = 1; i < p_cmd.length; i++) {
-                        if (namedArg.d_name.equals(p_cmd[i])) {
-                            // read old list
-                            List<String> l_currentList = l_args.get(namedArg.d_name);
-                            // update it
-                            if (l_currentList == null)
-                                l_currentList = new ArrayList<>(Arrays.asList(p_cmd).subList(i + 1, i + namedArg.d_argsNum + 1));
-                            else {
-                                List<String> l_subList = Arrays.asList(p_cmd).subList(i + 1, i + namedArg.d_argsNum + 1);
-                                l_currentList.addAll(l_subList);
+                if (l_command.d_namedArgs != null) {
+                    for (NamedArgument namedArg : l_command.d_namedArgs) {
+                        for (int i = 1; i < p_cmd.length; i++) {
+                            if (namedArg.d_name.equals(p_cmd[i])) {
+                                // read old list
+                                List<String> l_currentList = l_args.get(namedArg.d_name);
+                                // update it
+                                if (l_currentList == null)
+                                    l_currentList = new ArrayList<>(Arrays.asList(p_cmd).subList(i + 1, i + namedArg.d_argsNum + 1));
+                                else {
+                                    List<String> l_subList = Arrays.asList(p_cmd).subList(i + 1, i + namedArg.d_argsNum + 1);
+                                    l_currentList.addAll(l_subList);
+                                }
+                                // write it
+                                l_args.put(namedArg.d_name, l_currentList);
                             }
-                            // write it
-                            l_args.put(namedArg.d_name, l_currentList);
                         }
+                    }
+                }
+                if (l_command.d_args != null) {
+                    int l_i = 1;
+                    for (Argument unnamedArg : l_command.d_args) {
+                        List<String> l_currentList = new ArrayList<>();
+                        l_currentList.add(p_cmd[l_i]);
+                        l_args.put(unnamedArg.d_name, l_currentList);
+                        l_i++;
                     }
                 }
             }

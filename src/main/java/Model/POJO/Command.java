@@ -23,3 +23,5 @@ public class Command {
     @SerializedName(value = "namedArgs")
     public NamedArgument[] d_namedArgs;
 }
+
+

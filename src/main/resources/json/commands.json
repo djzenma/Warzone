@@ -32,10 +32,23 @@
       ]
     },
     {
+      "name": "advance",
+      "args": [
+        {
+          "name": "country_name_from"
+        },
+        {
+          "name": "country_name_to"
+        },
+        {
+          "name": "armies_num"
+        }
+      ]
+    },
+    {
       "name": "pass",
       "args": []
     },
-
     {
       "name": "editcontinent",
       "args": [],
@@ -160,6 +173,8 @@
     "gameplayer": "gameplayer",
     "assigncountries": "assigncountries",
     "deploy": "deploy",
-    "pass": "pass"
+    "pass": "pass",
+    "advance": "advance"
   }
 }
+

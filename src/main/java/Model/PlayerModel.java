@@ -1,13 +1,11 @@
 package Model;
 
+import Model.Orders.AdvanceModel;
 import Model.Orders.DeployModel;
 import Utils.CommandsParser;
 import View.PlayerView;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * Issues the order and returns the next order
@@ -184,11 +182,26 @@ public class PlayerModel {
                 this.d_view.NotEnoughReinforcements(l_nReinforcements);
                 return false; // impossible command
             } else {
-                l_order = new DeployModel();
-                l_order.setCountryName(p_args[1]);
-                l_order.setReinforcements(l_requestedReinforcements);
-                this.addOrder(l_order);
-                this.setReinforcements(this.getReinforcements() - l_requestedReinforcements);
+                HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
+                switch (p_args[0]) {
+                    case "advance":
+                        l_order = new AdvanceModel(this.d_countries.get(l_args.get("country_name_from").get(0)),
+                                this.d_countries.get(l_args.get("country_name_to").get(0)),
+                                Integer.parseInt(l_args.get("armies_num").get(0)),
+                                this);
+                        this.addOrder(l_order);
+                        break;
+                    case "deploy":
+                        l_order = new DeployModel();
+                        l_order.setCountryName(p_args[1]);
+                        l_order.setReinforcements(l_requestedReinforcements);
+                        this.addOrder(l_order);
+                        this.setReinforcements(this.getReinforcements() - l_requestedReinforcements);
+                        break;
+                    default:
+                        this.d_view.invalidOrder();
+                        break;
+                }
                 return true;
             }
         }
