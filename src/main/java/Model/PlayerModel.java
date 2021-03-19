@@ -217,4 +217,7 @@ public class PlayerModel {
         return l_order;
     }
 
+    public PlayerView getView() {
+        return this.d_view;
+    }
 }
