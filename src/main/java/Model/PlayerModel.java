@@ -149,63 +149,34 @@ public class PlayerModel {
     public boolean issueOrder(String[] p_args) {   //TODO:: 12Refactor: Replace enum
         OrderModel l_order;
 
-        int l_nReinforcements = this.getReinforcements();
-
-        // checks if the player is trying to pass/skip the turn
-        if (CommandsParser.isPass(p_args)) {
-            if (l_nReinforcements != 0) {
-                this.d_view.ReinforcementsRemain(l_nReinforcements);
-                return false; // impossible command
-            }
-            return true;
-        }
-
-        // checks if the player issued the deploy order
-        if (CommandsParser.isDeploy(p_args)) {
-            String l_countryName = p_args[1];
-
-            // validate that the number of reinforcements is a valid number
-            if (!p_args[2].matches("[-+]?[0-9]*\\.?[0-9]+")) {
-                this.d_view.InvalidNumber();
-                return false;
-            }
-            int l_requestedReinforcements = (int) (Float.parseFloat(p_args[2]));
-
-            // handle if the player deploys in a country that it does not owns
-            if (!this.containsCountry(l_countryName)) {
-                this.d_view.InvalidCountry();
-                return false; // impossible command
-            }
-
-            // handle if the player has enough reinforcements to deploy
-            else if (l_nReinforcements < l_requestedReinforcements) {
-                this.d_view.NotEnoughReinforcements(l_nReinforcements);
-                return false; // impossible command
-            } else {
-                HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
-                switch (p_args[0]) {
-                    case "advance":
-                        l_order = new AdvanceModel(this.d_countries.get(l_args.get("country_name_from").get(0)),
-                                this.d_countries.get(l_args.get("country_name_to").get(0)),
-                                Integer.parseInt(l_args.get("armies_num").get(0)),
-                                this);
-                        this.addOrder(l_order);
-                        break;
-                    case "deploy":
-                        l_order = new DeployModel();
-                        l_order.setCountryName(p_args[1]);
-                        l_order.setReinforcements(l_requestedReinforcements);
-                        this.addOrder(l_order);
-                        this.setReinforcements(this.getReinforcements() - l_requestedReinforcements);
-                        break;
-                    default:
-                        this.d_view.invalidOrder();
-                        break;
+        // checks if the player issued any other order
+        HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
+        switch (p_args[0]) {
+            case "pass":
+                // checks if the player is trying to pass/skip the turn
+                if (this.getReinforcements() != 0) {
+                    this.d_view.ReinforcementsRemain(this.getReinforcements());
+                    return false; // impossible command
                 }
-                return true;
-            }
+                break;
+            case "advance":
+                l_order = new AdvanceModel(this.d_countries.get(l_args.get("country_name_from").get(0)),
+                        this.d_countries.get(l_args.get("country_name_to").get(0)),
+                        Integer.parseInt(l_args.get("armies_num").get(0)),
+                        this);
+                this.addOrder(l_order);
+                break;
+            case "deploy":
+                l_order = new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view);
+                this.addOrder(l_order);
+
+                this.setReinforcements(this.getReinforcements() - (int) (Float.parseFloat(CommandsParser.getArguments(p_args).get("reinforcements_num").get(0))));
+                break;
+            default:
+                this.d_view.invalidOrder();
+                return false;
         }
-        return false;
+        return true;
     }
 
     /**

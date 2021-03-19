@@ -1,5 +1,6 @@
 package Model;
 
+import Model.Orders.DeployModel;
 import Utils.CommandsParser;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -104,7 +105,7 @@ public class PlayerModelTest {
         assertEquals(3, d_GameEngine.getPlayers().get("Aman").getReinforcements());
         assertEquals(3, d_GameEngine.getPlayers().get("Akshat").getReinforcements());
 
-        assertFalse(d_PlayerModel.issueOrder(new String[]{"deploy", "canada8", "12"}));
+        assertFalse(d_PlayerModel.issueOrder(new String[]{"pass"}));
         assertTrue(d_PlayerModel.issueOrder(new String[]{"deploy", "canada8", "10"}));
         assertEquals(1, d_PlayerModel.getReinforcements());
     }
@@ -116,16 +117,16 @@ public class PlayerModelTest {
     public void nextOrder() {
         String l_country = "canada8";
         String l_orderName = "deploy";
-        OrderModel l_nextOrder;
+        DeployModel l_nextOrder;
 
         assertTrue(d_PlayerModel.issueOrder(new String[]{l_orderName, l_country, "10"}));
         assertTrue(d_PlayerModel.issueOrder(new String[]{l_orderName, l_country, "1"}));
 
-        l_nextOrder = d_PlayerModel.nextOrder();
+        l_nextOrder = (DeployModel) d_PlayerModel.nextOrder();
         assertEquals(l_country, l_nextOrder.getCountryName());
         assertEquals(10, l_nextOrder.getReinforcements());
 
-        l_nextOrder = d_PlayerModel.nextOrder();
+        l_nextOrder = (DeployModel) d_PlayerModel.nextOrder();
         assertEquals(l_country, l_nextOrder.getCountryName());
         assertEquals(1, l_nextOrder.getReinforcements());
     }
