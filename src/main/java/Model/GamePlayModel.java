@@ -118,6 +118,7 @@ public class GamePlayModel {
                 CountryModel l_country = this.d_countries.get(l_countryName);
                 // update its owner
                 l_country.setOwnerName(l_player.getName());
+                l_country.setOwner(l_player);
                 // give it to the player
                 l_player.addCountry(l_country);
                 l_countriesCounter++;
@@ -135,6 +136,7 @@ public class GamePlayModel {
             CountryModel l_country = this.d_countries.get(l_countryName);
             // update its owner
             l_country.setOwnerName(l_player.getName());
+            l_country.setOwner(l_player);
 
             // assign to him the country
             l_player.addCountry(l_country);

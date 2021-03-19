@@ -63,21 +63,6 @@ public class DeployModel extends OrderModel {
             return false; // impossible command
         }
 
-        // validate that the number of reinforcements is a valid number
-        if (!d_args.get("reinforcements_num").get(0).matches("[-+]?[0-9]*\\.?[0-9]+")) {
-            this.d_playerView.InvalidNumber(this.d_args);
-            return false;
-        }
-
-        // handle if the player has enough reinforcements to deploy
-        int l_requestedReinforcements = getReinforcements();
-
-        if (this.d_reinforcementsBeforeExec < l_requestedReinforcements) {
-            this.d_playerView.NotEnoughReinforcements(this.d_args, this.d_reinforcementsBeforeExec);
-            return false; // impossible command
-        }
-
-
         CountryModel l_country = p_countries.get(this.getCountryName());
         l_country.setArmies(l_country.getArmies() + this.getReinforcements());
         p_countries.put(this.getCountryName(), l_country);

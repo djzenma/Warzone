@@ -67,7 +67,8 @@ public class GamePlayController {
                 // if the command entered is assigncountries
                 else if (CommandsParser.isAssignCountries(l_args)) {
                     l_end = d_gameEngineController.d_currentPhase.assignCountries();
-                    d_gameEngineController.d_currentPhase.next();
+                    if (l_end)
+                        d_gameEngineController.d_currentPhase.next();
                 } else {
                     this.d_gameEngineController.d_gamePlayView.isMapEditorCommand();
                 }

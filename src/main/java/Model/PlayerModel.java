@@ -43,7 +43,16 @@ public class PlayerModel {
      * @param p_countryModel Object of the CountryModel
      */
     public void addCountry(CountryModel p_countryModel) {
-        this.d_countries.put(p_countryModel.getName(),p_countryModel);
+        this.d_countries.put(p_countryModel.getName(), p_countryModel);
+    }
+
+    /**
+     * Removes the country from the list of countries
+     *
+     * @param p_countryModel Object of the CountryModel
+     */
+    public void removeCountry(CountryModel p_countryModel) {
+        this.d_countries.remove(p_countryModel.getName());
     }
 
     /**
@@ -136,9 +145,12 @@ public class PlayerModel {
      *
      * @param p_reinforcements Number of reinforcements
      */
-    public void setReinforcements(int p_reinforcements){
+    public void setReinforcements(int p_reinforcements) {
         this.d_reinforcements = p_reinforcements;
     }
+
+    //TODO:: Make it alot of things- ask Mazen but he is an ant so ask adeetya then drop the course, just add orders
+    // don't validate, validate in the execute :(
 
     /**
      * Player issues an order. In this various conditions are checked and the method is recursively called until user issues a valid order
@@ -146,7 +158,7 @@ public class PlayerModel {
      * @param p_args Arguments of the command
      * @return False if the order is invalid; Otherwise true
      */
-    public boolean issueOrder(String[] p_args) {   //TODO:: 12Refactor: Replace enum
+    public boolean issueOrder(String[] p_args) {
         OrderModel l_order;
 
         // checks if the player issued any other order
@@ -163,10 +175,25 @@ public class PlayerModel {
                 l_order = new AdvanceModel(this.d_countries.get(l_args.get("country_name_from").get(0)),
                         this.d_countries.get(l_args.get("country_name_to").get(0)),
                         Integer.parseInt(l_args.get("armies_num").get(0)),
-                        this);
+                        this, this.d_view, CommandsParser.getArguments(p_args));
                 this.addOrder(l_order);
                 break;
             case "deploy":
+                // validate that the number of reinforcements is a valid number
+                if (!l_args.get("reinforcements_num").get(0).matches("[-+]?[0-9]*\\.?[0-9]+")) {
+                    this.d_view.InvalidNumber(l_args);
+                    return false;
+                }
+
+                // handle if the player has enough reinforcements to deploy
+                int l_currentReinforcements = this.getReinforcements();
+                int l_requestedReinforcements = Integer.parseInt(l_args.get("reinforcements_num").get(0));
+
+                if (l_requestedReinforcements > l_currentReinforcements) {
+                    this.d_view.NotEnoughReinforcements(l_args, this.getReinforcements());
+                    return false; // impossible command
+                }
+
                 l_order = new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view);
                 this.addOrder(l_order);
 

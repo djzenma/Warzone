@@ -58,4 +58,8 @@ public class PlayerView {
     public void invalidOrder() {
         System.out.println("Please enter a valid order!");
     }
+
+    public void notNeighbor(HashMap<String, List<String>> p_args) {
+        System.out.println(p_args.get("country_name_to").get(0) + " is not adjacent to " + p_args.get("country_name_from").get(0) + "!");
+    }
 }

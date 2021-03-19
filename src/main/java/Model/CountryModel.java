@@ -13,23 +13,8 @@ public class CountryModel {
     private String d_xCoordinate;
     private String d_yCoordinate;
     private String d_ownerName;
+    private PlayerModel d_owner;
     private LinkedHashMap<CountryModel, LinkedHashMap<String, CountryModel>> d_neighbors;
-
-    /**
-     * Accessor for the owner name of the country
-     * @return Owner name of the country
-     */
-    public String getOwnerName() {
-        return this.d_ownerName;
-    }
-
-    /**
-     * Mutator for the owner name of the country
-     * @param p_ownerName Owner name of the country
-     */
-    public void setOwnerName(String p_ownerName) {
-        this.d_ownerName = p_ownerName;
-    }
 
     /**
      * Initializes country parameters such as id and name
@@ -41,6 +26,42 @@ public class CountryModel {
         this.d_id = p_id;
         this.d_name = p_name.toLowerCase();
         this.d_armies = 0;
+    }
+
+    /**
+     * Accessor for the owner name of the country
+     *
+     * @return Owner name of the country
+     */
+    public String getOwnerName() {
+        return this.d_ownerName;
+    }
+
+    /**
+     * Mutator for the owner name of the country
+     *
+     * @param p_ownerName Owner name of the country
+     */
+    public void setOwnerName(String p_ownerName) {
+        this.d_ownerName = p_ownerName;
+    }
+
+    /**
+     * Accessor for the owner of the country
+     *
+     * @return Owner of the country
+     */
+    public PlayerModel getOwner() {
+        return this.d_owner;
+    }
+
+    /**
+     * Mutator for the owner of the country
+     *
+     * @param p_owner Owner of the country
+     */
+    public void setOwner(PlayerModel p_owner) {
+        this.d_owner = p_owner;
     }
 
     /**
@@ -172,6 +193,6 @@ public class CountryModel {
      * @return Neighbors of the country
      */
     public LinkedHashMap<String, CountryModel> getNeighbors() {
-        return d_neighbors.get(this);
+        return this.d_neighbors.get(this);
     }
 }
