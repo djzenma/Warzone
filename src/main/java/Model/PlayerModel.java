@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Orders.AdvanceModel;
+import Model.Orders.BombModel;
 import Model.Orders.DeployModel;
 import Utils.CommandsParser;
 import View.PlayerView;
@@ -22,7 +23,7 @@ public class PlayerModel {
     private final HashMap<Integer, Integer> d_armies;
     private final Queue<OrderModel> d_orderList;
 
-    private HashMap<String, CountryModel> d_countries;
+    private final HashMap<String, CountryModel> d_countries;
 
     /**
      * Initialises the name of the player, reinforcements, orders, countries and PlayerView
@@ -181,6 +182,11 @@ public class PlayerModel {
                         this.d_countries.get(l_args.get("country_name_to").get(0)),
                         Integer.parseInt(l_args.get("armies_num").get(0)),
                         this, this.d_view, CommandsParser.getArguments(p_args));
+                this.addOrder(l_order);
+                break;
+            case "bomb":
+                // if(this.d_orderList.contains(new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view))) {
+                l_order = new BombModel(this, this.d_countries.get(l_args.get("target_country").get(0)), CommandsParser.getArguments(p_args));
                 this.addOrder(l_order);
                 break;
             case "deploy":

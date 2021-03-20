@@ -45,6 +45,10 @@ public abstract class OrderModel {
         this.d_currentPlayer = p_currentPlayer;
     }
 
+    public String getCmdName() {
+        return this.d_cmdName;
+    }
+
     /**
      * Abstract method to be implemented by every order type
      *

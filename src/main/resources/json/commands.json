@@ -146,12 +146,19 @@
       "name": "listmaps",
       "args": []
     },
-
     {
       "name": "loadmap",
       "args": [
         {
           "name": "filename"
+        }
+      ]
+    },
+    {
+      "name": "bomb",
+      "args": [
+        {
+          "name": "target_country"
         }
       ]
     }
@@ -174,7 +181,8 @@
     "assigncountries": "assigncountries",
     "deploy": "deploy",
     "pass": "pass",
-    "advance": "advance"
+    "advance": "advance",
+    "bomb": "bomb"
   }
 }
 
