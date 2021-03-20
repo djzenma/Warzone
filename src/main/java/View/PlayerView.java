@@ -62,4 +62,10 @@ public class PlayerView {
     public void notNeighbor(HashMap<String, List<String>> p_args) {
         System.out.println(p_args.get("country_name_to").get(0) + " is not adjacent to " + p_args.get("country_name_from").get(0) + "!");
     }
+
+    public void insufficientArmies(HashMap<String, List<String>> d_args, int p_srcArmies) {
+        System.out.println("You cannot advance " + d_args.get("armies_num").get(0)
+                + " armies! You only have " + p_srcArmies
+                + " armies in " + d_args.get("country_name_from").get(0) + "!");
+    }
 }

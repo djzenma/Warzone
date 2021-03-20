@@ -18,9 +18,11 @@ public class PlayerModel {
     private String d_name;
     private int d_reinforcements;
 
-    private final HashMap<String, CountryModel> d_countries;
+    private final HashMap<String, CountryModel> d_myCountries;
     private final HashMap<Integer, Integer> d_armies;
     private final Queue<OrderModel> d_orderList;
+
+    private HashMap<String, CountryModel> d_countries;
 
     /**
      * Initialises the name of the player, reinforcements, orders, countries and PlayerView
@@ -28,13 +30,16 @@ public class PlayerModel {
      * @param p_name Name of the player
      * @param p_view Object of the PlayerView
      */
-    public PlayerModel(String p_name, PlayerView p_view) {
+    public PlayerModel(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries) {
         this.setName(p_name);
         d_reinforcements = 0;
         d_orderList = new ArrayDeque<>();
         d_armies = new HashMap<>();
-        d_countries = new HashMap<>();
+        d_myCountries = new HashMap<>();
+
         this.d_view = p_view;
+
+        this.d_countries = p_countries;
     }
 
     /**
@@ -43,7 +48,7 @@ public class PlayerModel {
      * @param p_countryModel Object of the CountryModel
      */
     public void addCountry(CountryModel p_countryModel) {
-        this.d_countries.put(p_countryModel.getName(), p_countryModel);
+        this.d_myCountries.put(p_countryModel.getName(), p_countryModel);
     }
 
     /**
@@ -52,7 +57,7 @@ public class PlayerModel {
      * @param p_countryModel Object of the CountryModel
      */
     public void removeCountry(CountryModel p_countryModel) {
-        this.d_countries.remove(p_countryModel.getName());
+        this.d_myCountries.remove(p_countryModel.getName());
     }
 
     /**
@@ -80,7 +85,7 @@ public class PlayerModel {
      * @return Country object
      */
     public CountryModel getCountryById(int p_countryId) {
-        return d_countries.get(p_countryId);
+        return d_myCountries.get(p_countryId);
     }
 
     /**
@@ -89,7 +94,7 @@ public class PlayerModel {
      * @return The list of the countries
      */
     public ArrayList<CountryModel> getCountries(){
-        return new ArrayList<CountryModel>(this.d_countries.values());
+        return new ArrayList<CountryModel>(this.d_myCountries.values());
     }
 
     /**
@@ -99,7 +104,7 @@ public class PlayerModel {
      * @return True if the country belongs the player; otherwise false
      */
     public boolean containsCountry(String p_countryName){
-        return d_countries.containsKey(p_countryName);
+        return d_myCountries.containsKey(p_countryName);
     }
 
     /**

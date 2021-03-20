@@ -38,6 +38,12 @@ public class AdvanceModel extends OrderModel {
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
         // if the source country doesn't belong to the player
+        if (this.d_numArmies > this.d_sourceCountry.getArmies()) {
+            this.d_playerView.insufficientArmies(this.d_args, this.d_sourceCountry.getArmies());
+            return false;
+        }
+
+        // if the source country doesn't belong to the player
         if (!this.getCurrentPlayer().getCountries().contains(this.d_sourceCountry)) {
             this.d_playerView.InvalidCountry(this.d_args);
             return false;
@@ -60,43 +66,44 @@ public class AdvanceModel extends OrderModel {
         }
 
         // advance (attack) enemy country
-        else {
-            //60% of attacking armies can kill while defending armies can kill 70% of attacking armies.
-            int l_remainingAttackers, l_remainingDefenders;
-            l_remainingAttackers = (int) Math.round(0.3 * this.d_targetCountry.getArmies());
-            l_remainingDefenders = (int) Math.round(0.4 * this.d_sourceCountry.getArmies());
+        //60% of attacking armies can kill while defending armies can kill 70% of attacking armies.
+        int l_remainingAttackers, l_remainingDefenders;
+        // src: 10, atk: 5,  def: 2
+        l_remainingAttackers = this.d_numArmies - (int) Math.round(0.7 * this.d_targetCountry.getArmies()); // 4 (or 3)
+        l_remainingDefenders = this.d_targetCountry.getArmies() - (int) Math.round(0.6 * this.d_numArmies); // 0
 
-            // everyone died
-            if (l_remainingAttackers == 0 && l_remainingDefenders == 0) {
-                this.d_sourceCountry.setArmies(this.d_sourceCountry.getArmies() - this.d_numArmies);
-                this.d_targetCountry.setArmies(0);
-            }
-            // attacker conquered the target country
-            else if (l_remainingDefenders == 0) {
-                this.d_sourceCountry.setArmies(this.d_sourceCountry.getArmies() - this.d_numArmies);
-                this.d_targetCountry.setArmies(l_remainingAttackers);
-                System.out.println("Source country:" + (this.d_sourceCountry.getArmies() - this.d_numArmies));
-                System.out.println("Target country armies:" + l_remainingAttackers);
+        l_remainingDefenders = (l_remainingDefenders < 0) ? 0 : l_remainingDefenders;
+        l_remainingAttackers = (l_remainingAttackers < 0) ? 0 : l_remainingAttackers;
 
-                this.getCurrentPlayer().addCountry(this.d_targetCountry);
-                this.d_targetCountry.getOwner().removeCountry(d_targetCountry);
-                this.d_targetCountry.setOwner(this.d_currentPlayer);
-                System.out.println("Target owner:" + this.d_targetCountry.getOwnerName());
-                System.out.println("Source owner:" + this.d_sourceCountry.getOwnerName());
-                //TODO check if needed:-
-            }
-            // attacker failed to conquer
-            else {
-                int l_originalAttackers = (int) Math.round(0.7 * this.d_targetCountry.getArmies());
-                this.d_sourceCountry.setArmies(this.d_sourceCountry.getArmies() - l_originalAttackers);
-                this.d_targetCountry.setArmies(l_remainingDefenders);
-                //TODO check if needed:-
-            }
-            p_countries.put(this.d_targetCountry.getName(), this.d_targetCountry);
-            p_countries.put(this.d_sourceCountry.getName(), this.d_sourceCountry);
+        if (l_remainingDefenders > this.d_targetCountry.getArmies())
+            l_remainingDefenders = this.d_targetCountry.getArmies();
 
-            return true;
+        // everyone died
+        if (l_remainingAttackers == 0 && l_remainingDefenders == 0) {
+            this.d_sourceCountry.setArmies(this.d_sourceCountry.getArmies() - this.d_numArmies);
+            this.d_targetCountry.setArmies(0);
         }
+
+        // attacker conquered the target country
+        else if (l_remainingDefenders == 0) {
+
+            this.d_sourceCountry.setArmies(this.d_sourceCountry.getArmies() - this.d_numArmies);
+            this.d_targetCountry.setArmies(l_remainingAttackers);
+
+            this.getCurrentPlayer().addCountry(this.d_targetCountry);
+            this.d_targetCountry.getOwner().removeCountry(d_targetCountry);
+            this.d_targetCountry.setOwner(this.d_currentPlayer);
+        }
+        // attacker failed to conquer
+        else {
+            int l_newSourceArmies;
+            int l_lostAttackers = (int) Math.round(0.7 * this.d_targetCountry.getArmies());
+            l_newSourceArmies = (this.d_sourceCountry.getArmies() - l_lostAttackers < 0) ? 0 : (this.d_sourceCountry.getArmies() - l_lostAttackers);
+            this.d_sourceCountry.setArmies(l_newSourceArmies);
+            this.d_targetCountry.setArmies(l_remainingDefenders);
+        }
+
+        return true;
     }
 
     public void setSourceCountry(CountryModel p_sourceCountry) {

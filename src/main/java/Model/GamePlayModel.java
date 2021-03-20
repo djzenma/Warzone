@@ -75,7 +75,7 @@ public class GamePlayModel {
      * @param p_playerName Name of the player
      */
     public void addPlayer(String p_playerName) {
-        PlayerModel l_playerModel = new PlayerModel(p_playerName, new PlayerView());
+        PlayerModel l_playerModel = new PlayerModel(p_playerName, new PlayerView(), this.d_countries);
         this.d_players.put(p_playerName, l_playerModel);
     }
 
@@ -117,7 +117,6 @@ public class GamePlayModel {
                 // get the country
                 CountryModel l_country = this.d_countries.get(l_countryName);
                 // update its owner
-                l_country.setOwnerName(l_player.getName());
                 l_country.setOwner(l_player);
                 // give it to the player
                 l_player.addCountry(l_country);
@@ -135,7 +134,6 @@ public class GamePlayModel {
             String l_countryName = l_countryNamesList.get(l_countriesCounter);
             CountryModel l_country = this.d_countries.get(l_countryName);
             // update its owner
-            l_country.setOwnerName(l_player.getName());
             l_country.setOwner(l_player);
 
             // assign to him the country
