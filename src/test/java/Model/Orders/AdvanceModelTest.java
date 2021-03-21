@@ -14,6 +14,8 @@ public class AdvanceModelTest {
 
     @Before
     public void init() throws Exception {
+        CommandsParser.parseJson();
+
         d_gameEngineController = new GameEngineController();
         d_gameEngineController.setPhase(new Startup(d_gameEngineController));
         d_gameEngineController.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});

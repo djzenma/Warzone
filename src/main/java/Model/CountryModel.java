@@ -33,7 +33,7 @@ public class CountryModel {
      * @return Owner name of the country
      */
     public String getOwnerName() {
-        return this.d_owner.getName();
+        return (this.d_owner == null) ? null : this.d_owner.getName();
     }
 
     /**

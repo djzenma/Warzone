@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Orders.AdvanceModel;
+import Model.Orders.BlockadeModel;
 import Model.Orders.BombModel;
 import Model.Orders.DeployModel;
 import Utils.CommandsParser;
@@ -209,6 +210,11 @@ public class PlayerModel {
                 this.addOrder(l_order);
 
                 this.setReinforcements(this.getReinforcements() - (int) (Float.parseFloat(CommandsParser.getArguments(p_args).get("reinforcements_num").get(0))));
+                break;
+            case "blockade":
+                l_order = new BlockadeModel(this,
+                        this.d_countries.get(l_args.get("country_name").get(0)));
+                this.addOrder(l_order);
                 break;
             default:
                 this.d_view.invalidOrder();

@@ -46,6 +46,15 @@
       ]
     },
     {
+      "name": "blockade",
+      "args": [
+        {
+          "name": "country_name"
+        }
+      ]
+    },
+
+    {
       "name": "pass",
       "args": []
     },
@@ -182,7 +191,8 @@
     "deploy": "deploy",
     "pass": "pass",
     "advance": "advance",
-    "bomb": "bomb"
+    "bomb": "bomb",
+    "blockade": "blockade"
   }
 }
 

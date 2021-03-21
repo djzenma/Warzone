@@ -117,4 +117,10 @@ public class CommandNames {
      */
     @SerializedName(value = "bomb")
     public String d_bomb;
+
+    /**
+     * Name of the command
+     */
+    @SerializedName(value = "blockade")
+    public String d_blockade;
 }
