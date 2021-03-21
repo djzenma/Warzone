@@ -14,10 +14,10 @@ import java.util.List;
  */
 public class AdvanceModel extends OrderModel {
 
-    private CountryModel d_sourceCountry;
-    private CountryModel d_targetCountry;
+    private final CountryModel d_sourceCountry;
+    private final CountryModel d_targetCountry;
     private final PlayerView d_playerView;
-    private int d_numArmies;
+    private final int d_numArmies;
     HashMap<String, List<String>> d_args;
 
     /**
@@ -25,7 +25,7 @@ public class AdvanceModel extends OrderModel {
      *
      * @param p_targetCountry target country on which the army has to be advanced
      * @param p_sourceCountry source country from which the army has to be advanced
-     * @param p_playerView    TODO: it is not used anywhere
+     * @param p_playerView    to check the validity of the command
      * @param p_numArmies     the number of armies that have to be advanced
      * @param p_currentPlayer player that advances the armies
      * @param p_args          Gets the user command
@@ -44,7 +44,7 @@ public class AdvanceModel extends OrderModel {
      * Executes the advance command by placing the armies in the specified country
      *
      * @param p_countries HashMap of the countries
-     * @return
+     * @return true if order is valid; otherwise false
      */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
@@ -121,32 +121,4 @@ public class AdvanceModel extends OrderModel {
 
         return true;
     }
-
-    /**
-     * Mutator for source country
-     *
-     * @param p_sourceCountry
-     */
-    public void setSourceCountry(CountryModel p_sourceCountry) {
-        this.d_sourceCountry = p_sourceCountry;
-    }
-
-    /**
-     * Mutator for target country
-     *
-     * @param p_targetCountry
-     */
-    public void setTargetCountry(CountryModel p_targetCountry) {
-        this.d_targetCountry = p_targetCountry;
-    }
-
-    /**
-     * Mutator for number of armies
-     *
-     * @param d_numArmies
-     */
-    public void setNumArmies(int d_numArmies) {
-        this.d_numArmies = d_numArmies;
-    }
-
 }

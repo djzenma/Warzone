@@ -54,7 +54,7 @@ public class DeployModel extends OrderModel {
      * Executes the deploy command by placing the armies in the specified country
      *
      * @param p_countries HashMap of the countries
-     * @return
+     * @return true if order is valid; otherwise false
      */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {

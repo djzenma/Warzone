@@ -29,7 +29,7 @@ public class NegotiateModel extends OrderModel {
      * Executes the negotiate command between the specified countries
      *
      * @param p_countries HashMap of the countries
-     * @return True, to add both the countries as negotiators
+     * @return true if order is valid; otherwise false
      */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {

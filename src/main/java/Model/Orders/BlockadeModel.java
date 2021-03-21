@@ -16,7 +16,7 @@ public class BlockadeModel extends OrderModel {
     /**
      * Constructor for the BlockadeModel
      *
-     * @param p_targetCountry      target country on which the armies have to be increased & neutralised
+     * @param p_targetCountry      target country on which the armies have to be increased and neutralised
      * @param p_currentPlayerModel to initialise current player
      */
     public BlockadeModel(PlayerModel p_currentPlayerModel, CountryModel p_targetCountry) {
@@ -29,7 +29,7 @@ public class BlockadeModel extends OrderModel {
      * Executes the blockade command by tripling the army and neutralising the country
      *
      * @param p_countries HashMap of the countries
-     * @return
+     * @return true if order is valid; otherwise false
      */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
