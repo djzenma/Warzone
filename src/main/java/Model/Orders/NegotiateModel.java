@@ -17,8 +17,6 @@ public class NegotiateModel extends OrderModel {
     /**
      * Constructor for the NegotiateModel
      *
-     * @param p_targetPlayerModel Target player on whom negotiate command would run
-     * @param p_playerModel       Current player who is ordering the negotiate command
      */
     public NegotiateModel(PlayerModel p_playerModel, PlayerModel p_targetPlayerModel) {
         super("negotiate", p_playerModel);

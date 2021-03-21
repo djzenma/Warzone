@@ -4,25 +4,27 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Updated Javdocs!">
+    <list default="true" id="c0eae6d0-68d1-46fe-9bee-9bf81f326532" name="Default Changelist" comment="Added implementation of validatemap command!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controller/MapController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/Controller/MapControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/Controller/MapControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/maps/artic.map" beforeDir="false" afterPath="$PROJECT_DIR$/maps/artic.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Orders/AdvanceModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Orders/AdvanceModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Orders/BombModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Orders/BombModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Model/Orders/NegotiateModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Model/Orders/NegotiateModel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/CountryController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/GameEngineController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Controller/MapController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/MapController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/Orders/DeployController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/OrderController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Controller/PlayerController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/ContinentModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/ContinentModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/CountryModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/CountryModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Model/GameEngineModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/GameEngineModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Model/GameEngineModel.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/MapModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/MapModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/OrderModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/OrderModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/Orders/DeployModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/Orders/DeployModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/Model/PlayerModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Model/PlayerModel.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/Controller/GameEngineControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Controller/GameEngineControllerTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/Controller/MapControllerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/Controller/MapControllerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/Controller/PlayerControllerTest.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/test-classes/MainTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/MainTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,25 +38,19 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="JUnit4 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
-        <option value="1301shivangi &lt;ahujashivangi1301@gmail.com&gt;" />
         <option value="adeetyapatel12 &lt;adeetyapatel12@gmail.com&gt;" />
       </list>
     </option>
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="38383ddc03f245cebe8ba3605e9285894efe62d8" />
-      </map>
-    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
+    <option name="RESET_MODE" value="MIXED" />
     <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -185,7 +181,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ChangesTree.GroupingKeys" value="module&#10;directory" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
@@ -205,92 +201,56 @@
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="Controller" />
+      <recent name="" />
+    </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/json" />
     </key>
-    <key name="CreateTestDialog.RecentsKey">
-      <recent name="Controller" />
-      <recent name="" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="View" />
-    </key>
   </component>
-  <component name="RunManager" selected="JUnit.All Tests">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="9" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/Library/Java/JavaVirtualMachines/corretto-1.8.0_282/Contents/Home" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="Warzone" />
+      <module name="warzone" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
           <option name="containerStateName" value="" />
         </value>
       </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All Tests" type="JUnit" factoryName="JUnit">
-      <module name="Warzone" />
+    <configuration name="All Tests" type="JUnit" factoryName="JUnit" activateToolWindowBeforeRun="false">
+      <module name="warzone" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-1.8" />
+      <option name="ALTERNATIVE_JRE_PATH" value="$USER_HOME$/Library/Java/JavaVirtualMachines/corretto-1.8.0_282/Contents/Home" />
       <option name="MAIN_CLASS_NAME" value="" />
       <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="directory" />
+      <option name="VM_PARAMETERS" value="$Classpath$%MODULE_WORKING_DIR%" />
       <option name="PARAMETERS" value="" />
       <dir value="$PROJECT_DIR$/src/test/java" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="CommandsParserTest.isMapEditorCommandValid" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Warzone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Utils" />
-      <option name="MAIN_CLASS_NAME" value="Utils.CommandsParserTest" />
-      <option name="METHOD_NAME" value="isMapEditorCommandValid" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="CommandsParserTest.isValidCommand" type="JUnit" factoryName="JUnit" nameIsGenerated="true">
-      <module name="Warzone" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Utils.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Utils" />
-      <option name="MAIN_CLASS_NAME" value="Utils.CommandsParserTest" />
-      <option name="METHOD_NAME" value="isValidCommand" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="GameEngineControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="GameEngineControllerTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="warzone" />
       <extension name="coverage">
         <pattern>
@@ -305,39 +265,85 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MapControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="Warzone" />
+    <configuration name="GameEngineModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Controller.*" />
+          <option name="PATTERN" value="Model.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="Controller" />
-      <option name="MAIN_CLASS_NAME" value="Controller.MapControllerTest" />
+      <option name="PACKAGE_NAME" value="Model" />
+      <option name="MAIN_CLASS_NAME" value="Model.GameEngineModelTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="JUnitTestSuite" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <selectedOptions>
+        <option name="module.classpath" />
+      </selectedOptions>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="9" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="JUnitTestSuite" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <dir value="$USER_HOME$/Desktop/Warzone/src/test/java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MapModelTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="warzone" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Model.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Model" />
+      <option name="MAIN_CLASS_NAME" value="Model.MapModelTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <selectedOptions>
+        <option name="module.classpath" />
+      </selectedOptions>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="9" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="directory" />
+      <dir value="$USER_HOME$/Desktop/Warzone/src/test/java" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.CommandsParserTest.isValidCommand" />
       <item itemvalue="JUnit.All Tests" />
-      <item itemvalue="JUnit.CommandsParserTest.isMapEditorCommandValid" />
-      <item itemvalue="JUnit.MapControllerTest" />
       <item itemvalue="JUnit.GameEngineControllerTest (1)" />
+      <item itemvalue="JUnit.GameEngineModelTest" />
+      <item itemvalue="JUnit.MapModelTest" />
+      <item itemvalue="JUnit.JUnitTestSuite" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.CommandsParserTest.isMapEditorCommandValid" />
-        <item itemvalue="JUnit.MapControllerTest" />
+        <item itemvalue="JUnit.JUnitTestSuite" />
         <item itemvalue="JUnit.GameEngineControllerTest (1)" />
+        <item itemvalue="JUnit.MapModelTest" />
+        <item itemvalue="JUnit.GameEngineModelTest" />
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="false" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -355,6 +361,8 @@
       <workItem from="1612780595713" duration="10723000" />
       <workItem from="1612791769363" duration="6982000" />
       <workItem from="1613157349363" duration="805000" />
+      <workItem from="1614866267216" duration="366000" />
+      <workItem from="1615830706719" duration="17472000" />
     </task>
     <task id="LOCAL-00001" summary="Added Game Engine, It supports adding/removing players, and assigning countries evenly">
       <created>1612645883012</created>
@@ -391,63 +399,35 @@
       <option name="project" value="LOCAL" />
       <updated>1613495349112</updated>
     </task>
-    <task id="LOCAL-00006" summary="Changed HashMaps to LinkedHashMaps to follow XP's simple design!">
-      <created>1613757578322</created>
+    <task id="LOCAL-00006" summary="Implemented showmap.">
+      <created>1614031582870</created>
       <option name="number" value="00006" />
       <option name="presentableId" value="LOCAL-00006" />
       <option name="project" value="LOCAL" />
-      <updated>1613757578322</updated>
+      <updated>1614031582870</updated>
     </task>
-    <task id="LOCAL-00007" summary="Changed HashMaps to LinkedHashMaps to follow XP's simple design!">
-      <created>1613758036379</created>
+    <task id="LOCAL-00007" summary="Removed the CMD Enum &amp; replaced its usages with command parser">
+      <created>1615832276597</created>
       <option name="number" value="00007" />
       <option name="presentableId" value="LOCAL-00007" />
       <option name="project" value="LOCAL" />
-      <updated>1613758036379</updated>
+      <updated>1615832276597</updated>
     </task>
-    <task id="LOCAL-00008" summary="Added MapUtils methods!">
-      <created>1613758427617</created>
+    <task id="LOCAL-00008" summary="Almost finished advance order">
+      <created>1616104309412</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1613758427617</updated>
+      <updated>1616104309412</updated>
     </task>
-    <task id="LOCAL-00009" summary="Added implementation of savemap command.">
-      <created>1613758898389</created>
+    <task id="LOCAL-00009" summary="Added implementation of validatemap command!!">
+      <created>1616356348810</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1613758898389</updated>
+      <updated>1616356348810</updated>
     </task>
-    <task id="LOCAL-00010" summary="Added unit tests for MapEditor!">
-      <created>1613822801590</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1613822801590</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Changed path fetching for map files in MapUtils!">
-      <created>1613823271439</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1613823271440</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Fixed a bug in command parser and added unit tests to validate MapEditor Commands!">
-      <created>1613827974594</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1613827974594</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Refactored MapEditor to follow MVC + Fixed bugs in command parser + Added  unit tests for command parser + Merged MapEditor with GameEngine">
-      <created>1613833312068</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1613833312068</updated>
-    </task>
-    <option name="localTasksCounter" value="14" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -530,7 +510,10 @@
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.map" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -563,19 +546,26 @@
     <MESSAGE value="Added Game Engine, It supports adding/removing players, and assigning countries evenly" />
     <MESSAGE value="Fixed Bug in Reinforcement Phase" />
     <MESSAGE value="Finished Issue Orders Phase!!" />
+    <MESSAGE value="Implemented showmap." />
+    <MESSAGE value="Removed the CMD Enum &amp; replaced its usages with command parser" />
+    <MESSAGE value="Almost finished advance order" />
     <MESSAGE value="Added implementation of validatemap command!!" />
-    <MESSAGE value="Changed HashMaps to LinkedHashMaps to follow XP's simple design!" />
-    <MESSAGE value="Added MapUtils methods!" />
-    <MESSAGE value="Added implementation of savemap command." />
-    <MESSAGE value="Added unit tests for MapEditor!" />
-    <MESSAGE value="Changed path fetching for map files in MapUtils!" />
-    <MESSAGE value="Fixed a bug in command parser and added unit tests to validate MapEditor Commands!" />
-    <MESSAGE value="Refactored MapEditor to follow MVC + Fixed bugs in command parser + Added  unit tests for command parser + Merged MapEditor with GameEngine" />
-    <option name="LAST_COMMIT_MESSAGE" value="Refactored MapEditor to follow MVC + Fixed bugs in command parser + Added  unit tests for command parser + Merged MapEditor with GameEngine" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added implementation of validatemap command!!" />
     <option name="PRESELECT_EXISTING_CHANGELIST" value="true" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/Model/PlayerModel.java</url>
+          <line>286</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Warzone$All_Tests.ic" NAME="All Tests Coverage Results" MODIFIED="1613492040390" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

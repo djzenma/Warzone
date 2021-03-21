@@ -21,9 +21,7 @@ public class BombModel extends OrderModel {
     /**
      * Constructor for the BombModel
      *
-     * @param p_playerModel   Current player who is ordering the bomb command
-     * @param p_targetCountry Target player on whom bomb command would run
-     * @param p_args          TODO: remove it as it is not used anywhere
+     * @param p_args TODO: remove it as it is not used anywhere
      */
     public BombModel(PlayerModel p_playerModel, CountryModel p_targetCountry, HashMap<String, List<String>> p_args) {
         super("bomb", p_playerModel);

@@ -115,14 +115,29 @@ public class AdvanceModel extends OrderModel {
         return true;
     }
 
+    /**
+     * Mutator for source country
+     *
+     * @param p_sourceCountry
+     */
     public void setSourceCountry(CountryModel p_sourceCountry) {
         this.d_sourceCountry = p_sourceCountry;
     }
 
+    /**
+     * Mutator for target country
+     *
+     * @param p_targetCountry
+     */
     public void setTargetCountry(CountryModel p_targetCountry) {
         this.d_targetCountry = p_targetCountry;
     }
 
+    /**
+     * Mutator for number of armies
+     *
+     * @param d_numArmies
+     */
     public void setNumArmies(int d_numArmies) {
         this.d_numArmies = d_numArmies;
     }
