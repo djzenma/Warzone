@@ -46,7 +46,6 @@ public class DeployModel extends OrderModel {
         return (int) (Float.parseFloat(d_args.get("reinforcements_num").get(0)));
     }
 
-
     /**
      * Executes the deploy command by placing the armies in the specified country
      *

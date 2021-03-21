@@ -6,11 +6,15 @@ import Model.PlayerModel;
 
 import java.util.HashMap;
 
+/**
+ * Model for Blockade Command
+ * It inherits the OrderModel and overwrites the abstract execute method
+ */
 public class BlockadeModel extends OrderModel {
     CountryModel d_country;
 
     /**
-     * Constructor of the OrderModel
+     * Constructor for the BlockadeModel
      *
      * @param p_currentPlayerModel
      */

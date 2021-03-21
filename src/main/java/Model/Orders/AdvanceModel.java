@@ -8,6 +8,10 @@ import View.PlayerView;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Model for Advance Command
+ * It inherits the OrderModel and overwrites the abstract execute method
+ */
 public class AdvanceModel extends OrderModel {
 
     private CountryModel d_sourceCountry;
