@@ -223,6 +223,14 @@ public class PlayerModel {
                 }
                 break;
             case "advance":
+                if (!this.d_allMapCountries.containsKey(l_args.get("country_name_from").get(0))) {
+                    this.d_view.invalidCountry(l_args.get("country_name_from").get(0));
+                    return false;
+                }
+                if (!this.d_allMapCountries.containsKey(l_args.get("country_name_to").get(0))) {
+                    this.d_view.invalidCountry(l_args.get("country_name_to").get(0));
+                    return false;
+                }
                 l_order = new AdvanceModel(this.d_allMapCountries.get(l_args.get("country_name_from").get(0)),
                         this.d_allMapCountries.get(l_args.get("country_name_to").get(0)),
                         Integer.parseInt(l_args.get("armies_num").get(0)),
