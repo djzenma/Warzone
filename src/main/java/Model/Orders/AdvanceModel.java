@@ -22,6 +22,13 @@ public class AdvanceModel extends OrderModel {
 
     /**
      * Constructor for the AdvanceModel
+     *
+     * @param p_targetCountry target country on which the army has to be advanced
+     * @param p_sourceCountry source country from which the army has to be advanced
+     * @param p_playerView    TODO: it is not used anywhere
+     * @param p_numArmies     the number of armies that have to be advanced
+     * @param p_currentPlayer player that advances the armies
+     * @param p_args          Gets the user command
      */
     public AdvanceModel(CountryModel p_sourceCountry, CountryModel p_targetCountry, int p_numArmies, PlayerModel p_currentPlayer, PlayerView p_playerView, HashMap<String, List<String>> p_args) {
         super("advance", p_currentPlayer);
@@ -46,7 +53,7 @@ public class AdvanceModel extends OrderModel {
             return false;
         }
 
-        // if the source country doesn't belong to the player
+        // if the source country doesn't have sufficient armies
         if (this.d_numArmies > this.d_sourceCountry.getArmies()) {
             this.d_playerView.insufficientArmies(this.d_args, this.d_sourceCountry.getArmies());
             return false;

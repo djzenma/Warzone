@@ -16,7 +16,8 @@ public class BlockadeModel extends OrderModel {
     /**
      * Constructor for the BlockadeModel
      *
-     * @param p_currentPlayerModel
+     * @param p_targetCountry      target country on which the armies have to be increased & neutralised
+     * @param p_currentPlayerModel to initialise current player
      */
     public BlockadeModel(PlayerModel p_currentPlayerModel, CountryModel p_targetCountry) {
         super("blockade", p_currentPlayerModel);
@@ -24,8 +25,15 @@ public class BlockadeModel extends OrderModel {
         this.d_country = p_targetCountry;
     }
 
+    /**
+     * Executes the blockade command by tripling the army and neutralising the country
+     *
+     * @param p_countries HashMap of the countries
+     * @return
+     */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
+
         // check if the player owns the country to play blockade on
         if (!this.d_currentPlayer.getCountries().contains(this.d_country))
             return false;

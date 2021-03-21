@@ -19,6 +19,10 @@ public class DeployModel extends OrderModel {
 
     /**
      * Constructor for the DeployModel
+     *
+     * @param p_playerModel initialise the current player
+     * @param p_args        initialise the user command
+     * @param p_playerView  to check the validity of the command
      */
     public DeployModel(HashMap<String, List<String>> p_args, PlayerModel p_playerModel, PlayerView p_playerView) {
         super("deploy", p_playerModel);
@@ -62,6 +66,7 @@ public class DeployModel extends OrderModel {
             return false; // impossible command
         }
 
+        //deploys the army and add them.
         CountryModel l_country = p_countries.get(this.getCountryName());
         l_country.setArmies(l_country.getArmies() + this.getReinforcements());
         p_countries.put(this.getCountryName(), l_country);
