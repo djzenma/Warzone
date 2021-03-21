@@ -75,7 +75,7 @@ public class GamePlayModel {
      * @param p_playerName Name of the player
      */
     public void addPlayer(String p_playerName) {
-        PlayerModel l_playerModel = new PlayerModel(p_playerName, new PlayerView(), this.d_countries);
+        PlayerModel l_playerModel = new PlayerModel(p_playerName, new PlayerView(), this.d_countries, this.d_players);
         this.d_players.put(p_playerName, l_playerModel);
     }
 

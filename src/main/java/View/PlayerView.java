@@ -71,4 +71,20 @@ public class PlayerView {
                 + " armies! You only have " + p_srcArmies
                 + " armies in " + d_args.get("country_name_from").get(0) + "!");
     }
+
+    public void invalidAdvanceOrder(String ownerName) {
+        System.out.println("You can't attack " + ownerName + "'s countries as you are currently negotiating with " + ownerName + "!!");
+    }
+
+    public void selfNegotiationNotPossible() {
+        System.out.println("You can't add yourself as Negotiator");
+    }
+
+    public void InvalidPlayer(String l_targetPlayerName) {
+        System.out.println(l_targetPlayerName + " does not exist!");
+    }
+
+    public void invalidBombOrder(String ownerName) {
+        System.out.println("You can't bomb " + ownerName + "'s countries as you are currently negotiating with " + ownerName + "!!");
+    }
 }

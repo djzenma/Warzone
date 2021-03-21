@@ -170,6 +170,14 @@
           "name": "target_country"
         }
       ]
+    },
+    {
+      "name": "negotiate",
+      "args": [
+        {
+          "name": "target_player"
+        }
+      ]
     }
   ],
   "commandNames": {
@@ -192,7 +200,8 @@
     "pass": "pass",
     "advance": "advance",
     "bomb": "bomb",
-    "blockade": "blockade"
+    "blockade": "blockade",
+    "negotiate": "negotiate"
   }
 }
 

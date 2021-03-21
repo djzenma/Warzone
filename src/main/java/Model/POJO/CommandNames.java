@@ -123,4 +123,10 @@ public class CommandNames {
      */
     @SerializedName(value = "blockade")
     public String d_blockade;
+
+    /**
+     * Name of the command
+     */
+    @SerializedName(value = "negotiate")
+    public String d_negotiate;
 }

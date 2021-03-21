@@ -37,6 +37,11 @@ public class AdvanceModel extends OrderModel {
      */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
+        if (this.d_currentPlayer.getActiveNegotiators().containsKey(this.d_targetCountry.getOwnerName())) {
+            this.d_playerView.invalidAdvanceOrder(this.d_targetCountry.getOwnerName());
+            return false;
+        }
+
         // if the source country doesn't belong to the player
         if (this.d_numArmies > this.d_sourceCountry.getArmies()) {
             this.d_playerView.insufficientArmies(this.d_args, this.d_sourceCountry.getArmies());

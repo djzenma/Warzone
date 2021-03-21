@@ -30,6 +30,11 @@ public class BombModel extends OrderModel {
 
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
+        if (this.d_currentPlayer.getActiveNegotiators().containsKey(this.d_targetCountry.getOwnerName())) {
+            this.d_playerModel.getView().invalidBombOrder(this.d_targetCountry.getOwnerName());
+            return false;
+        }
+
         this.d_sourceCountries = this.d_playerModel.getCountries();
 
         for (int l_i = 0; l_i < d_sourceCountries.size(); l_i++) {

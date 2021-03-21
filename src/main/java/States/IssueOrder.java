@@ -22,6 +22,7 @@ public class IssueOrder extends GamePlayPhase {
         String[] l_args = null;
 
         for (PlayerModel l_player : this.d_gameEngineController.d_gamePlayModel.getPlayers().values()) {
+            l_player.flushActiveNegotiators();
             this.d_gameEngineController.d_gamePlayView.currentPlayer(l_player);
             l_isValidOrder = false;
             while (!l_isValidOrder) {

@@ -1,9 +1,6 @@
 package Model;
 
-import Model.Orders.AdvanceModel;
-import Model.Orders.BlockadeModel;
-import Model.Orders.BombModel;
-import Model.Orders.DeployModel;
+import Model.Orders.*;
 import Utils.CommandsParser;
 import View.PlayerView;
 
@@ -23,8 +20,11 @@ public class PlayerModel {
     private final HashMap<String, CountryModel> d_myCountries;
     private final HashMap<Integer, Integer> d_armies;
     private final Queue<OrderModel> d_orderList;
+    private final HashMap<String, PlayerModel> d_activeNegotiators;
 
-    private final HashMap<String, CountryModel> d_countries;
+    private final HashMap<String, CountryModel> d_allMapCountries;
+    private HashMap<String, PlayerModel> d_allGamePlayers;
+
 
     /**
      * Initialises the name of the player, reinforcements, orders, countries and PlayerView
@@ -34,14 +34,58 @@ public class PlayerModel {
      */
     public PlayerModel(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries) {
         this.setName(p_name);
-        d_reinforcements = 0;
-        d_orderList = new ArrayDeque<>();
-        d_armies = new HashMap<>();
-        d_myCountries = new HashMap<>();
-
+        this.d_reinforcements = 0;
+        this.d_orderList = new ArrayDeque<>();
+        this.d_armies = new HashMap<>();
+        this.d_myCountries = new HashMap<>();
         this.d_view = p_view;
+        this.d_allMapCountries = p_countries;
+        this.d_activeNegotiators = new HashMap<>();
+    }
 
-        this.d_countries = p_countries;
+    /**
+     * Initialises the name of the player, reinforcements, orders, countries and PlayerView
+     *
+     * @param p_name Name of the player
+     * @param p_view Object of the PlayerView
+     */
+    public PlayerModel(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries, HashMap<String, PlayerModel> p_players) {
+        this.setName(p_name);
+        this.d_reinforcements = 0;
+        this.d_orderList = new ArrayDeque<>();
+        this.d_armies = new HashMap<>();
+        this.d_myCountries = new HashMap<>();
+        this.d_view = p_view;
+        this.d_allMapCountries = p_countries;
+        this.d_allGamePlayers = p_players;
+        this.d_activeNegotiators = new HashMap<>();
+    }
+
+
+    /**
+     * Accessor for the active negotiators
+     *
+     * @return active negotiators
+     */
+    public HashMap<String, PlayerModel> getActiveNegotiators() {
+        return d_activeNegotiators;
+    }
+
+    /**
+     * Removes all the active negotiators
+     * Triggered on each new turn
+     */
+    public void flushActiveNegotiators() {
+        this.d_activeNegotiators.clear();
+    }
+
+    /**
+     * Adds the negotiator to the list of active negotiators
+     *
+     * @param p_negotiator Object of the PlayerModel
+     */
+    public void addNegotiator(PlayerModel p_negotiator) {
+        this.d_activeNegotiators.put(p_negotiator.getName(), p_negotiator);
     }
 
     /**
@@ -179,15 +223,28 @@ public class PlayerModel {
                 }
                 break;
             case "advance":
-                l_order = new AdvanceModel(this.d_countries.get(l_args.get("country_name_from").get(0)),
-                        this.d_countries.get(l_args.get("country_name_to").get(0)),
+                l_order = new AdvanceModel(this.d_allMapCountries.get(l_args.get("country_name_from").get(0)),
+                        this.d_allMapCountries.get(l_args.get("country_name_to").get(0)),
                         Integer.parseInt(l_args.get("armies_num").get(0)),
                         this, this.d_view, CommandsParser.getArguments(p_args));
                 this.addOrder(l_order);
                 break;
             case "bomb":
                 // if(this.d_orderList.contains(new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view))) {
-                l_order = new BombModel(this, this.d_countries.get(l_args.get("target_country").get(0)), CommandsParser.getArguments(p_args));
+                l_order = new BombModel(this, this.d_allMapCountries.get(l_args.get("target_country").get(0)), CommandsParser.getArguments(p_args));
+                this.addOrder(l_order);
+                break;
+            case "negotiate":
+                String l_targetPlayerName = CommandsParser.getArguments(p_args).get("target_player").get(0);
+                if (l_targetPlayerName.equals(this.d_name)) {
+                    this.d_view.selfNegotiationNotPossible();
+                    return false;
+                }
+                if (!this.d_allGamePlayers.containsKey(l_targetPlayerName)) {
+                    this.d_view.InvalidPlayer(l_targetPlayerName);
+                    return false;
+                }
+                l_order = new NegotiateModel(this, this.d_allGamePlayers.get(l_targetPlayerName));
                 this.addOrder(l_order);
                 break;
             case "deploy":
@@ -213,7 +270,7 @@ public class PlayerModel {
                 break;
             case "blockade":
                 l_order = new BlockadeModel(this,
-                        this.d_countries.get(l_args.get("country_name").get(0)));
+                        this.d_allMapCountries.get(l_args.get("country_name").get(0)));
                 this.addOrder(l_order);
                 break;
             default:
