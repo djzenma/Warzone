@@ -109,6 +109,12 @@ public class CommandNames {
     /**
      * Name of the command
      */
+    @SerializedName(value = "airlift")
+    public String d_airlift;
+
+    /**
+     * Name of the command
+     */
     @SerializedName(value = "pass")
     public String d_pass;
 

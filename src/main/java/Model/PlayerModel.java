@@ -281,6 +281,21 @@ public class PlayerModel {
                         this.d_allMapCountries.get(l_args.get("country_name").get(0)));
                 this.addOrder(l_order);
                 break;
+            case "airlift":
+                if (!this.d_allMapCountries.containsKey(l_args.get("country_name_from").get(0))) {
+                    this.d_view.invalidCountry(l_args.get("country_name_from").get(0));
+                    return false;
+                }
+                if (!this.d_allMapCountries.containsKey(l_args.get("country_name_to").get(0))) {
+                    this.d_view.invalidCountry(l_args.get("country_name_to").get(0));
+                    return false;
+                }
+                l_order = new AirliftModel(this.d_allMapCountries.get(l_args.get("country_name_from").get(0)),
+                        this.d_allMapCountries.get(l_args.get("country_name_to").get(0)),
+                        Integer.parseInt(l_args.get("armies_num").get(0)),
+                        this, this.d_view, CommandsParser.getArguments(p_args));
+                this.addOrder(l_order);
+                break;
             default:
                 this.d_view.invalidOrder();
                 return false;

@@ -46,6 +46,20 @@
       ]
     },
     {
+      "name": "airlift",
+      "args": [
+        {
+          "name": "country_name_from"
+        },
+        {
+          "name": "country_name_to"
+        },
+        {
+          "name": "armies_num"
+        }
+      ]
+    },
+    {
       "name": "blockade",
       "args": [
         {
@@ -199,6 +213,7 @@
     "deploy": "deploy",
     "pass": "pass",
     "advance": "advance",
+    "airlift": "airlift",
     "bomb": "bomb",
     "blockade": "blockade",
     "negotiate": "negotiate"

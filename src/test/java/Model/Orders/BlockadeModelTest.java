@@ -26,27 +26,27 @@ public class BlockadeModelTest {
         d_gameEngineController.setPhase(new Startup(d_gameEngineController));
 
         d_gameEngineController.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
+        d_gameEngineController.d_gamePlayModel.addPlayer("Aman");
         d_gameEngineController.d_gamePlayModel.addPlayer("Mazen");
-        d_gameEngineController.d_gamePlayModel.addPlayer("Adeetya");
         d_gameEngineController.d_currentPhase.assignCountries();
 
 
         DeployModel d_deployModel_1 = new DeployModel(
                 CommandsParser.getArguments(new String[]{"deploy", "Saturn-South", "30"}),
-                d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
-                d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView());
+                d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
+                d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman").getView());
 
         DeployModel d_deployModel_2 = new DeployModel(
                 CommandsParser.getArguments(new String[]{"deploy", "Venus-North", "46"}),
-                d_gameEngineController.d_gamePlayModel.getPlayers().get("Adeetya"),
-                d_gameEngineController.d_gamePlayModel.getPlayers().get("Adeetya").getView());
+                d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
 
         d_deployModel_1.execute(d_gameEngineController.d_mapModel.getCountries());
         d_deployModel_2.execute(d_gameEngineController.d_mapModel.getCountries());
 
         d_blockadeModel = new BlockadeModel(
-                d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_mapModel.getCountries().get("Saturn-South"));
     }
 
