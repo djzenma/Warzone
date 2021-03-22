@@ -3,6 +3,7 @@ package Model.Orders;
 import Model.CountryModel;
 import Model.OrderModel;
 import Model.PlayerModel;
+import Utils.CommandsParser;
 import View.PlayerView;
 
 import java.util.HashMap;
@@ -24,11 +25,11 @@ public class DeployModel extends OrderModel {
      * @param p_args        initialise the user command
      * @param p_playerView  to check the validity of the command
      */
-    public DeployModel(HashMap<String, List<String>> p_args, PlayerModel p_playerModel, PlayerView p_playerView) {
-        super("deploy", p_playerModel);
+    public DeployModel(String[] p_args, PlayerModel p_playerModel, PlayerView p_playerView) {
+        super("deploy", p_playerModel, p_args);
 
         this.d_playerView = p_playerView;
-        this.d_args = p_args;
+        this.d_args = CommandsParser.getArguments(p_args);
         this.d_reinforcementsBeforeExec = this.d_currentPlayer.getReinforcements();
     }
 
@@ -65,6 +66,8 @@ public class DeployModel extends OrderModel {
             this.d_playerView.InvalidCountry(this.d_args);
             return false; // impossible command
         }
+
+        triggerEvent(true);
 
         //deploys the army and add them.
         CountryModel l_country = p_countries.get(this.getCountryName());

@@ -23,14 +23,14 @@ public class AirliftModelTest {
         d_gameEngineController.d_currentPhase.assignCountries();
 
         DeployModel l_deployModel_1 = new DeployModel(
-                CommandsParser.getArguments(new String[]{"deploy", "Venus-North", "46"}),
+                new String[]{"deploy", "Venus-North", "46"},
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
         l_deployModel_1.execute(d_gameEngineController.d_mapModel.getCountries());
 
         DeployModel l_deployModel_2 = new DeployModel(
-                CommandsParser.getArguments(new String[]{"deploy", "Saturn-South", "30"}),
+                new String[]{"deploy", "Saturn-South", "30"},
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman").getView());
 
@@ -45,7 +45,7 @@ public class AirliftModelTest {
                 20,
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView(),
-                CommandsParser.getArguments(new String[]{"airlift", "Venus-North", "Comet-Head", "20"}));
+                new String[]{"airlift", "Venus-North", "Comet-Head", "20"});
 
         assertTrue(d_airliftModel.execute(d_gameEngineController.d_mapModel.getCountries()));
         assertEquals(20, d_gameEngineController.d_mapModel.getCountries().get("Comet-Head").getArmies());
@@ -60,7 +60,7 @@ public class AirliftModelTest {
                 20,
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView(),
-                CommandsParser.getArguments(new String[]{"airlift", "Venus-North", "Saturn-South", "20"}));
+                new String[]{"airlift", "Venus-North", "Saturn-South", "20"});
 
         assertFalse(d_airliftModel.execute(d_gameEngineController.d_mapModel.getCountries()));
         assertEquals(30, d_gameEngineController.d_mapModel.getCountries().get("Saturn-South").getArmies());

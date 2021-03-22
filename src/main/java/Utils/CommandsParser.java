@@ -9,10 +9,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * JSONParser to parse the commands and validates them
@@ -146,6 +143,7 @@ public class CommandsParser {
     public static HashMap<String, List<String>> getArguments(String[] p_cmd) {
         HashMap<String, List<String>> l_args = new HashMap<>();
         String l_cmdName = p_cmd[0];
+        l_args.put("cmd", Collections.singletonList(l_cmdName));
 
         for (Command l_command : d_commands.d_commands) {
             if (l_command.d_name.equals(l_cmdName)) {

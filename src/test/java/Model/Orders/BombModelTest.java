@@ -30,12 +30,12 @@ public class BombModelTest {
         d_gameEngineController.d_currentPhase.assignCountries();
 
         DeployModel d_deployModel_1 = new DeployModel(
-                CommandsParser.getArguments(new String[]{"deploy", "Saturn-South", "30"}),
+                new String[]{"deploy", "Saturn-South", "30"},
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman").getView());
 
         DeployModel d_deployModel_2 = new DeployModel(
-                CommandsParser.getArguments(new String[]{"deploy", "Venus-North", "46"}),
+                new String[]{"deploy", "Venus-North", "46"},
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
@@ -51,7 +51,7 @@ public class BombModelTest {
         d_bombModel = new BombModel(
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_mapModel.getCountries().get("Venus-North"),
-                CommandsParser.getArguments(new String[]{"bomb", "Venus-North"}));
+                new String[]{"bomb", "Venus-North"});
 
         assertTrue(d_bombModel.execute(d_gameEngineController.d_mapModel.getCountries()));
         assertEquals(23, d_gameEngineController.d_mapModel.getCountries().get("Venus-North").getArmies());
@@ -65,7 +65,7 @@ public class BombModelTest {
         d_bombModel = new BombModel(
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_mapModel.getCountries().get("Saturn-South"),
-                CommandsParser.getArguments(new String[]{"bomb", "Saturn-South"}));
+                new String[]{"bomb", "Saturn-South"});
 
         assertFalse(d_bombModel.execute(d_gameEngineController.d_mapModel.getCountries()));
         assertEquals(30, d_gameEngineController.d_mapModel.getCountries().get("Saturn-South").getArmies());

@@ -234,12 +234,12 @@ public class PlayerModel {
                 l_order = new AdvanceModel(this.d_allMapCountries.get(l_args.get("country_name_from").get(0)),
                         this.d_allMapCountries.get(l_args.get("country_name_to").get(0)),
                         Integer.parseInt(l_args.get("armies_num").get(0)),
-                        this, this.d_view, CommandsParser.getArguments(p_args));
+                        this, this.d_view, p_args);
                 this.addOrder(l_order);
                 break;
             case "bomb":
                 // if(this.d_orderList.contains(new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view))) {
-                l_order = new BombModel(this, this.d_allMapCountries.get(l_args.get("target_country").get(0)), CommandsParser.getArguments(p_args));
+                l_order = new BombModel(this, this.d_allMapCountries.get(l_args.get("target_country").get(0)), p_args);
                 this.addOrder(l_order);
                 break;
             case "negotiate":
@@ -252,7 +252,7 @@ public class PlayerModel {
                     this.d_view.InvalidPlayer(l_targetPlayerName);
                     return false;
                 }
-                l_order = new NegotiateModel(this, this.d_allGamePlayers.get(l_targetPlayerName));
+                l_order = new NegotiateModel(this, this.d_allGamePlayers.get(l_targetPlayerName), p_args);
                 this.addOrder(l_order);
                 break;
             case "deploy":
@@ -271,14 +271,14 @@ public class PlayerModel {
                     return false; // impossible command
                 }
 
-                l_order = new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view);
+                l_order = new DeployModel(p_args, this, this.d_view);
                 this.addOrder(l_order);
 
                 this.setReinforcements(this.getReinforcements() - (int) (Float.parseFloat(CommandsParser.getArguments(p_args).get("reinforcements_num").get(0))));
                 break;
             case "blockade":
                 l_order = new BlockadeModel(this,
-                        this.d_allMapCountries.get(l_args.get("country_name").get(0)));
+                        this.d_allMapCountries.get(l_args.get("country_name").get(0)), p_args);
                 this.addOrder(l_order);
                 break;
             case "airlift":
@@ -293,7 +293,7 @@ public class PlayerModel {
                 l_order = new AirliftModel(this.d_allMapCountries.get(l_args.get("country_name_from").get(0)),
                         this.d_allMapCountries.get(l_args.get("country_name_to").get(0)),
                         Integer.parseInt(l_args.get("armies_num").get(0)),
-                        this, this.d_view, CommandsParser.getArguments(p_args));
+                        this, this.d_view, p_args);
                 this.addOrder(l_order);
                 break;
             default:

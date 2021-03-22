@@ -32,12 +32,12 @@ public class BlockadeModelTest {
 
 
         DeployModel d_deployModel_1 = new DeployModel(
-                CommandsParser.getArguments(new String[]{"deploy", "Saturn-South", "30"}),
+                new String[]{"deploy", "Saturn-South", "30"},
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman").getView());
 
         DeployModel d_deployModel_2 = new DeployModel(
-                CommandsParser.getArguments(new String[]{"deploy", "Venus-North", "46"}),
+                new String[]{"deploy", "Venus-North", "46"},
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
@@ -47,7 +47,7 @@ public class BlockadeModelTest {
 
         d_blockadeModel = new BlockadeModel(
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
-                d_gameEngineController.d_mapModel.getCountries().get("Saturn-South"));
+                d_gameEngineController.d_mapModel.getCountries().get("Saturn-South"), new String[]{"blockade", "Saturn-South"});
     }
 
     /**

@@ -3,6 +3,7 @@ package Model.Orders;
 import Model.CountryModel;
 import Model.OrderModel;
 import Model.PlayerModel;
+import Utils.CommandsParser;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,11 +26,11 @@ public class BombModel extends OrderModel {
      * @param p_targetCountry target country on which the armies have to be decreased
      * @param p_playerModel   to initialise current player
      */
-    public BombModel(PlayerModel p_playerModel, CountryModel p_targetCountry, HashMap<String, List<String>> p_args) {
-        super("bomb", p_playerModel);
+    public BombModel(PlayerModel p_playerModel, CountryModel p_targetCountry, String[] p_args) {
+        super("bomb", p_playerModel, p_args);
         this.d_playerModel = p_playerModel;
         this.d_targetCountry = p_targetCountry;
-        this.d_args = p_args;
+        this.d_args = CommandsParser.getArguments(p_args);
         this.d_sourceCountries = new ArrayList<>();
     }
 
@@ -61,6 +62,7 @@ public class BombModel extends OrderModel {
         for (int l_j = 0; l_j < d_sourceCountries.size(); l_j++) {
             if (this.d_sourceCountries.get(l_j).getNeighbors().containsKey(this.d_targetCountry.getName())) {
                 this.d_targetCountry.setArmies((int) Math.floor(this.d_targetCountry.getArmies() / 2));
+                triggerEvent(true);
                 return true;
             }
         }

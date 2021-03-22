@@ -3,6 +3,7 @@ package Model.Orders;
 import Model.CountryModel;
 import Model.OrderModel;
 import Model.PlayerModel;
+import Utils.CommandsParser;
 import View.PlayerView;
 
 import java.util.HashMap;
@@ -29,13 +30,13 @@ public class AirliftModel extends OrderModel {
      * @param p_playerView    to check the validity of the command
      * @param p_args          Gets the user command
      */
-    public AirliftModel(CountryModel p_sourceCountry, CountryModel p_targetCountry, int p_numArmies, PlayerModel p_currentPlayer, PlayerView p_playerView, HashMap<String, List<String>> p_args) {
-        super("airlift", p_currentPlayer);
+    public AirliftModel(CountryModel p_sourceCountry, CountryModel p_targetCountry, int p_numArmies, PlayerModel p_currentPlayer, PlayerView p_playerView, String[] p_args) {
+        super("airlift", p_currentPlayer, p_args);
         this.d_sourceCountry = p_sourceCountry;
         this.d_targetCountry = p_targetCountry;
         this.d_numArmies = p_numArmies;
         this.d_playerView = p_playerView;
-        this.d_args = p_args;
+        this.d_args = CommandsParser.getArguments(p_args);
         setCurrentPlayer(p_currentPlayer);
     }
 
@@ -58,6 +59,8 @@ public class AirliftModel extends OrderModel {
             this.d_playerView.InvalidCountry(this.d_args);
             return false;
         }
+
+        triggerEvent(true);
 
         // normal move without attack
         if (this.getCurrentPlayer().getCountries().contains(this.d_targetCountry)) {

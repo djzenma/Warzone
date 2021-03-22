@@ -26,14 +26,14 @@ public class AdvanceModelTest {
     @Test
     public void execute() {
         DeployModel l_deployModel_1 = new DeployModel(
-                CommandsParser.getArguments(new String[]{"deploy", "Venus-North", "46"}),
+                new String[]{"deploy", "Venus-North", "46"},
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Adeetya"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Adeetya").getView());
 
         l_deployModel_1.execute(d_gameEngineController.d_mapModel.getCountries());
 
         DeployModel l_deployModel_2 = new DeployModel(
-                CommandsParser.getArguments(new String[]{"deploy", "Saturn-South", "30"}),
+                new String[]{"deploy", "Saturn-South", "30"},
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
@@ -45,7 +45,7 @@ public class AdvanceModelTest {
                 46,
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Adeetya"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Adeetya").getView(),
-                CommandsParser.getArguments(new String[]{"advance", "Venus-North", "Saturn-South", "46"}));
+                new String[]{"advance", "Venus-North", "Saturn-South", "46"});
 
         assertTrue(d_advanceModel.execute(d_gameEngineController.d_mapModel.getCountries()));
     }

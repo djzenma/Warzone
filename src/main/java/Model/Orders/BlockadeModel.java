@@ -3,8 +3,10 @@ package Model.Orders;
 import Model.CountryModel;
 import Model.OrderModel;
 import Model.PlayerModel;
+import Utils.CommandsParser;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Model for Blockade Command
@@ -12,6 +14,7 @@ import java.util.HashMap;
  */
 public class BlockadeModel extends OrderModel {
     CountryModel d_country;
+    HashMap<String, List<String>> d_args;
 
     /**
      * Constructor for the BlockadeModel
@@ -19,10 +22,11 @@ public class BlockadeModel extends OrderModel {
      * @param p_targetCountry      target country on which the armies have to be increased and neutralised
      * @param p_currentPlayerModel to initialise current player
      */
-    public BlockadeModel(PlayerModel p_currentPlayerModel, CountryModel p_targetCountry) {
-        super("blockade", p_currentPlayerModel);
+    public BlockadeModel(PlayerModel p_currentPlayerModel, CountryModel p_targetCountry, String[] p_args) {
+        super("blockade", p_currentPlayerModel, p_args);
 
         this.d_country = p_targetCountry;
+        this.d_args = CommandsParser.getArguments(p_args);
     }
 
     /**
@@ -37,6 +41,8 @@ public class BlockadeModel extends OrderModel {
         // check if the player owns the country to play blockade on
         if (!this.d_currentPlayer.getCountries().contains(this.d_country))
             return false;
+
+        triggerEvent(true);
 
         // create neutral player
         PlayerModel d_neutralPlayer = new PlayerModel("Neutral", this.d_currentPlayer.getView(), p_countries);
