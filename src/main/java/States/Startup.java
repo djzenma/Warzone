@@ -19,6 +19,7 @@ public class Startup extends GamePlayPhase {
 
     @Override
     public void loadMap(String[] l_args) throws Exception {
+        triggerEvent(l_args, "Startup Phase");
         this.d_gameEngineController.d_mapModel.loadOnlyValidMap(new File(new MapUtils().getMapsPath() + l_args[1]));
         this.d_gameEngineController.d_gamePlayModel.setContinents(new ArrayList<ContinentModel>(this.d_gameEngineController.d_mapModel.getContinents().values()));
         this.d_gameEngineController.d_gamePlayModel.setCountries(this.d_gameEngineController.d_mapModel.getCountries());
@@ -26,11 +27,13 @@ public class Startup extends GamePlayPhase {
 
     @Override
     public void showMap() {
+        triggerEvent(new String[]{"showmap"}, "Startup Phase");
         this.d_gameEngineController.d_gamePlayView.showMap(this.d_gameEngineController.d_mapModel.getContinents(), this.d_gameEngineController.d_mapModel.getCountries());
     }
 
     @Override
     public void gameplayer(String[] l_args) throws Exception {
+        triggerEvent(l_args, "Startup Phase");
         // get the players to be added or removed
         HashMap<String, List<String>> l_gameplayerArgs = CommandsParser.getArguments(l_args);
 
@@ -49,6 +52,7 @@ public class Startup extends GamePlayPhase {
 
     @Override
     public boolean assignCountries() {
+        triggerEvent(new String[]{"assigncountries"}, "Startup Phase");
         if (this.d_gameEngineController.d_gamePlayModel.isInValidCommand()) {
             this.d_gameEngineController.d_gamePlayView.isInvalidAssignment();
             return false;

@@ -1,14 +1,18 @@
 package States;
 
 import Controller.GameEngineController;
+import ObserverPattern.EventListener;
+import ObserverPattern.LogEntryBuffer;
+import ObserverPattern.Observable;
 
 import java.io.IOException;
 
-public abstract class Phase {
+public abstract class Phase extends Observable {
     protected GameEngineController d_gameEngineController;
 
     public Phase(GameEngineController p_gameEngineController) {
         this.d_gameEngineController = p_gameEngineController;
+        attach(new EventListener());
     }
 
     // Map editor
@@ -122,5 +126,9 @@ public abstract class Phase {
                 + this.getClass().getSimpleName());
     }
 
+    public void triggerEvent(String[] p_command, String p_phase) {
+        LogEntryBuffer l_entryBuffer = new LogEntryBuffer(p_command, p_phase);
+        notifyObservers(l_entryBuffer);
+    }
 
 }

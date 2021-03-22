@@ -15,6 +15,7 @@ public class PostLoad extends MapEditor {
 
     @Override
     public void editContinent(String[] l_args) throws Exception {
+        triggerEvent(l_args, "Map Editor Phase");
         // TODO: Refactor to have command parser method
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
         d_gameEngineController.d_mapModel.editContinent(l_commandArgs);
@@ -22,6 +23,7 @@ public class PostLoad extends MapEditor {
 
     @Override
     public void editCountry(String[] l_args) throws Exception {
+        triggerEvent(l_args, "Map Editor Phase");
         // TODO: Refactor to have command parser method
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
         d_gameEngineController.d_mapModel.editCountry(l_commandArgs);
@@ -29,6 +31,7 @@ public class PostLoad extends MapEditor {
 
     @Override
     public void editNeighbor(String[] l_args) throws Exception {
+        triggerEvent(l_args, "Map Editor Phase");
         // TODO: Refactor to have command parser method
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
         d_gameEngineController.d_mapModel.editNeighbor(l_commandArgs);
@@ -36,13 +39,13 @@ public class PostLoad extends MapEditor {
 
     @Override
     public void showMap() {
+        triggerEvent(new String[]{"showmap"}, "Map Editor Phase");
         d_gameEngineController.d_mapView.showMap(d_gameEngineController.d_mapModel.getContinents(),
                 d_gameEngineController.d_mapModel.getCountries());
     }
 
     @Override
     public void showCountries() {
-
         d_gameEngineController.d_mapView.showCountries(d_gameEngineController.d_mapModel.getContinents(),
                 d_gameEngineController.d_mapModel.getCountries());
     }
@@ -54,12 +57,14 @@ public class PostLoad extends MapEditor {
 
     @Override
     public void validateMap(String[] l_args) {
+        triggerEvent(l_args, "Map Editor Phase");
         d_gameEngineController.d_mapModel.validateMap();
         d_gameEngineController.d_mapView.validMap(d_gameEngineController.d_mapModel.isMapValid());
     }
 
     @Override
     public boolean saveMap(String[] l_args) throws Exception {
+        triggerEvent(l_args, "Map Editor Phase");
         d_gameEngineController.d_mapModel.validateMap();
 
         // if the currently loaded map is invalid, ask for user input

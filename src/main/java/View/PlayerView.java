@@ -65,11 +65,12 @@ public class PlayerView {
 
     public void insufficientArmies(HashMap<String, List<String>> d_args, int p_srcArmies) {
         if (p_srcArmies == 0) {
-            System.out.println("You cannot advance " + d_args.get("armies_num").get(0) + " because you do not have any armies");
+            System.out.println("You cannot advance " + d_args.get("armies_num").get(0) + " because you do not have any armies!");
+        } else {
+            System.out.println("You cannot advance " + d_args.get("armies_num").get(0)
+                    + " armies! You only have " + p_srcArmies
+                    + " armies in " + d_args.get("country_name_from").get(0) + "!");
         }
-        System.out.println("You cannot advance " + d_args.get("armies_num").get(0)
-                + " armies! You only have " + p_srcArmies
-                + " armies in " + d_args.get("country_name_from").get(0) + "!");
     }
 
     public void invalidAdvanceOrder(String p_ownerName) {

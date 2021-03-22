@@ -19,31 +19,36 @@ public class EventListener extends Observer {
 
         String l_event = d_logEntryBuffer.getPhase() + "\n";
 
-        if (d_logEntryBuffer.getIsExec()) {
-            switch (d_args.get("cmd").get(0)) {
-                case "advance":
-                    l_event += d_currentPlayer.getName() + " advanced " + d_args.get("armies_num").get(0) + " armies from " + d_args.get("country_name_from").get(0) + " to " + d_args.get("country_name_to").get(0);
-                    break;
-                case "deploy":
-                    l_event += d_currentPlayer.getName() + " deployed " + d_args.get("reinforcements_num").get(0) + " armies on " + d_args.get("country_name").get(0);
-                    break;
-                case "airlift":
-                    l_event += d_currentPlayer.getName() + " airlifted " + d_args.get("armies_num").get(0) + " armies from " + d_args.get("country_name_from").get(0) + " to " + d_args.get("country_name_to").get(0);
-                    break;
-                case "bomb":
-                    l_event += d_currentPlayer.getName() + " bombed " + d_args.get("target_country").get(0);
-                    break;
-                case "blockade":
-                    l_event += d_currentPlayer.getName() + " blockaded " + d_args.get("country_name").get(0);
-                    break;
-                case "negotiate":
-                    l_event += d_currentPlayer.getName() + " negotiated with " + d_args.get("target_player").get(0);
-                    break;
+        if (d_logEntryBuffer.getPhase().equals("Game Play Phase")) {
+            if (d_logEntryBuffer.getIsExec()) {
+                switch (d_args.get("cmd").get(0)) {
+                    case "advance":
+                        l_event += d_currentPlayer.getName() + " advanced " + d_args.get("armies_num").get(0) + " armies from " + d_args.get("country_name_from").get(0) + " to " + d_args.get("country_name_to").get(0);
+                        break;
+                    case "deploy":
+                        l_event += d_currentPlayer.getName() + " deployed " + d_args.get("reinforcements_num").get(0) + " armies on " + d_args.get("country_name").get(0);
+                        break;
+                    case "airlift":
+                        l_event += d_currentPlayer.getName() + " airlifted " + d_args.get("armies_num").get(0) + " armies from " + d_args.get("country_name_from").get(0) + " to " + d_args.get("country_name_to").get(0);
+                        break;
+                    case "bomb":
+                        l_event += d_currentPlayer.getName() + " bombed " + d_args.get("target_country").get(0);
+                        break;
+                    case "blockade":
+                        l_event += d_currentPlayer.getName() + " blockaded " + d_args.get("country_name").get(0);
+                        break;
+                    case "negotiate":
+                        l_event += d_currentPlayer.getName() + " negotiated with " + d_args.get("target_player").get(0);
+                        break;
+                }
+            } else {
+                l_event += d_currentPlayer.getName() + " issued: " + String.join(" ", d_logEntryBuffer.getCommandArgs());
             }
+        } else if (d_logEntryBuffer.getPhase().equals("Startup Phase")) {
+            l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
         } else {
-            l_event += d_currentPlayer.getName() + " issued: " + String.join(" ", d_logEntryBuffer.getCommandArgs());
+            l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
         }
-
         System.out.println(l_event);
     }
 }

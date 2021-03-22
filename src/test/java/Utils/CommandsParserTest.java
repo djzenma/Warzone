@@ -132,24 +132,28 @@ public class CommandsParserTest {
         // test named arguments
         l_correct = new HashMap<>();
         String[] l_cmd1 = {"gameplayer", "add", "Aman", "remove", "Mazen", "add", "Shivangi"};
+        l_correct.put("cmd", new ArrayList<>(Arrays.asList("gameplayer")));
         l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Shivangi")));
         l_correct.put("remove", new ArrayList<>(Arrays.asList("Mazen")));
         assertEquals(l_correct, CommandsParser.getArguments(l_cmd1));
 
         l_correct = new HashMap<>();
         String[] l_cmd2 = {"gameplayer", "add", "Aman", "add", "Adeetya"};
+        l_correct.put("cmd", new ArrayList<>(Arrays.asList("gameplayer")));
         l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Adeetya")));
         assertEquals(l_correct, CommandsParser.getArguments(l_cmd2));
 
         // test unnamed arguments
         l_correct = new HashMap<>();
         String[] l_cmd3 = {"deploy", "Canada", "10"};
+        l_correct.put("cmd", new ArrayList<>(Arrays.asList("deploy")));
         l_correct.put("country_name", new ArrayList<>(Arrays.asList("Canada")));
         l_correct.put("reinforcements_num", new ArrayList<>(Arrays.asList("10")));
         assertEquals(l_correct, CommandsParser.getArguments(l_cmd3));
 
         l_correct = new HashMap<>();
         String[] l_cmd4 = {"advance", "Canada", "Egypt", "10"};
+        l_correct.put("cmd", new ArrayList<>(Arrays.asList("advance")));
         l_correct.put("country_name_from", new ArrayList<>(Arrays.asList("Canada")));
         l_correct.put("country_name_to", new ArrayList<>(Arrays.asList("Egypt")));
         l_correct.put("armies_num", new ArrayList<>(Arrays.asList("10")));
