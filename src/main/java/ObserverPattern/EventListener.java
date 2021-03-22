@@ -3,6 +3,10 @@ package ObserverPattern;
 import Model.PlayerModel;
 import Utils.CommandsParser;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,7 +21,7 @@ public class EventListener extends Observer {
         d_args = CommandsParser.getArguments(d_logEntryBuffer.getCommandArgs());
         d_currentPlayer = d_logEntryBuffer.getCurrentPlayer();
 
-        String l_event = d_logEntryBuffer.getPhase() + "\n";
+        String l_event = "\n" + d_logEntryBuffer.getPhase() + "\n";
 
         if (d_logEntryBuffer.getPhase().equals("Game Play Phase")) {
             if (d_logEntryBuffer.getIsExec()) {
@@ -49,6 +53,20 @@ public class EventListener extends Observer {
         } else {
             l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
         }
+
+        createLogFile(l_event);
         System.out.println(l_event);
     }
+
+    private void createLogFile(String l_event) {
+        try (FileWriter l_logFile = new FileWriter("log/log.txt", true);
+             BufferedWriter l_bWriter = new BufferedWriter(l_logFile);
+             PrintWriter l_pWriter = new PrintWriter(l_bWriter)) {
+            l_pWriter.println(l_event);
+        } catch (IOException l_e) {
+            System.out.println(l_e.getMessage());
+            l_e.printStackTrace();
+        }
+    }
+
 }
