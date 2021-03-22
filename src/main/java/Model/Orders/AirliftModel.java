@@ -8,6 +8,10 @@ import View.PlayerView;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Model for AirLift Command
+ * It inherits the OrderModel and overwrites the abstract execute method
+ */
 public class AirliftModel extends OrderModel {
     private final CountryModel d_sourceCountry;
     private final CountryModel d_targetCountry;
@@ -16,7 +20,14 @@ public class AirliftModel extends OrderModel {
     HashMap<String, List<String>> d_args;
 
     /**
-     * Constructor of the OrderModel
+     * Constructor of the AirLift
+     *
+     * @param p_sourceCountry source country from which the army has to be advanced
+     * @param p_targetCountry target country on which the army has to be advanced
+     * @param p_numArmies     the number of armies that have to be advanced
+     * @param p_currentPlayer player that advances the armies
+     * @param p_playerView    to check the validity of the command
+     * @param p_args          Gets the user command
      */
     public AirliftModel(CountryModel p_sourceCountry, CountryModel p_targetCountry, int p_numArmies, PlayerModel p_currentPlayer, PlayerView p_playerView, HashMap<String, List<String>> p_args) {
         super("airlift", p_currentPlayer);
@@ -28,6 +39,12 @@ public class AirliftModel extends OrderModel {
         setCurrentPlayer(p_currentPlayer);
     }
 
+    /**
+     * Executes the AirLift command by placing the armies in the specified country
+     *
+     * @param p_countries HashMap of the countries
+     * @return true if order is valid; otherwise false
+     */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
         // if the source does not have enough armies
