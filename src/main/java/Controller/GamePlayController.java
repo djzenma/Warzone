@@ -4,9 +4,9 @@ import States.GamePlayPhase;
 import Utils.CommandsParser;
 
 /**
- * Controls the game play phase.
+ * Controls the game play phase
  * The table has the following information-
- * <ul>
+ * <ul> TODO: Is any info required?
  * <li>  </li>
  * </ul>
  */

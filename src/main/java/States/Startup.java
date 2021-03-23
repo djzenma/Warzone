@@ -10,13 +10,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ *
+ */
 public class Startup extends GamePlayPhase {
-
-
     public Startup(GameEngineController p_gameEngineController) {
         super(p_gameEngineController);
     }
 
+    /**
+     *
+     * @param l_args
+     * @throws Exception
+     */
     @Override
     public void loadMap(String[] l_args) throws Exception {
         triggerEvent(l_args, "Startup Phase");
@@ -25,12 +31,20 @@ public class Startup extends GamePlayPhase {
         this.d_gameEngineController.d_gamePlayModel.setCountries(this.d_gameEngineController.d_mapModel.getCountries());
     }
 
+    /**
+     *
+     */
     @Override
     public void showMap() {
         triggerEvent(new String[]{"showmap"}, "Startup Phase");
         this.d_gameEngineController.d_gamePlayView.showMap(this.d_gameEngineController.d_mapModel.getContinents(), this.d_gameEngineController.d_mapModel.getCountries());
     }
 
+    /**
+     *
+     * @param l_args
+     * @throws Exception
+     */
     @Override
     public void gameplayer(String[] l_args) throws Exception {
         triggerEvent(l_args, "Startup Phase");
@@ -68,6 +82,9 @@ public class Startup extends GamePlayPhase {
         }
     }
 
+    /**
+     * @return
+     */
     @Override
     public boolean assignCountries() {
         triggerEvent(new String[]{"assigncountries"}, "Startup Phase");
@@ -81,6 +98,9 @@ public class Startup extends GamePlayPhase {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void next() {
         d_gameEngineController.setPhase(new AssignReinforcements(d_gameEngineController));

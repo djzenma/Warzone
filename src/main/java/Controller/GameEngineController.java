@@ -6,6 +6,9 @@ import States.Phase;
 import View.GamePlayView;
 import View.MapView;
 
+/**
+ * Controller for the game engine
+ */
 public class GameEngineController {
     public final GamePlayView d_gamePlayView;
     public final GamePlayModel d_gamePlayModel;
@@ -14,6 +17,9 @@ public class GameEngineController {
 
     public Phase d_currentPhase;
 
+    /**
+     * Constructor to initialise data members
+     */
     public GameEngineController() {
         this.d_gamePlayView = new GamePlayView();
         this.d_gamePlayModel = new GamePlayModel();
@@ -21,10 +27,18 @@ public class GameEngineController {
         this.d_mapView = new MapView();
     }
 
+    /**
+     * Mutator for current phase
+     *
+     * @param p_currentPhase Current phase
+     */
     public void setPhase(Phase p_currentPhase) {
         this.d_currentPhase = p_currentPhase;
     }
 
+    /**
+     * Initial step to run the whole program
+     */
     public void run() {
         MapController l_mapController = new MapController(this);
         l_mapController.run();

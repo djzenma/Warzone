@@ -10,11 +10,20 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Maintains the log file of user inputs
+ * It is a subclass of Observer
+ */
 public class EventListener extends Observer {
     private HashMap<String, List<String>> d_args;
     private LogEntryBuffer d_logEntryBuffer;
     private PlayerModel d_currentPlayer;
 
+    /**
+     * Updates the log entry buffer
+     *
+     * @param p_observable Object of observable class
+     */
     @Override
     public void update(Observable p_observable) {
         d_logEntryBuffer = (LogEntryBuffer) p_observable;
@@ -24,7 +33,10 @@ public class EventListener extends Observer {
 
         String l_event = "\n" + d_logEntryBuffer.getPhase().toUpperCase() + "\n";
 
+        // Logs the game play phase
         if (d_logEntryBuffer.getPhase().equals("Game Play Phase")) {
+
+            // Logs the execution of orders in gameplay phase
             if (d_logEntryBuffer.getIsExec()) {
                 switch (d_args.get("cmd").get(0)) {
                     case "advance":
@@ -46,12 +58,16 @@ public class EventListener extends Observer {
                         l_event += d_currentPlayer.getName() + " negotiated with " + d_args.get("target_player").get(0);
                         break;
                 }
-            } else {
+            }
+
+            // Logs the issuing of orders in gameplay phase
+            else {
                 l_event += d_currentPlayer.getName() + " issued: " + String.join(" ", d_logEntryBuffer.getCommandArgs());
             }
-        } else if (d_logEntryBuffer.getPhase().equals("Startup Phase")) {
-            //l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
+        }
 
+        // Logs the startup phase
+        else if (d_logEntryBuffer.getPhase().equals("Startup Phase")) {
             switch (d_args.get("cmd").get(0)) {
                 case "loadmap":
                     l_event += d_logEntryBuffer.getCommandArgs()[1] + " is loaded";
@@ -77,9 +93,15 @@ public class EventListener extends Observer {
                     l_event += "Countries are assigned to the players";
                     break;
             }
-        } else if (d_logEntryBuffer.getPhase().equals("Issue Cards")) {
+        }
+
+        // Logs the issuance of cards
+        else if (d_logEntryBuffer.getPhase().equals("Issue Cards")) {
             l_event += d_currentPlayer.getName() + " obtained " + d_logEntryBuffer.getCardType() + "!!";
-        } else {
+        }
+
+        // Logs the map editor phase
+        else {
             switch (d_args.get("cmd").get(0)) {
                 case "showmap":
                     l_event += "Player entered showmap";
@@ -140,11 +162,15 @@ public class EventListener extends Observer {
                     break;
             }
         }
-
         createLogFile(l_event);
         System.out.println(l_event);
     }
 
+    /**
+     * Creates the text file for logs
+     *
+     * @param l_event log
+     */
     private void createLogFile(String l_event) {
         try (FileWriter l_logFile = new FileWriter("log/log.txt", true);
              BufferedWriter l_bWriter = new BufferedWriter(l_logFile);
