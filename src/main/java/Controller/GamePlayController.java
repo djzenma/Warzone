@@ -4,9 +4,10 @@ import States.GamePlayPhase;
 import Utils.CommandsParser;
 
 /**
+ * TODO: Is any info required?
  * Controls the game play phase
  * The table has the following information-
- * <ul> TODO: Is any info required?
+ * <ul>
  * <li>  </li>
  * </ul>
  */
