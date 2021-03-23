@@ -45,14 +45,15 @@ public class IssueOrder extends GamePlayPhase {
                 }
 
                 // if the command is showcards
-                if (CommandsParser.isShowCards(l_args)) {
+                else if (CommandsParser.isShowCards(l_args)) {
                     l_player.getView().showCards(l_player.getCards());
                 }
 
                 // if the command is an order
                 else {
+                    l_player.setCommand(l_args);
                     l_player.setPhase(d_gameEngineController.d_currentPhase);
-                    l_isValidOrder = l_player.issueOrder(l_args);
+                    l_isValidOrder = l_player.issueOrder();
                 }
             }
 
@@ -70,7 +71,7 @@ public class IssueOrder extends GamePlayPhase {
 
         // validate that the number of reinforcements is a valid number
         if (!l_args.get("reinforcements_num").get(0).matches("[-+]?[0-9]*\\.?[0-9]+")) {
-            p_player.getView().InvalidNumber(l_args);
+            p_player.getView().invalidNumber(l_args);
             return false;
         }
 
@@ -205,7 +206,7 @@ public class IssueOrder extends GamePlayPhase {
             return false;
         }
         if (!this.d_gameEngineController.d_gamePlayModel.getPlayers().containsKey(l_targetPlayerName)) {
-            p_player.getView().InvalidPlayer(l_targetPlayerName);
+            p_player.getView().invalidPlayer(l_targetPlayerName);
             return false;
         }
 

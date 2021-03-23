@@ -60,9 +60,11 @@ public class PlayerModelTest {
 
         d_PlayerModel = d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen");
         d_PlayerModel.setPhase(d_gameEngineController.d_currentPhase);
+        d_PlayerModel.setCommand(new String[]{"pass"});
+        assertFalse(d_PlayerModel.issueOrder());
 
-        assertFalse(d_PlayerModel.issueOrder(new String[]{"pass"}));
-        assertTrue(d_PlayerModel.issueOrder(new String[]{"deploy", "Comet-Tail", "44"}));
+        d_PlayerModel.setCommand(new String[]{"deploy", "Comet-Tail", "44"});
+        assertTrue(d_PlayerModel.issueOrder());
         assertEquals(2, d_PlayerModel.getReinforcements());
     }
 
@@ -79,8 +81,11 @@ public class PlayerModelTest {
 
         d_gameEngineController.setPhase(new IssueOrder(d_gameEngineController));
         d_PlayerModel.setPhase(d_gameEngineController.d_currentPhase);
-        assertTrue(d_PlayerModel.issueOrder(new String[]{l_orderName, l_country, "44"}));
-        assertTrue(d_PlayerModel.issueOrder(new String[]{l_orderName, l_country, "2"}));
+        d_PlayerModel.setCommand(new String[]{l_orderName, l_country, "44"});
+        assertTrue(d_PlayerModel.issueOrder());
+
+        d_PlayerModel.setCommand(new String[]{l_orderName, l_country, "2"});
+        assertTrue(d_PlayerModel.issueOrder());
 
         d_gameEngineController.setPhase(new ExecuteOrders(d_gameEngineController));
         l_nextOrder = (DeployModel) d_PlayerModel.nextOrder();

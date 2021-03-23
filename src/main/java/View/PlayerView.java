@@ -47,7 +47,7 @@ public class PlayerView {
      * Prints if the number of reinforcements are invalid
      * @param p_args
      */
-    public void InvalidNumber(HashMap<String, List<String>> p_args) {
+    public void invalidNumber(HashMap<String, List<String>> p_args) {
         reconstructDeploy(p_args);
         System.out.println("Please enter a valid number!");
     }
@@ -81,7 +81,7 @@ public class PlayerView {
         System.out.println("You can't add yourself as Negotiator");
     }
 
-    public void InvalidPlayer(String p_playerName) {
+    public void invalidPlayer(String p_playerName) {
         System.out.println(p_playerName + " does not exist!");
     }
 

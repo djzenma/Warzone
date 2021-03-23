@@ -24,9 +24,9 @@ public class PlayerModel extends Observable {
     private final HashMap<String, Integer> d_cards;
     private boolean d_eligibleForCard;
 
-    private final HashMap<String, CountryModel> d_allMapCountries;
-    private HashMap<String, PlayerModel> d_allGamePlayers;
     private Phase d_currentPhase;
+
+    private String[] d_args;
 
 
     /**
@@ -42,7 +42,6 @@ public class PlayerModel extends Observable {
         this.d_armies = new HashMap<>();
         this.d_myCountries = new HashMap<>();
         this.d_view = p_view;
-        this.d_allMapCountries = p_countries;
         this.d_activeNegotiators = new HashMap<>();
         this.d_cards = new HashMap<>();
         this.initiateCards();
@@ -62,8 +61,6 @@ public class PlayerModel extends Observable {
         this.d_armies = new HashMap<>();
         this.d_myCountries = new HashMap<>();
         this.d_view = p_view;
-        this.d_allMapCountries = p_countries;
-        this.d_allGamePlayers = p_players;
         this.d_activeNegotiators = new HashMap<>();
         this.d_cards = new HashMap<>();
         this.initiateCards();
@@ -250,31 +247,32 @@ public class PlayerModel extends Observable {
     /**
      * Player issues an order. In this various conditions are checked and the method is recursively called until user issues a valid order
      *
-     * @param p_args Arguments of the command
      * @return False if the order is invalid; Otherwise true
      */
-    public boolean issueOrder(String[] p_args) {
-        switch (p_args[0]) {
+    public boolean issueOrder() {
+        String[] l_args = this.d_args;
+
+        switch (l_args[0]) {
             case "pass":
                 return this.d_currentPhase.pass(this);
 
             case "advance":
-                return this.d_currentPhase.advance(p_args, this);
+                return this.d_currentPhase.advance(l_args, this);
 
             case "bomb":
-                return this.d_currentPhase.bomb(p_args, this);
+                return this.d_currentPhase.bomb(l_args, this);
 
             case "negotiate":
-                return this.d_currentPhase.negotiate(p_args, this);
+                return this.d_currentPhase.negotiate(l_args, this);
 
             case "deploy":
-                return this.d_currentPhase.deploy(p_args, this);
+                return this.d_currentPhase.deploy(l_args, this);
 
             case "blockade":
-                return this.d_currentPhase.blockade(p_args, this);
+                return this.d_currentPhase.blockade(l_args, this);
 
             case "airlift":
-                return this.d_currentPhase.airlift(p_args, this);
+                return this.d_currentPhase.airlift(l_args, this);
 
             default:
                 this.d_view.invalidOrder();
@@ -293,6 +291,9 @@ public class PlayerModel extends Observable {
         return l_order;
     }
 
+    /**
+     * Accessor for the view
+     */
     public PlayerView getView() {
         return this.d_view;
     }
@@ -340,7 +341,17 @@ public class PlayerModel extends Observable {
         return d_cards;
     }
 
+    /**
+     * Mutator for the current Phase
+     */
     public void setPhase(Phase p_currentPhase) {
         this.d_currentPhase = p_currentPhase;
+    }
+
+    /**
+     * Mutator for the command
+     */
+    public void setCommand(String[] p_args) {
+        this.d_args = p_args;
     }
 }
