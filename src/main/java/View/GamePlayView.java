@@ -260,4 +260,7 @@ public class GamePlayView {
         return l_args;
     }
 
+    public void invalidPlayerName() {
+        System.out.println("You can't add/remove neutral player.");
+    }
 }

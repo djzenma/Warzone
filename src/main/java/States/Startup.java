@@ -39,14 +39,24 @@ public class Startup extends GamePlayPhase {
 
         // add all the players specified in the command
         if (l_gameplayerArgs.get("add") != null) {
-            for (String l_player : l_gameplayerArgs.get("add"))     //TODO:: 10 Duplicate Players
-                this.d_gameEngineController.d_gamePlayModel.addPlayer(l_player);
+            //TODO:: 10 Duplicate Players
+            for (String l_player : l_gameplayerArgs.get("add")) {
+                if (l_player.equals("Neutral")) {
+                    this.d_gameEngineController.d_gamePlayView.invalidPlayerName();
+                } else {
+                    this.d_gameEngineController.d_gamePlayModel.addPlayer(l_player);
+                }
+            }
         }
 
         // remove all the players specified in the command
         if (l_gameplayerArgs.get("remove") != null) {
             for (String l_player : l_gameplayerArgs.get("remove"))
-                this.d_gameEngineController.d_gamePlayModel.removePlayer(l_player);
+                if (l_player.equals("Neutral")) {
+                    this.d_gameEngineController.d_gamePlayView.invalidPlayerName();
+                } else {
+                    this.d_gameEngineController.d_gamePlayModel.removePlayer(l_player);
+                }
         }
     }
 
@@ -58,6 +68,7 @@ public class Startup extends GamePlayPhase {
             return false;
         } else {
             this.d_gameEngineController.d_gamePlayModel.assignCountries();
+            this.d_gameEngineController.d_gamePlayModel.addPlayer("Neutral");
             return true;
         }
     }

@@ -350,7 +350,7 @@ public class PlayerModel extends Observable {
                     this.removeCard(p_args[0]);
                 }
 
-                l_order = new BlockadeModel(this,
+                l_order = new BlockadeModel(this, d_allGamePlayers.get("Neutral"),
                         this.d_allMapCountries.get(l_args.get("country_name").get(0)), p_args);
                 this.addOrder(l_order);
                 break;

@@ -47,6 +47,7 @@ public class BlockadeModelTest {
 
         d_blockadeModel = new BlockadeModel(
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
+                d_gameEngineController.d_gamePlayModel.getPlayers().get("Neutral"),
                 d_gameEngineController.d_mapModel.getCountries().get("Saturn-South"), new String[]{"blockade", "Saturn-South"});
 
         d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman").assignSpecificCard("blockade");

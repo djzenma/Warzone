@@ -160,6 +160,8 @@ public class GamePlayModel {
 
         // iterate over all the players
         for (PlayerModel l_player : this.d_players.values()) {
+            if (l_player.getName().equals("Neutral"))
+                continue;
             l_numberOfArmies = (int) Math.max(3, floor(l_player.getCountries().size() / 3.0));
 
             // iterate over all the continents
@@ -194,6 +196,8 @@ public class GamePlayModel {
         boolean l_end = true;
 
         for (PlayerModel l_player : this.d_players.values()) {
+            if (l_player.getName().equals("Neutral"))
+                continue;
             OrderModel l_order = l_player.nextOrder();
             if (l_order != null) {
                 l_order.execute(d_countries);

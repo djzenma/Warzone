@@ -15,6 +15,7 @@ import java.util.List;
 public class BlockadeModel extends OrderModel {
     CountryModel d_country;
     HashMap<String, List<String>> d_args;
+    PlayerModel d_neutralPlayer;
 
     /**
      * Constructor for the BlockadeModel
@@ -22,9 +23,9 @@ public class BlockadeModel extends OrderModel {
      * @param p_targetCountry      target country on which the armies have to be increased and neutralised
      * @param p_currentPlayerModel to initialise current player
      */
-    public BlockadeModel(PlayerModel p_currentPlayerModel, CountryModel p_targetCountry, String[] p_args) {
+    public BlockadeModel(PlayerModel p_currentPlayerModel, PlayerModel p_neutralPlayer, CountryModel p_targetCountry, String[] p_args) {
         super("blockade", p_currentPlayerModel, p_args);
-
+        this.d_neutralPlayer = p_neutralPlayer;
         this.d_country = p_targetCountry;
         this.d_args = CommandsParser.getArguments(p_args);
     }
@@ -44,14 +45,11 @@ public class BlockadeModel extends OrderModel {
 
         triggerEvent(true);
 
-        // create neutral player
-        PlayerModel d_neutralPlayer = new PlayerModel("Neutral", this.d_currentPlayer.getView(), p_countries);
-
         // triple the number of armies
         this.d_country.setArmies(this.d_country.getArmies() * 3);
 
         // set the owner to be neutral
-        this.d_country.setOwner(d_neutralPlayer);
+        this.d_country.setOwner(this.d_neutralPlayer);
 
         d_neutralPlayer.addCountry(this.d_country);
         this.d_currentPlayer.removeCountry(this.d_country);

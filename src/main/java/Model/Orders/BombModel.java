@@ -52,15 +52,15 @@ public class BombModel extends OrderModel {
         this.d_sourceCountries = this.d_playerModel.getCountries();
 
         //Checks if source and target countries are same ot not
-        for (int l_i = 0; l_i < d_sourceCountries.size(); l_i++) {
-            if (this.d_sourceCountries.get(l_i).getName().equals(this.d_targetCountry.getName())) {
+        for (CountryModel d_sourceCountry : d_sourceCountries) {
+            if (d_sourceCountry.getName().equals(this.d_targetCountry.getName())) {
                 return false;
             }
         }
 
         //Checks if the target country is a neighbor and reduces its army to half
-        for (int l_j = 0; l_j < d_sourceCountries.size(); l_j++) {
-            if (this.d_sourceCountries.get(l_j).getNeighbors().containsKey(this.d_targetCountry.getName())) {
+        for (CountryModel d_sourceCountry : d_sourceCountries) {
+            if (d_sourceCountry.getNeighbors().containsKey(this.d_targetCountry.getName())) {
                 this.d_targetCountry.setArmies((int) Math.floor(this.d_targetCountry.getArmies() / 2));
                 triggerEvent(true);
                 return true;
