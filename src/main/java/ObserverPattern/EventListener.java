@@ -22,8 +22,7 @@ public class EventListener extends Observer {
             d_args = CommandsParser.getArguments(d_logEntryBuffer.getCommandArgs());
         d_currentPlayer = d_logEntryBuffer.getCurrentPlayer();
 
-        String l_event = "\n" + d_logEntryBuffer.getPhase() + "\n";
-
+        String l_event = "\n" + d_logEntryBuffer.getPhase().toUpperCase() + "\n";
 
         if (d_logEntryBuffer.getPhase().equals("Game Play Phase")) {
             if (d_logEntryBuffer.getIsExec()) {
@@ -51,7 +50,30 @@ public class EventListener extends Observer {
                 l_event += d_currentPlayer.getName() + " issued: " + String.join(" ", d_logEntryBuffer.getCommandArgs());
             }
         } else if (d_logEntryBuffer.getPhase().equals("Startup Phase")) {
-            l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
+            //l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
+
+            switch (d_args.get("cmd").get(0)) {
+                case "loadmap":
+                    l_event += d_logEntryBuffer.getCommandArgs()[1] + " is loaded";
+                    break;
+                case "gameplayer":
+                    if (d_args.get("add") != null) {
+                        l_event += "Player(s) added:";
+                        for (String l_player : d_args.get("add")) {
+                            l_event += " " + l_player;
+                        }
+                    }
+                    if (d_args.get("remove") != null) {
+                        l_event += "Player(s) removed:";
+                        for (String l_player : d_args.get("remove")) {
+                            l_event += " " + l_player;
+                        }
+                    }
+                    break;
+                case "assigncountries":
+                    l_event += "Countries are assigned to the players";
+                    break;
+            }
         } else if (d_logEntryBuffer.getPhase().equals("Issue Cards")) {
             l_event += d_currentPlayer.getName() + " obtained " + d_logEntryBuffer.getCardType() + "!!";
         } else {
