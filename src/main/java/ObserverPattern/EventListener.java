@@ -56,6 +56,9 @@ public class EventListener extends Observer {
                 case "loadmap":
                     l_event += d_logEntryBuffer.getCommandArgs()[1] + " is loaded";
                     break;
+                case "showmap":
+                    l_event += "Player entered showmap";
+                    break;
                 case "gameplayer":
                     if (d_args.get("add") != null) {
                         l_event += "Player(s) added:";
@@ -77,7 +80,65 @@ public class EventListener extends Observer {
         } else if (d_logEntryBuffer.getPhase().equals("Issue Cards")) {
             l_event += d_currentPlayer.getName() + " obtained " + d_logEntryBuffer.getCardType() + "!!";
         } else {
-            l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
+            switch (d_args.get("cmd").get(0)) {
+                case "showmap":
+                    l_event += "Player entered showmap";
+                    break;
+                case "editcontinent":
+                    if (d_args.get("add") != null) {
+                        l_event += "Continent(s) added:";
+                        for (String l_continent : d_args.get("add")) {
+                            l_event += " " + l_continent;
+                        }
+                    }
+                    if (d_args.get("remove") != null) {
+                        l_event += "Continent(s) removed:";
+                        for (String l_continent : d_args.get("remove")) {
+                            l_event += " " + l_continent;
+                        }
+                    }
+                    break;
+                case "editcountry":
+                    if (d_args.get("add") != null) {
+                        l_event += "Country(s) added:";
+                        for (String l_country : d_args.get("add")) {
+                            l_event += " " + l_country;
+                        }
+                    }
+                    if (d_args.get("remove") != null) {
+                        l_event += "Country(s) removed:";
+                        for (String l_country : d_args.get("remove")) {
+                            l_event += " " + l_country;
+                        }
+                    }
+                    break;
+                case "editneighbor":
+                    if (d_args.get("add") != null) {
+                        l_event += "Neighbor(s) added:";
+                        for (String l_neighbor : d_args.get("add")) {
+                            l_event += " " + l_neighbor;
+                        }
+                    }
+                    if (d_args.get("remove") != null) {
+                        l_event += "Neighbor(s) removed:";
+                        for (String l_neighbor : d_args.get("remove")) {
+                            l_event += " " + l_neighbor;
+                        }
+                    }
+                    break;
+                case "savemap":
+                    l_event += d_logEntryBuffer.getCommandArgs()[1] + " is saved";
+                    break;
+                case "editmap":
+                    l_event += d_logEntryBuffer.getCommandArgs()[1] + " is loaded/created";
+                    break;
+                case "validatemap":
+                    l_event += "Player asked to validate the map";
+                    break;
+                default:
+                    l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
+                    break;
+            }
         }
 
         createLogFile(l_event);
