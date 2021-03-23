@@ -21,6 +21,7 @@ public class AirliftModelTest {
         d_gameEngineController.d_gamePlayModel.addPlayer("Mazen");
         d_gameEngineController.d_gamePlayModel.addPlayer("Aman");
         d_gameEngineController.d_currentPhase.assignCountries();
+        d_gameEngineController.d_gamePlayModel.assignReinforcements();
 
         DeployModel l_deployModel_1 = new DeployModel(
                 new String[]{"deploy", "Venus-North", "46"},

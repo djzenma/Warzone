@@ -28,6 +28,7 @@ public class BombModelTest {
         d_gameEngineController.d_gamePlayModel.addPlayer("Aman");
         d_gameEngineController.d_gamePlayModel.addPlayer("Mazen");
         d_gameEngineController.d_currentPhase.assignCountries();
+        d_gameEngineController.d_gamePlayModel.assignReinforcements();
 
         DeployModel d_deployModel_1 = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "30"},
@@ -49,7 +50,7 @@ public class BombModelTest {
      * Test the bomb on the true scenario set up
      */
     @Test
-    public void executeTrue() {
+    public void succeedingScenario() {
         d_bombModel = new BombModel(
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_mapModel.getCountries().get("Venus-North"),
@@ -62,7 +63,7 @@ public class BombModelTest {
      * Test the bomb on the false scenario set up
      */
     @Test
-    public void executeFalse() {
+    public void failingScenario() {
         d_bombModel = new BombModel(
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_mapModel.getCountries().get("Saturn-South"),

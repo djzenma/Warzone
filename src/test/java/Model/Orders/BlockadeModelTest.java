@@ -33,6 +33,7 @@ public class BlockadeModelTest {
         d_gameEngineController.d_gamePlayModel.addPlayer("Aman");
         d_gameEngineController.d_gamePlayModel.addPlayer("Mazen");
         d_gameEngineController.d_currentPhase.assignCountries();
+        d_gameEngineController.d_gamePlayModel.assignReinforcements();
 
 
         DeployModel d_deployModel_1 = new DeployModel(

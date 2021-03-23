@@ -67,6 +67,15 @@ public class DeployModel extends OrderModel {
             return false; // impossible command
         }
 
+        // handle if the player has enough reinforcements to deploy
+        int l_currentReinforcements = d_currentPlayer.getReinforcements();
+        int l_requestedReinforcements = Integer.parseInt(d_args.get("reinforcements_num").get(0));
+
+        if (l_requestedReinforcements > l_currentReinforcements) {
+            d_currentPlayer.getView().NotEnoughReinforcements(d_args, d_currentPlayer.getReinforcements());
+            return false; // impossible command
+        }
+
         triggerEvent(true);
 
         //deploys the army and add them.
