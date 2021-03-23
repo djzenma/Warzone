@@ -6,12 +6,18 @@ import Utils.MapUtils;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ *
+ */
 public class PreLoad extends MapEditor {
-
     public PreLoad(GameEngineController p_gameEngineController) {
         super(p_gameEngineController);
     }
 
+    /**
+     * @param l_args
+     * @throws Exception
+     */
     @Override
     public void editMap(String[] l_args) throws Exception {
         triggerEvent(l_args, "Map Editor Phase");
@@ -30,6 +36,9 @@ public class PreLoad extends MapEditor {
         this.next();
     }
 
+    /**
+     *
+     */
     @Override
     public void next() {
         d_gameEngineController.setPhase(new PostLoad(d_gameEngineController));
