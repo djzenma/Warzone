@@ -73,7 +73,6 @@ public class GamePlayController {
                     this.d_gameEngineController.d_gamePlayView.isMapEditorCommand();
                 }
             } catch (Exception l_e) {
-                l_e.printStackTrace();
                 this.d_gameEngineController.d_gamePlayView.exception(l_e.getMessage());
             }
         }

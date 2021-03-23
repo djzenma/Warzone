@@ -35,6 +35,8 @@ public class AirliftModelTest {
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman").getView());
 
         l_deployModel_2.execute(d_gameEngineController.d_mapModel.getCountries());
+
+        d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").assignSpecificCard("airlift");
     }
 
     @Test
@@ -61,6 +63,7 @@ public class AirliftModelTest {
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen"),
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getView(),
                 new String[]{"airlift", "Venus-North", "Saturn-South", "20"});
+
 
         assertFalse(d_airliftModel.execute(d_gameEngineController.d_mapModel.getCountries()));
         assertEquals(30, d_gameEngineController.d_mapModel.getCountries().get("Saturn-South").getArmies());

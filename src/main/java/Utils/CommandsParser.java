@@ -240,4 +240,7 @@ public class CommandsParser {
         return l_args[0].equals(d_commands.d_commandNames.d_deploy);
     }
 
+    public static boolean isShowCards(String[] l_args) {
+        return l_args[0].equals(d_commands.d_commandNames.d_showcards);
+    }
 }

@@ -81,7 +81,6 @@ public abstract class Phase extends Observable {
         return false;
     }
 
-
     public void loadMap(String[] l_args) throws Exception {
         printInvalidCommandMessage();
     }
@@ -89,6 +88,7 @@ public abstract class Phase extends Observable {
     public void gameplayer(String[] l_args) throws Exception {
         printInvalidCommandMessage();
     }
+
 
     public boolean assignCountries() {
         printInvalidCommandMessage();

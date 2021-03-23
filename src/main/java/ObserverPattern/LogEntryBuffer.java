@@ -3,8 +3,9 @@ package ObserverPattern;
 import Model.PlayerModel;
 
 public class LogEntryBuffer extends Observable {
-    private final String[] d_commandArgs;
-    private PlayerModel d_currentPlayer = null;
+    private String[] d_commandArgs = null;
+    private PlayerModel d_currentPlayer;
+    private String d_cardType = null;
     private final String d_phase;
     private boolean d_isExec = false;
 
@@ -18,6 +19,12 @@ public class LogEntryBuffer extends Observable {
         this.d_currentPlayer = p_currentPlayer;
         this.d_phase = p_phase;
         this.d_isExec = p_isExec;
+    }
+
+    public LogEntryBuffer(PlayerModel p_currentPlayer, String p_cardType, String p_phase) {
+        this.d_currentPlayer = p_currentPlayer;
+        this.d_cardType = p_cardType;
+        this.d_phase = p_phase;
     }
 
     public String[] getCommandArgs() {
@@ -34,5 +41,9 @@ public class LogEntryBuffer extends Observable {
 
     public boolean getIsExec() {
         return this.d_isExec;
+    }
+
+    public String getCardType() {
+        return d_cardType;
     }
 }

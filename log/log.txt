@@ -1,0 +1,1011 @@
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Venus-North
+
+Game Play Phase
+Aman bombed Venus-North
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Adeetya issued: deploy Venus-North 46
+
+Game Play Phase
+Adeetya deployed 46 armies on Venus-North
+
+Game Play Phase
+Mazen issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen deployed 30 armies on Saturn-South
+
+Game Play Phase
+Adeetya issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+Adeetya advanced 46 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Saturn-South 20
+
+Game Play Phase
+Mazen airlifted 20 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Comet-Head 20
+
+Game Play Phase
+Mazen airlifted 20 armies from Venus-North to Comet-Head
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: blockade Saturn-South
+
+Game Play Phase
+Aman blockaded Saturn-South
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Game Play Phase
+Mazen issued: deploy canada8 1
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Venus-North
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Adeetya issued: deploy Venus-North 46
+
+Game Play Phase
+Adeetya deployed 46 armies on Venus-North
+
+Game Play Phase
+Mazen issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen deployed 30 armies on Saturn-South
+
+Game Play Phase
+Adeetya issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+Adeetya advanced 46 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Saturn-South 20
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Comet-Head 20
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: blockade Saturn-South
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Game Play Phase
+Mazen issued: deploy canada8 1
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Venus-North
+
+Game Play Phase
+Aman bombed Venus-North
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Adeetya issued: deploy Venus-North 46
+
+Game Play Phase
+Adeetya deployed 46 armies on Venus-North
+
+Game Play Phase
+Mazen issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen deployed 30 armies on Saturn-South
+
+Game Play Phase
+Adeetya issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+Adeetya advanced 46 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Saturn-South 20
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Comet-Head 20
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: blockade Saturn-South
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Game Play Phase
+Mazen issued: deploy canada8 1
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Venus-North
+
+Game Play Phase
+Aman bombed Venus-North
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Adeetya issued: deploy Venus-North 46
+
+Game Play Phase
+Adeetya deployed 46 armies on Venus-North
+
+Game Play Phase
+Mazen issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen deployed 30 armies on Saturn-South
+
+Game Play Phase
+Adeetya issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+Adeetya advanced 46 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Saturn-South 20
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Comet-Head 20
+
+Game Play Phase
+Mazen airlifted 20 armies from Venus-North to Comet-Head
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: blockade Saturn-South
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Game Play Phase
+Mazen issued: deploy canada8 1
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Venus-North
+
+Game Play Phase
+Aman bombed Venus-North
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Adeetya issued: deploy Venus-North 46
+
+Game Play Phase
+Adeetya deployed 46 armies on Venus-North
+
+Game Play Phase
+Mazen issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen deployed 30 armies on Saturn-South
+
+Game Play Phase
+Adeetya issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+Adeetya advanced 46 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Saturn-South 20
+
+Game Play Phase
+Mazen airlifted 20 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Comet-Head 20
+
+Game Play Phase
+Mazen airlifted 20 armies from Venus-North to Comet-Head
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: blockade Saturn-South
+
+Game Play Phase
+Aman blockaded Saturn-South
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Game Play Phase
+Mazen issued: deploy canada8 1
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+gameplayer add Adeetya add Prachi
+
+Startup Phase
+assigncountries
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+gameplayer add Adeetya add Prachi
+
+Startup Phase
+assigncountries
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+gameplayer add AAA add BBB
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+AAA issued: deploy Venus-North 46
+
+Game Play Phase
+BBB issued: deploy Saturn-South 30
+
+Game Play Phase
+AAA issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+AAA deployed 46 armies on Venus-North
+
+Game Play Phase
+BBB deployed 30 armies on Saturn-South
+
+Game Play Phase
+AAA advanced 46 armies from Venus-North to Saturn-South
+
+Game Play Phase
+AAA issued: deploy Venus-North 46
+
+Game Play Phase
+BBB issued: deploy Jupiter-East 30
+
+Game Play Phase
+AAA issued: advance Venus-North Saturn-South 10
+
+Game Play Phase
+AAA deployed 46 armies on Venus-North
+
+Game Play Phase
+BBB deployed 30 armies on Jupiter-East
+
+Game Play Phase
+AAA advanced 10 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+gameplayer add aa add bb
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+aa issued: deploy Venus-North 46
+
+Game Play Phase
+bb issued: deploy Saturn-South 25
+
+Game Play Phase
+aa issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+bb issued: deploy Jupiter-East 5
+
+Game Play Phase
+aa deployed 46 armies on Venus-North
+
+Game Play Phase
+bb deployed 25 armies on Saturn-South
+
+Game Play Phase
+aa advanced 46 armies from Venus-North to Saturn-South
+
+Game Play Phase
+bb deployed 5 armies on Jupiter-East
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+gameplayer add AA add BB
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+AA issued: deploy Venus-North 46
+
+Game Play Phase
+BB issued: deploy Saturn-South 25
+
+Game Play Phase
+AA issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+BB issued: deploy Jupiter-East 5
+
+Game Play Phase
+AA deployed 46 armies on Venus-North
+
+Game Play Phase
+BB deployed 25 armies on Saturn-South
+
+Game Play Phase
+AA advanced 46 armies from Venus-North to Saturn-South
+
+Game Play Phase
+BB deployed 5 armies on Jupiter-East
+
+Issue Cards
+AA obtained bomb!!
+
+Game Play Phase
+AA issued: bomb Saturn-North
+
+Game Play Phase
+BB issued: deploy Saturn-North 22
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: bomb Venus-North
+
+Game Play Phase
+Aman bombed Venus-North
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Adeetya issued: deploy Venus-North 46
+
+Game Play Phase
+Adeetya deployed 46 armies on Venus-North
+
+Game Play Phase
+Mazen issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen deployed 30 armies on Saturn-South
+
+Game Play Phase
+Adeetya issued: advance Venus-North Saturn-South 46
+
+Game Play Phase
+Adeetya advanced 46 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Saturn-South 20
+
+Game Play Phase
+Mazen airlifted 20 armies from Venus-North to Saturn-South
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen issued: airlift Venus-North Comet-Head 20
+
+Game Play Phase
+Mazen airlifted 20 armies from Venus-North to Comet-Head
+
+Startup Phase
+loadmap solar.map
+
+Startup Phase
+assigncountries
+
+Game Play Phase
+Aman issued: deploy Saturn-South 30
+
+Game Play Phase
+Mazen issued: deploy Venus-North 46
+
+Game Play Phase
+Aman deployed 30 armies on Saturn-South
+
+Game Play Phase
+Mazen deployed 46 armies on Venus-North
+
+Game Play Phase
+Aman issued: blockade Saturn-South
+
+Game Play Phase
+Aman blockaded Saturn-South
+
+Game Play Phase
+Mazen issued: deploy canada8 10
+
+Game Play Phase
+Mazen issued: deploy canada8 1
+
+Game Play Phase
+Mazen issued: deploy canada8 10

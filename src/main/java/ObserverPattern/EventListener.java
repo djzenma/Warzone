@@ -18,10 +18,12 @@ public class EventListener extends Observer {
     @Override
     public void update(Observable p_observable) {
         d_logEntryBuffer = (LogEntryBuffer) p_observable;
-        d_args = CommandsParser.getArguments(d_logEntryBuffer.getCommandArgs());
+        if (d_logEntryBuffer.getCommandArgs() != null)
+            d_args = CommandsParser.getArguments(d_logEntryBuffer.getCommandArgs());
         d_currentPlayer = d_logEntryBuffer.getCurrentPlayer();
 
         String l_event = "\n" + d_logEntryBuffer.getPhase() + "\n";
+
 
         if (d_logEntryBuffer.getPhase().equals("Game Play Phase")) {
             if (d_logEntryBuffer.getIsExec()) {
@@ -50,6 +52,8 @@ public class EventListener extends Observer {
             }
         } else if (d_logEntryBuffer.getPhase().equals("Startup Phase")) {
             l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
+        } else if (d_logEntryBuffer.getPhase().equals("Issue Cards")) {
+            l_event += d_currentPlayer.getName() + " obtained " + d_logEntryBuffer.getCardType() + "!!";
         } else {
             l_event += String.join(" ", d_logEntryBuffer.getCommandArgs());
         }
@@ -68,5 +72,4 @@ public class EventListener extends Observer {
             l_e.printStackTrace();
         }
     }
-
 }

@@ -135,4 +135,10 @@ public class CommandNames {
      */
     @SerializedName(value = "negotiate")
     public String d_negotiate;
+
+    /**
+     * Name of the command
+     */
+    @SerializedName(value = "showcards")
+    public String d_showcards;
 }

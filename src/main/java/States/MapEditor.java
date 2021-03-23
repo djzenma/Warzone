@@ -70,7 +70,6 @@ public class MapEditor extends Phase {
         } catch (Exception l_e) {
             System.out.println(l_mapFile.getName() + " file follows different format than supported map files.");
             l_mapFile.delete();
-            System.out.println(l_e.toString());
             String[] l_allFileNames = MapUtils.getAllAvailableFileNames();
             d_gameEngineController.d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
             return null;

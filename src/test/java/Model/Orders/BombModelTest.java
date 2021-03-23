@@ -41,6 +41,8 @@ public class BombModelTest {
 
         d_deployModel_1.execute(d_gameEngineController.d_mapModel.getCountries());
         d_deployModel_2.execute(d_gameEngineController.d_mapModel.getCountries());
+
+        d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman").assignSpecificCard("bomb");
     }
 
     /**
@@ -52,7 +54,6 @@ public class BombModelTest {
                 d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman"),
                 d_gameEngineController.d_mapModel.getCountries().get("Venus-North"),
                 new String[]{"bomb", "Venus-North"});
-
         assertTrue(d_bombModel.execute(d_gameEngineController.d_mapModel.getCountries()));
         assertEquals(23, d_gameEngineController.d_mapModel.getCountries().get("Venus-North").getArmies());
     }

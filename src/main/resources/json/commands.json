@@ -192,8 +192,13 @@
           "name": "target_player"
         }
       ]
+    },
+    {
+      "name": "showcards",
+      "args": []
     }
   ],
+
   "commandNames": {
     "listmaps": "listmaps",
     "editcontinent": "editcontinent",
@@ -216,7 +221,8 @@
     "airlift": "airlift",
     "bomb": "bomb",
     "blockade": "blockade",
-    "negotiate": "negotiate"
+    "negotiate": "negotiate",
+    "showcards": "showcards"
   }
 }
 

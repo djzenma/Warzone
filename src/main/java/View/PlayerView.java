@@ -92,4 +92,15 @@ public class PlayerView {
     public void invalidCountry(String p_countryName) {
         System.out.println(p_countryName + " does not exist on the map!");
     }
+
+    public void showCards(HashMap<String, Integer> p_cards) {
+        System.out.println("You have following Cards: \n");
+        for (String l_cardType : p_cards.keySet()) {
+            System.out.println(l_cardType + ": " + p_cards.get(l_cardType));
+        }
+    }
+
+    public void noCardAvailable() {
+        System.out.println("You don't have a card to issue this order.");
+    }
 }

@@ -112,6 +112,7 @@ public class AdvanceModel extends OrderModel {
             this.getCurrentPlayer().addCountry(this.d_targetCountry);
             this.d_targetCountry.getOwner().removeCountry(d_targetCountry);
             this.d_targetCountry.setOwner(this.d_currentPlayer);
+            this.d_currentPlayer.setEligibleForCard(true);
         }
         // attacker failed to conquer
         else {

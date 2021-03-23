@@ -1,6 +1,7 @@
 package Model;
 
 import Model.Orders.*;
+import ObserverPattern.Observable;
 import Utils.CommandsParser;
 import View.PlayerView;
 
@@ -11,7 +12,7 @@ import java.util.*;
  * Maintains the HashMap of the countries, the reinforcements it owns for the current turn
  * and the armies that this player owns in each country
  */
-public class PlayerModel {
+public class PlayerModel extends Observable {
     private final PlayerView d_view;
 
     private String d_name;
@@ -21,6 +22,8 @@ public class PlayerModel {
     private final HashMap<Integer, Integer> d_armies;
     private final Queue<OrderModel> d_orderList;
     private final HashMap<String, PlayerModel> d_activeNegotiators;
+    private final HashMap<String, Integer> d_cards;
+    private boolean d_eligibleForCard;
 
     private final HashMap<String, CountryModel> d_allMapCountries;
     private HashMap<String, PlayerModel> d_allGamePlayers;
@@ -41,6 +44,9 @@ public class PlayerModel {
         this.d_view = p_view;
         this.d_allMapCountries = p_countries;
         this.d_activeNegotiators = new HashMap<>();
+        this.d_cards = new HashMap<>();
+        this.initiateCards();
+        this.d_eligibleForCard = false;
     }
 
     /**
@@ -59,8 +65,48 @@ public class PlayerModel {
         this.d_allMapCountries = p_countries;
         this.d_allGamePlayers = p_players;
         this.d_activeNegotiators = new HashMap<>();
+        this.d_cards = new HashMap<>();
+        this.initiateCards();
+        this.d_eligibleForCard = false;
     }
 
+    /**
+     * Initiates cards for player
+     */
+    private void initiateCards() {
+        this.d_cards.put("bomb", 0);
+        this.d_cards.put("blockade", 0);
+        this.d_cards.put("airlift", 0);
+        this.d_cards.put("negotiate", 0);
+    }
+
+    /**
+     * Accesses the number of cards player has given the type of a card
+     *
+     * @param p_cardType Type of a card
+     * @return Number od cards of a particular type
+     */
+    public int noOfCards(String p_cardType) {
+        return d_cards.get(p_cardType);
+    }
+
+    /**
+     * Accessor for the eligibility of receiving card
+     *
+     * @return True, if eligible; false otherwise.
+     */
+    public boolean isEligibleForCard() {
+        return d_eligibleForCard;
+    }
+
+    /**
+     * Mutator for the name of the eligibility of receiving card
+     *
+     * @param p_eligibleForCard eligibility of obtaining a card
+     */
+    public void setEligibleForCard(boolean p_eligibleForCard) {
+        this.d_eligibleForCard = p_eligibleForCard;
+    }
 
     /**
      * Accessor for the active negotiators
@@ -238,11 +284,29 @@ public class PlayerModel {
                 this.addOrder(l_order);
                 break;
             case "bomb":
+
+                // check if the player has a card to issue this order
+                if (this.noOfCards(p_args[0]) == 0) {
+                    d_view.noCardAvailable();
+                    return false;
+                } else {
+                    this.removeCard(p_args[0]);
+                }
+
                 // if(this.d_orderList.contains(new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view))) {
                 l_order = new BombModel(this, this.d_allMapCountries.get(l_args.get("target_country").get(0)), p_args);
                 this.addOrder(l_order);
                 break;
             case "negotiate":
+
+                // check if the player has a card to issue this order
+                if (this.noOfCards(p_args[0]) == 0) {
+                    d_view.noCardAvailable();
+                    return false;
+                } else {
+                    this.removeCard(p_args[0]);
+                }
+
                 String l_targetPlayerName = CommandsParser.getArguments(p_args).get("target_player").get(0);
                 if (l_targetPlayerName.equals(this.d_name)) {
                     this.d_view.selfNegotiationNotPossible();
@@ -277,11 +341,29 @@ public class PlayerModel {
                 this.setReinforcements(this.getReinforcements() - (int) (Float.parseFloat(CommandsParser.getArguments(p_args).get("reinforcements_num").get(0))));
                 break;
             case "blockade":
+
+                // check if the player has a card to issue this order
+                if (this.noOfCards(p_args[0]) == 0) {
+                    d_view.noCardAvailable();
+                    return false;
+                } else {
+                    this.removeCard(p_args[0]);
+                }
+
                 l_order = new BlockadeModel(this,
                         this.d_allMapCountries.get(l_args.get("country_name").get(0)), p_args);
                 this.addOrder(l_order);
                 break;
             case "airlift":
+
+                // check if the player has a card to issue this order
+                if (this.noOfCards(p_args[0]) == 0) {
+                    d_view.noCardAvailable();
+                    return false;
+                } else {
+                    this.removeCard(p_args[0]);
+                }
+
                 if (!this.d_allMapCountries.containsKey(l_args.get("country_name_from").get(0))) {
                     this.d_view.invalidCountry(l_args.get("country_name_from").get(0));
                     return false;
@@ -316,5 +398,48 @@ public class PlayerModel {
 
     public PlayerView getView() {
         return this.d_view;
+    }
+
+    /**
+     * Assigns a randomly generated card if the player is eligible to get one
+     */
+    public String assignCards() {
+        if (this.d_eligibleForCard) {
+            Random l_cardGenerator = new Random();
+            Object[] l_cardNames = this.d_cards.keySet().toArray();
+            String l_cardName = (String) l_cardNames[l_cardGenerator.nextInt(l_cardNames.length)];
+            this.d_cards.put(l_cardName, this.d_cards.get(l_cardName) + 1);
+            this.d_eligibleForCard = false;
+            return l_cardName;
+        }
+        return null;
+    }
+
+    /**
+     * Removes the specific type of card after using it
+     *
+     * @param p_cardType Type of card
+     */
+    public void removeCard(String p_cardType) {
+        if (this.d_cards.get(p_cardType) > 0)
+            this.d_cards.put(p_cardType, this.d_cards.get(p_cardType) - 1);
+    }
+
+    /**
+     * Assigns a specific cards for testing purposes
+     *
+     * @param p_cardType Type of card
+     */
+    public void assignSpecificCard(String p_cardType) {
+        this.d_cards.put(p_cardType, this.d_cards.get(p_cardType) + 1);
+    }
+
+    /**
+     * Accessor for the cards
+     *
+     * @return Cards
+     */
+    public HashMap<String, Integer> getCards() {
+        return d_cards;
     }
 }

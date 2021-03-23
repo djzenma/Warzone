@@ -13,7 +13,7 @@ import java.util.List;
  * Every new order will implement the abstract execute method
  */
 public abstract class OrderModel extends Observable {
-    private final String d_cmdName;
+    protected final String d_cmdName;
     private String d_countryName;
     private int d_numReinforcements;
     protected PlayerModel d_currentPlayer;
