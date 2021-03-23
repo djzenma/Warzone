@@ -44,7 +44,11 @@ public class Startup extends GamePlayPhase {
                 if (l_player.equals("Neutral")) {
                     this.d_gameEngineController.d_gamePlayView.invalidPlayerName();
                 } else {
-                    this.d_gameEngineController.d_gamePlayModel.addPlayer(l_player);
+                    if (this.d_gameEngineController.d_gamePlayModel.getPlayers().containsKey(l_player)) {
+                        this.d_gameEngineController.d_gamePlayView.duplicatePlayer(l_player);
+                    } else {
+                        this.d_gameEngineController.d_gamePlayModel.addPlayer(l_player);
+                    }
                 }
             }
         }
@@ -55,7 +59,11 @@ public class Startup extends GamePlayPhase {
                 if (l_player.equals("Neutral")) {
                     this.d_gameEngineController.d_gamePlayView.invalidPlayerName();
                 } else {
-                    this.d_gameEngineController.d_gamePlayModel.removePlayer(l_player);
+                    if (!this.d_gameEngineController.d_gamePlayModel.getPlayers().containsKey(l_player)) {
+                        this.d_gameEngineController.d_gamePlayView.noPlayerFound(l_player);
+                    } else {
+                        this.d_gameEngineController.d_gamePlayModel.removePlayer(l_player);
+                    }
                 }
         }
     }

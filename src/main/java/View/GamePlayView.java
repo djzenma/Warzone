@@ -263,4 +263,12 @@ public class GamePlayView {
     public void invalidPlayerName() {
         System.out.println("You can't add/remove neutral player.");
     }
+
+    public void duplicatePlayer(String l_player) {
+        System.out.println(l_player + "is already in the game, can't add again.");
+    }
+
+    public void noPlayerFound(String l_player) {
+        System.out.println(l_player + "is not in the game, hence can't be removed");
+    }
 }
