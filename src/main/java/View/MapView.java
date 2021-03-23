@@ -202,12 +202,16 @@ public class MapView {
      */
     public void showMap(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
 
-        if (p_continents.size() == 0 || p_countries.size() == 0) {
+        if (p_continents.size() == 0 && p_countries.size() == 0) {
             System.out.println("The Map File is Empty!");
             return;
         }
-        this.showContinents(p_continents);
-        this.showCountries(p_continents, p_countries);
+
+        if (p_continents.size() > 0)
+            this.showContinents(p_continents);
+
+        if (p_countries.size() > 0)
+            this.showCountries(p_continents, p_countries);
     }
 
     /**
