@@ -1,13 +1,14 @@
 package Model;
 
+import Controller.GameEngineController;
 import Model.Orders.DeployModel;
+import States.ExecuteOrders;
+import States.IssueOrder;
+import States.Startup;
 import Utils.CommandsParser;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
@@ -16,7 +17,7 @@ import static org.junit.Assert.*;
  */
 public class PlayerModelTest {
     private static PlayerModel d_PlayerModel;
-    private static GamePlayModel d_GameEngine;
+    private static GameEngineController d_gameEngineController;
 
     /**
      * Initializes the Commands Parser
@@ -31,69 +32,21 @@ public class PlayerModelTest {
      */
     @Before
     public void beforeEach() {
+        d_gameEngineController = new GameEngineController();
+        d_gameEngineController.setPhase(new Startup(d_gameEngineController));
+        try {
+            d_gameEngineController.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
 
-        // set up the continents and countries and game engine
-        HashMap<String, CountryModel> l_countries = new HashMap<>();
-        ArrayList<ContinentModel> l_continents = new ArrayList<>();
+            // add the players
+            d_gameEngineController.d_gamePlayModel.addPlayer("Mazen");
+            d_gameEngineController.d_gamePlayModel.addPlayer("Aman");
 
-        CountryModel l_a = new CountryModel(1, "India");
-        CountryModel l_b = new CountryModel(2, "Egypt");
-        CountryModel l_c = new CountryModel(3, "Canada");
-        CountryModel l_d = new CountryModel(4, "Canada1");
-        CountryModel l_e = new CountryModel(5, "Canada2");
-        CountryModel l_f = new CountryModel(6, "Canada3");
-        CountryModel l_g = new CountryModel(7, "Canada4");
-        CountryModel l_h = new CountryModel(8, "Canada5");
-        CountryModel l_i = new CountryModel(9, "Canada6");
-        CountryModel l_j = new CountryModel(10, "Canada7");
-        CountryModel l_k = new CountryModel(11, "Canada8");
-        CountryModel l_l = new CountryModel(12, "Canada9");
-
-        l_countries.put(l_a.getName(), l_a);
-        l_countries.put(l_b.getName(), l_b);
-        l_countries.put(l_c.getName(), l_c);
-        l_countries.put(l_d.getName(), l_d);
-        l_countries.put(l_e.getName(), l_e);
-        l_countries.put(l_f.getName(), l_f);
-        l_countries.put(l_g.getName(), l_g);
-        l_countries.put(l_h.getName(), l_h);
-        l_countries.put(l_i.getName(), l_i);
-        l_countries.put(l_j.getName(), l_j);
-        l_countries.put(l_k.getName(), l_k);
-        l_countries.put(l_l.getName(), l_l);
-
-        ContinentModel l_c1 = new ContinentModel("Asia", 7);
-        ContinentModel l_c2 = new ContinentModel("Australia", 8);
-
-        l_c1.addCountry(l_a);
-        l_c1.addCountry(l_b);
-        l_c1.addCountry(l_c);
-        l_c1.addCountry(l_d);
-        l_c1.addCountry(l_e);
-        l_c1.addCountry(l_f);
-        l_c1.addCountry(l_g);
-        l_c1.addCountry(l_h);
-        l_c2.addCountry(l_i);
-        l_c2.addCountry(l_j);
-        l_c2.addCountry(l_k);
-        l_c1.addCountry(l_l);
-
-        l_continents.add(l_c1);
-        l_continents.add(l_c2);
-
-        d_GameEngine = new GamePlayModel();
-        d_GameEngine.setCountries(l_countries);
-        d_GameEngine.setContinents(l_continents);
-
-        // add the players
-        d_GameEngine.addPlayer("Mazen");
-        d_GameEngine.addPlayer("Aman");
-        d_GameEngine.addPlayer("Akshat");
-
-        // assign countries and reinforcements
-        d_GameEngine.assignCountries();
-        d_GameEngine.assignReinforcements();
-        d_PlayerModel = d_GameEngine.getPlayers().get("Mazen");
+            // assign countries and reinforcements
+            d_gameEngineController.d_gamePlayModel.assignCountries();
+            d_gameEngineController.d_gamePlayModel.assignReinforcements();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -101,13 +54,16 @@ public class PlayerModelTest {
      */
     @Test
     public void issueOrder() {
-        assertEquals(11, d_GameEngine.getPlayers().get("Mazen").getReinforcements());
-        assertEquals(3, d_GameEngine.getPlayers().get("Aman").getReinforcements());
-        assertEquals(3, d_GameEngine.getPlayers().get("Akshat").getReinforcements());
+        d_gameEngineController.setPhase(new IssueOrder(d_gameEngineController));
+        assertEquals(46, d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen").getReinforcements());
+        assertEquals(30, d_gameEngineController.d_gamePlayModel.getPlayers().get("Aman").getReinforcements());
+
+        d_PlayerModel = d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen");
+        d_PlayerModel.setPhase(d_gameEngineController.d_currentPhase);
 
         assertFalse(d_PlayerModel.issueOrder(new String[]{"pass"}));
-        assertTrue(d_PlayerModel.issueOrder(new String[]{"deploy", "canada8", "10"}));
-        assertEquals(1, d_PlayerModel.getReinforcements());
+        assertTrue(d_PlayerModel.issueOrder(new String[]{"deploy", "Comet-Tail", "44"}));
+        assertEquals(2, d_PlayerModel.getReinforcements());
     }
 
     /**
@@ -115,19 +71,24 @@ public class PlayerModelTest {
      */
     @Test
     public void nextOrder() {
-        String l_country = "canada8";
+        String l_country = "Comet-Tail";
         String l_orderName = "deploy";
         DeployModel l_nextOrder;
 
-        assertTrue(d_PlayerModel.issueOrder(new String[]{l_orderName, l_country, "10"}));
-        assertTrue(d_PlayerModel.issueOrder(new String[]{l_orderName, l_country, "1"}));
+        d_PlayerModel = d_gameEngineController.d_gamePlayModel.getPlayers().get("Mazen");
+
+        d_gameEngineController.setPhase(new IssueOrder(d_gameEngineController));
+        d_PlayerModel.setPhase(d_gameEngineController.d_currentPhase);
+        assertTrue(d_PlayerModel.issueOrder(new String[]{l_orderName, l_country, "44"}));
+        assertTrue(d_PlayerModel.issueOrder(new String[]{l_orderName, l_country, "2"}));
+
+        d_gameEngineController.setPhase(new ExecuteOrders(d_gameEngineController));
+        l_nextOrder = (DeployModel) d_PlayerModel.nextOrder();
+        assertEquals(l_country, l_nextOrder.getCountryName());
+        assertEquals(44, l_nextOrder.getReinforcements());
 
         l_nextOrder = (DeployModel) d_PlayerModel.nextOrder();
         assertEquals(l_country, l_nextOrder.getCountryName());
-        assertEquals(10, l_nextOrder.getReinforcements());
-
-        l_nextOrder = (DeployModel) d_PlayerModel.nextOrder();
-        assertEquals(l_country, l_nextOrder.getCountryName());
-        assertEquals(1, l_nextOrder.getReinforcements());
+        assertEquals(2, l_nextOrder.getReinforcements());
     }
 }

@@ -1,6 +1,7 @@
 package States;
 
 import Controller.GameEngineController;
+import Model.PlayerModel;
 import ObserverPattern.EventListener;
 import ObserverPattern.LogEntryBuffer;
 import ObserverPattern.Observable;
@@ -99,16 +100,39 @@ public abstract class Phase extends Observable {
         printInvalidCommandMessage();
     }
 
-    public void deploy(String[] l_args) {
+    public boolean deploy(String[] p_args, PlayerModel p_player) {
         printInvalidCommandMessage();
+        return false;
     }
 
-    public void advance(String[] l_args) {
+    public boolean advance(String[] p_args, PlayerModel p_player) {
         printInvalidCommandMessage();
+        return false;
     }
 
-    public void pass() {
+    public boolean bomb(String[] p_args, PlayerModel p_player) {
         printInvalidCommandMessage();
+        return false;
+    }
+
+    public boolean blockade(String[] p_args, PlayerModel p_player) {
+        printInvalidCommandMessage();
+        return false;
+    }
+
+    public boolean airlift(String[] p_args, PlayerModel p_player) {
+        printInvalidCommandMessage();
+        return false;
+    }
+
+    public boolean negotiate(String[] p_args, PlayerModel p_player) {
+        printInvalidCommandMessage();
+        return false;
+    }
+
+    public boolean pass(PlayerModel p_player) {
+        printInvalidCommandMessage();
+        return false;
     }
 
     public void endGame() {

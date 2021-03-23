@@ -4,6 +4,7 @@ import Controller.GameEngineController;
 import States.Startup;
 import Utils.CommandsParser;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -13,15 +14,18 @@ public class BlockadeModelTest {
     private static GameEngineController d_gameEngineController;
     private static BlockadeModel d_blockadeModel;
 
+    @BeforeClass
+    public static void init() {
+        CommandsParser.parseJson();
+    }
+
     /**
      * Set up a scenario
      *
      * @throws Exception
      */
     @Before
-    public void init() throws Exception {
-        CommandsParser.parseJson();
-
+    public void beforeEach() throws Exception {
         d_gameEngineController = new GameEngineController();
         d_gameEngineController.setPhase(new Startup(d_gameEngineController));
 

@@ -1,8 +1,7 @@
 package Model;
 
-import Model.Orders.*;
 import ObserverPattern.Observable;
-import Utils.CommandsParser;
+import States.Phase;
 import View.PlayerView;
 
 import java.util.*;
@@ -27,6 +26,7 @@ public class PlayerModel extends Observable {
 
     private final HashMap<String, CountryModel> d_allMapCountries;
     private HashMap<String, PlayerModel> d_allGamePlayers;
+    private Phase d_currentPhase;
 
 
     /**
@@ -246,8 +246,6 @@ public class PlayerModel extends Observable {
         this.d_reinforcements = p_reinforcements;
     }
 
-    //TODO:: Make it alot of things- ask Mazen but he is an ant so ask adeetya then drop the course, just add orders
-    // don't validate, validate in the execute :(
 
     /**
      * Player issues an order. In this various conditions are checked and the method is recursively called until user issues a valid order
@@ -256,133 +254,32 @@ public class PlayerModel extends Observable {
      * @return False if the order is invalid; Otherwise true
      */
     public boolean issueOrder(String[] p_args) {
-        OrderModel l_order;
-
-        // checks if the player issued any other order
-        HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
         switch (p_args[0]) {
             case "pass":
-                // checks if the player is trying to pass/skip the turn
-                if (this.getReinforcements() != 0) {
-                    this.d_view.ReinforcementsRemain(this.getReinforcements());
-                    return false; // impossible command
-                }
-                break;
+                return this.d_currentPhase.pass(this);
+
             case "advance":
-                if (!this.d_allMapCountries.containsKey(l_args.get("country_name_from").get(0))) {
-                    this.d_view.invalidCountry(l_args.get("country_name_from").get(0));
-                    return false;
-                }
-                if (!this.d_allMapCountries.containsKey(l_args.get("country_name_to").get(0))) {
-                    this.d_view.invalidCountry(l_args.get("country_name_to").get(0));
-                    return false;
-                }
-                l_order = new AdvanceModel(this.d_allMapCountries.get(l_args.get("country_name_from").get(0)),
-                        this.d_allMapCountries.get(l_args.get("country_name_to").get(0)),
-                        Integer.parseInt(l_args.get("armies_num").get(0)),
-                        this, this.d_view, p_args);
-                this.addOrder(l_order);
-                break;
+                return this.d_currentPhase.advance(p_args, this);
+
             case "bomb":
+                return this.d_currentPhase.bomb(p_args, this);
 
-                // check if the player has a card to issue this order
-                if (this.noOfCards(p_args[0]) == 0) {
-                    d_view.noCardAvailable();
-                    return false;
-                } else {
-                    this.removeCard(p_args[0]);
-                }
-
-                // if(this.d_orderList.contains(new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view))) {
-                l_order = new BombModel(this, this.d_allMapCountries.get(l_args.get("target_country").get(0)), p_args);
-                this.addOrder(l_order);
-                break;
             case "negotiate":
+                return this.d_currentPhase.negotiate(p_args, this);
 
-                // check if the player has a card to issue this order
-                if (this.noOfCards(p_args[0]) == 0) {
-                    d_view.noCardAvailable();
-                    return false;
-                } else {
-                    this.removeCard(p_args[0]);
-                }
-
-                String l_targetPlayerName = CommandsParser.getArguments(p_args).get("target_player").get(0);
-                if (l_targetPlayerName.equals(this.d_name)) {
-                    this.d_view.selfNegotiationNotPossible();
-                    return false;
-                }
-                if (!this.d_allGamePlayers.containsKey(l_targetPlayerName)) {
-                    this.d_view.InvalidPlayer(l_targetPlayerName);
-                    return false;
-                }
-                l_order = new NegotiateModel(this, this.d_allGamePlayers.get(l_targetPlayerName), p_args);
-                this.addOrder(l_order);
-                break;
             case "deploy":
-                // validate that the number of reinforcements is a valid number
-                if (!l_args.get("reinforcements_num").get(0).matches("[-+]?[0-9]*\\.?[0-9]+")) {
-                    this.d_view.InvalidNumber(l_args);
-                    return false;
-                }
+                return this.d_currentPhase.deploy(p_args, this);
 
-                // handle if the player has enough reinforcements to deploy
-                int l_currentReinforcements = this.getReinforcements();
-                int l_requestedReinforcements = Integer.parseInt(l_args.get("reinforcements_num").get(0));
-
-                if (l_requestedReinforcements > l_currentReinforcements) {
-                    this.d_view.NotEnoughReinforcements(l_args, this.getReinforcements());
-                    return false; // impossible command
-                }
-
-                l_order = new DeployModel(p_args, this, this.d_view);
-                this.addOrder(l_order);
-
-                this.setReinforcements(this.getReinforcements() - (int) (Float.parseFloat(CommandsParser.getArguments(p_args).get("reinforcements_num").get(0))));
-                break;
             case "blockade":
+                return this.d_currentPhase.blockade(p_args, this);
 
-                // check if the player has a card to issue this order
-                if (this.noOfCards(p_args[0]) == 0) {
-                    d_view.noCardAvailable();
-                    return false;
-                } else {
-                    this.removeCard(p_args[0]);
-                }
-
-                l_order = new BlockadeModel(this, d_allGamePlayers.get("Neutral"),
-                        this.d_allMapCountries.get(l_args.get("country_name").get(0)), p_args);
-                this.addOrder(l_order);
-                break;
             case "airlift":
+                return this.d_currentPhase.airlift(p_args, this);
 
-                // check if the player has a card to issue this order
-                if (this.noOfCards(p_args[0]) == 0) {
-                    d_view.noCardAvailable();
-                    return false;
-                } else {
-                    this.removeCard(p_args[0]);
-                }
-
-                if (!this.d_allMapCountries.containsKey(l_args.get("country_name_from").get(0))) {
-                    this.d_view.invalidCountry(l_args.get("country_name_from").get(0));
-                    return false;
-                }
-                if (!this.d_allMapCountries.containsKey(l_args.get("country_name_to").get(0))) {
-                    this.d_view.invalidCountry(l_args.get("country_name_to").get(0));
-                    return false;
-                }
-                l_order = new AirliftModel(this.d_allMapCountries.get(l_args.get("country_name_from").get(0)),
-                        this.d_allMapCountries.get(l_args.get("country_name_to").get(0)),
-                        Integer.parseInt(l_args.get("armies_num").get(0)),
-                        this, this.d_view, p_args);
-                this.addOrder(l_order);
-                break;
             default:
                 this.d_view.invalidOrder();
                 return false;
         }
-        return true;
     }
 
     /**
@@ -441,5 +338,9 @@ public class PlayerModel extends Observable {
      */
     public HashMap<String, Integer> getCards() {
         return d_cards;
+    }
+
+    public void setPhase(Phase p_currentPhase) {
+        this.d_currentPhase = p_currentPhase;
     }
 }
