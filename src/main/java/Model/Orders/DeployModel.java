@@ -2,7 +2,7 @@ package Model.Orders;
 
 import Model.CountryModel;
 import Model.OrderModel;
-import Model.PlayerModel;
+import Model.Player;
 import Utils.CommandsParser;
 import View.PlayerView;
 
@@ -21,12 +21,12 @@ public class DeployModel extends OrderModel {
     /**
      * Constructor for the DeployModel
      *
-     * @param p_playerModel initialise the current player
-     * @param p_args        initialise the user command
-     * @param p_playerView  to check the validity of the command
+     * @param p_player     initialise the current player
+     * @param p_args       initialise the user command
+     * @param p_playerView to check the validity of the command
      */
-    public DeployModel(String[] p_args, PlayerModel p_playerModel, PlayerView p_playerView) {
-        super("deploy", p_playerModel, p_args);
+    public DeployModel(String[] p_args, Player p_player, PlayerView p_playerView) {
+        super("deploy", p_player, p_args);
 
         this.d_playerView = p_playerView;
         this.d_args = CommandsParser.getArguments(p_args);
@@ -63,7 +63,7 @@ public class DeployModel extends OrderModel {
 
         // handle if the player deploys in a country that it does not owns
         if (!this.d_currentPlayer.containsCountry(l_countryName)) {
-            this.d_playerView.InvalidCountry(this.d_args);
+            this.d_playerView.invalidCountry(d_currentPlayer.getName(), l_countryName);
             return false; // impossible command
         }
 
@@ -71,7 +71,7 @@ public class DeployModel extends OrderModel {
         int l_requestedReinforcements = Integer.parseInt(d_args.get("reinforcements_num").get(0));
 
         if (l_requestedReinforcements > this.d_reinforcementsBeforeExec) {
-            d_currentPlayer.getView().NotEnoughReinforcements(d_args, d_currentPlayer.getReinforcements());
+            d_currentPlayer.getView().notEnoughReinforcements(d_args, d_currentPlayer.getReinforcements());
             return false; // impossible command
         }
 

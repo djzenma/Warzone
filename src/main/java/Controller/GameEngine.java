@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Controller for the game engine
  */
-public class GameEngineController {
+public class GameEngine {
     /**
      * Object of the gameplay view
      */
@@ -35,7 +35,7 @@ public class GameEngineController {
     /**
      * Constructor to initialise data members
      */
-    public GameEngineController() {
+    public GameEngine() {
         this.d_gamePlayView = new GamePlayView();
         this.d_gamePlayModel = new GamePlayModel();
         this.d_mapModel = new MapModel();

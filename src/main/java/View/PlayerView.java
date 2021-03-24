@@ -11,14 +11,14 @@ public class PlayerView {
     private void reconstructDeploy(HashMap<String, List<String>> p_args) {
         System.out.println("Command: deploy " + p_args.get("country_name").get(0) + " " + p_args.get("reinforcements_num").get(0));
     }
+
     /**
      * Prints if the reinforcements are not enough to be issued
      *
      * @param p_args
      * @param p_reinforcements Requested number of reinforcements
      */
-    public void NotEnoughReinforcements(HashMap<String, List<String>> p_args, int p_reinforcements) {
-        reconstructDeploy(p_args);
+    public void notEnoughReinforcements(HashMap<String, List<String>> p_args, int p_reinforcements) {
         if (p_reinforcements != 0)
             System.out.println("You don't have enough reinforcements! You only have " + p_reinforcements);
         else
@@ -30,17 +30,18 @@ public class PlayerView {
      *
      * @param p_reinforcements Remaining number of reinforcements
      */
-    public void ReinforcementsRemain(int p_reinforcements) {
+    public void reinforcementsRemain(int p_reinforcements) {
         System.out.println("You still have " + p_reinforcements + " reinforcements remaining! Please deploy them all!");
     }
 
     /**
      * Prints if the current player does not own the specified country
-     * @param p_args
+     *
+     * @param p_player      the current player name
+     * @param p_countryName the country name
      */
-    public void InvalidCountry(HashMap<String, List<String>> p_args) {
-        reconstructDeploy(p_args);
-        System.out.println("You don't own this country!");
+    public void invalidCountry(String p_player, String p_countryName) {
+        System.out.println(p_player + " don't own " + p_countryName + "!");
     }
 
     /**
@@ -48,7 +49,6 @@ public class PlayerView {
      * @param p_args
      */
     public void invalidNumber(HashMap<String, List<String>> p_args) {
-        reconstructDeploy(p_args);
         System.out.println("Please enter a valid number!");
     }
 
@@ -89,7 +89,7 @@ public class PlayerView {
         System.out.println("You can't bomb " + p_ownerName + "'s countries as you are currently negotiating with " + p_ownerName + "!!");
     }
 
-    public void invalidCountry(String p_countryName) {
+    public void countryInexistant(String p_countryName) {
         System.out.println(p_countryName + " does not exist on the map!");
     }
 

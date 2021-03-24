@@ -1,6 +1,6 @@
 package Model;
 
-import ObserverPattern.Observable;
+import EventListener.Observable;
 import States.Phase;
 import View.PlayerView;
 
@@ -11,7 +11,7 @@ import java.util.*;
  * Maintains the HashMap of the countries, the reinforcements it owns for the current turn
  * and the armies that this player owns in each country
  */
-public class PlayerModel extends Observable {
+public class Player extends Observable {
     private final PlayerView d_view;
 
     private String d_name;
@@ -20,7 +20,7 @@ public class PlayerModel extends Observable {
     private final HashMap<String, CountryModel> d_myCountries;
     private final HashMap<Integer, Integer> d_armies;
     private final Queue<OrderModel> d_orderList;
-    private final HashMap<String, PlayerModel> d_activeNegotiators;
+    private final HashMap<String, Player> d_activeNegotiators;
     private final HashMap<String, Integer> d_cards;
     private boolean d_eligibleForCard;
 
@@ -35,7 +35,7 @@ public class PlayerModel extends Observable {
      * @param p_name Name of the player
      * @param p_view Object of the PlayerView
      */
-    public PlayerModel(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries) {
+    public Player(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries) {
         this.setName(p_name);
         this.d_reinforcements = 0;
         this.d_orderList = new ArrayDeque<>();
@@ -54,7 +54,7 @@ public class PlayerModel extends Observable {
      * @param p_name Name of the player
      * @param p_view Object of the PlayerView
      */
-    public PlayerModel(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries, HashMap<String, PlayerModel> p_players) {
+    public Player(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries, HashMap<String, Player> p_players) {
         this.setName(p_name);
         this.d_reinforcements = 0;
         this.d_orderList = new ArrayDeque<>();
@@ -110,7 +110,7 @@ public class PlayerModel extends Observable {
      *
      * @return active negotiators
      */
-    public HashMap<String, PlayerModel> getActiveNegotiators() {
+    public HashMap<String, Player> getActiveNegotiators() {
         return d_activeNegotiators;
     }
 
@@ -127,7 +127,7 @@ public class PlayerModel extends Observable {
      *
      * @param p_negotiator Object of the PlayerModel
      */
-    public void addNegotiator(PlayerModel p_negotiator) {
+    public void addNegotiator(Player p_negotiator) {
         this.d_activeNegotiators.put(p_negotiator.getName(), p_negotiator);
     }
 

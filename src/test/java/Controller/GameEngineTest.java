@@ -2,11 +2,10 @@ package Controller;
 
 import org.junit.Test;
 
-public class GameEngineControllerTest {
+public class GameEngineTest {
 
     @Test
     public void init() {
 
     }
-
 }

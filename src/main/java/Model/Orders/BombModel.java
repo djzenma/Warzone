@@ -2,7 +2,7 @@ package Model.Orders;
 
 import Model.CountryModel;
 import Model.OrderModel;
-import Model.PlayerModel;
+import Model.Player;
 import Utils.CommandsParser;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import java.util.List;
  * It inherits the OrderModel and overwrites the abstract execute method
  */
 public class BombModel extends OrderModel {
-    PlayerModel d_playerModel;
+    Player d_player;
     CountryModel d_targetCountry;
     HashMap<String, List<String>> d_args;
     ArrayList<CountryModel> d_sourceCountries;
@@ -24,11 +24,11 @@ public class BombModel extends OrderModel {
      *
      * @param p_args          TODO: remove it as it is not used anywhere or should we write that we are using it to get the user command
      * @param p_targetCountry Target country on which the armies have to be decreased
-     * @param p_playerModel   To initialise current player
+     * @param p_player        To initialise current player
      */
-    public BombModel(PlayerModel p_playerModel, CountryModel p_targetCountry, String[] p_args) {
-        super("bomb", p_playerModel, p_args);
-        this.d_playerModel = p_playerModel;
+    public BombModel(Player p_player, CountryModel p_targetCountry, String[] p_args) {
+        super("bomb", p_player, p_args);
+        this.d_player = p_player;
         this.d_targetCountry = p_targetCountry;
         this.d_args = CommandsParser.getArguments(p_args);
         this.d_sourceCountries = new ArrayList<>();
@@ -45,11 +45,11 @@ public class BombModel extends OrderModel {
 
         //Checks if the target country is a negotiator of the current player
         if (this.d_currentPlayer.getActiveNegotiators().containsKey(this.d_targetCountry.getOwnerName())) {
-            this.d_playerModel.getView().invalidBombOrder(this.d_targetCountry.getOwnerName());
+            this.d_player.getView().invalidBombOrder(this.d_targetCountry.getOwnerName());
             return false;
         }
 
-        this.d_sourceCountries = this.d_playerModel.getCountries();
+        this.d_sourceCountries = this.d_player.getCountries();
 
         //Checks if source and target countries are same ot not
         for (CountryModel d_sourceCountry : d_sourceCountries) {

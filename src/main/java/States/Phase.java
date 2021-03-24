@@ -1,18 +1,18 @@
 package States;
 
-import Controller.GameEngineController;
-import Model.PlayerModel;
-import ObserverPattern.EventListener;
-import ObserverPattern.LogEntryBuffer;
-import ObserverPattern.Observable;
+import Controller.GameEngine;
+import EventListener.EventListener;
+import EventListener.LogEntryBuffer;
+import EventListener.Observable;
+import Model.Player;
 
 import java.io.IOException;
 
 public abstract class Phase extends Observable {
-    protected GameEngineController d_gameEngineController;
+    protected GameEngine d_gameEngine;
 
-    public Phase(GameEngineController p_gameEngineController) {
-        this.d_gameEngineController = p_gameEngineController;
+    public Phase(GameEngine p_gameEngine) {
+        this.d_gameEngine = p_gameEngine;
         attach(new EventListener());
     }
 
@@ -100,37 +100,37 @@ public abstract class Phase extends Observable {
         printInvalidCommandMessage();
     }
 
-    public boolean deploy(String[] p_args, PlayerModel p_player) {
+    public boolean deploy(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
         return false;
     }
 
-    public boolean advance(String[] p_args, PlayerModel p_player) {
+    public boolean advance(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
         return false;
     }
 
-    public boolean bomb(String[] p_args, PlayerModel p_player) {
+    public boolean bomb(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
         return false;
     }
 
-    public boolean blockade(String[] p_args, PlayerModel p_player) {
+    public boolean blockade(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
         return false;
     }
 
-    public boolean airlift(String[] p_args, PlayerModel p_player) {
+    public boolean airlift(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
         return false;
     }
 
-    public boolean negotiate(String[] p_args, PlayerModel p_player) {
+    public boolean negotiate(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
         return false;
     }
 
-    public boolean pass(PlayerModel p_player) {
+    public boolean pass(Player p_player) {
         printInvalidCommandMessage();
         return false;
     }

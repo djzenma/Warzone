@@ -20,9 +20,11 @@ import static java.lang.Math.floor;
  * </ul>
  */
 public class GamePlayModel {
-    private final HashMap<String, PlayerModel> d_players;
+    private final HashMap<String, Player> d_players;
     private HashMap<String, CountryModel> d_countries;
     private ArrayList<ContinentModel> d_continents;
+    private boolean d_endGame;
+    private Player d_winner;
 
     /**
      * Initialises the HashMap of PlayerModel, CountryModel and Arraylist of ContinentModel
@@ -31,6 +33,8 @@ public class GamePlayModel {
         this.d_players = new HashMap<>();
         this.d_continents = new ArrayList<>();
         this.d_countries = new HashMap<>();
+        this.d_endGame = false;
+        this.d_winner = null;
     }
 
     /**
@@ -47,7 +51,7 @@ public class GamePlayModel {
      *
      * @return HashMap of the players
      */
-    public HashMap<String, PlayerModel> getPlayers() {
+    public HashMap<String, Player> getPlayers() {
         return d_players;
     }
 
@@ -70,13 +74,31 @@ public class GamePlayModel {
     }
 
     /**
+     * Accessor for the End game flag
+     *
+     * @return End game flag
+     */
+    public boolean isEndGame() {
+        return this.d_endGame;
+    }
+
+    /**
+     * Accessor for the Winner of the game
+     *
+     * @return Winner
+     */
+    public Player getWinner() {
+        return this.d_winner;
+    }
+
+    /**
      * Adds a game player
      *
      * @param p_playerName Name of the player
      */
     public void addPlayer(String p_playerName) {
-        PlayerModel l_playerModel = new PlayerModel(p_playerName, new PlayerView(), this.d_countries, this.d_players);
-        this.d_players.put(p_playerName, l_playerModel);
+        Player l_player = new Player(p_playerName, new PlayerView(), this.d_countries, this.d_players);
+        this.d_players.put(p_playerName, l_player);
     }
 
     /**
@@ -111,7 +133,7 @@ public class GamePlayModel {
 
         // assign countries evenly between players
         int l_countriesCounter = 0;
-        for (PlayerModel l_player : this.d_players.values()) {
+        for (Player l_player : this.d_players.values()) {
             for (int l_i = 0; l_i < l_countriesPerPlayer; l_i++) {
                 String l_countryName = l_countryNamesList.get(l_countriesCounter);
                 // get the country
@@ -128,7 +150,7 @@ public class GamePlayModel {
         while (l_countriesCounter <= this.d_countries.size() - 1) {
             // get the random player
             int l_rand = (int) (Math.random() * (this.d_players.size()));
-            PlayerModel l_player = this.d_players.get(l_playerIDsList.get(l_rand));
+            Player l_player = this.d_players.get(l_playerIDsList.get(l_rand));
 
             // get the name of this country
             String l_countryName = l_countryNamesList.get(l_countriesCounter);
@@ -159,7 +181,7 @@ public class GamePlayModel {
         boolean l_hasContinent;
 
         // iterate over all the players
-        for (PlayerModel l_player : this.d_players.values()) {
+        for (Player l_player : this.d_players.values()) {
             if (l_player.getName().equals("Neutral"))
                 continue;
             l_numberOfArmies = (int) Math.max(3, floor(l_player.getCountries().size() / 3.0));
@@ -194,8 +216,9 @@ public class GamePlayModel {
      */
     public boolean executeOrders() {
         boolean l_end = true;
+        ArrayList<Player> l_playersToBeRemoved = new ArrayList<>();
 
-        for (PlayerModel l_player : this.d_players.values()) {
+        for (Player l_player : this.d_players.values()) {
             if (l_player.getName().equals("Neutral"))
                 continue;
             OrderModel l_order = l_player.nextOrder();
@@ -203,6 +226,33 @@ public class GamePlayModel {
                 l_order.execute(d_countries);
                 l_end = false;
             }
+        }
+        for (Player l_player : this.getPlayers().values()) {
+            try {
+                if (l_player.getCountries().size() == 0 && !(l_player.getName().equals("Neutral"))) {
+                    l_playersToBeRemoved.add(l_player);
+                }
+            } catch (Exception l_e) {
+                System.out.println(l_e.getMessage());
+            }
+        }
+
+        for (Player l_player : l_playersToBeRemoved) {
+            try {
+                this.removePlayer(l_player.getName());
+            } catch (Exception l_e) {
+                System.out.println(l_e.getMessage());
+            }
+        }
+
+        if (this.getPlayers().size() == 2) {
+            for (Player l_player : this.getPlayers().values()) {
+                if (!(l_player.getName().equals("Neutral"))) {
+                    this.d_winner = l_player;
+                }
+            }
+            l_end = true;
+            this.d_endGame = true;
         }
         return !l_end;
     }

@@ -1,6 +1,6 @@
 package States;
 
-import Controller.GameEngineController;
+import Controller.GameEngine;
 
 /**
  * Assign reinforcements after every turn
@@ -11,10 +11,10 @@ public class AssignReinforcements extends GamePlayPhase {
     /**
      * Constructor
      *
-     * @param p_gameEngineController Object for game engine controller
+     * @param p_gameEngine Object for game engine controller
      */
-    public AssignReinforcements(GameEngineController p_gameEngineController) {
-        super(p_gameEngineController);
+    public AssignReinforcements(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     /**
@@ -22,8 +22,8 @@ public class AssignReinforcements extends GamePlayPhase {
      */
     @Override
     public void assignReinforcements() {
-        this.d_gameEngineController.d_gamePlayModel.assignReinforcements();
+        this.d_gameEngine.d_gamePlayModel.assignReinforcements();
 
-        d_gameEngineController.setPhase(new IssueOrder(d_gameEngineController));
+        d_gameEngine.setPhase(new IssueOrder(d_gameEngine));
     }
 }

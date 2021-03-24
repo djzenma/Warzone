@@ -2,7 +2,7 @@ package Model.Orders;
 
 import Model.CountryModel;
 import Model.OrderModel;
-import Model.PlayerModel;
+import Model.Player;
 import Utils.CommandsParser;
 import View.PlayerView;
 
@@ -31,7 +31,7 @@ public class AdvanceModel extends OrderModel {
      * @param p_currentPlayer player that advances the armies
      * @param p_args          Gets the user command
      */
-    public AdvanceModel(CountryModel p_sourceCountry, CountryModel p_targetCountry, int p_numArmies, PlayerModel p_currentPlayer, PlayerView p_playerView, String[] p_args) {
+    public AdvanceModel(CountryModel p_sourceCountry, CountryModel p_targetCountry, int p_numArmies, Player p_currentPlayer, PlayerView p_playerView, String[] p_args) {
         super("advance", p_currentPlayer, p_args);
         this.d_sourceCountry = p_sourceCountry;
         this.d_targetCountry = p_targetCountry;
@@ -62,7 +62,7 @@ public class AdvanceModel extends OrderModel {
 
         // if the source country doesn't belong to the player
         if (!this.getCurrentPlayer().getCountries().contains(this.d_sourceCountry)) {
-            this.d_playerView.InvalidCountry(this.d_args);
+            this.d_playerView.invalidCountry(d_currentPlayer.getName(), this.d_sourceCountry.getName());
             return false;
         }
 

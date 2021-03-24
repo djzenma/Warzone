@@ -1,6 +1,6 @@
-package ObserverPattern;
+package EventListener;
 
-import Model.PlayerModel;
+import Model.Player;
 import Utils.CommandsParser;
 
 import java.io.BufferedWriter;
@@ -17,7 +17,7 @@ import java.util.List;
 public class EventListener extends Observer {
     private HashMap<String, List<String>> d_args;
     private LogEntryBuffer d_logEntryBuffer;
-    private PlayerModel d_currentPlayer;
+    private Player d_currentPlayer;
 
     /**
      * Updates the log entry buffer

@@ -1,4 +1,4 @@
-package ObserverPattern;
+package EventListener;
 
 /**
  * Abstract class for the Observer, which forces all views to implement the update method

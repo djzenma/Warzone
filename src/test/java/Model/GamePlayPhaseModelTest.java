@@ -114,7 +114,7 @@ public class GamePlayPhaseModelTest {
     @Test
     public void assignCountries() {
         d_GameEngine.assignCountries();
-        for (PlayerModel l_player : d_GameEngine.getPlayers().values()) {
+        for (Player l_player : d_GameEngine.getPlayers().values()) {
             assertNotNull(l_player.getCountries());
         }
     }

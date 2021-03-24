@@ -1,0 +1,21 @@
+[files]
+pic asia_pic.jpg
+map asia_map.gif
+crd asia.cards
+
+[continents]
+Asia 8 yellow
+Africa 4 yellow
+America 9 black
+
+[countries]
+1 India 1 000 000
+2 China 1 000 000
+3 Egypt 2 000 000
+4 Canada 3 000 000
+
+[borders]
+1 2 3 4
+2 1 4
+3 1
+4 1 2

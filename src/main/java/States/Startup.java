@@ -1,6 +1,6 @@
 package States;
 
-import Controller.GameEngineController;
+import Controller.GameEngine;
 import Model.ContinentModel;
 import Utils.CommandsParser;
 import Utils.MapUtils;
@@ -14,8 +14,8 @@ import java.util.List;
  *
  */
 public class Startup extends GamePlayPhase {
-    public Startup(GameEngineController p_gameEngineController) {
-        super(p_gameEngineController);
+    public Startup(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     /**
@@ -26,9 +26,9 @@ public class Startup extends GamePlayPhase {
     @Override
     public void loadMap(String[] l_args) throws Exception {
         triggerEvent(l_args, "Startup Phase");
-        this.d_gameEngineController.d_mapModel.loadOnlyValidMap(new File(new MapUtils().getMapsPath() + l_args[1]));
-        this.d_gameEngineController.d_gamePlayModel.setContinents(new ArrayList<ContinentModel>(this.d_gameEngineController.d_mapModel.getContinents().values()));
-        this.d_gameEngineController.d_gamePlayModel.setCountries(this.d_gameEngineController.d_mapModel.getCountries());
+        this.d_gameEngine.d_mapModel.loadOnlyValidMap(new File(new MapUtils().getMapsPath() + l_args[1]));
+        this.d_gameEngine.d_gamePlayModel.setContinents(new ArrayList<ContinentModel>(this.d_gameEngine.d_mapModel.getContinents().values()));
+        this.d_gameEngine.d_gamePlayModel.setCountries(this.d_gameEngine.d_mapModel.getCountries());
     }
 
     /**
@@ -37,7 +37,7 @@ public class Startup extends GamePlayPhase {
     @Override
     public void showMap() {
         triggerEvent(new String[]{"showmap"}, "Startup Phase");
-        this.d_gameEngineController.d_gamePlayView.showMap(this.d_gameEngineController.d_mapModel.getContinents(), this.d_gameEngineController.d_mapModel.getCountries());
+        this.d_gameEngine.d_gamePlayView.showMap(this.d_gameEngine.d_mapModel.getContinents(), this.d_gameEngine.d_mapModel.getCountries());
     }
 
     /**
@@ -56,12 +56,12 @@ public class Startup extends GamePlayPhase {
             //TODO:: 10 Duplicate Players
             for (String l_player : l_gameplayerArgs.get("add")) {
                 if (l_player.equals("Neutral")) {
-                    this.d_gameEngineController.d_gamePlayView.invalidPlayerName();
+                    this.d_gameEngine.d_gamePlayView.invalidPlayerName();
                 } else {
-                    if (this.d_gameEngineController.d_gamePlayModel.getPlayers().containsKey(l_player)) {
-                        this.d_gameEngineController.d_gamePlayView.duplicatePlayer(l_player);
+                    if (this.d_gameEngine.d_gamePlayModel.getPlayers().containsKey(l_player)) {
+                        this.d_gameEngine.d_gamePlayView.duplicatePlayer(l_player);
                     } else {
-                        this.d_gameEngineController.d_gamePlayModel.addPlayer(l_player);
+                        this.d_gameEngine.d_gamePlayModel.addPlayer(l_player);
                     }
                 }
             }
@@ -71,12 +71,12 @@ public class Startup extends GamePlayPhase {
         if (l_gameplayerArgs.get("remove") != null) {
             for (String l_player : l_gameplayerArgs.get("remove"))
                 if (l_player.equals("Neutral")) {
-                    this.d_gameEngineController.d_gamePlayView.invalidPlayerName();
+                    this.d_gameEngine.d_gamePlayView.invalidPlayerName();
                 } else {
-                    if (!this.d_gameEngineController.d_gamePlayModel.getPlayers().containsKey(l_player)) {
-                        this.d_gameEngineController.d_gamePlayView.noPlayerFound(l_player);
+                    if (!this.d_gameEngine.d_gamePlayModel.getPlayers().containsKey(l_player)) {
+                        this.d_gameEngine.d_gamePlayView.noPlayerFound(l_player);
                     } else {
-                        this.d_gameEngineController.d_gamePlayModel.removePlayer(l_player);
+                        this.d_gameEngine.d_gamePlayModel.removePlayer(l_player);
                     }
                 }
         }
@@ -88,12 +88,12 @@ public class Startup extends GamePlayPhase {
     @Override
     public boolean assignCountries() {
         triggerEvent(new String[]{"assigncountries"}, "Startup Phase");
-        if (this.d_gameEngineController.d_gamePlayModel.isInValidCommand()) {
-            this.d_gameEngineController.d_gamePlayView.isInvalidAssignment();
+        if (this.d_gameEngine.d_gamePlayModel.isInValidCommand()) {
+            this.d_gameEngine.d_gamePlayView.isInvalidAssignment();
             return false;
         } else {
-            this.d_gameEngineController.d_gamePlayModel.assignCountries();
-            this.d_gameEngineController.d_gamePlayModel.addPlayer("Neutral");
+            this.d_gameEngine.d_gamePlayModel.assignCountries();
+            this.d_gameEngine.d_gamePlayModel.addPlayer("Neutral");
             return true;
         }
     }
@@ -103,6 +103,6 @@ public class Startup extends GamePlayPhase {
      */
     @Override
     public void next() {
-        d_gameEngineController.setPhase(new AssignReinforcements(d_gameEngineController));
+        d_gameEngine.setPhase(new AssignReinforcements(d_gameEngine));
     }
 }

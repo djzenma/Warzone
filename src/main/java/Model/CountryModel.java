@@ -12,7 +12,7 @@ public class CountryModel {
     private int d_armies;
     private String d_xCoordinate;
     private String d_yCoordinate;
-    private PlayerModel d_owner;
+    private Player d_owner;
     private LinkedHashMap<CountryModel, LinkedHashMap<String, CountryModel>> d_neighbors;
 
     /**
@@ -41,7 +41,7 @@ public class CountryModel {
      *
      * @return Owner of the country
      */
-    public PlayerModel getOwner() {
+    public Player getOwner() {
         return this.d_owner;
     }
 
@@ -50,7 +50,7 @@ public class CountryModel {
      *
      * @param p_owner Owner of the country
      */
-    public void setOwner(PlayerModel p_owner) {
+    public void setOwner(Player p_owner) {
         this.d_owner = p_owner;
     }
 

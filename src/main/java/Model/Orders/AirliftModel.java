@@ -2,7 +2,7 @@ package Model.Orders;
 
 import Model.CountryModel;
 import Model.OrderModel;
-import Model.PlayerModel;
+import Model.Player;
 import Utils.CommandsParser;
 import View.PlayerView;
 
@@ -30,7 +30,7 @@ public class AirliftModel extends OrderModel {
      * @param p_playerView    to check the validity of the command
      * @param p_args          Gets the user command
      */
-    public AirliftModel(CountryModel p_sourceCountry, CountryModel p_targetCountry, int p_numArmies, PlayerModel p_currentPlayer, PlayerView p_playerView, String[] p_args) {
+    public AirliftModel(CountryModel p_sourceCountry, CountryModel p_targetCountry, int p_numArmies, Player p_currentPlayer, PlayerView p_playerView, String[] p_args) {
         super("airlift", p_currentPlayer, p_args);
         this.d_sourceCountry = p_sourceCountry;
         this.d_targetCountry = p_targetCountry;
@@ -56,19 +56,21 @@ public class AirliftModel extends OrderModel {
 
         // if the source country doesn't belong to the player
         if (!this.getCurrentPlayer().getCountries().contains(this.d_sourceCountry)) {
-            this.d_playerView.InvalidCountry(this.d_args);
+            this.d_playerView.invalidCountry(d_currentPlayer.getName(), this.d_sourceCountry.getName());
             return false;
         }
 
         triggerEvent(true);
 
-        // normal move without attack
+        // normal move
         if (this.getCurrentPlayer().getCountries().contains(this.d_targetCountry)) {
             this.d_sourceCountry.setArmies(this.d_sourceCountry.getArmies() - this.d_numArmies);
             this.d_targetCountry.setArmies(this.d_targetCountry.getArmies() + this.d_numArmies);
             p_countries.put(this.d_targetCountry.getName(), this.d_targetCountry);
             return true;
-        } else
+        } else {
+            this.d_playerView.invalidCountry(d_currentPlayer.getName(), this.d_targetCountry.getName());
             return false;
+        }
     }
 }

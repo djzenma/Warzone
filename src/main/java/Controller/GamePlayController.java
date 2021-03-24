@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.PlayerModel;
 import States.GamePlayPhase;
 import Utils.CommandsParser;
 
@@ -14,15 +13,15 @@ import Utils.CommandsParser;
  */
 public class GamePlayController {
 
-    GameEngineController d_gameEngineController;
+    GameEngine d_gameEngine;
 
     /**
      * Initialises GamePlayModel, GamePlayView and MapModel
      */
-    public GamePlayController(GameEngineController p_gameEngineController) {
+    public GamePlayController(GameEngine p_gameEngine) {
         super();
-        this.d_gameEngineController = p_gameEngineController;
-        d_gameEngineController.setPhase(new GamePlayPhase(p_gameEngineController));
+        this.d_gameEngine = p_gameEngine;
+        d_gameEngine.setPhase(new GamePlayPhase(p_gameEngine));
     }
 
 
@@ -31,7 +30,7 @@ public class GamePlayController {
      * User stays in this phase until it is ready to assign countries to the player.
      */
     public void startup() {
-        d_gameEngineController.d_currentPhase.startup();
+        d_gameEngine.d_currentPhase.startup();
 
         boolean l_end = false;
         boolean l_isMapLoaded = false;
@@ -41,41 +40,41 @@ public class GamePlayController {
         while (!l_end) {
 
             // get a valid command from the user
-            l_args = this.d_gameEngineController.d_gamePlayView.takeCommand();
+            l_args = this.d_gameEngine.d_gamePlayView.takeCommand();
 
             // if map is not yet loaded keep asking to load map first
             if (!l_isMapLoaded && !CommandsParser.isLoadMap(l_args)) {
-                this.d_gameEngineController.d_gamePlayView.mapNotLoaded();
+                this.d_gameEngine.d_gamePlayView.mapNotLoaded();
                 continue;
             }
 
             try {
                 // if the command entered is loadmap
                 if (CommandsParser.isLoadMap(l_args)) {
-                    d_gameEngineController.d_currentPhase.loadMap(l_args);
+                    d_gameEngine.d_currentPhase.loadMap(l_args);
                     l_isMapLoaded = true;
                 }
 
                 // if the command entered is showmap
                 else if (CommandsParser.isShowMap(l_args)) {
-                    d_gameEngineController.d_currentPhase.showMap();
+                    d_gameEngine.d_currentPhase.showMap();
                 }
 
                 // if the command entered is gameplayer
                 else if (CommandsParser.isGameplayer(l_args)) {
-                    d_gameEngineController.d_currentPhase.gameplayer(l_args);
+                    d_gameEngine.d_currentPhase.gameplayer(l_args);
                 }
 
                 // if the command entered is assigncountries
                 else if (CommandsParser.isAssignCountries(l_args)) {
-                    l_end = d_gameEngineController.d_currentPhase.assignCountries();
+                    l_end = d_gameEngine.d_currentPhase.assignCountries();
                     if (l_end)
-                        d_gameEngineController.d_currentPhase.next();
+                        d_gameEngine.d_currentPhase.next();
                 } else {
-                    this.d_gameEngineController.d_gamePlayView.isMapEditorCommand();
+                    this.d_gameEngine.d_gamePlayView.isMapEditorCommand();
                 }
             } catch (Exception l_e) {
-                this.d_gameEngineController.d_gamePlayView.exception(l_e.getMessage());
+                this.d_gameEngine.d_gamePlayView.exception(l_e.getMessage());
             }
         }
     }
@@ -85,44 +84,32 @@ public class GamePlayController {
      */
     public void run() {
         // Startup Phase
-        this.d_gameEngineController.d_gamePlayView.startupPhase();
+        this.d_gameEngine.d_gamePlayView.startupPhase();
         this.startup();
 
         int l_turnNumber = 1;
 
         // Gameplay Loop
-        this.d_gameEngineController.d_gamePlayView.gameplayPhase();
+        this.d_gameEngine.d_gamePlayView.gameplayPhase();
         while (true) {
-            this.d_gameEngineController.d_gamePlayView.gameplayTurnNumber(l_turnNumber);
+            this.d_gameEngine.d_gamePlayView.gameplayTurnNumber(l_turnNumber);
 
-            d_gameEngineController.d_currentPhase.assignReinforcements();
+            d_gameEngine.d_currentPhase.assignReinforcements();
 
-            while (d_gameEngineController.d_currentPhase.issueOrders()) ;
-            d_gameEngineController.d_currentPhase.next();
+            while (d_gameEngine.d_currentPhase.issueOrders()) ;
+            d_gameEngine.d_currentPhase.next();
 
-            while (d_gameEngineController.d_currentPhase.executeOrders()) ;
+            while (d_gameEngine.d_currentPhase.executeOrders()) ;
 
-            for (PlayerModel l_player : d_gameEngineController.d_gamePlayModel.getPlayers().values()) {
-                try {
-                    if (l_player.getCountries().size() == 0 && !(l_player.getName().equals("Neutral"))) {
-                        d_gameEngineController.d_gamePlayModel.removePlayer(l_player.getName());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            if (d_gameEngineController.d_gamePlayModel.getPlayers().size() == 2) {
-                String l_onlyPlayer = null;
-                for (PlayerModel l_player : d_gameEngineController.d_gamePlayModel.getPlayers().values()) {
-                    if (!(l_player.getName().equals("Neutral"))) {
-                        l_onlyPlayer = l_player.getName();
-                    }
-                }
-                d_gameEngineController.d_gamePlayView.winnerWinnerChickenDinner(l_onlyPlayer);
+            if (d_gameEngine.d_gamePlayModel.isEndGame()) {
+                d_gameEngine.d_gamePlayView.winnerWinnerChickenDinner(
+                        d_gameEngine.d_gamePlayModel.getWinner().getName()
+                );
+                d_gameEngine.d_currentPhase.endGame();
                 break;
             }
 
-            d_gameEngineController.d_currentPhase.next();
+            d_gameEngine.d_currentPhase.next();
 
             l_turnNumber++;
         }

@@ -1,6 +1,6 @@
 package States;
 
-import Controller.GameEngineController;
+import Controller.GameEngine;
 import Utils.MapUtils;
 
 import java.io.File;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
  *
  */
 public class PreLoad extends MapEditor {
-    public PreLoad(GameEngineController p_gameEngineController) {
-        super(p_gameEngineController);
+    public PreLoad(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     /**
@@ -24,14 +24,14 @@ public class PreLoad extends MapEditor {
         String l_fileName = MapUtils.getValidFileName(l_args);
         ArrayList l_fileData = MapUtils.getMapFile(l_fileName, false);
         if ((boolean) l_fileData.get(1))
-            d_gameEngineController.d_mapView.showMsg(l_fileName + " file does not exists!\nCreated new " + l_fileName + " file.");
-        d_gameEngineController.d_mapModel.editMap((File) l_fileData.get(0));
+            d_gameEngine.d_mapView.showMsg(l_fileName + " file does not exists!\nCreated new " + l_fileName + " file.");
+        d_gameEngine.d_mapModel.editMap((File) l_fileData.get(0));
 
         //if existing map file is loaded, validate the map
         //i.e don't validate for newly created files
         if (((File) l_fileData.get(0)).length() != 0) {
-            d_gameEngineController.d_mapModel.validateMap();
-            d_gameEngineController.d_mapView.validMap(d_gameEngineController.d_mapModel.isMapValid());
+            d_gameEngine.d_mapModel.validateMap();
+            d_gameEngine.d_mapView.validMap(d_gameEngine.d_mapModel.isMapValid());
         }
         this.next();
     }
@@ -41,7 +41,7 @@ public class PreLoad extends MapEditor {
      */
     @Override
     public void next() {
-        d_gameEngineController.setPhase(new PostLoad(d_gameEngineController));
+        d_gameEngine.setPhase(new PostLoad(d_gameEngine));
     }
 
 }

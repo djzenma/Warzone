@@ -1,6 +1,6 @@
 package States;
 
-import Controller.GameEngineController;
+import Controller.GameEngine;
 import Utils.MapUtils;
 
 import java.io.File;
@@ -11,8 +11,8 @@ import java.util.Arrays;
  *
  */
 public class PostLoad extends MapEditor {
-    public PostLoad(GameEngineController p_gameEngineController) {
-        super(p_gameEngineController);
+    public PostLoad(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     @Override
@@ -20,7 +20,7 @@ public class PostLoad extends MapEditor {
         triggerEvent(l_args, "Map Editor Phase");
         // TODO: Refactor to have command parser method
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
-        d_gameEngineController.d_mapModel.editContinent(l_commandArgs);
+        d_gameEngine.d_mapModel.editContinent(l_commandArgs);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class PostLoad extends MapEditor {
         triggerEvent(l_args, "Map Editor Phase");
         // TODO: Refactor to have command parser method
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
-        d_gameEngineController.d_mapModel.editCountry(l_commandArgs);
+        d_gameEngine.d_mapModel.editCountry(l_commandArgs);
     }
 
     @Override
@@ -36,42 +36,42 @@ public class PostLoad extends MapEditor {
         triggerEvent(l_args, "Map Editor Phase");
         // TODO: Refactor to have command parser method
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
-        d_gameEngineController.d_mapModel.editNeighbor(l_commandArgs);
+        d_gameEngine.d_mapModel.editNeighbor(l_commandArgs);
     }
 
     @Override
     public void showMap() {
         triggerEvent(new String[]{"showmap"}, "Map Editor Phase");
-        d_gameEngineController.d_mapView.showMap(d_gameEngineController.d_mapModel.getContinents(),
-                d_gameEngineController.d_mapModel.getCountries());
+        d_gameEngine.d_mapView.showMap(d_gameEngine.d_mapModel.getContinents(),
+                d_gameEngine.d_mapModel.getCountries());
     }
 
     @Override
     public void showCountries() {
-        d_gameEngineController.d_mapView.showCountries(d_gameEngineController.d_mapModel.getContinents(),
-                d_gameEngineController.d_mapModel.getCountries());
+        d_gameEngine.d_mapView.showCountries(d_gameEngine.d_mapModel.getContinents(),
+                d_gameEngine.d_mapModel.getCountries());
     }
 
     @Override
     public void showContinents() {
-        d_gameEngineController.d_mapView.showContinents(d_gameEngineController.d_mapModel.getContinents());
+        d_gameEngine.d_mapView.showContinents(d_gameEngine.d_mapModel.getContinents());
     }
 
     @Override
     public void validateMap(String[] l_args) {
         triggerEvent(l_args, "Map Editor Phase");
-        d_gameEngineController.d_mapModel.validateMap();
-        d_gameEngineController.d_mapView.validMap(d_gameEngineController.d_mapModel.isMapValid());
+        d_gameEngine.d_mapModel.validateMap();
+        d_gameEngine.d_mapView.validMap(d_gameEngine.d_mapModel.isMapValid());
     }
 
     @Override
     public boolean saveMap(String[] l_args) throws Exception {
         triggerEvent(l_args, "Map Editor Phase");
-        d_gameEngineController.d_mapModel.validateMap();
+        d_gameEngine.d_mapModel.validateMap();
 
         // if the currently loaded map is invalid, ask for user input
-        if (!d_gameEngineController.d_mapModel.isMapValid()) {
-            String l_input = d_gameEngineController.d_mapView.askForUserInput("The map being edited is invalid, " +
+        if (!d_gameEngine.d_mapModel.isMapValid()) {
+            String l_input = d_gameEngine.d_mapView.askForUserInput("The map being edited is invalid, " +
                     "do you still want to save it (Y/N)? ");
             if (l_input.equals("n"))
                 return true;
@@ -79,7 +79,7 @@ public class PostLoad extends MapEditor {
         String l_fileName = MapUtils.getValidFileName(l_args);
         ArrayList l_fileData = MapUtils.getMapFile(l_fileName, false);
         this.saveMapWarning(l_fileName, l_fileData);
-        d_gameEngineController.d_mapModel.saveMap((File) l_fileData.get(0));
+        d_gameEngine.d_mapModel.saveMap((File) l_fileData.get(0));
         return false;
     }
 
@@ -91,8 +91,8 @@ public class PostLoad extends MapEditor {
      */
     private void saveMapWarning(String p_fileName, ArrayList p_fileData) {
         // Give Warning for overwriting already existing file
-        if (!(d_gameEngineController.d_mapModel.getCurrentFileName().equals(p_fileName)) && ((File) p_fileData.get(0)).exists()) {
-            d_gameEngineController.d_mapView.showMsg("\nWARNING: The " + p_fileName + " file is not loaded currently.");
+        if (!(d_gameEngine.d_mapModel.getCurrentFileName().equals(p_fileName)) && ((File) p_fileData.get(0)).exists()) {
+            d_gameEngine.d_mapView.showMsg("\nWARNING: The " + p_fileName + " file is not loaded currently.");
         }
     }
 }

@@ -2,7 +2,7 @@ package Model.Orders;
 
 import Model.CountryModel;
 import Model.OrderModel;
-import Model.PlayerModel;
+import Model.Player;
 import Utils.CommandsParser;
 
 import java.util.HashMap;
@@ -15,16 +15,16 @@ import java.util.List;
 public class BlockadeModel extends OrderModel {
     CountryModel d_country;
     HashMap<String, List<String>> d_args;
-    PlayerModel d_neutralPlayer;
+    Player d_neutralPlayer;
 
     /**
      * Constructor for the BlockadeModel
      *
-     * @param p_targetCountry      target country on which the armies have to be increased and neutralised
-     * @param p_currentPlayerModel to initialise current player
+     * @param p_targetCountry target country on which the armies have to be increased and neutralised
+     * @param p_currentPlayer to initialise current player
      */
-    public BlockadeModel(PlayerModel p_currentPlayerModel, PlayerModel p_neutralPlayer, CountryModel p_targetCountry, String[] p_args) {
-        super("blockade", p_currentPlayerModel, p_args);
+    public BlockadeModel(Player p_currentPlayer, Player p_neutralPlayer, CountryModel p_targetCountry, String[] p_args) {
+        super("blockade", p_currentPlayer, p_args);
         this.d_neutralPlayer = p_neutralPlayer;
         this.d_country = p_targetCountry;
         this.d_args = CommandsParser.getArguments(p_args);

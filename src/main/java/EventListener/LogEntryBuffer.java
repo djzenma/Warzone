@@ -1,6 +1,6 @@
-package ObserverPattern;
+package EventListener;
 
-import Model.PlayerModel;
+import Model.Player;
 
 /**
  * Maintains the information about the effect of user actions
@@ -8,7 +8,7 @@ import Model.PlayerModel;
  */
 public class LogEntryBuffer extends Observable {
     private String[] d_commandArgs = null;
-    private PlayerModel d_currentPlayer;
+    private Player d_currentPlayer;
     private String d_cardType = null;
     private final String d_phase;
     private boolean d_isExec = false;
@@ -32,7 +32,7 @@ public class LogEntryBuffer extends Observable {
      * @param p_currentPlayer Current player
      * @param p_phase         Name of phase
      */
-    public LogEntryBuffer(boolean p_isExec, String[] p_commandArgs, PlayerModel p_currentPlayer, String p_phase) {
+    public LogEntryBuffer(boolean p_isExec, String[] p_commandArgs, Player p_currentPlayer, String p_phase) {
         this.d_commandArgs = p_commandArgs;
         this.d_currentPlayer = p_currentPlayer;
         this.d_phase = p_phase;
@@ -46,7 +46,7 @@ public class LogEntryBuffer extends Observable {
      * @param p_cardType      Card type
      * @param p_phase         Current phase
      */
-    public LogEntryBuffer(PlayerModel p_currentPlayer, String p_cardType, String p_phase) {
+    public LogEntryBuffer(Player p_currentPlayer, String p_cardType, String p_phase) {
         this.d_currentPlayer = p_currentPlayer;
         this.d_cardType = p_cardType;
         this.d_phase = p_phase;
@@ -64,16 +64,16 @@ public class LogEntryBuffer extends Observable {
     /**
      * Accessor for the current player
      *
-     * @return current player
+     * @return Current player
      */
-    public PlayerModel getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return this.d_currentPlayer;
     }
 
     /**
      * Accessor for the current phase
      *
-     * @return current phase
+     * @return Current phase
      */
     public String getPhase() {
         return this.d_phase;
@@ -91,7 +91,7 @@ public class LogEntryBuffer extends Observable {
     /**
      * Accessor for the type of card
      *
-     * @return card type
+     * @return Card type
      */
     public String getCardType() {
         return d_cardType;

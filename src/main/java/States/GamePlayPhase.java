@@ -1,38 +1,38 @@
 package States;
 
-import Controller.GameEngineController;
+import Controller.GameEngine;
 
 public class GamePlayPhase extends Phase {
 
-    public GamePlayPhase(GameEngineController p_gameEngineController) {
-        super(p_gameEngineController);
+    public GamePlayPhase(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     @Override
     public void startup() {
-        d_gameEngineController.setPhase(new Startup(d_gameEngineController));
+        d_gameEngine.setPhase(new Startup(d_gameEngine));
     }
 
     @Override
     public void assignReinforcements() {
-        d_gameEngineController.setPhase(new AssignReinforcements(d_gameEngineController));
+        d_gameEngine.setPhase(new AssignReinforcements(d_gameEngine));
     }
 
     @Override
     public boolean issueOrders() {
-        d_gameEngineController.setPhase(new IssueOrder(d_gameEngineController));
+        d_gameEngine.setPhase(new IssueOrder(d_gameEngine));
         return false;
     }
 
     @Override
     public boolean executeOrders() {
-        d_gameEngineController.setPhase(new ExecuteOrders(d_gameEngineController));
+        d_gameEngine.setPhase(new ExecuteOrders(d_gameEngine));
         return false;
     }
 
     @Override
     public void showMap() {
-        this.d_gameEngineController.d_gamePlayView.showMap(this.d_gameEngineController.d_mapModel.getContinents(), this.d_gameEngineController.d_mapModel.getCountries());
+        this.d_gameEngine.d_gamePlayView.showMap(this.d_gameEngine.d_mapModel.getContinents(), this.d_gameEngine.d_mapModel.getCountries());
     }
 
 }

@@ -1,4 +1,4 @@
-import Controller.GameEngineController;
+import Controller.GameEngine;
 import Utils.CommandsParser;
 
 /**
@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         CommandsParser.parseJson();
 
-        GameEngineController l_gameEngineController = new GameEngineController();
-        l_gameEngineController.run();
+        GameEngine l_gameEngine = new GameEngine();
+        l_gameEngine.run();
     }
 }

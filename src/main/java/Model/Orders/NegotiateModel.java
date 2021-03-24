@@ -2,7 +2,7 @@ package Model.Orders;
 
 import Model.CountryModel;
 import Model.OrderModel;
-import Model.PlayerModel;
+import Model.Player;
 import Utils.CommandsParser;
 
 import java.util.HashMap;
@@ -14,18 +14,18 @@ import java.util.List;
  */
 public class NegotiateModel extends OrderModel {
 
-    private final PlayerModel d_targetPlayerModel;
+    private final Player d_targetPlayer;
     HashMap<String, List<String>> d_args;
 
     /**
      * Constructor for the NegotiateModel
      *
-     * @param p_targetPlayerModel Target player on whom negotiate command would run
-     * @param p_playerModel       Current player who is ordering the negotiate command
+     * @param p_targetPlayer Target player on whom negotiate command would run
+     * @param p_player       Current player who is ordering the negotiate command
      */
-    public NegotiateModel(PlayerModel p_playerModel, PlayerModel p_targetPlayerModel, String[] p_args) {
-        super("negotiate", p_playerModel, p_args);
-        this.d_targetPlayerModel = p_targetPlayerModel;
+    public NegotiateModel(Player p_player, Player p_targetPlayer, String[] p_args) {
+        super("negotiate", p_player, p_args);
+        this.d_targetPlayer = p_targetPlayer;
         this.d_args = CommandsParser.getArguments(p_args);
     }
 
@@ -37,8 +37,8 @@ public class NegotiateModel extends OrderModel {
      */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
-        this.d_currentPlayer.addNegotiator(this.d_targetPlayerModel);
-        this.d_targetPlayerModel.addNegotiator(this.d_currentPlayer);
+        this.d_currentPlayer.addNegotiator(this.d_targetPlayer);
+        this.d_targetPlayer.addNegotiator(this.d_currentPlayer);
         triggerEvent(true);
         return true;
     }

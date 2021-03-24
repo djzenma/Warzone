@@ -1,8 +1,8 @@
 package Model;
 
-import ObserverPattern.EventListener;
-import ObserverPattern.LogEntryBuffer;
-import ObserverPattern.Observable;
+import EventListener.EventListener;
+import EventListener.LogEntryBuffer;
+import EventListener.Observable;
 import Utils.CommandsParser;
 
 import java.util.HashMap;
@@ -16,19 +16,19 @@ public abstract class OrderModel extends Observable {
     protected final String d_cmdName;
     private String d_countryName;
     private int d_numReinforcements;
-    protected PlayerModel d_currentPlayer;
+    protected Player d_currentPlayer;
     private final HashMap<String, List<String>> d_args;
     private final String[] d_command;
 
     /**
      * Constructor of the OrderModel
      *
-     * @param p_cmdName     name of the command that a player issues
-     * @param p_playerModel to initialise current player
+     * @param p_cmdName name of the command that a player issues
+     * @param p_player  to initialise current player
      */
-    public OrderModel(String p_cmdName, PlayerModel p_playerModel, String[] p_args) {
+    public OrderModel(String p_cmdName, Player p_player, String[] p_args) {
         this.d_cmdName = p_cmdName;
-        this.d_currentPlayer = p_playerModel;
+        this.d_currentPlayer = p_player;
         this.d_args = CommandsParser.getArguments(p_args);
         this.d_command = p_args;
         attach(new EventListener());
@@ -49,7 +49,7 @@ public abstract class OrderModel extends Observable {
      *
      * @return current player
      */
-    public PlayerModel getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return this.d_currentPlayer;
     }
 
@@ -58,7 +58,7 @@ public abstract class OrderModel extends Observable {
      *
      * @param p_currentPlayer set current player
      */
-    public void setCurrentPlayer(PlayerModel p_currentPlayer) {
+    public void setCurrentPlayer(Player p_currentPlayer) {
         this.d_currentPlayer = p_currentPlayer;
     }
 

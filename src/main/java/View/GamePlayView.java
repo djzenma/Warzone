@@ -2,7 +2,7 @@ package View;
 
 import Model.ContinentModel;
 import Model.CountryModel;
-import Model.PlayerModel;
+import Model.Player;
 import Utils.CommandsParser;
 import org.apache.commons.lang3.StringUtils;
 
@@ -59,7 +59,7 @@ public class GamePlayView {
      *
      * @param p_player Object of the PlayerModel
      */
-    public void currentPlayer(PlayerModel p_player) {
+    public void currentPlayer(Player p_player) {
         System.out.println("\n" + p_player.getName() + "'s Turn");
         System.out.println("You have " + p_player.getReinforcements() + " reinforcements");
         System.out.println("Country Name " + "\t" + "Number of Reinforcements");
