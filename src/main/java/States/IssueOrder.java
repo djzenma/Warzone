@@ -30,6 +30,7 @@ public class IssueOrder extends GamePlayPhase {
         for (PlayerModel l_player : this.d_gameEngineController.d_gamePlayModel.getPlayers().values()) {
             if (l_player.getName().equals("Neutral"))
                 continue;
+
             l_player.flushActiveNegotiators();
             String l_cardName = l_player.assignCards();
             triggerEvent(l_player, l_cardName);

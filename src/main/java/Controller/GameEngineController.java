@@ -6,6 +6,9 @@ import States.Phase;
 import View.GamePlayView;
 import View.MapView;
 
+import java.io.File;
+import java.io.IOException;
+
 /**
  * Controller for the game engine
  */
@@ -52,10 +55,22 @@ public class GameEngineController {
      * Initial step to run the whole program
      */
     public void run() {
+        resetLog();
+
         MapController l_mapController = new MapController(this);
         l_mapController.run();
 
         GamePlayController l_gamePlayController = new GamePlayController(this);
         l_gamePlayController.run();
+    }
+
+    private void resetLog() {
+        try {
+            File l_file = new File("log/log.txt");
+            l_file.delete();
+            l_file.createNewFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
