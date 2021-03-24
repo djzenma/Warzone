@@ -424,7 +424,7 @@ public class MapModel {
      * @param p_file .map file object from which the map file is being loaded
      * @throws IOException If I/O exception of some sort has occurred
      */
-    public void loadMap(File p_file) throws IOException {     //TODO:: 5Refactor- Replacing Lambda expressions with for loops
+    public void loadMap(File p_file) throws IOException {     //TODO: 5Refactor- Replacing Lambda expressions with for loops
         this.d_continents = new LinkedHashMap<>();
         this.d_countries = new LinkedHashMap<>();
         Iterator<String> l_iterator;

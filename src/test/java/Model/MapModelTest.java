@@ -169,4 +169,17 @@ public class MapModelTest {
         assertFalse(d_MapModel.isNameNumber("Asia1"));
         assertFalse(d_MapModel.isNameNumber("1Asia"));
     }
+
+    @Test
+    public void loadOnlyValidMap() throws Exception {
+        File l_file = new File("maps/artic.map");
+        try {
+            d_MapModel.loadOnlyValidMap(l_file);
+        } catch (Exception l_e) {
+            assertFalse(d_MapModel.isMapValid());
+        }
+        l_file = new File("maps/us.map");
+        d_MapModel.loadOnlyValidMap(l_file);
+        assertTrue(d_MapModel.isMapValid());
+    }
 }

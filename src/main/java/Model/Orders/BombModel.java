@@ -23,8 +23,8 @@ public class BombModel extends OrderModel {
      * Constructor for the BombModel
      *
      * @param p_args          TODO: remove it as it is not used anywhere or should we write that we are using it to get the user command
-     * @param p_targetCountry target country on which the armies have to be decreased
-     * @param p_playerModel   to initialise current player
+     * @param p_targetCountry Target country on which the armies have to be decreased
+     * @param p_playerModel   To initialise current player
      */
     public BombModel(PlayerModel p_playerModel, CountryModel p_targetCountry, String[] p_args) {
         super("bomb", p_playerModel, p_args);
