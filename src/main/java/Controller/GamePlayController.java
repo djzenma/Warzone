@@ -1,5 +1,6 @@
 package Controller;
 
+import Model.PlayerModel;
 import States.GamePlayPhase;
 import Utils.CommandsParser;
 
@@ -100,6 +101,27 @@ public class GamePlayController {
             d_gameEngineController.d_currentPhase.next();
 
             while (d_gameEngineController.d_currentPhase.executeOrders()) ;
+
+            for (PlayerModel l_player : d_gameEngineController.d_gamePlayModel.getPlayers().values()) {
+                try {
+                    if (l_player.getCountries().size() == 0 && !(l_player.getName().equals("Neutral"))) {
+                        d_gameEngineController.d_gamePlayModel.removePlayer(l_player.getName());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            if (d_gameEngineController.d_gamePlayModel.getPlayers().size() == 2) {
+                String l_onlyPlayer = null;
+                for (PlayerModel l_player : d_gameEngineController.d_gamePlayModel.getPlayers().values()) {
+                    if (!(l_player.getName().equals("Neutral"))) {
+                        l_onlyPlayer = l_player.getName();
+                    }
+                }
+                d_gameEngineController.d_gamePlayView.winnerWinnerChickenDinner(l_onlyPlayer);
+                break;
+            }
+
             d_gameEngineController.d_currentPhase.next();
 
             l_turnNumber++;

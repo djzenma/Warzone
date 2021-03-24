@@ -383,7 +383,7 @@ public class MapModel {
      * @param p_name String to be checked
      * @return True, if the string passed only contains digits; False otherwise
      */
-    public boolean isNameNumber(String p_name) { //TODO::11Refactor: Add regular expression
+    public boolean isNameNumber(String p_name) {
         return p_name.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
 
@@ -411,7 +411,7 @@ public class MapModel {
         if (!this.isMapValid()) {
             if (!p_file.exists()) {
                 p_file.createNewFile();
-                this.editMap(new File(d_mapUtils.getMapsPath() + "empty.map"));
+                this.editMap(new File(MapUtils.getMapsPath() + "empty.map"));
                 p_file.delete();
             }
             throw new Exception("This Map is Invalid! Please Load a valid one...");

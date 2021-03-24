@@ -87,12 +87,12 @@ public class AdvanceModel extends OrderModel {
         // advance (attack) enemy country
         //60% of attacking armies can kill while defending armies can kill 70% of attacking armies.
         int l_remainingAttackers, l_remainingDefenders;
-        // src: 10, atk: 5,  def: 2
-        l_remainingAttackers = this.d_numArmies - (int) Math.round(0.7 * this.d_targetCountry.getArmies()); // 4 (or 3)
-        l_remainingDefenders = this.d_targetCountry.getArmies() - (int) Math.round(0.6 * this.d_numArmies); // 0
 
-        l_remainingDefenders = (l_remainingDefenders < 0) ? 0 : l_remainingDefenders;
-        l_remainingAttackers = (l_remainingAttackers < 0) ? 0 : l_remainingAttackers;
+        l_remainingAttackers = this.d_numArmies - (int) Math.round(0.7 * this.d_targetCountry.getArmies());
+        l_remainingDefenders = this.d_targetCountry.getArmies() - (int) Math.round(0.6 * this.d_numArmies);
+
+        l_remainingDefenders = Math.max(l_remainingDefenders, 0);
+        l_remainingAttackers = Math.max(l_remainingAttackers, 0);
 
         if (l_remainingDefenders > this.d_targetCountry.getArmies())
             l_remainingDefenders = this.d_targetCountry.getArmies();
@@ -105,7 +105,6 @@ public class AdvanceModel extends OrderModel {
 
         // attacker conquered the target country
         else if (l_remainingDefenders == 0) {
-
             this.d_sourceCountry.setArmies(this.d_sourceCountry.getArmies() - this.d_numArmies);
             this.d_targetCountry.setArmies(l_remainingAttackers);
 
@@ -118,7 +117,7 @@ public class AdvanceModel extends OrderModel {
         else {
             int l_newSourceArmies;
             int l_lostAttackers = (int) Math.round(0.7 * this.d_targetCountry.getArmies());
-            l_newSourceArmies = (this.d_sourceCountry.getArmies() - l_lostAttackers < 0) ? 0 : (this.d_sourceCountry.getArmies() - l_lostAttackers);
+            l_newSourceArmies = Math.max(this.d_sourceCountry.getArmies() - l_lostAttackers, 0);
             this.d_sourceCountry.setArmies(l_newSourceArmies);
             this.d_targetCountry.setArmies(l_remainingDefenders);
         }

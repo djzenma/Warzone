@@ -10,9 +10,21 @@ import View.MapView;
  * Controller for the game engine
  */
 public class GameEngineController {
+    /**
+     * Object of the gameplay view
+     */
     public final GamePlayView d_gamePlayView;
+    /**
+     * Object of the gameplay model
+     */
     public final GamePlayModel d_gamePlayModel;
+    /**
+     * Object of the map model
+     */
     public final MapModel d_mapModel;
+    /**
+     * Object of the map view
+     */
     public final MapView d_mapView;
 
     public Phase d_currentPhase;
