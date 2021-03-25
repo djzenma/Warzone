@@ -288,6 +288,11 @@ public class MapModel {
                     throw new Exception(l_tempCountryName + " country does not exists");
                 }
 
+
+                // remove country from continent's list as well
+                this.d_continents.get(this.d_countries.get(l_tempCountryName).getContinentId()).removeCountry(l_tempCountryName);
+
+                // remove country from map
                 this.d_countries.remove(l_tempCountryName);
 
                 // update all continents' ids

@@ -117,4 +117,13 @@ public class ContinentModel {
     public void addCountry(CountryModel p_country) {
         d_countries.put(p_country.getName(), p_country);
     }
+
+    /**
+     * Removes the country from list of countries of a continent
+     *
+     * @param p_countryName
+     */
+    public void removeCountry(String p_countryName) {
+        this.d_countries.remove(p_countryName);
+    }
 }
