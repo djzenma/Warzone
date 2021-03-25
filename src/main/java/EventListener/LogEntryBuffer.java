@@ -7,10 +7,25 @@ import Model.Player;
  * It is a subclass of Observable
  */
 public class LogEntryBuffer extends Observable {
-    private String[] d_commandArgs = null;
-    private Player d_currentPlayer;
-    private String d_cardType = null;
+    /**
+     * String of the phase
+     */
     private final String d_phase;
+    /**
+     * Object of the command arguments
+     */
+    private String[] d_commandArgs = null;
+    /**
+     * Object of the player
+     */
+    private Player d_currentPlayer;
+    /**
+     * String of the cardtype
+     */
+    private String d_cardType = null;
+    /**
+     * Boolean for execution phase
+     */
     private boolean d_isExec = false;
 
     /**

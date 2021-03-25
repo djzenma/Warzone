@@ -12,28 +12,57 @@ import java.util.*;
  * and the armies that this player owns in each country
  */
 public class Player extends Observable {
+    /**
+     * Object of the playerview
+     */
     private final PlayerView d_view;
-
-    private String d_name;
-    private int d_reinforcements;
-
+    /**
+     * Hashmap of the countries owned by the player
+     */
     private final HashMap<String, CountryModel> d_myCountries;
+    /**
+     * Hashmap of the armies
+     */
     private final HashMap<Integer, Integer> d_armies;
+    /**
+     * Queue of the orders issued by the player
+     */
     private final Queue<OrderModel> d_orderList;
+    /**
+     * Hashmap of the active negotiators
+     */
     private final HashMap<String, Player> d_activeNegotiators;
+    /**
+     * Hashmap of the cards
+     */
     private final HashMap<String, Integer> d_cards;
+    /**
+     * Name of the player
+     */
+    private String d_name;
+    /**
+     * Number of reinforcements
+     */
+    private int d_reinforcements;
+    /**
+     * Boolean for the eligibility of the card
+     */
     private boolean d_eligibleForCard;
-
+    /**
+     * Object of the phase- current phase
+     */
     private Phase d_currentPhase;
-
+    /**
+     * Array of the command arguments
+     */
     private String[] d_args;
-
 
     /**
      * Initialises the name of the player, reinforcements, orders, countries and PlayerView
      *
-     * @param p_name Name of the player
-     * @param p_view Object of the PlayerView
+     * @param p_name      Name of the player
+     * @param p_view      Object of the PlayerView
+     * @param p_countries HashMap of the countries
      */
     public Player(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries) {
         this.setName(p_name);
@@ -53,6 +82,8 @@ public class Player extends Observable {
      *
      * @param p_name Name of the player
      * @param p_view Object of the PlayerView
+     * @param p_countries HashMap of the Player Countries
+     * @param p_players HashMap of the Player
      */
     public Player(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries, HashMap<String, Player> p_players) {
         this.setName(p_name);

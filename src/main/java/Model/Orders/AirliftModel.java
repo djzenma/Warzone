@@ -14,10 +14,25 @@ import java.util.List;
  * It inherits the OrderModel and overwrites the abstract execute method
  */
 public class AirliftModel extends OrderModel {
+    /**
+     * Object of the country model(source country)
+     */
     private final CountryModel d_sourceCountry;
+    /**
+     * Object of the country model(target country)
+     */
     private final CountryModel d_targetCountry;
+    /**
+     * Object of the playerview
+     */
     private final PlayerView d_playerView;
+    /**
+     * Number of the armies
+     */
     private final int d_numArmies;
+    /**
+     * Object of the command arguments
+     */
     HashMap<String, List<String>> d_args;
 
     /**

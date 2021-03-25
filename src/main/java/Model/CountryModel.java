@@ -6,13 +6,37 @@ import java.util.LinkedHashMap;
  * Maintains the state of a country
  */
 public class CountryModel {
-    private int d_id;
+    /**
+     * Name of the country
+     */
     private final String d_name;
+    /**
+     * Id of the country
+     */
+    private int d_id;
+    /**
+     * Name of the continent
+     */
     private String d_continentId;
+    /**
+     * Number of armies
+     */
     private int d_armies;
+    /**
+     * X coordinate of the continent
+     */
     private String d_xCoordinate;
+    /**
+     * Y coordinate of the continent
+     */
     private String d_yCoordinate;
+    /**
+     * Object of the player
+     */
     private Player d_owner;
+    /**
+     * LinkedHashMap of the neighbors
+     */
     private LinkedHashMap<CountryModel, LinkedHashMap<String, CountryModel>> d_neighbors;
 
     /**

@@ -12,7 +12,7 @@ import java.util.Scanner;
 import java.util.function.Consumer;
 
 /**
- * TODO::
+ * View of the Game Play
  */
 public class GamePlayView {
     /**
@@ -260,18 +260,36 @@ public class GamePlayView {
         return l_args;
     }
 
+    /**
+     * If the player of the name is invalid
+     */
     public void invalidPlayerName() {
         System.out.println("You can't add/remove neutral player.");
     }
 
+    /**
+     * Checks the duplicate players
+     *
+     * @param p_player name of the player
+     */
     public void duplicatePlayer(String p_player) {
         System.out.println(p_player + "is already in the game, can't add again.");
     }
 
+    /**
+     * Checks if no player is found
+     *
+     * @param p_player name of the player
+     */
     public void noPlayerFound(String p_player) {
         System.out.println(p_player + "is not in the game, hence can't be removed");
     }
 
+    /**
+     * Prints if the player won
+     *
+     * @param p_player name of the winning player
+     */
     public void winnerWinnerChickenDinner(String p_player) {
         System.out.println("WINNER WINNER CHICKEN DINNER \n" +
                 p_player + ", You rock man!!");

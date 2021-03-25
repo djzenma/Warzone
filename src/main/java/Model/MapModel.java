@@ -15,14 +15,29 @@ import java.util.function.Consumer;
  * Implements methods to handle MapEditor commands
  */
 public class MapModel {
-
+    /**
+     * Object of the MapUtils
+     */
     private final MapUtils d_mapUtils;
-
+    /**
+     * Boolean for the validity of the map
+     */
     private boolean d_isMapValid;
+    /**
+     * Boolean for the map file loaded
+     */
     private boolean d_mapFileLoaded;
+    /**
+     * Current file name
+     */
     private String d_currentFileName;
-
+    /**
+     * LinkedHashMap of the continents
+     */
     private LinkedHashMap<String, ContinentModel> d_continents;
+    /**
+     * LinkedHashMap of the countries
+     */
     private LinkedHashMap<String, CountryModel> d_countries;
 
     /**
@@ -172,7 +187,7 @@ public class MapModel {
                     return p_continentModel;
                 });
             } else {
-                throw new Exception(l_option + " is not supported");                    //TODO:: 1Refactor
+                throw new Exception(l_option + " is not supported");
             }
         }
         l_sc.close();
@@ -287,7 +302,7 @@ public class MapModel {
                 // ensures that neighbors of applicable countries are updated
                 updateNeighbors(l_tempCountryName);
             } else {
-                throw new Exception(l_option + " is not supported");      //TODO:: 2Refactor
+                throw new Exception(l_option + " is not supported");
             }
         }
         l_sc.close();
@@ -371,7 +386,7 @@ public class MapModel {
                 }
                 this.d_countries.get(l_tempCountryName).removeNeighbor(this.d_countries.get(l_tempNeighborCountryName));
             } else {
-                throw new Exception(l_option + " is not supported");         //TODO:: 3Refactor
+                throw new Exception(l_option + " is not supported");
             }
         }
         l_sc.close();
@@ -405,7 +420,7 @@ public class MapModel {
      * @param p_file .map file object from which the map file is being loaded
      * @throws IOException If I/O exception of some sort has occurred
      */
-    public void loadOnlyValidMap(File p_file) throws Exception {     //TODO:: 4Refactor-creation and deletion unnecessary
+    public void loadOnlyValidMap(File p_file) throws Exception {
         this.loadMap(p_file);
         this.validateMap();
         if (!this.isMapValid()) {
@@ -424,7 +439,7 @@ public class MapModel {
      * @param p_file .map file object from which the map file is being loaded
      * @throws IOException If I/O exception of some sort has occurred
      */
-    public void loadMap(File p_file) throws IOException {     //TODO: 5Refactor- Replacing Lambda expressions with for loops
+    public void loadMap(File p_file) throws IOException {
         this.d_continents = new LinkedHashMap<>();
         this.d_countries = new LinkedHashMap<>();
         Iterator<String> l_iterator;
@@ -591,7 +606,7 @@ public class MapModel {
      *
      * @return True, if all continents are present in the map; False otherwise
      */
-    public boolean validateContinentExistence() {     //TODO:: 6Refactor: Lambda expressions
+    public boolean validateContinentExistence() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
         this.d_countries.values().forEach(p_countryModel -> {
             if (!(this.d_continents.containsKey(p_countryModel.getContinentId()))) {
@@ -606,7 +621,7 @@ public class MapModel {
      *
      * @return True, if every country's neighbors are present in the map; False otherwise
      */
-    public boolean validateNeighborExistence() {      //TODO:: 7Refactor: Lambda expressions
+    public boolean validateNeighborExistence() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
         this.d_countries.values().forEach(p_countryModel -> {
             p_countryModel.getNeighbors().values().forEach(p_countryModel1 -> {
@@ -624,7 +639,7 @@ public class MapModel {
      *
      * @return True if every continent is fully connected; False otherwise
      */
-    public boolean validateContinentConnectivity() {       //TODO:: 8Refactor: Lambda expressions
+    public boolean validateContinentConnectivity() {
         AtomicBoolean l_valid = new AtomicBoolean(true);
         this.d_continents.values().forEach(p_continentModel -> {
             if (!validateFullConnectivity(p_continentModel.getCountries()))
@@ -639,7 +654,7 @@ public class MapModel {
      * @param p_file File object where the current map should be saved
      * @throws IOException If I/O exception of some sort has occurred
      */
-    public void saveMap(File p_file) throws IOException { //TODO:: 9Refactor: Lambda expressions
+    public void saveMap(File p_file) throws IOException {
         String l_tempLine = null;
         FileOutputStream l_fos;
 

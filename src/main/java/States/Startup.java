@@ -11,7 +11,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *
+ * Startup phase
+ * It extend the gameplay phase
  */
 public class Startup extends GamePlayPhase {
     public Startup(GameEngine p_gameEngine) {
@@ -19,9 +20,10 @@ public class Startup extends GamePlayPhase {
     }
 
     /**
+     * Loads the map
      *
-     * @param l_args
-     * @throws Exception
+     * @param l_args Array of the command arguments
+     * @throws Exception Throws if there is some kind of exception
      */
     @Override
     public void loadMap(String[] l_args) throws Exception {
@@ -32,7 +34,7 @@ public class Startup extends GamePlayPhase {
     }
 
     /**
-     *
+     * Shows the map in the startup phase
      */
     @Override
     public void showMap() {
@@ -41,9 +43,10 @@ public class Startup extends GamePlayPhase {
     }
 
     /**
+     * Adds/removes the gameplayer
      *
-     * @param l_args
-     * @throws Exception
+     * @param l_args Array of the command arguments
+     * @throws Exception Throws if there is some kind of exception
      */
     @Override
     public void gameplayer(String[] l_args) throws Exception {
@@ -83,7 +86,9 @@ public class Startup extends GamePlayPhase {
     }
 
     /**
-     * @return
+     * Assign the countries to the players
+     *
+     * @return true if the command is valid; otherwise false
      */
     @Override
     public boolean assignCountries() {
@@ -99,7 +104,7 @@ public class Startup extends GamePlayPhase {
     }
 
     /**
-     *
+     * Moves to the next phase
      */
     @Override
     public void next() {

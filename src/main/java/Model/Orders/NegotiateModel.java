@@ -13,8 +13,13 @@ import java.util.List;
  * It inherits the OrderModel and overwrites the abstract execute method
  */
 public class NegotiateModel extends OrderModel {
-
+    /**
+     * Object of the player(target player)
+     */
     private final Player d_targetPlayer;
+    /**
+     * Hashmap of the command arguments
+     */
     HashMap<String, List<String>> d_args;
 
     /**

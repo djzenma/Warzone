@@ -13,18 +13,37 @@ import java.util.List;
  * Every new order will implement the abstract execute method
  */
 public abstract class OrderModel extends Observable {
+    /**
+     * Name of the command
+     */
     protected final String d_cmdName;
-    private String d_countryName;
-    private int d_numReinforcements;
-    protected Player d_currentPlayer;
+    /**
+     * Hashmap of the command arguments
+     */
     private final HashMap<String, List<String>> d_args;
+    /**
+     * String array of teh command arguments
+     */
     private final String[] d_command;
+    /**
+     * Object of the current player
+     */
+    protected Player d_currentPlayer;
+    /**
+     * Name of the country
+     */
+    private String d_countryName;
+    /**
+     * Number of reinforcements
+     */
+    private int d_numReinforcements;
 
     /**
      * Constructor of the OrderModel
      *
      * @param p_cmdName name of the command that a player issues
      * @param p_player  to initialise current player
+     * @param p_args    array of the command arguments
      */
     public OrderModel(String p_cmdName, Player p_player, String[] p_args) {
         this.d_cmdName = p_cmdName;
@@ -78,6 +97,12 @@ public abstract class OrderModel extends Observable {
      */
     public abstract boolean execute(HashMap<String, CountryModel> p_countries);
 
+    /**
+     * Loads the log entry buffer with the current order object
+     * Notifies about the state change
+     *
+     * @param p_isExec if it is the execute orders phase
+     */
     public void triggerEvent(boolean p_isExec) {
         LogEntryBuffer l_entryBuffer = new LogEntryBuffer(p_isExec, d_command, this.d_currentPlayer, "Game Play Phase");
         notifyObservers(l_entryBuffer);

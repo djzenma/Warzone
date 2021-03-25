@@ -10,9 +10,17 @@ import View.MapView;
  * Takes inputs from the MapView and controls the flow of execution of MapEditor
  */
 public class MapController {
-
+    /**
+     * Object of the mapmodel
+     */
     private final MapModel d_mapModel;
+    /**
+     * Object of the mapview
+     */
     private final MapView d_mapView;
+    /**
+     * Object of the gameengine
+     */
     private final GameEngine d_gameEngine;
 
     /**
@@ -93,7 +101,5 @@ public class MapController {
             }
         }
     }
-
-
 }
 

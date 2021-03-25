@@ -4,16 +4,20 @@ import States.GamePlayPhase;
 import Utils.CommandsParser;
 
 /**
- * TODO: Is any info required?
  * Controls the game play phase
  * The table has the following information-
  * <ul>
- * <li>  </li>
+ * <li> Constructor of the Gameplay </li>
+ * <li> Startup phase of the game </li>
+ * <li> Loads the Startup Phase and loops over Gameplay phase </li>
  * </ul>
  */
 public class GamePlayController {
 
-    GameEngine d_gameEngine;
+    /**
+     * Object of the gameengine
+     */
+    private final GameEngine d_gameEngine;
 
     /**
      * Initialises GamePlayModel, GamePlayView and MapModel
@@ -23,7 +27,6 @@ public class GamePlayController {
         this.d_gameEngine = p_gameEngine;
         d_gameEngine.setPhase(new GamePlayPhase(p_gameEngine));
     }
-
 
     /**
      * Startup Phase of the game.

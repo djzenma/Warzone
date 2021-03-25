@@ -9,22 +9,42 @@ import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+/**
+ * Map editor commands
+ * It extends the main phase
+ */
 public class MapEditor extends Phase {
+    /**
+     * Constructor
+     *
+     * @param p_gameEngine object of the gameengine
+     */
     public MapEditor(GameEngine p_gameEngine) {
         super(p_gameEngine);
     }
 
+    /**
+     * Shows all the available commands
+     */
     @Override
     public void showCommands() {
         d_gameEngine.d_mapView.showAvailableCommands(true);
     }
 
+    /**
+     * List all the available maps
+     *
+     * @throws IOException If I/O exception of some sort has occurred
+     */
     @Override
     public void listMaps() throws IOException {
         String[] l_allFileNames = MapUtils.getAllAvailableFileNames();
         d_gameEngine.d_mapView.showAvailableFiles(checkAllFilesValidation(l_allFileNames));
     }
 
+    /**
+     * Exits from the mapeditor phase
+     */
     @Override
     public void exit() {
         d_gameEngine.setPhase(new GamePlayPhase(d_gameEngine));

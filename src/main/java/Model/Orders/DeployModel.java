@@ -14,8 +14,17 @@ import java.util.List;
  * It inherits the OrderModel and overwrites the abstract execute method
  */
 public class DeployModel extends OrderModel {
+    /**
+     * Hashmap of the command arguments
+     */
     private final HashMap<String, List<String>> d_args;
+    /**
+     * Object of the playerview
+     */
     private final PlayerView d_playerView;
+    /**
+     * Number of reinforcements before execution
+     */
     private final int d_reinforcementsBeforeExec;
 
     /**

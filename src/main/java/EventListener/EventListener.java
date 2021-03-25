@@ -15,8 +15,17 @@ import java.util.List;
  * It is a subclass of Observer
  */
 public class EventListener extends Observer {
+    /**
+     * Object of the command arguments
+     */
     private HashMap<String, List<String>> d_args;
+    /**
+     * Object of the log entry buffer
+     */
     private LogEntryBuffer d_logEntryBuffer;
+    /**
+     * Object of the player
+     */
     private Player d_currentPlayer;
 
     /**

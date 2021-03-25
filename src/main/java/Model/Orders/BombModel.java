@@ -14,15 +14,27 @@ import java.util.List;
  * It inherits the OrderModel and overwrites the abstract execute method
  */
 public class BombModel extends OrderModel {
+    /**
+     * Object of the player
+     */
     Player d_player;
+    /**
+     * Object of the country model(target country)
+     */
     CountryModel d_targetCountry;
+    /**
+     * HashMap of the command arguments
+     */
     HashMap<String, List<String>> d_args;
+    /**
+     * Arraylist of the source countries
+     */
     ArrayList<CountryModel> d_sourceCountries;
 
     /**
      * Constructor for the BombModel
      *
-     * @param p_args          TODO: remove it as it is not used anywhere or should we write that we are using it to get the user command
+     * @param p_args          To initialise command arguments
      * @param p_targetCountry Target country on which the armies have to be decreased
      * @param p_player        To initialise current player
      */

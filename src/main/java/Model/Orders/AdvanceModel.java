@@ -14,11 +14,25 @@ import java.util.List;
  * It inherits the OrderModel and overwrites the abstract execute method
  */
 public class AdvanceModel extends OrderModel {
-
+    /**
+     * Object of the countrymodel for source country
+     */
     private final CountryModel d_sourceCountry;
+    /**
+     * Object of the countrymodel for target country
+     */
     private final CountryModel d_targetCountry;
+    /**
+     * Object of the playerview
+     */
     private final PlayerView d_playerView;
+    /**
+     * Number of the armies
+     */
     private final int d_numArmies;
+    /**
+     * Object of the command arguments
+     */
     HashMap<String, List<String>> d_args;
 
     /**
@@ -121,7 +135,6 @@ public class AdvanceModel extends OrderModel {
             this.d_sourceCountry.setArmies(l_newSourceArmies);
             this.d_targetCountry.setArmies(l_remainingDefenders);
         }
-
         return true;
     }
 }

@@ -10,6 +10,10 @@ import Utils.CommandsParser;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Issues the orders added by the players
+ * It extends the gameplay phase
+ */
 public class IssueOrder extends GamePlayPhase {
 
     public IssueOrder(GameEngine p_gameEngine) {
@@ -41,7 +45,6 @@ public class IssueOrder extends GamePlayPhase {
 
                 // if the command is showmap
                 if (CommandsParser.isShowMap(l_args)) {
-                    // TODO: this.d_mapModel.getContinents(), this.d_mapModel.getCountries() ??
                     d_gameEngine.d_currentPhase.showMap();
                 }
 
@@ -65,7 +68,13 @@ public class IssueOrder extends GamePlayPhase {
         return !l_moveToNextPhase;
     }
 
-
+    /**
+     * Deploys the armies on the countries
+     *
+     * @param p_args   Array of the command arguments
+     * @param p_player Object of the player
+     * @return true if the order is valid; otherwise false
+     */
     @Override
     public boolean deploy(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
@@ -97,6 +106,13 @@ public class IssueOrder extends GamePlayPhase {
         return true;
     }
 
+    /**
+     * Advances the armies on the countries
+     *
+     * @param @param   p_args Array of the command arguments
+     * @param p_player Object of the player
+     * @return true if the order is valid; otherwise false
+     */
     @Override
     public boolean advance(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
@@ -122,6 +138,13 @@ public class IssueOrder extends GamePlayPhase {
         return true;
     }
 
+    /**
+     * Bombs the armies on the target country
+     *
+     * @param @param   p_args Array of the command arguments
+     * @param p_player Object of the player
+     * @return true if the order is valid; otherwise false
+     */
     @Override
     public boolean bomb(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
@@ -139,7 +162,6 @@ public class IssueOrder extends GamePlayPhase {
             p_player.removeCard(p_args[0]);
         }
 
-
         // if(this.d_orderList.contains(new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view))) {
         OrderModel l_order = new BombModel(p_player,
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("target_country").get(0)),
@@ -148,6 +170,13 @@ public class IssueOrder extends GamePlayPhase {
         return true;
     }
 
+    /**
+     * Blockade the armies on the country
+     *
+     * @param @param   p_args Array of the command arguments
+     * @param p_player Object of the player
+     * @return true if the order is valid; otherwise false
+     */
     @Override
     public boolean blockade(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
@@ -165,7 +194,6 @@ public class IssueOrder extends GamePlayPhase {
             p_player.removeCard(p_args[0]);
         }
 
-
         OrderModel l_order = new BlockadeModel(
                 p_player,
                 this.d_gameEngine.d_gamePlayModel.getPlayers().get("Neutral"),
@@ -175,6 +203,13 @@ public class IssueOrder extends GamePlayPhase {
         return true;
     }
 
+    /**
+     * Airlifts the armies on the countries
+     *
+     * @param @param   p_args Array of the command arguments
+     * @param p_player Object of the player
+     * @return true if the order is valid; otherwise false
+     */
     @Override
     public boolean airlift(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
@@ -196,7 +231,6 @@ public class IssueOrder extends GamePlayPhase {
             p_player.removeCard(p_args[0]);
         }
 
-
         OrderModel l_order = new AirliftModel(
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("country_name_from").get(0)),
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("country_name_to").get(0)),
@@ -208,6 +242,13 @@ public class IssueOrder extends GamePlayPhase {
         return true;
     }
 
+    /**
+     * Negotiate with the opponents
+     *
+     * @param @param   p_args Array of the command arguments
+     * @param p_player Object of the player
+     * @return true if the order is valid; otherwise false
+     */
     @Override
     public boolean negotiate(String[] p_args, Player p_player) {
         // check if the player has a card to issue this order
@@ -217,7 +258,6 @@ public class IssueOrder extends GamePlayPhase {
         } else {
             p_player.removeCard(p_args[0]);
         }
-
 
         String l_targetPlayerName = CommandsParser.getArguments(p_args).get("target_player").get(0);
         if (l_targetPlayerName.equals(p_player.getName())) {
@@ -234,6 +274,13 @@ public class IssueOrder extends GamePlayPhase {
         return true;
     }
 
+    /**
+     * If player deployed all the armies and pass to next turn
+     *
+     * @param @param   p_args Array of the command arguments
+     * @param p_player Object of the player
+     * @return true if the order is valid; otherwise false
+     */
     @Override
     public boolean pass(Player p_player) {
         // checks if the player is trying to pass/skip the turn
@@ -244,6 +291,13 @@ public class IssueOrder extends GamePlayPhase {
         return true;
     }
 
+    /**
+     * Loads the log entry buffer with the current order object
+     * Notifies about the state change
+     *
+     * @param p_currentPlayer Object of the player
+     * @param l_cardName      name of the card
+     */
     private void triggerEvent(Player p_currentPlayer, String l_cardName) {
         if (l_cardName != null) {
             LogEntryBuffer l_entryBuffer = new LogEntryBuffer(p_currentPlayer, l_cardName, "Issue Cards");
@@ -251,6 +305,9 @@ public class IssueOrder extends GamePlayPhase {
         }
     }
 
+    /**
+     * Moves to the next phase
+     */
     @Override
     public void next() {
         d_gameEngine.setPhase(new ExecuteOrders(d_gameEngine));

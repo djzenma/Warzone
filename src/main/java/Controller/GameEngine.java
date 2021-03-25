@@ -29,7 +29,9 @@ public class GameEngine {
      * Object of the map view
      */
     public final MapView d_mapView;
-
+    /**
+     * Object of the phase
+     */
     public Phase d_currentPhase;
 
     /**
@@ -64,6 +66,9 @@ public class GameEngine {
         l_gamePlayController.run();
     }
 
+    /**
+     * Resets the log file at the starting
+     */
     private void resetLog() {
         try {
             File l_file = new File("log/log.txt");

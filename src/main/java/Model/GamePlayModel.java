@@ -20,10 +20,25 @@ import static java.lang.Math.floor;
  * </ul>
  */
 public class GamePlayModel {
+    /**
+     * HashMap of the players
+     */
     private final HashMap<String, Player> d_players;
+    /**
+     * HashMap of the countries
+     */
     private HashMap<String, CountryModel> d_countries;
+    /**
+     * ArrayList of the continents
+     */
     private ArrayList<ContinentModel> d_continents;
+    /**
+     * Boolean for the endgame
+     */
     private boolean d_endGame;
+    /**
+     * Object for the winning player
+     */
     private Player d_winner;
 
     /**

@@ -6,11 +6,25 @@ import java.util.LinkedHashMap;
  * Maintains the state of a continent
  */
 public class ContinentModel {
-
+    /**
+     * LinkedHashMap of the countries
+     */
     private final LinkedHashMap<String, CountryModel> d_countries;
+    /**
+     * Name of the continent
+     */
     private final String d_name;
+    /**
+     * Control value of the continent
+     */
     private final int d_controlValue;
+    /**
+     * Id of the continent
+     */
     private int d_id;
+    /**
+     * Color of the continent
+     */
     private String d_color;
 
     /**

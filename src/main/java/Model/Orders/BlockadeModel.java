@@ -13,15 +13,26 @@ import java.util.List;
  * It inherits the OrderModel and overwrites the abstract execute method
  */
 public class BlockadeModel extends OrderModel {
+    /**
+     * Object of the country
+     */
     CountryModel d_country;
+    /**
+     * Object of the command arguments
+     */
     HashMap<String, List<String>> d_args;
+    /**
+     * Object of the player
+     */
     Player d_neutralPlayer;
 
     /**
      * Constructor for the BlockadeModel
      *
-     * @param p_targetCountry target country on which the armies have to be increased and neutralised
      * @param p_currentPlayer to initialise current player
+     * @param p_neutralPlayer to initialise neutral player
+     * @param p_targetCountry target country on which the armies have to be increased and neutralised
+     * @param p_args          to initialise the command arguments
      */
     public BlockadeModel(Player p_currentPlayer, Player p_neutralPlayer, CountryModel p_targetCountry, String[] p_args) {
         super("blockade", p_currentPlayer, p_args);

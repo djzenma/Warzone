@@ -7,7 +7,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 /**
- *
+ * Pre load phase
+ * It extend the mapeditor
  */
 public class PreLoad extends MapEditor {
     public PreLoad(GameEngine p_gameEngine) {
@@ -15,8 +16,10 @@ public class PreLoad extends MapEditor {
     }
 
     /**
-     * @param l_args
-     * @throws Exception
+     * Edits the map
+     *
+     * @param l_args Array of the command arguments
+     * @throws Exception Throws if there is some kind of exception
      */
     @Override
     public void editMap(String[] l_args) throws Exception {
@@ -37,11 +40,10 @@ public class PreLoad extends MapEditor {
     }
 
     /**
-     *
+     * Moves to the next phase
      */
     @Override
     public void next() {
         d_gameEngine.setPhase(new PostLoad(d_gameEngine));
     }
-
 }
