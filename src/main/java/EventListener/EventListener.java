@@ -3,10 +3,7 @@ package EventListener;
 import Model.Player;
 import Utils.CommandsParser;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -181,6 +178,9 @@ public class EventListener extends Observer {
      * @param l_event log
      */
     private void createLogFile(String l_event) {
+        File l_logDir = new File("log");
+        if (!l_logDir.exists())
+            l_logDir.mkdir();
         try (FileWriter l_logFile = new FileWriter("log/log.txt", true);
              BufferedWriter l_bWriter = new BufferedWriter(l_logFile);
              PrintWriter l_pWriter = new PrintWriter(l_bWriter)) {
