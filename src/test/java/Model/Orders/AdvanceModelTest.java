@@ -15,11 +15,11 @@ public class AdvanceModelTest {
     /**
      * Object of the Gameengine
      */
-    private static GameEngine D_GameEngine;
+    private static GameEngine d_GameEngine;
     /**
      * Object of the AdvanceModel
      */
-    private static AdvanceModel D_AdvanceModel;
+    private static AdvanceModel d_AdvanceModel;
 
     /**
      * Initialise the context of the test
@@ -29,13 +29,13 @@ public class AdvanceModelTest {
     @Before
     public void init() throws Exception {
         CommandsParser.parseJson();
-        D_GameEngine = new GameEngine();
-        D_GameEngine.setPhase(new Startup(D_GameEngine));
-        D_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
-        D_GameEngine.d_gamePlayModel.addPlayer("Adeetya");
-        D_GameEngine.d_gamePlayModel.addPlayer("Mazen");
-        D_GameEngine.d_currentPhase.assignCountries();
-        D_GameEngine.d_gamePlayModel.assignReinforcements();
+        d_GameEngine = new GameEngine();
+        d_GameEngine.setPhase(new Startup(d_GameEngine));
+        d_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
+        d_GameEngine.d_gamePlayModel.addPlayer("Adeetya");
+        d_GameEngine.d_gamePlayModel.addPlayer("Mazen");
+        d_GameEngine.d_currentPhase.assignCountries();
+        d_GameEngine.d_gamePlayModel.assignReinforcements();
     }
 
     /**
@@ -45,31 +45,31 @@ public class AdvanceModelTest {
     public void attack() {
         DeployModel l_deployModel_1 = new DeployModel(
                 new String[]{"deploy", "Venus-North", "46"},
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya").getView());
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya").getView());
 
-        l_deployModel_1.execute(D_GameEngine.d_mapModel.getCountries());
+        l_deployModel_1.execute(d_GameEngine.d_mapModel.getCountries());
 
         DeployModel l_deployModel_2 = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "10"},
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
-        l_deployModel_2.execute(D_GameEngine.d_mapModel.getCountries());
+        l_deployModel_2.execute(d_GameEngine.d_mapModel.getCountries());
 
         // attack and conquer
-        D_AdvanceModel = new AdvanceModel(
-                D_GameEngine.d_mapModel.getCountries().get("Venus-North"),
-                D_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
+        d_AdvanceModel = new AdvanceModel(
+                d_GameEngine.d_mapModel.getCountries().get("Venus-North"),
+                d_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
                 46,
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya").getView(),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya").getView(),
                 new String[]{"advance", "Venus-North", "Saturn-South", "46"});
 
-        assertTrue(D_AdvanceModel.execute(D_GameEngine.d_mapModel.getCountries()));
-        assertEquals("Adeetya", D_GameEngine.d_mapModel.getCountries().get("Venus-North").getOwnerName());
-        assertEquals("Adeetya", D_GameEngine.d_mapModel.getCountries().get("Saturn-South").getOwnerName());
-        assertEquals(39, D_GameEngine.d_mapModel.getCountries().get("Saturn-South").getArmies());
+        assertTrue(d_AdvanceModel.execute(d_GameEngine.d_mapModel.getCountries()));
+        assertEquals("Adeetya", d_GameEngine.d_mapModel.getCountries().get("Venus-North").getOwnerName());
+        assertEquals("Adeetya", d_GameEngine.d_mapModel.getCountries().get("Saturn-South").getOwnerName());
+        assertEquals(39, d_GameEngine.d_mapModel.getCountries().get("Saturn-South").getArmies());
     }
 
     /**
@@ -80,20 +80,20 @@ public class AdvanceModelTest {
     public void normalMove() {
         DeployModel l_deployModel = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "30"},
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
-        l_deployModel.execute(D_GameEngine.d_mapModel.getCountries());
+        l_deployModel.execute(d_GameEngine.d_mapModel.getCountries());
 
-        D_AdvanceModel = new AdvanceModel(
-                D_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
-                D_GameEngine.d_mapModel.getCountries().get("Saturn-Southeast"),
+        d_AdvanceModel = new AdvanceModel(
+                d_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
+                d_GameEngine.d_mapModel.getCountries().get("Saturn-Southeast"),
                 20,
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView(),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView(),
                 new String[]{"advance", "Saturn-South", "Saturn-Southeast", "20"});
 
-        assertTrue(D_AdvanceModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertTrue(d_AdvanceModel.execute(d_GameEngine.d_mapModel.getCountries()));
     }
 
 
@@ -107,32 +107,32 @@ public class AdvanceModelTest {
     public void failingNormalMove() {
         DeployModel l_deployModel = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "30"},
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
-        l_deployModel.execute(D_GameEngine.d_mapModel.getCountries());
+        l_deployModel.execute(d_GameEngine.d_mapModel.getCountries());
 
         // The target country is not adjacent to the source country
-        D_AdvanceModel = new AdvanceModel(
-                D_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
-                D_GameEngine.d_mapModel.getCountries().get("Pluto-West"),
+        d_AdvanceModel = new AdvanceModel(
+                d_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
+                d_GameEngine.d_mapModel.getCountries().get("Pluto-West"),
                 20,
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView(),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView(),
                 new String[]{"advance", "Saturn-South", "Pluto-West", "20"});
 
-        assertFalse(D_AdvanceModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertFalse(d_AdvanceModel.execute(d_GameEngine.d_mapModel.getCountries()));
 
         // The source country is not owned by the player
-        D_AdvanceModel = new AdvanceModel(
-                D_GameEngine.d_mapModel.getCountries().get("Comet-Head"),
-                D_GameEngine.d_mapModel.getCountries().get("Comet-Tail"),
+        d_AdvanceModel = new AdvanceModel(
+                d_GameEngine.d_mapModel.getCountries().get("Comet-Head"),
+                d_GameEngine.d_mapModel.getCountries().get("Comet-Tail"),
                 20,
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView(),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView(),
                 new String[]{"advance", "Comet-Head", "Comet-Tail", "20"});
 
-        assertFalse(D_AdvanceModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertFalse(d_AdvanceModel.execute(d_GameEngine.d_mapModel.getCountries()));
     }
 
     /**
@@ -142,19 +142,19 @@ public class AdvanceModelTest {
     public void failingNormalMove2() {
         DeployModel l_deployModel = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "30"},
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
-        l_deployModel.execute(D_GameEngine.d_mapModel.getCountries());
+        l_deployModel.execute(d_GameEngine.d_mapModel.getCountries());
 
-        D_AdvanceModel = new AdvanceModel(
-                D_GameEngine.d_mapModel.getCountries().get("Pluto-West"),
-                D_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
+        d_AdvanceModel = new AdvanceModel(
+                d_GameEngine.d_mapModel.getCountries().get("Pluto-West"),
+                d_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
                 20,
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView(),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView(),
                 new String[]{"advance", "Pluto-West", "Saturn-South", "20"});
 
-        assertFalse(D_AdvanceModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertFalse(d_AdvanceModel.execute(d_GameEngine.d_mapModel.getCountries()));
     }
 }

@@ -16,11 +16,11 @@ public class NegotiateModelTest {
     /**
      * Object of the gameengine
      */
-    private static GameEngine D_GameEngine;
+    private static GameEngine d_GameEngine;
     /**
      * Object of the Negotiate model
      */
-    private static NegotiateModel D_NegotiateModel;
+    private static NegotiateModel d_NegotiateModel;
 
     /**
      * Set up a scenario
@@ -30,13 +30,13 @@ public class NegotiateModelTest {
     @Before
     public void init() throws Exception {
         CommandsParser.parseJson();
-        D_GameEngine = new GameEngine();
-        D_GameEngine.setPhase(new Startup(D_GameEngine));
-        D_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
-        D_GameEngine.d_gamePlayModel.addPlayer("A");
-        D_GameEngine.d_gamePlayModel.addPlayer("B");
-        D_GameEngine.d_currentPhase.assignCountries();
-        D_GameEngine.d_gamePlayModel.assignReinforcements();
+        d_GameEngine = new GameEngine();
+        d_GameEngine.setPhase(new Startup(d_GameEngine));
+        d_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
+        d_GameEngine.d_gamePlayModel.addPlayer("A");
+        d_GameEngine.d_gamePlayModel.addPlayer("B");
+        d_GameEngine.d_currentPhase.assignCountries();
+        d_GameEngine.d_gamePlayModel.assignReinforcements();
     }
 
     /**
@@ -44,12 +44,12 @@ public class NegotiateModelTest {
      */
     @Test
     public void succeedingScenario() {
-        D_NegotiateModel = new NegotiateModel(
-                D_GameEngine.d_gamePlayModel.getPlayers().get("A"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("B"),
+        d_NegotiateModel = new NegotiateModel(
+                d_GameEngine.d_gamePlayModel.getPlayers().get("A"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("B"),
                 new String[]{"negotiate", "B"});
 
-        assertTrue(D_NegotiateModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertTrue(d_NegotiateModel.execute(d_GameEngine.d_mapModel.getCountries()));
     }
 
     /**
@@ -57,22 +57,22 @@ public class NegotiateModelTest {
      */
     @Test
     public void failingScenario() {
-        D_NegotiateModel = new NegotiateModel(
-                D_GameEngine.d_gamePlayModel.getPlayers().get("A"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("B"),
+        d_NegotiateModel = new NegotiateModel(
+                d_GameEngine.d_gamePlayModel.getPlayers().get("A"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("B"),
                 new String[]{"negotiate", "B"});
 
-        assertTrue(D_NegotiateModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertTrue(d_NegotiateModel.execute(d_GameEngine.d_mapModel.getCountries()));
 
         // try attacking while negotiated
         AdvanceModel d_advanceModel = new AdvanceModel(
-                D_GameEngine.d_mapModel.getCountries().get("Venus-North"),
-                D_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
+                d_GameEngine.d_mapModel.getCountries().get("Venus-North"),
+                d_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
                 46,
-                D_GameEngine.d_gamePlayModel.getPlayers().get("A"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("A").getView(),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("A"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("A").getView(),
                 new String[]{"advance", "Venus-North", "Saturn-South", "46"});
 
-        assertFalse(d_advanceModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertFalse(d_advanceModel.execute(d_GameEngine.d_mapModel.getCountries()));
     }
 }
