@@ -94,6 +94,7 @@ public abstract class OrderModel extends Observable {
      * Abstract method to be implemented by every order type
      *
      * @param p_countries HashMap of the countries
+     * @return true if it executes; otherwise false
      */
     public abstract boolean execute(HashMap<String, CountryModel> p_countries);
 

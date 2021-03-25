@@ -21,7 +21,7 @@ public class BlockadeModelTest {
     /**
      * Set up a scenario
      *
-     * @throws Exception
+     * @throws Exception throws some kind of exception
      */
     @Before
     public void beforeEach() throws Exception {

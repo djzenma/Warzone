@@ -16,6 +16,11 @@ import java.util.List;
  */
 public class IssueOrder extends GamePlayPhase {
 
+    /**
+     * Constructor
+     *
+     * @param p_gameEngine Object of the gameengine
+     */
     public IssueOrder(GameEngine p_gameEngine) {
         super(p_gameEngine);
     }
@@ -109,7 +114,7 @@ public class IssueOrder extends GamePlayPhase {
     /**
      * Advances the armies on the countries
      *
-     * @param @param   p_args Array of the command arguments
+     * @param p_args   Array of the command arguments
      * @param p_player Object of the player
      * @return true if the order is valid; otherwise false
      */
@@ -141,7 +146,7 @@ public class IssueOrder extends GamePlayPhase {
     /**
      * Bombs the armies on the target country
      *
-     * @param @param   p_args Array of the command arguments
+     * @param p_args   Array of the command arguments
      * @param p_player Object of the player
      * @return true if the order is valid; otherwise false
      */
@@ -173,7 +178,7 @@ public class IssueOrder extends GamePlayPhase {
     /**
      * Blockade the armies on the country
      *
-     * @param @param   p_args Array of the command arguments
+     * @param p_args Array of the command arguments
      * @param p_player Object of the player
      * @return true if the order is valid; otherwise false
      */
@@ -206,7 +211,7 @@ public class IssueOrder extends GamePlayPhase {
     /**
      * Airlifts the armies on the countries
      *
-     * @param @param   p_args Array of the command arguments
+     * @param p_args Array of the command arguments
      * @param p_player Object of the player
      * @return true if the order is valid; otherwise false
      */
@@ -245,7 +250,7 @@ public class IssueOrder extends GamePlayPhase {
     /**
      * Negotiate with the opponents
      *
-     * @param @param   p_args Array of the command arguments
+     * @param p_args Array of the command arguments
      * @param p_player Object of the player
      * @return true if the order is valid; otherwise false
      */
@@ -277,7 +282,6 @@ public class IssueOrder extends GamePlayPhase {
     /**
      * If player deployed all the armies and pass to next turn
      *
-     * @param @param   p_args Array of the command arguments
      * @param p_player Object of the player
      * @return true if the order is valid; otherwise false
      */
