@@ -16,11 +16,11 @@ public class BlockadeModelTest {
     /**
      * Object of the gameengine
      */
-    private static GameEngine D_GameEngine;
+    private static GameEngine d_GameEngine;
     /**
      * Object of the Blockade Model
      */
-    private static BlockadeModel D_BlockadeModel;
+    private static BlockadeModel d_BlockadeModel;
 
     /**
      * Initialise the context of the test
@@ -37,31 +37,31 @@ public class BlockadeModelTest {
      */
     @Before
     public void beforeEach() throws Exception {
-        D_GameEngine = new GameEngine();
-        D_GameEngine.setPhase(new Startup(D_GameEngine));
+        d_GameEngine = new GameEngine();
+        d_GameEngine.setPhase(new Startup(d_GameEngine));
 
-        D_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
-        D_GameEngine.d_gamePlayModel.addPlayer("Aman");
-        D_GameEngine.d_gamePlayModel.addPlayer("Mazen");
-        D_GameEngine.d_currentPhase.assignCountries();
-        D_GameEngine.d_gamePlayModel.assignReinforcements();
+        d_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
+        d_GameEngine.d_gamePlayModel.addPlayer("Aman");
+        d_GameEngine.d_gamePlayModel.addPlayer("Mazen");
+        d_GameEngine.d_currentPhase.assignCountries();
+        d_GameEngine.d_gamePlayModel.assignReinforcements();
 
 
         DeployModel d_deployModel_1 = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "30"},
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Aman").getView());
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Aman").getView());
 
         DeployModel d_deployModel_2 = new DeployModel(
                 new String[]{"deploy", "Venus-North", "46"},
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
 
-        d_deployModel_1.execute(D_GameEngine.d_mapModel.getCountries());
-        d_deployModel_2.execute(D_GameEngine.d_mapModel.getCountries());
+        d_deployModel_1.execute(d_GameEngine.d_mapModel.getCountries());
+        d_deployModel_2.execute(d_GameEngine.d_mapModel.getCountries());
 
-        D_GameEngine.d_gamePlayModel.getPlayers().get("Aman").assignSpecificCard("blockade");
+        d_GameEngine.d_gamePlayModel.getPlayers().get("Aman").assignSpecificCard("blockade");
     }
 
     /**
@@ -69,14 +69,14 @@ public class BlockadeModelTest {
      */
     @Test
     public void succeedingScenario() {
-        D_BlockadeModel = new BlockadeModel(
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Neutral"),
-                D_GameEngine.d_mapModel.getCountries().get("Saturn-South"), new String[]{"blockade", "Saturn-South"});
+        d_BlockadeModel = new BlockadeModel(
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Neutral"),
+                d_GameEngine.d_mapModel.getCountries().get("Saturn-South"), new String[]{"blockade", "Saturn-South"});
 
-        assertTrue(D_BlockadeModel.execute(D_GameEngine.d_mapModel.getCountries()));
-        assertEquals(90, D_GameEngine.d_mapModel.getCountries().get("Saturn-South").getArmies());
-        assertEquals("Neutral", D_GameEngine.d_mapModel.getCountries().get("Saturn-South").getOwnerName());
+        assertTrue(d_BlockadeModel.execute(d_GameEngine.d_mapModel.getCountries()));
+        assertEquals(90, d_GameEngine.d_mapModel.getCountries().get("Saturn-South").getArmies());
+        assertEquals("Neutral", d_GameEngine.d_mapModel.getCountries().get("Saturn-South").getOwnerName());
     }
 
     /**
@@ -84,12 +84,12 @@ public class BlockadeModelTest {
      */
     @Test
     public void failingScenario() {
-        D_BlockadeModel = new BlockadeModel(
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
-                D_GameEngine.d_gamePlayModel.getPlayers().get("Neutral"),
-                D_GameEngine.d_mapModel.getCountries().get("Venus-North"),
+        d_BlockadeModel = new BlockadeModel(
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
+                d_GameEngine.d_gamePlayModel.getPlayers().get("Neutral"),
+                d_GameEngine.d_mapModel.getCountries().get("Venus-North"),
                 new String[]{"blockade", "Venus-North"});
 
-        assertFalse(D_BlockadeModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertFalse(d_BlockadeModel.execute(d_GameEngine.d_mapModel.getCountries()));
     }
 }
