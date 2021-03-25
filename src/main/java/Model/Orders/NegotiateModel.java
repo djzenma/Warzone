@@ -25,6 +25,7 @@ public class NegotiateModel extends OrderModel {
     /**
      * Constructor for the NegotiateModel
      *
+     * @param p_args         Array of the command arguments
      * @param p_targetPlayer Target player on whom negotiate command would run
      * @param p_player       Current player who is ordering the negotiate command
      */

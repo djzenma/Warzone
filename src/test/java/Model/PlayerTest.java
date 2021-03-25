@@ -16,8 +16,14 @@ import static org.junit.Assert.*;
  * Tests the PlayerModel
  */
 public class PlayerTest {
-    private static Player d_Player;
-    private static GameEngine d_gameEngine;
+    /**
+     * Object of the player
+     */
+    private static Player D_Player;
+    /**
+     * Object of the gameengine
+     */
+    private static GameEngine D_GameEngine;
 
     /**
      * Initializes the Commands Parser
@@ -32,18 +38,18 @@ public class PlayerTest {
      */
     @Before
     public void beforeEach() {
-        d_gameEngine = new GameEngine();
-        d_gameEngine.setPhase(new Startup(d_gameEngine));
+        D_GameEngine = new GameEngine();
+        D_GameEngine.setPhase(new Startup(D_GameEngine));
         try {
-            d_gameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
+            D_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
 
             // add the players
-            d_gameEngine.d_gamePlayModel.addPlayer("Mazen");
-            d_gameEngine.d_gamePlayModel.addPlayer("Aman");
+            D_GameEngine.d_gamePlayModel.addPlayer("Mazen");
+            D_GameEngine.d_gamePlayModel.addPlayer("Aman");
 
             // assign countries and reinforcements
-            d_gameEngine.d_gamePlayModel.assignCountries();
-            d_gameEngine.d_gamePlayModel.assignReinforcements();
+            D_GameEngine.d_gamePlayModel.assignCountries();
+            D_GameEngine.d_gamePlayModel.assignReinforcements();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -54,18 +60,18 @@ public class PlayerTest {
      */
     @Test
     public void issueOrder() {
-        d_gameEngine.setPhase(new IssueOrder(d_gameEngine));
-        assertEquals(46, d_gameEngine.d_gamePlayModel.getPlayers().get("Mazen").getReinforcements());
-        assertEquals(30, d_gameEngine.d_gamePlayModel.getPlayers().get("Aman").getReinforcements());
+        D_GameEngine.setPhase(new IssueOrder(D_GameEngine));
+        assertEquals(46, D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getReinforcements());
+        assertEquals(30, D_GameEngine.d_gamePlayModel.getPlayers().get("Aman").getReinforcements());
 
-        d_Player = d_gameEngine.d_gamePlayModel.getPlayers().get("Mazen");
-        d_Player.setPhase(d_gameEngine.d_currentPhase);
-        d_Player.setCommand(new String[]{"pass"});
-        assertFalse(d_Player.issueOrder());
+        D_Player = D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen");
+        D_Player.setPhase(D_GameEngine.d_currentPhase);
+        D_Player.setCommand(new String[]{"pass"});
+        assertFalse(D_Player.issueOrder());
 
-        d_Player.setCommand(new String[]{"deploy", "Comet-Tail", "44"});
-        assertTrue(d_Player.issueOrder());
-        assertEquals(2, d_Player.getReinforcements());
+        D_Player.setCommand(new String[]{"deploy", "Comet-Tail", "44"});
+        assertTrue(D_Player.issueOrder());
+        assertEquals(2, D_Player.getReinforcements());
     }
 
     /**
@@ -77,22 +83,22 @@ public class PlayerTest {
         String l_orderName = "deploy";
         DeployModel l_nextOrder;
 
-        d_Player = d_gameEngine.d_gamePlayModel.getPlayers().get("Mazen");
+        D_Player = D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen");
 
-        d_gameEngine.setPhase(new IssueOrder(d_gameEngine));
-        d_Player.setPhase(d_gameEngine.d_currentPhase);
-        d_Player.setCommand(new String[]{l_orderName, l_country, "44"});
-        assertTrue(d_Player.issueOrder());
+        D_GameEngine.setPhase(new IssueOrder(D_GameEngine));
+        D_Player.setPhase(D_GameEngine.d_currentPhase);
+        D_Player.setCommand(new String[]{l_orderName, l_country, "44"});
+        assertTrue(D_Player.issueOrder());
 
-        d_Player.setCommand(new String[]{l_orderName, l_country, "2"});
-        assertTrue(d_Player.issueOrder());
+        D_Player.setCommand(new String[]{l_orderName, l_country, "2"});
+        assertTrue(D_Player.issueOrder());
 
-        d_gameEngine.setPhase(new ExecuteOrders(d_gameEngine));
-        l_nextOrder = (DeployModel) d_Player.nextOrder();
+        D_GameEngine.setPhase(new ExecuteOrders(D_GameEngine));
+        l_nextOrder = (DeployModel) D_Player.nextOrder();
         assertEquals(l_country, l_nextOrder.getCountryName());
         assertEquals(44, l_nextOrder.getReinforcements());
 
-        l_nextOrder = (DeployModel) d_Player.nextOrder();
+        l_nextOrder = (DeployModel) D_Player.nextOrder();
         assertEquals(l_country, l_nextOrder.getCountryName());
         assertEquals(2, l_nextOrder.getReinforcements());
     }

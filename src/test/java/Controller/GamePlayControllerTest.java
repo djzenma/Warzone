@@ -7,51 +7,65 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Test for GamePlayController
+ */
 public class GamePlayControllerTest {
-    private static GameEngine d_gameEngine;
+    /**
+     * Object of the Gameengine
+     */
+    private static GameEngine D_GameEngine;
 
+    /**
+     * Initialise the context of the test
+     *
+     * @throws Exception throws some kind of the exception
+     */
     @Before
     public void init() throws Exception {
         CommandsParser.parseJson();
 
-        d_gameEngine = new GameEngine();
-        d_gameEngine.setPhase(new Startup(d_gameEngine));
+        D_GameEngine = new GameEngine();
+        D_GameEngine.setPhase(new Startup(D_GameEngine));
 
-        d_gameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "asia.map"});
-        d_gameEngine.d_gamePlayModel.addPlayer("a");
-        d_gameEngine.d_gamePlayModel.addPlayer("b");
-        d_gameEngine.d_currentPhase.assignCountries();
-        d_gameEngine.d_gamePlayModel.assignReinforcements();
+        D_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "asia.map"});
+        D_GameEngine.d_gamePlayModel.addPlayer("a");
+        D_GameEngine.d_gamePlayModel.addPlayer("b");
+        D_GameEngine.d_currentPhase.assignCountries();
+        D_GameEngine.d_gamePlayModel.assignReinforcements();
 
-        d_gameEngine.d_gamePlayModel.addPlayer("Neutral");
+        D_GameEngine.d_gamePlayModel.addPlayer("Neutral");
     }
 
+    /**
+     * Test for game termination
+     */
     @Test
     public void gameTermination() {
-        d_gameEngine.d_currentPhase.issueOrders();
-        d_gameEngine.d_currentPhase.deploy(
+        D_GameEngine.d_currentPhase.issueOrders();
+        D_GameEngine.d_currentPhase.deploy(
                 new String[]{"deploy", "India", "5"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("a"));
+                D_GameEngine.d_gamePlayModel.getPlayers().get("a"));
 
-        d_gameEngine.d_currentPhase.deploy(
+        D_GameEngine.d_currentPhase.deploy(
                 new String[]{"deploy", "China", "6"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("a"));
+                D_GameEngine.d_gamePlayModel.getPlayers().get("a"));
 
-        d_gameEngine.d_currentPhase.deploy(
+        D_GameEngine.d_currentPhase.deploy(
                 new String[]{"deploy", "Egypt", "1"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("b"));
+                D_GameEngine.d_gamePlayModel.getPlayers().get("b"));
 
-        assertTrue(d_gameEngine.d_currentPhase.advance(
+        assertTrue(D_GameEngine.d_currentPhase.advance(
                 new String[]{"advance", "India", "Egypt", "5"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("a")));
+                D_GameEngine.d_gamePlayModel.getPlayers().get("a")));
 
-        assertTrue(d_gameEngine.d_currentPhase.advance(
+        assertTrue(D_GameEngine.d_currentPhase.advance(
                 new String[]{"advance", "China", "Canada", "6"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("a")));
+                D_GameEngine.d_gamePlayModel.getPlayers().get("a")));
 
-        d_gameEngine.d_currentPhase.next();
-        while (d_gameEngine.d_currentPhase.executeOrders()) ;
+        D_GameEngine.d_currentPhase.next();
+        while (D_GameEngine.d_currentPhase.executeOrders()) ;
 
-        assertTrue(d_gameEngine.d_gamePlayModel.isEndGame());
+        assertTrue(D_GameEngine.d_gamePlayModel.isEndGame());
     }
 }

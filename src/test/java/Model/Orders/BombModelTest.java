@@ -8,42 +8,51 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test for Bomb Model
+ */
 public class BombModelTest {
-    private static GameEngine d_gameEngine;
-    private static BombModel d_bombModel;
+    /**
+     * Object of the gameengine
+     */
+    private static GameEngine D_GameEngine;
+    /**
+     * Object of the Bomb model
+     */
+    private static BombModel D_BombModel;
 
     /**
      * Set up a scenario
      *
-     * @throws Exception
+     * @throws Exception throws some kind of exception
      */
     @Before
     public void init() throws Exception {
         CommandsParser.parseJson();
 
-        d_gameEngine = new GameEngine();
-        d_gameEngine.setPhase(new Startup(d_gameEngine));
+        D_GameEngine = new GameEngine();
+        D_GameEngine.setPhase(new Startup(D_GameEngine));
 
-        d_gameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
-        d_gameEngine.d_gamePlayModel.addPlayer("Aman");
-        d_gameEngine.d_gamePlayModel.addPlayer("Mazen");
-        d_gameEngine.d_currentPhase.assignCountries();
-        d_gameEngine.d_gamePlayModel.assignReinforcements();
+        D_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
+        D_GameEngine.d_gamePlayModel.addPlayer("Aman");
+        D_GameEngine.d_gamePlayModel.addPlayer("Mazen");
+        D_GameEngine.d_currentPhase.assignCountries();
+        D_GameEngine.d_gamePlayModel.assignReinforcements();
 
         DeployModel d_deployModel_1 = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "30"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("Aman"),
-                d_gameEngine.d_gamePlayModel.getPlayers().get("Aman").getView());
+                D_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
+                D_GameEngine.d_gamePlayModel.getPlayers().get("Aman").getView());
 
         DeployModel d_deployModel_2 = new DeployModel(
                 new String[]{"deploy", "Venus-North", "46"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
-                d_gameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
+                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen"),
+                D_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getView());
 
-        d_deployModel_1.execute(d_gameEngine.d_mapModel.getCountries());
-        d_deployModel_2.execute(d_gameEngine.d_mapModel.getCountries());
+        d_deployModel_1.execute(D_GameEngine.d_mapModel.getCountries());
+        d_deployModel_2.execute(D_GameEngine.d_mapModel.getCountries());
 
-        d_gameEngine.d_gamePlayModel.getPlayers().get("Aman").assignSpecificCard("bomb");
+        D_GameEngine.d_gamePlayModel.getPlayers().get("Aman").assignSpecificCard("bomb");
     }
 
     /**
@@ -51,12 +60,12 @@ public class BombModelTest {
      */
     @Test
     public void succeedingScenario() {
-        d_bombModel = new BombModel(
-                d_gameEngine.d_gamePlayModel.getPlayers().get("Aman"),
-                d_gameEngine.d_mapModel.getCountries().get("Venus-North"),
+        D_BombModel = new BombModel(
+                D_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
+                D_GameEngine.d_mapModel.getCountries().get("Venus-North"),
                 new String[]{"bomb", "Venus-North"});
-        assertTrue(d_bombModel.execute(d_gameEngine.d_mapModel.getCountries()));
-        assertEquals(23, d_gameEngine.d_mapModel.getCountries().get("Venus-North").getArmies());
+        assertTrue(D_BombModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertEquals(23, D_GameEngine.d_mapModel.getCountries().get("Venus-North").getArmies());
     }
 
     /**
@@ -64,12 +73,12 @@ public class BombModelTest {
      */
     @Test
     public void failingScenario() {
-        d_bombModel = new BombModel(
-                d_gameEngine.d_gamePlayModel.getPlayers().get("Aman"),
-                d_gameEngine.d_mapModel.getCountries().get("Saturn-South"),
+        D_BombModel = new BombModel(
+                D_GameEngine.d_gamePlayModel.getPlayers().get("Aman"),
+                D_GameEngine.d_mapModel.getCountries().get("Saturn-South"),
                 new String[]{"bomb", "Saturn-South"});
 
-        assertFalse(d_bombModel.execute(d_gameEngine.d_mapModel.getCountries()));
-        assertEquals(30, d_gameEngine.d_mapModel.getCountries().get("Saturn-South").getArmies());
+        assertFalse(D_BombModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertEquals(30, D_GameEngine.d_mapModel.getCountries().get("Saturn-South").getArmies());
     }
 }

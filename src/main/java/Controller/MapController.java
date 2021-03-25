@@ -25,6 +25,8 @@ public class MapController {
 
     /**
      * Initializes MapModel, MapView and MapUtils objects
+     *
+     * @param p_gameEngine Object of the game engine
      */
     public MapController(GameEngine p_gameEngine) {
         super();

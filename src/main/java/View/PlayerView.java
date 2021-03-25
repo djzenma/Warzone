@@ -15,7 +15,7 @@ public class PlayerView {
     /**
      * Prints if the reinforcements are not enough to be issued
      *
-     * @param p_args
+     * @param p_args           Hashmap of the command arguments
      * @param p_reinforcements Requested number of reinforcements
      */
     public void notEnoughReinforcements(HashMap<String, List<String>> p_args, int p_reinforcements) {
@@ -46,7 +46,7 @@ public class PlayerView {
 
     /**
      * Prints if the number of reinforcements are invalid
-     * @param p_args
+     * @param p_args Hashmap of the command arguments
      */
     public void invalidNumber(HashMap<String, List<String>> p_args) {
         System.out.println("Please enter a valid number!");

@@ -61,6 +61,7 @@ public abstract class Phase extends Observable {
      * Edits Continent
      *
      * @param l_args Array of the command arguments
+     * @throws Exception throws some kind of exception
      */
     public void editContinent(String[] l_args) throws Exception {
         printInvalidCommandMessage();
@@ -70,6 +71,7 @@ public abstract class Phase extends Observable {
      * Edits Country
      *
      * @param l_args Array of the command arguments
+     * @throws Exception throws some kind of exception
      */
     public void editCountry(String[] l_args) throws Exception {
         printInvalidCommandMessage();
@@ -79,6 +81,7 @@ public abstract class Phase extends Observable {
      * Edits Neighbor
      *
      * @param l_args Array of the command arguments
+     * @throws Exception throws some kind of exception
      */
     public void editNeighbor(String[] l_args) throws Exception {
         printInvalidCommandMessage();
@@ -88,6 +91,7 @@ public abstract class Phase extends Observable {
      * Edits the map
      *
      * @param l_args Array of the command arguments
+     * @throws Exception throws some kind of exception
      */
     public void editMap(String[] l_args) throws Exception {
         printInvalidCommandMessage();
@@ -115,6 +119,7 @@ public abstract class Phase extends Observable {
      * Saves the maps
      *
      * @param l_args Array of the command arguments
+     * @return true if map is saved; otherwise false
      * @throws Exception throws some kind of exception
      */
     public boolean saveMap(String[] l_args) throws Exception {
@@ -139,6 +144,8 @@ public abstract class Phase extends Observable {
 
     /**
      * Loops over the issued orders
+     *
+     * @return true if all the orders are issued; otherwise false
      */
     public boolean issueOrders() {
         printInvalidCommandMessage();
@@ -147,6 +154,8 @@ public abstract class Phase extends Observable {
 
     /**
      * Loops over the execute orders
+     *
+     * @return true if all the orders are executed; otherwise false
      */
     public boolean executeOrders() {
         printInvalidCommandMessage();
@@ -175,6 +184,8 @@ public abstract class Phase extends Observable {
 
     /**
      * Assigns the countries
+     *
+     * @return true if all the countries are assigned; otherwise false
      */
     public boolean assignCountries() {
         printInvalidCommandMessage();
@@ -193,6 +204,7 @@ public abstract class Phase extends Observable {
      *
      * @param p_args   Array of the command arguments
      * @param p_player Object of the player
+     * @return true if the command is valid; otherwise false
      */
     public boolean deploy(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
@@ -204,6 +216,7 @@ public abstract class Phase extends Observable {
      *
      * @param p_args   Array of the command arguments
      * @param p_player Object of the player
+     * @return true if the command is valid; otherwise false
      */
     public boolean advance(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
@@ -215,6 +228,7 @@ public abstract class Phase extends Observable {
      *
      * @param p_args   Array of the command arguments
      * @param p_player Object of the player
+     * @return true if the command is valid; otherwise false
      */
     public boolean bomb(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
@@ -226,6 +240,7 @@ public abstract class Phase extends Observable {
      *
      * @param p_args   Array of the command arguments
      * @param p_player Object of the player
+     * @return true if the command is valid; otherwise false
      */
     public boolean blockade(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
@@ -237,6 +252,7 @@ public abstract class Phase extends Observable {
      *
      * @param p_args   Array of the command arguments
      * @param p_player Object of the player
+     * @return true if the command is valid; otherwise false
      */
     public boolean airlift(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
@@ -248,6 +264,7 @@ public abstract class Phase extends Observable {
      *
      * @param p_args   Array of the command arguments
      * @param p_player Object of the player
+     * @return true if the command is valid; otherwise false
      */
     public boolean negotiate(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
@@ -258,6 +275,7 @@ public abstract class Phase extends Observable {
      * Pass command
      *
      * @param p_player Object of the player
+     * @return true if the command is valid; otherwise false
      */
     public boolean pass(Player p_player) {
         printInvalidCommandMessage();

@@ -324,6 +324,8 @@ public class Player extends Observable {
 
     /**
      * Accessor for the view
+     *
+     * @return object of the playerview
      */
     public PlayerView getView() {
         return this.d_view;
@@ -331,6 +333,8 @@ public class Player extends Observable {
 
     /**
      * Assigns a randomly generated card if the player is eligible to get one
+     *
+     * @return name of the card
      */
     public String assignCards() {
         if (this.d_eligibleForCard) {
@@ -374,6 +378,8 @@ public class Player extends Observable {
 
     /**
      * Mutator for the current Phase
+     *
+     * @param p_currentPhase Object of the current phase
      */
     public void setPhase(Phase p_currentPhase) {
         this.d_currentPhase = p_currentPhase;
@@ -381,6 +387,8 @@ public class Player extends Observable {
 
     /**
      * Mutator for the command
+     *
+     * @param p_args Array of the command arguments
      */
     public void setCommand(String[] p_args) {
         this.d_args = p_args;

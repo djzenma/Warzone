@@ -15,8 +15,10 @@ import static org.junit.Assert.assertNotNull;
  * Test class for the GamePlayModel
  */
 public class GamePlayPhaseModelTest {
-
-    private static GamePlayModel d_GameEngine;
+    /**
+     * Object of the gameengine
+     */
+    private static GamePlayModel D_GameEngine;
 
     /**
      * Initializes the GamePlayModel and a context scenario
@@ -72,9 +74,9 @@ public class GamePlayPhaseModelTest {
         l_continents.add(l_c1);
         l_continents.add(l_c2);
 
-        d_GameEngine = new GamePlayModel();
-        d_GameEngine.setCountries(l_countries);
-        d_GameEngine.setContinents(l_continents);
+        D_GameEngine = new GamePlayModel();
+        D_GameEngine.setCountries(l_countries);
+        D_GameEngine.setContinents(l_continents);
     }
 
     /**
@@ -82,9 +84,9 @@ public class GamePlayPhaseModelTest {
       */
     @Before
     public void addPlayers() {
-        d_GameEngine.addPlayer("Mazen");
-        d_GameEngine.addPlayer("Aman");
-        d_GameEngine.addPlayer("Akshat");
+        D_GameEngine.addPlayer("Mazen");
+        D_GameEngine.addPlayer("Aman");
+        D_GameEngine.addPlayer("Akshat");
     }
 
     /**
@@ -92,7 +94,7 @@ public class GamePlayPhaseModelTest {
      */
     @Test
     public void addPlayer() {
-        assertEquals(3, d_GameEngine.getPlayers().size());
+        assertEquals(3, D_GameEngine.getPlayers().size());
     }
 
     /**
@@ -101,8 +103,8 @@ public class GamePlayPhaseModelTest {
     @Test
     public void removePlayer() {
         try {
-            d_GameEngine.removePlayer("Mazen");
-            assertEquals(2, d_GameEngine.getPlayers().size());
+            D_GameEngine.removePlayer("Mazen");
+            assertEquals(2, D_GameEngine.getPlayers().size());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -113,8 +115,8 @@ public class GamePlayPhaseModelTest {
      */
     @Test
     public void assignCountries() {
-        d_GameEngine.assignCountries();
-        for (Player l_player : d_GameEngine.getPlayers().values()) {
+        D_GameEngine.assignCountries();
+        for (Player l_player : D_GameEngine.getPlayers().values()) {
             assertNotNull(l_player.getCountries());
         }
     }
@@ -124,10 +126,10 @@ public class GamePlayPhaseModelTest {
      */
     @Test
     public void assignReinforcements() {
-        d_GameEngine.assignCountries();
-        d_GameEngine.assignReinforcements();
-        assertEquals(11, d_GameEngine.getPlayers().get("Mazen").getReinforcements());
-        assertEquals(3, d_GameEngine.getPlayers().get("Aman").getReinforcements());
-        assertEquals(3, d_GameEngine.getPlayers().get("Akshat").getReinforcements());
+        D_GameEngine.assignCountries();
+        D_GameEngine.assignReinforcements();
+        assertEquals(11, D_GameEngine.getPlayers().get("Mazen").getReinforcements());
+        assertEquals(3, D_GameEngine.getPlayers().get("Aman").getReinforcements());
+        assertEquals(3, D_GameEngine.getPlayers().get("Akshat").getReinforcements());
     }
 }

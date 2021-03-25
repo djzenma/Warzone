@@ -8,56 +8,76 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test for Deploy Model
+ */
 public class DeployModelTest {
-    private static GameEngine d_gameEngine;
-    private static DeployModel d_deployModel;
+    /**
+     * Object of the gameengine
+     */
+    private static GameEngine D_GameEngine;
+    /**
+     * Object of the Deploy model
+     */
+    private static DeployModel D_DeployModel;
 
+    /**
+     * Set up a scenario
+     *
+     * @throws Exception throws some kind of exception
+     */
     @Before
     public void init() throws Exception {
         CommandsParser.parseJson();
-        d_gameEngine = new GameEngine();
-        d_gameEngine.setPhase(new Startup(d_gameEngine));
-        d_gameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
-        d_gameEngine.d_gamePlayModel.addPlayer("A");
-        d_gameEngine.d_gamePlayModel.addPlayer("B");
-        d_gameEngine.d_currentPhase.assignCountries();
-        d_gameEngine.d_gamePlayModel.assignReinforcements();
+        D_GameEngine = new GameEngine();
+        D_GameEngine.setPhase(new Startup(D_GameEngine));
+        D_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
+        D_GameEngine.d_gamePlayModel.addPlayer("A");
+        D_GameEngine.d_gamePlayModel.addPlayer("B");
+        D_GameEngine.d_currentPhase.assignCountries();
+        D_GameEngine.d_gamePlayModel.assignReinforcements();
     }
 
+    /**
+     * Tests the succeeding scenario
+     */
     @Test
     public void succeedingScenario() {
-        d_deployModel = new DeployModel(
+        D_DeployModel = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "30"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("B"),
-                d_gameEngine.d_gamePlayModel.getPlayers().get("B").getView());
+                D_GameEngine.d_gamePlayModel.getPlayers().get("B"),
+                D_GameEngine.d_gamePlayModel.getPlayers().get("B").getView());
 
-        assertTrue(d_deployModel.execute(d_gameEngine.d_mapModel.getCountries()));
-        assertEquals(30, d_gameEngine.d_gamePlayModel.getCountries().get("Saturn-South").getArmies());
+        assertTrue(D_DeployModel.execute(D_GameEngine.d_mapModel.getCountries()));
+        assertEquals(30, D_GameEngine.d_gamePlayModel.getCountries().get("Saturn-South").getArmies());
     }
 
+    /**
+     * Tests the failing scenario
+     */
     @Test
     public void failingScenario() {
         // test deploying a number of armies that is more than what the player has
-        d_deployModel = new DeployModel(
+        D_DeployModel = new DeployModel(
                 new String[]{"deploy", "Venus-North", "50"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("A"),
-                d_gameEngine.d_gamePlayModel.getPlayers().get("A").getView());
+                D_GameEngine.d_gamePlayModel.getPlayers().get("A"),
+                D_GameEngine.d_gamePlayModel.getPlayers().get("A").getView());
 
-        assertFalse(d_deployModel.execute(d_gameEngine.d_mapModel.getCountries()));
+        assertFalse(D_DeployModel.execute(D_GameEngine.d_mapModel.getCountries()));
 
         // test deploying in a country that is not owned by the issuer
-        d_deployModel = new DeployModel(
+        D_DeployModel = new DeployModel(
                 new String[]{"deploy", "Saturn-South", "10"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("A"),
-                d_gameEngine.d_gamePlayModel.getPlayers().get("A").getView());
+                D_GameEngine.d_gamePlayModel.getPlayers().get("A"),
+                D_GameEngine.d_gamePlayModel.getPlayers().get("A").getView());
 
-        assertFalse(d_deployModel.execute(d_gameEngine.d_mapModel.getCountries()));
+        assertFalse(D_DeployModel.execute(D_GameEngine.d_mapModel.getCountries()));
 
-        d_deployModel = new DeployModel(
+        D_DeployModel = new DeployModel(
                 new String[]{"deploy", "Venus-North", "50"},
-                d_gameEngine.d_gamePlayModel.getPlayers().get("A"),
-                d_gameEngine.d_gamePlayModel.getPlayers().get("A").getView());
+                D_GameEngine.d_gamePlayModel.getPlayers().get("A"),
+                D_GameEngine.d_gamePlayModel.getPlayers().get("A").getView());
 
-        assertFalse(d_deployModel.execute(d_gameEngine.d_mapModel.getCountries()));
+        assertFalse(D_DeployModel.execute(D_GameEngine.d_mapModel.getCountries()));
     }
 }

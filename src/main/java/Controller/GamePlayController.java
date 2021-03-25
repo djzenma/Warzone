@@ -21,6 +21,8 @@ public class GamePlayController {
 
     /**
      * Initialises GamePlayModel, GamePlayView and MapModel
+     *
+     * @param p_gameEngine Object of the game engine
      */
     public GamePlayController(GameEngine p_gameEngine) {
         super();
