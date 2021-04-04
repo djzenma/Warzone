@@ -1,8 +1,11 @@
 package Model.Orders;
 
 import Controller.GameEngine;
+import Model.Player;
 import States.Startup;
+import Strategy.HumanStrategy;
 import Utils.CommandsParser;
+import View.PlayerView;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,8 +35,20 @@ public class AdvanceModelTest {
         d_GameEngine = new GameEngine();
         d_GameEngine.setPhase(new Startup(d_GameEngine));
         d_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
-        d_GameEngine.d_gamePlayModel.addPlayer("Adeetya");
-        d_GameEngine.d_gamePlayModel.addPlayer("Mazen");
+
+        Player l_player1 = new Player("Adeetya", new PlayerView());
+        l_player1.setStrategy(new HumanStrategy(l_player1,
+                d_GameEngine.d_gamePlayModel.getCountries(),
+                d_GameEngine.d_gamePlayModel.getPlayers()));
+
+        Player l_player2 = new Player("Mazen", new PlayerView());
+        l_player2.setStrategy(new HumanStrategy(l_player2,
+                d_GameEngine.d_gamePlayModel.getCountries(),
+                d_GameEngine.d_gamePlayModel.getPlayers()));
+
+        d_GameEngine.d_gamePlayModel.addPlayer(l_player1);
+        d_GameEngine.d_gamePlayModel.addPlayer(l_player2);
+
         d_GameEngine.d_currentPhase.assignCountries();
         d_GameEngine.d_gamePlayModel.assignReinforcements();
     }

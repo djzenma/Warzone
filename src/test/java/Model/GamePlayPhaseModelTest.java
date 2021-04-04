@@ -1,6 +1,8 @@
 package Model;
 
 
+import Strategy.HumanStrategy;
+import View.PlayerView;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -84,9 +86,24 @@ public class GamePlayPhaseModelTest {
       */
     @Before
     public void addPlayers() {
-        d_GamePlay.addPlayer("Mazen");
-        d_GamePlay.addPlayer("Aman");
-        d_GamePlay.addPlayer("Akshat");
+        Player l_player1 = new Player("Mazen", new PlayerView());
+        l_player1.setStrategy(new HumanStrategy(l_player1,
+                d_GamePlay.getCountries(),
+                d_GamePlay.getPlayers()));
+
+        Player l_player2 = new Player("Aman", new PlayerView());
+        l_player2.setStrategy(new HumanStrategy(l_player2,
+                d_GamePlay.getCountries(),
+                d_GamePlay.getPlayers()));
+
+        Player l_player3 = new Player("Akshat", new PlayerView());
+        l_player3.setStrategy(new HumanStrategy(l_player3,
+                d_GamePlay.getCountries(),
+                d_GamePlay.getPlayers()));
+
+        d_GamePlay.addPlayer(l_player1);
+        d_GamePlay.addPlayer(l_player2);
+        d_GamePlay.addPlayer(l_player3);
     }
 
     /**

@@ -34,7 +34,6 @@ public class IssueOrder extends GamePlayPhase {
     public boolean issueOrders() {
         boolean l_isValidOrder;
         boolean l_moveToNextPhase = true;
-        String[] l_args = null;
 
         for (Player l_player : this.d_gameEngine.d_gamePlayModel.getPlayers().values()) {
             if (l_player.getName().equals("Neutral"))
@@ -45,29 +44,14 @@ public class IssueOrder extends GamePlayPhase {
             triggerEvent(l_player, l_cardName);
             this.d_gameEngine.d_gamePlayView.currentPlayer(l_player);
             l_isValidOrder = false;
+
             while (!l_isValidOrder) {
-                l_args = this.d_gameEngine.d_gamePlayView.takeCommand();
-
-                // if the command is showmap
-                if (CommandsParser.isShowMap(l_args)) {
-                    d_gameEngine.d_currentPhase.showMap();
-                }
-
-                // if the command is showcards
-                else if (CommandsParser.isShowCards(l_args)) {
-                    l_player.getView().showCards(l_player.getCards());
-                }
-
-                // if the command is an order
-                else {
-                    l_player.setCommand(l_args);
-                    l_player.setPhase(d_gameEngine.d_currentPhase);
-                    l_isValidOrder = l_player.issueOrder();
-                }
+                l_player.setPhase(d_gameEngine.d_currentPhase);
+                l_isValidOrder = l_player.issueOrder();
             }
 
             // if the player issued an order
-            if (!CommandsParser.isPass(l_args))
+            if (!CommandsParser.isPass(l_player.getLastIssuedOrder().getCmdName()))
                 l_moveToNextPhase = false;
         }
         return !l_moveToNextPhase;
@@ -81,18 +65,18 @@ public class IssueOrder extends GamePlayPhase {
      * @return true if the order is valid; otherwise false
      */
     @Override
-    public boolean deploy(String[] p_args, Player p_player) {
+    public OrderModel deploy(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name").get(0))) {
             p_player.getView().countryInexistant(l_args.get("country_name").get(0));
-            return false;
+            return null;
         }
 
         // validate that the number of reinforcements is a valid number
         if (!l_args.get("reinforcements_num").get(0).matches("[-+]?[0-9]*\\.?[0-9]+")) {
             p_player.getView().invalidNumber(l_args);
-            return false;
+            return null;
         }
 
         // handle if the player has enough reinforcements to deploy
@@ -101,14 +85,13 @@ public class IssueOrder extends GamePlayPhase {
 
         if (l_requestedReinforcements > l_currentReinforcements) {
             p_player.getView().notEnoughReinforcements(l_args, p_player.getReinforcements());
-            return false; // impossible command
+            return null; // impossible command
         }
 
         OrderModel l_order = new DeployModel(p_args, p_player, p_player.getView());
-        p_player.addOrder(l_order);
 
         p_player.setReinforcements(p_player.getReinforcements() - (int) (Float.parseFloat(CommandsParser.getArguments(p_args).get("reinforcements_num").get(0))));
-        return true;
+        return l_order;
     }
 
     /**
@@ -119,28 +102,25 @@ public class IssueOrder extends GamePlayPhase {
      * @return true if the order is valid; otherwise false
      */
     @Override
-    public boolean advance(String[] p_args, Player p_player) {
+    public OrderModel advance(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name_from").get(0))) {
             p_player.getView().countryInexistant(l_args.get("country_name_from").get(0));
-            return false;
+            return null;
         }
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name_to").get(0))) {
             p_player.getView().countryInexistant(l_args.get("country_name_to").get(0));
-            return false;
+            return null;
         }
 
-        OrderModel l_order = new AdvanceModel(
+        return new AdvanceModel(
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("country_name_from").get(0)),
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("country_name_to").get(0)),
                 Integer.parseInt(l_args.get("armies_num").get(0)),
                 p_player,
                 p_player.getView(),
                 p_args);
-
-        p_player.addOrder(l_order);
-        return true;
     }
 
     /**
@@ -151,28 +131,26 @@ public class IssueOrder extends GamePlayPhase {
      * @return true if the order is valid; otherwise false
      */
     @Override
-    public boolean bomb(String[] p_args, Player p_player) {
+    public OrderModel bomb(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("target_country").get(0))) {
             p_player.getView().countryInexistant(l_args.get("target_country").get(0));
-            return false;
+            return null;
         }
 
         // check if the player has a card to issue this order
         if (p_player.noOfCards(p_args[0]) == 0) {
-            p_player.getView().noCardAvailable();
-            return false;
+            p_player.getView().noCardAvailable(p_args);
+            return null;
         } else {
             p_player.removeCard(p_args[0]);
         }
 
         // if(this.d_orderList.contains(new DeployModel(CommandsParser.getArguments(p_args), this, this.d_view))) {
-        OrderModel l_order = new BombModel(p_player,
+        return new BombModel(p_player,
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("target_country").get(0)),
                 p_args);
-        p_player.addOrder(l_order);
-        return true;
     }
 
     /**
@@ -183,29 +161,27 @@ public class IssueOrder extends GamePlayPhase {
      * @return true if the order is valid; otherwise false
      */
     @Override
-    public boolean blockade(String[] p_args, Player p_player) {
+    public OrderModel blockade(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name").get(0))) {
             p_player.getView().countryInexistant(l_args.get("country_name").get(0));
-            return false;
+            return null;
         }
 
         // check if the player has a card to issue this order
         if (p_player.noOfCards(p_args[0]) == 0) {
-            p_player.getView().noCardAvailable();
-            return false;
+            p_player.getView().noCardAvailable(p_args);
+            return null;
         } else {
             p_player.removeCard(p_args[0]);
         }
 
-        OrderModel l_order = new BlockadeModel(
+        return new BlockadeModel(
                 p_player,
                 this.d_gameEngine.d_gamePlayModel.getPlayers().get("Neutral"),
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("country_name").get(0)),
                 p_args);
-        p_player.addOrder(l_order);
-        return true;
     }
 
     /**
@@ -216,35 +192,33 @@ public class IssueOrder extends GamePlayPhase {
      * @return true if the order is valid; otherwise false
      */
     @Override
-    public boolean airlift(String[] p_args, Player p_player) {
+    public OrderModel airlift(String[] p_args, Player p_player) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name_from").get(0))) {
             p_player.getView().countryInexistant(l_args.get("country_name_from").get(0));
-            return false;
+            return null;
         }
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name_to").get(0))) {
             p_player.getView().countryInexistant(l_args.get("country_name_to").get(0));
-            return false;
+            return null;
         }
 
         // check if the player has a card to issue this order
         if (p_player.noOfCards(p_args[0]) == 0) {
-            p_player.getView().noCardAvailable();
-            return false;
+            p_player.getView().noCardAvailable(p_args);
+            return null;
         } else {
             p_player.removeCard(p_args[0]);
         }
 
-        OrderModel l_order = new AirliftModel(
+        return new AirliftModel(
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("country_name_from").get(0)),
                 this.d_gameEngine.d_gamePlayModel.getCountries().get(l_args.get("country_name_to").get(0)),
                 Integer.parseInt(l_args.get("armies_num").get(0)),
                 p_player,
                 p_player.getView(),
                 p_args);
-        p_player.addOrder(l_order);
-        return true;
     }
 
     /**
@@ -255,11 +229,11 @@ public class IssueOrder extends GamePlayPhase {
      * @return true if the order is valid; otherwise false
      */
     @Override
-    public boolean negotiate(String[] p_args, Player p_player) {
+    public OrderModel negotiate(String[] p_args, Player p_player) {
         // check if the player has a card to issue this order
         if (p_player.noOfCards(p_args[0]) == 0) {
-            p_player.getView().noCardAvailable();
-            return false;
+            p_player.getView().noCardAvailable(p_args);
+            return null;
         } else {
             p_player.removeCard(p_args[0]);
         }
@@ -267,16 +241,16 @@ public class IssueOrder extends GamePlayPhase {
         String l_targetPlayerName = CommandsParser.getArguments(p_args).get("target_player").get(0);
         if (l_targetPlayerName.equals(p_player.getName())) {
             p_player.getView().selfNegotiationNotPossible();
-            return false;
+            return null;
         }
         if (!this.d_gameEngine.d_gamePlayModel.getPlayers().containsKey(l_targetPlayerName)) {
             p_player.getView().invalidPlayer(l_targetPlayerName);
-            return false;
+            return null;
         }
 
-        OrderModel l_order = new NegotiateModel(p_player, this.d_gameEngine.d_gamePlayModel.getPlayers().get(l_targetPlayerName), p_args);
-        p_player.addOrder(l_order);
-        return true;
+        return new NegotiateModel(p_player,
+                this.d_gameEngine.d_gamePlayModel.getPlayers().get(l_targetPlayerName),
+                p_args);
     }
 
     /**
@@ -286,13 +260,13 @@ public class IssueOrder extends GamePlayPhase {
      * @return true if the order is valid; otherwise false
      */
     @Override
-    public boolean pass(Player p_player) {
+    public OrderModel pass(String[] p_args, Player p_player) {
         // checks if the player is trying to pass/skip the turn
         if (p_player.getReinforcements() != 0) {
             p_player.getView().reinforcementsRemain(p_player.getReinforcements());
-            return false; // impossible command
+            return null; // impossible command
         }
-        return true;
+        return new PassModel(p_player, p_args);
     }
 
     /**

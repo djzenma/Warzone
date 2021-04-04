@@ -1,8 +1,6 @@
 package Model;
 
 
-import View.PlayerView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -108,12 +106,10 @@ public class GamePlayModel {
 
     /**
      * Adds a game player
-     *
-     * @param p_playerName Name of the player
+     * @param p_player The player to be added
      */
-    public void addPlayer(String p_playerName) {
-        Player l_player = new Player(p_playerName, new PlayerView(), this.d_countries, this.d_players);
-        this.d_players.put(p_playerName, l_player);
+    public void addPlayer(Player p_player) {
+        this.d_players.put(p_player.getName(), p_player);
     }
 
     /**

@@ -28,12 +28,12 @@ public class CommandsParserTest {
     @Test
     public void isValidCommand() {
         // valid
-        String[] l_cmd1 = {"gameplayer", "add", "Aman", "remove", "Adeetya"};
-        String[] l_cmd2 = {"gameplayer", "add", "Aman"};
+        String[] l_cmd1 = {"gameplayer", "add", "Aman", "Human", "remove", "Adeetya"};
+        String[] l_cmd2 = {"gameplayer", "add", "Aman", "Human"};
         String[] l_cmd3 = {"assigncountries"};
         String[] l_cmd4 = {"pass"};
         String[] l_cmd5 = {"deploy", "canada", "5"};
-        String[] l_cmd6 = {"gameplayer", "add", "Mazen", "add", "Aman"};
+        String[] l_cmd6 = {"gameplayer", "add", "Mazen", "Human", "add", "Aman", "Human"};
         assertTrue(CommandsParser.isValidCommand(l_cmd1));
         assertTrue(CommandsParser.isValidCommand(l_cmd2));
         assertTrue(CommandsParser.isValidCommand(l_cmd3));
@@ -46,8 +46,8 @@ public class CommandsParserTest {
         String[] l_cmd11 = {"assigncountries", "remove"};
         String[] l_cmd12 = {"pass", "add"};
         String[] l_cmd13 = {"deploy", "5"};
-        String[] l_cmd14 = {"gameplayer", "add", "Aman", "remove"};
-        String[] l_cmd15 = {"gameplayer", "add", "Mazen", "Aman"};
+        String[] l_cmd14 = {"gameplayer", "add", "Aman", "Human", "remove"};
+        String[] l_cmd15 = {"gameplayer", "add", "Mazen", "Human", "Aman"};
         String[] l_cmd16 = {"dsaifbsafa", "afsnsajbfaf"};
         String[] l_cmd17 = {"gameplayer", "Adeetya", "Adeetya", "remove", "Aman"};
         assertFalse(CommandsParser.isValidCommand(l_cmd10));
@@ -131,16 +131,16 @@ public class CommandsParserTest {
 
         // test named arguments
         l_correct = new HashMap<>();
-        String[] l_cmd1 = {"gameplayer", "add", "Aman", "remove", "Mazen", "add", "Shivangi"};
+        String[] l_cmd1 = {"gameplayer", "add", "Aman", "Human", "remove", "Mazen", "add", "Shivangi", "Human"};
         l_correct.put("cmd", new ArrayList<>(Arrays.asList("gameplayer")));
-        l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Shivangi")));
+        l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Human", "Shivangi", "Human")));
         l_correct.put("remove", new ArrayList<>(Arrays.asList("Mazen")));
         assertEquals(l_correct, CommandsParser.getArguments(l_cmd1));
 
         l_correct = new HashMap<>();
-        String[] l_cmd2 = {"gameplayer", "add", "Aman", "add", "Adeetya"};
+        String[] l_cmd2 = {"gameplayer", "add", "Aman", "Human", "add", "Adeetya", "Human"};
         l_correct.put("cmd", new ArrayList<>(Arrays.asList("gameplayer")));
-        l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Adeetya")));
+        l_correct.put("add", new ArrayList<>(Arrays.asList("Aman", "Human", "Adeetya", "Human")));
         assertEquals(l_correct, CommandsParser.getArguments(l_cmd2));
 
         // test unnamed arguments

@@ -223,11 +223,11 @@ public class CommandsParser {
     /**
      * Checks if the command entered is to pass
      *
-     * @param l_args array of the arguments in a command
+     * @param l_cmdName array of the arguments in a command
      * @return true if the name is valid; otherwise false
      */
-    public static boolean isPass(String[] l_args) {
-        return l_args[0].equals(d_commands.d_commandNames.d_pass);
+    public static boolean isPass(String l_cmdName) {
+        return l_cmdName.equals(d_commands.d_commandNames.d_pass);
     }
 
     /**

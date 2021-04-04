@@ -16,7 +16,7 @@ public abstract class OrderModel extends Observable {
     /**
      * Name of the command
      */
-    protected final String d_cmdName;
+    private final String d_cmdName;
     /**
      * Hashmap of the command arguments
      */

@@ -15,29 +15,7 @@ import java.util.function.Consumer;
  * View of the Game Play
  */
 public class GamePlayView {
-    /**
-     * Listens for the startup commands from the user
-     *
-     * @return Array of arguments of the commands
-     */
-    public String[] listenForStartupCommand() {
-        System.out.print("\n>> ");
 
-        // take the command
-        Scanner l_scanner = new Scanner(System.in);
-        String l_command = l_scanner.nextLine();
-
-        // clean it
-        //l_command = l_command.toLowerCase();
-        String[] l_commandArgs = l_command.split("\\s+");
-
-        // remove any '-' before any named argument
-        for (int i = 0; i < l_commandArgs.length; i++) {
-            if (l_commandArgs[i].startsWith("-"))
-                l_commandArgs[i] = l_commandArgs[i].replace("-", "");
-        }
-        return l_commandArgs;
-    }
 
     /**
      * Prints the exception
@@ -91,12 +69,6 @@ public class GamePlayView {
         System.out.println("\nTurn #" + p_turnNumber);
     }
 
-    /**
-     * Prints a statement for the invalid command
-     */
-    public void commandNotValid() {
-        System.out.println("Please Enter a Valid Command!");
-    }
 
     /**
      * Prints a statement for the invalid map editor command in the gameplay phase
@@ -243,22 +215,18 @@ public class GamePlayView {
         System.out.println();
     }
 
-
     /**
-     * Takes the Command from the user
+     * Prints all the cards player owns
      *
-     * @return Array of arguments of the command
+     * @param p_cards Hasmap of the cards
      */
-    public String[] takeCommand() {
-        String[] l_args;
-        do {
-            l_args = listenForStartupCommand();
-            if (!CommandsParser.isValidCommand(l_args))
-                commandNotValid();
-        } while (!CommandsParser.isValidCommand(l_args));
-
-        return l_args;
+    public void showCards(HashMap<String, Integer> p_cards) {
+        System.out.println("You have following Cards: \n");
+        for (String l_cardType : p_cards.keySet()) {
+            System.out.println(l_cardType + ": " + p_cards.get(l_cardType));
+        }
     }
+
 
     /**
      * If the player of the name is invalid
@@ -293,5 +261,69 @@ public class GamePlayView {
     public void winnerWinnerChickenDinner(String p_player) {
         System.out.println("WINNER WINNER CHICKEN DINNER \n" +
                 p_player + ", You rock man!!");
+    }
+
+    /**
+     * Prints that the command is invalid
+     */
+    public void invalidGameplayerCmd() {
+        System.out.println("Please enter a valid gameplayer command!");
+    }
+
+    /**
+     * Prints that the strategy entered is invalid
+     *
+     * @param p_strategyName the invalid strategy that the user entered
+     */
+    public void invalidStrategy(String p_strategyName) {
+        System.out.println(p_strategyName + " is not a valid strategy name!");
+    }
+
+    /**
+     * Listens for the startup commands from the user
+     *
+     * @return Array of arguments of the commands
+     */
+    public String[] listenForStartupCommand() {
+        System.out.print("\n>> ");
+
+        // take the command
+        Scanner l_scanner = new Scanner(System.in);
+        String l_command = l_scanner.nextLine();
+
+        // clean it
+        //l_command = l_command.toLowerCase();
+        String[] l_commandArgs = l_command.split("\\s+");
+
+        // remove any '-' before any named argument
+        for (int i = 0; i < l_commandArgs.length; i++) {
+            if (l_commandArgs[i].startsWith("-"))
+                l_commandArgs[i] = l_commandArgs[i].replace("-", "");
+        }
+        return l_commandArgs;
+    }
+
+    /**
+     * Prints a statement for the invalid command
+     */
+    public void commandNotValid() {
+        System.out.println("Please Enter a Valid Command!");
+    }
+
+
+    /**
+     * Takes the Command from the user
+     *
+     * @return Array of arguments of the command
+     */
+    public String[] takeCommand() {
+        String[] l_args;
+        do {
+            l_args = listenForStartupCommand();
+            if (!CommandsParser.isValidCommand(l_args))
+                commandNotValid();
+        } while (!CommandsParser.isValidCommand(l_args));
+
+        return l_args;
     }
 }

@@ -5,7 +5,9 @@ import Model.Orders.DeployModel;
 import States.ExecuteOrders;
 import States.IssueOrder;
 import States.Startup;
+import Strategy.HumanStrategy;
 import Utils.CommandsParser;
+import View.PlayerView;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -44,8 +46,18 @@ public class PlayerTest {
             d_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "solar.map"});
 
             // add the players
-            d_GameEngine.d_gamePlayModel.addPlayer("Mazen");
-            d_GameEngine.d_gamePlayModel.addPlayer("Aman");
+            Player l_player1 = new Player("Mazen", new PlayerView());
+            l_player1.setStrategy(new HumanStrategy(l_player1,
+                    d_GameEngine.d_gamePlayModel.getCountries(),
+                    d_GameEngine.d_gamePlayModel.getPlayers()));
+
+            Player l_player2 = new Player("Aman", new PlayerView());
+            l_player2.setStrategy(new HumanStrategy(l_player2,
+                    d_GameEngine.d_gamePlayModel.getCountries(),
+                    d_GameEngine.d_gamePlayModel.getPlayers()));
+
+            d_GameEngine.d_gamePlayModel.addPlayer(l_player1);
+            d_GameEngine.d_gamePlayModel.addPlayer(l_player2);
 
             // assign countries and reinforcements
             d_GameEngine.d_gamePlayModel.assignCountries();

@@ -4,9 +4,11 @@ import Controller.GameEngine;
 import EventListener.EventListener;
 import EventListener.LogEntryBuffer;
 import EventListener.Observable;
+import Model.OrderModel;
 import Model.Player;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * Main Phase
@@ -33,6 +35,13 @@ public abstract class Phase extends Observable {
      */
     // Map editor
     public void showMap() {
+        printInvalidCommandMessage();
+    }
+
+    /**
+     * Shows the available cards
+     */
+    public void showCards(HashMap<String, Integer> p_cards) {
         printInvalidCommandMessage();
     }
 
@@ -206,9 +215,9 @@ public abstract class Phase extends Observable {
      * @param p_player Object of the player
      * @return true if the command is valid; otherwise false
      */
-    public boolean deploy(String[] p_args, Player p_player) {
+    public OrderModel deploy(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
-        return false;
+        return null;
     }
 
     /**
@@ -218,9 +227,9 @@ public abstract class Phase extends Observable {
      * @param p_player Object of the player
      * @return true if the command is valid; otherwise false
      */
-    public boolean advance(String[] p_args, Player p_player) {
+    public OrderModel advance(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
-        return false;
+        return null;
     }
 
     /**
@@ -230,9 +239,9 @@ public abstract class Phase extends Observable {
      * @param p_player Object of the player
      * @return true if the command is valid; otherwise false
      */
-    public boolean bomb(String[] p_args, Player p_player) {
+    public OrderModel bomb(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
-        return false;
+        return null;
     }
 
     /**
@@ -242,9 +251,9 @@ public abstract class Phase extends Observable {
      * @param p_player Object of the player
      * @return true if the command is valid; otherwise false
      */
-    public boolean blockade(String[] p_args, Player p_player) {
+    public OrderModel blockade(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
-        return false;
+        return null;
     }
 
     /**
@@ -254,9 +263,9 @@ public abstract class Phase extends Observable {
      * @param p_player Object of the player
      * @return true if the command is valid; otherwise false
      */
-    public boolean airlift(String[] p_args, Player p_player) {
+    public OrderModel airlift(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
-        return false;
+        return null;
     }
 
     /**
@@ -266,9 +275,9 @@ public abstract class Phase extends Observable {
      * @param p_player Object of the player
      * @return true if the command is valid; otherwise false
      */
-    public boolean negotiate(String[] p_args, Player p_player) {
+    public OrderModel negotiate(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
-        return false;
+        return null;
     }
 
     /**
@@ -277,9 +286,9 @@ public abstract class Phase extends Observable {
      * @param p_player Object of the player
      * @return true if the command is valid; otherwise false
      */
-    public boolean pass(Player p_player) {
+    public OrderModel pass(String[] p_args, Player p_player) {
         printInvalidCommandMessage();
-        return false;
+        return null;
     }
 
     /**

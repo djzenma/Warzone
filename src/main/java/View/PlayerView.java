@@ -1,7 +1,10 @@
 package View;
 
+import Utils.CommandsParser;
+
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Interacts with the user if anything is wrong while issuing orders
@@ -142,7 +145,59 @@ public class PlayerView {
     /**
      * Prints if the player doesn't have the particular card
      */
-    public void noCardAvailable() {
+    public void noCardAvailable(String[] p_args) {
+        System.out.print("You issued ");
+        for (String l_arg : p_args)
+            System.out.print(l_arg + " ");
+        System.out.println();
         System.out.println("You don't have a card to issue this order.");
+    }
+
+    /**
+     * Listens for the startup commands from the user
+     *
+     * @return Array of arguments of the commands
+     */
+    public String[] listenForStartupCommand() {
+        System.out.print("\n>> ");
+
+        // take the command
+        Scanner l_scanner = new Scanner(System.in);
+        String l_command = l_scanner.nextLine();
+
+        // clean it
+        //l_command = l_command.toLowerCase();
+        String[] l_commandArgs = l_command.split("\\s+");
+
+        // remove any '-' before any named argument
+        for (int i = 0; i < l_commandArgs.length; i++) {
+            if (l_commandArgs[i].startsWith("-"))
+                l_commandArgs[i] = l_commandArgs[i].replace("-", "");
+        }
+        return l_commandArgs;
+    }
+
+
+    /**
+     * Prints a statement for the invalid command
+     */
+    public void commandNotValid() {
+        System.out.println("Please Enter a Valid Command!");
+    }
+
+    /**
+     * Takes the Command from the user
+     *
+     * @return Array of arguments of the command
+     */
+    public String[] takeCommand() {
+        String[] l_args;
+        do {
+            l_args = listenForStartupCommand();
+            if (!CommandsParser.isValidCommand(l_args))
+                commandNotValid();
+        } while (!CommandsParser.isValidCommand(l_args));
+
+        return l_args;
     }
 }

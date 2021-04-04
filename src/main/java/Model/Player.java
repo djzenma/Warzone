@@ -2,6 +2,7 @@ package Model;
 
 import EventListener.Observable;
 import States.Phase;
+import Strategy.Strategy;
 import View.PlayerView;
 
 import java.util.*;
@@ -27,7 +28,7 @@ public class Player extends Observable {
     /**
      * Queue of the orders issued by the player
      */
-    private final Queue<OrderModel> d_orderList;
+    private final Queue<OrderModel> d_orderQueue;
     /**
      * Hashmap of the active negotiators
      */
@@ -48,6 +49,7 @@ public class Player extends Observable {
      * Boolean for the eligibility of the card
      */
     private boolean d_eligibleForCard;
+
     /**
      * Object of the phase- current phase
      */
@@ -57,38 +59,19 @@ public class Player extends Observable {
      */
     private String[] d_args;
 
-    /**
-     * Initialises the name of the player, reinforcements, orders, countries and PlayerView
-     *
-     * @param p_name      Name of the player
-     * @param p_view      Object of the PlayerView
-     * @param p_countries HashMap of the countries
-     */
-    public Player(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries) {
-        this.setName(p_name);
-        this.d_reinforcements = 0;
-        this.d_orderList = new ArrayDeque<>();
-        this.d_armies = new HashMap<>();
-        this.d_myCountries = new HashMap<>();
-        this.d_view = p_view;
-        this.d_activeNegotiators = new HashMap<>();
-        this.d_cards = new HashMap<>();
-        this.initiateCards();
-        this.d_eligibleForCard = false;
-    }
+    private Strategy d_strategy;
+
 
     /**
      * Initialises the name of the player, reinforcements, orders, countries and PlayerView
      *
      * @param p_name Name of the player
      * @param p_view Object of the PlayerView
-     * @param p_countries HashMap of the Player Countries
-     * @param p_players HashMap of the Player
      */
-    public Player(String p_name, PlayerView p_view, HashMap<String, CountryModel> p_countries, HashMap<String, Player> p_players) {
+    public Player(String p_name, PlayerView p_view) {
         this.setName(p_name);
         this.d_reinforcements = 0;
-        this.d_orderList = new ArrayDeque<>();
+        this.d_orderQueue = new ArrayDeque<>();
         this.d_armies = new HashMap<>();
         this.d_myCountries = new HashMap<>();
         this.d_view = p_view;
@@ -233,7 +216,7 @@ public class Player extends Observable {
      * @param p_order Object of the OrderController
      */
     public void addOrder(OrderModel p_order) {
-        this.d_orderList.add(p_order);
+        this.d_orderQueue.add(p_order);
     }
 
     /**
@@ -281,34 +264,14 @@ public class Player extends Observable {
      * @return False if the order is invalid; Otherwise true
      */
     public boolean issueOrder() {
-        String[] l_args = this.d_args;
+        OrderModel l_order = this.d_strategy.createOrder();
 
-        switch (l_args[0]) {
-            case "pass":
-                return this.d_currentPhase.pass(this);
-
-            case "advance":
-                return this.d_currentPhase.advance(l_args, this);
-
-            case "bomb":
-                return this.d_currentPhase.bomb(l_args, this);
-
-            case "negotiate":
-                return this.d_currentPhase.negotiate(l_args, this);
-
-            case "deploy":
-                return this.d_currentPhase.deploy(l_args, this);
-
-            case "blockade":
-                return this.d_currentPhase.blockade(l_args, this);
-
-            case "airlift":
-                return this.d_currentPhase.airlift(l_args, this);
-
-            default:
-                this.d_view.invalidOrder();
-                return false;
+        if (l_order != null) {
+            this.addOrder(l_order);
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -317,8 +280,8 @@ public class Player extends Observable {
      * @return next order from the list of the orders
      */
     public OrderModel nextOrder() {
-        OrderModel l_order = this.d_orderList.peek();
-        this.d_orderList.poll();
+        OrderModel l_order = this.d_orderQueue.peek();
+        this.d_orderQueue.poll();
         return l_order;
     }
 
@@ -392,5 +355,36 @@ public class Player extends Observable {
      */
     public void setCommand(String[] p_args) {
         this.d_args = p_args;
+    }
+
+    /**
+     * Accessor for the command
+     */
+    public String[] getCommand() {
+        return this.d_args;
+    }
+
+    /**
+     * Accessor for the current phase
+     */
+    public Phase getCurrentPhase() {
+        return d_currentPhase;
+    }
+
+    /**
+     * Mutator for this player's strategy
+     *
+     * @param p_strategy the strategy that the player will follow
+     */
+    public void setStrategy(Strategy p_strategy) {
+        this.d_strategy = p_strategy;
+    }
+
+    /**
+     * @return
+     */
+    public OrderModel getLastIssuedOrder() {
+        List<OrderModel> l_ordersList = new ArrayList<>(this.d_orderQueue);
+        return l_ordersList.get(l_ordersList.size() - 1);
     }
 }

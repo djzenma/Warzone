@@ -2,6 +2,8 @@ package States;
 
 import Controller.GameEngine;
 
+import java.util.HashMap;
+
 /**
  * Game Play Phase
  * It extends the main phase
@@ -61,5 +63,13 @@ public class GamePlayPhase extends Phase {
     @Override
     public void showMap() {
         this.d_gameEngine.d_gamePlayView.showMap(this.d_gameEngine.d_mapModel.getContinents(), this.d_gameEngine.d_mapModel.getCountries());
+    }
+
+    /**
+     * Shows the cards in the gameplay phase
+     */
+    @Override
+    public void showCards(HashMap<String, Integer> p_cards) {
+        this.d_gameEngine.d_gamePlayView.showCards(p_cards);
     }
 }

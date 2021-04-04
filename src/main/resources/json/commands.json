@@ -6,7 +6,7 @@
       "namedArgs": [
         {
           "name": "add",
-          "argsNum": 1
+          "argsNum": 2
         },
         {
           "name": "remove",
