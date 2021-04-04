@@ -29,7 +29,7 @@ public abstract class Strategy {
     protected abstract CountryModel defend();
 
 
-    protected OrderModel convertCmdToOrder(String[] p_args) {
+    public OrderModel convertCmdToOrder(String[] p_args) {
         OrderModel l_order = null;
 
         switch (p_args[0]) {

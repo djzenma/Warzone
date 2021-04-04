@@ -3,6 +3,7 @@ package Controller;
 import Model.Player;
 import States.Startup;
 import Strategy.HumanStrategy;
+import Strategy.NeutralStrategy;
 import Utils.CommandsParser;
 import View.PlayerView;
 import org.junit.Before;
@@ -34,12 +35,12 @@ public class GamePlayControllerTest {
         d_GameEngine.d_currentPhase.loadMap(new String[]{"loadmap", "asia.map"});
 
         Player l_player1 = new Player("a", new PlayerView());
-        l_player1.setStrategy(new HumanStrategy(l_player1,
+        l_player1.setStrategy(new NeutralStrategy(l_player1,
                 d_GameEngine.d_gamePlayModel.getCountries(),
                 d_GameEngine.d_gamePlayModel.getPlayers()));
 
         Player l_player2 = new Player("b", new PlayerView());
-        l_player2.setStrategy(new HumanStrategy(l_player2,
+        l_player2.setStrategy(new NeutralStrategy(l_player2,
                 d_GameEngine.d_gamePlayModel.getCountries(),
                 d_GameEngine.d_gamePlayModel.getPlayers()));
 
@@ -49,7 +50,7 @@ public class GamePlayControllerTest {
         d_GameEngine.d_gamePlayModel.assignReinforcements();
 
         Player l_player3 = new Player("Neutral", new PlayerView());
-        l_player2.setStrategy(new HumanStrategy(l_player2,
+        l_player2.setStrategy(new NeutralStrategy(l_player2,
                 d_GameEngine.d_gamePlayModel.getCountries(),
                 d_GameEngine.d_gamePlayModel.getPlayers()));
 
@@ -68,20 +69,30 @@ public class GamePlayControllerTest {
         l_playerA.setPhase(d_GameEngine.d_currentPhase);
         l_playerB.setPhase(d_GameEngine.d_currentPhase);
 
-        l_playerA.setCommand(new String[]{"deploy", "India", "5"});
-        l_playerA.issueOrder();
+        l_playerA.addOrder(new HumanStrategy(l_playerA,
+                d_GameEngine.d_gamePlayModel.getCountries(),
+                d_GameEngine.d_gamePlayModel.getPlayers())
+                .convertCmdToOrder(new String[]{"deploy", "India", "5"}));
 
-        l_playerA.setCommand(new String[]{"deploy", "China", "6"});
-        l_playerA.issueOrder();
+        l_playerA.addOrder(new HumanStrategy(l_playerA,
+                d_GameEngine.d_gamePlayModel.getCountries(),
+                d_GameEngine.d_gamePlayModel.getPlayers())
+                .convertCmdToOrder(new String[]{"deploy", "China", "6"}));
 
-        l_playerB.setCommand(new String[]{"deploy", "Egypt", "1"});
-        l_playerB.issueOrder();
+        l_playerB.addOrder(new HumanStrategy(l_playerB,
+                d_GameEngine.d_gamePlayModel.getCountries(),
+                d_GameEngine.d_gamePlayModel.getPlayers())
+                .convertCmdToOrder(new String[]{"deploy", "Egypt", "1"}));
 
-        l_playerA.setCommand(new String[]{"advance", "India", "Egypt", "5"});
-        assertTrue(l_playerA.issueOrder());
+        l_playerA.addOrder(new HumanStrategy(l_playerA,
+                d_GameEngine.d_gamePlayModel.getCountries(),
+                d_GameEngine.d_gamePlayModel.getPlayers())
+                .convertCmdToOrder(new String[]{"advance", "India", "Egypt", "5"}));
 
-        l_playerA.setCommand(new String[]{"advance", "China", "Canada", "6"});
-        assertTrue(l_playerA.issueOrder());
+        l_playerA.addOrder(new HumanStrategy(l_playerA,
+                d_GameEngine.d_gamePlayModel.getCountries(),
+                d_GameEngine.d_gamePlayModel.getPlayers())
+                .convertCmdToOrder(new String[]{"advance", "China", "Canada", "6"}));
 
 
         d_GameEngine.d_currentPhase.next();
