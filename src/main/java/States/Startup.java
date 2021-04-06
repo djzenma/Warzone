@@ -3,10 +3,7 @@ package States;
 import Controller.GameEngine;
 import Model.ContinentModel;
 import Model.Player;
-import Strategy.HumanStrategy;
-import Strategy.NeutralStrategy;
-import Strategy.RandomStrategy;
-import Strategy.Strategy;
+import Strategy.*;
 import Utils.CommandsParser;
 import Utils.MapUtils;
 import View.PlayerView;
@@ -163,6 +160,10 @@ public class Startup extends GamePlayPhase {
                         this.d_gameEngine.d_gamePlayModel.getPlayers());
             case "random":
                 return new RandomStrategy(p_player,
+                        this.d_gameEngine.d_gamePlayModel.getCountries(),
+                        this.d_gameEngine.d_gamePlayModel.getPlayers());
+            case "benevolent":
+                return new BenevolentStrategy(p_player,
                         this.d_gameEngine.d_gamePlayModel.getCountries(),
                         this.d_gameEngine.d_gamePlayModel.getPlayers());
             default:
