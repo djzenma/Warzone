@@ -3,9 +3,9 @@ package Strategy;
 import Model.CountryModel;
 import Model.OrderModel;
 import Model.Player;
+import Utils.SortCountries;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 
 public class BenevolentStrategy extends Strategy {
@@ -29,20 +29,20 @@ public class BenevolentStrategy extends Strategy {
     @Override
     protected CountryModel moveFrom() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
-        l_countries.sort(new SortCountriesDescending());
+        l_countries.sort(new SortCountries.SortCountriesDescending());
         return l_countries.get(0);
     }
 
     @Override
     protected CountryModel defend() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
-        l_countries.sort(new SortCountriesAscending());
+        l_countries.sort(new SortCountries.SortCountriesAscending());
         return l_countries.get(0);
     }
 
     private CountryModel moveTo() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
-        l_countries.sort(new SortCountriesAscending());
+        l_countries.sort(new SortCountries.SortCountriesAscending());
         return l_countries.get(1);
     }
 
@@ -75,17 +75,4 @@ public class BenevolentStrategy extends Strategy {
     }
 }
 
-class SortCountriesDescending implements Comparator<CountryModel> {
-    @Override
-    public int compare(CountryModel o1, CountryModel o2) {
-        return o2.getArmies() - o1.getArmies();
-    }
-}
-
-class SortCountriesAscending implements Comparator<CountryModel> {
-    @Override
-    public int compare(CountryModel o1, CountryModel o2) {
-        return o1.getArmies() - o2.getArmies();
-    }
-}
 

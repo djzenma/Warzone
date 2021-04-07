@@ -166,6 +166,10 @@ public class Startup extends GamePlayPhase {
                 return new BenevolentStrategy(p_player,
                         this.d_gameEngine.d_gamePlayModel.getCountries(),
                         this.d_gameEngine.d_gamePlayModel.getPlayers());
+            case "aggressive":
+                return new AggressiveStrategy(p_player,
+                        this.d_gameEngine.d_gamePlayModel.getCountries(),
+                        this.d_gameEngine.d_gamePlayModel.getPlayers());
             default:
                 return null;
         }
