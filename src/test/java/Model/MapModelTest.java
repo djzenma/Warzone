@@ -52,10 +52,10 @@ public class MapModelTest {
     /**
      * Sets the context before every test method
      *
-     * @throws IOException If I/O exception of some sort has occurred
+     * @throws Exception If I/O exception of some sort has occurred
      */
     @Before
-    public void setUp() throws IOException {
+    public void setUp() throws Exception {
         File l_file = (File) MapUtils.getMapFile(d_TestMapFileName, false).get(0);
         d_MapModel.editMap(l_file);
     }
@@ -163,10 +163,10 @@ public class MapModelTest {
     /**
      * Tests savemap command
      *
-     * @throws IOException If I/O exception of some sort has occurred
+     * @throws Exception If I/O exception of some sort has occurred
      */
     @Test
-    public void saveMap() throws IOException {
+    public void saveMap() throws Exception {
         d_MapModel.editMap(new File(MapUtils.getMapsPath() + "solar.map"));
         d_MapModel.saveMap(new File(MapUtils.getMapsPath() + "savemaptest.map"));
         assertTrue(d_MapUtils.areMapFilesEqual("solar.map", "savemaptest.map"));
@@ -194,6 +194,7 @@ public class MapModelTest {
         try {
             d_MapModel.loadOnlyValidMap(l_file);
         } catch (Exception l_e) {
+            l_e.printStackTrace();
             assertFalse(d_MapModel.isMapValid());
         }
         l_file = new File("maps/us.map");

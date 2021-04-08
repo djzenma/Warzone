@@ -154,4 +154,17 @@ public class MapUtils {
         return l_maps.list();
     }
 
+    //TODO
+    public String getMapType(File p_file) throws IOException {
+        String l_fileContent = readMapFile(p_file);
+        String[] l_fileLines = l_fileContent.split("\n");
+
+        switch (l_fileLines[0].trim()) {
+            case "[Map]":
+                return "Conquest";
+            default:
+                return "Domination";
+        }
+
+    }
 }
