@@ -98,12 +98,12 @@ public class PostLoad extends PreLoad {
     /**
      * Saves map
      *
-     * @param l_args Array of the command arguments
+     * @param p_args Array of the command arguments
      * @throws Exception Throws some kind of the exception
      */
     @Override
-    public boolean saveMap(String[] l_args) throws Exception {
-        triggerEvent(l_args, "Map Editor Phase");
+    public boolean saveMap(String[] p_args) throws Exception {
+        triggerEvent(p_args, "Map Editor Phase");
         d_gameEngine.d_mapModel.validateMap();
 
         // if the currently loaded map is invalid, ask for user input
@@ -113,10 +113,10 @@ public class PostLoad extends PreLoad {
             if (l_input.equals("n"))
                 return true;
         }
-        String l_fileName = MapUtils.getValidFileName(l_args);
+        String l_fileName = MapUtils.getValidFileName(p_args);
         ArrayList l_fileData = MapUtils.getMapFile(l_fileName, false);
         this.saveMapWarning(l_fileName, l_fileData);
-        d_gameEngine.d_mapModel.saveMap((File) l_fileData.get(0));
+        d_gameEngine.d_mapModel.saveMap((File) l_fileData.get(0), p_args[2]);
         return false;
     }
 

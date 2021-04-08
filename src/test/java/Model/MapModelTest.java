@@ -9,7 +9,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
-import java.io.IOException;
 
 import static org.junit.Assert.*;
 
@@ -168,7 +167,7 @@ public class MapModelTest {
     @Test
     public void saveMap() throws Exception {
         d_MapModel.editMap(new File(MapUtils.getMapsPath() + "solar.map"));
-        d_MapModel.saveMap(new File(MapUtils.getMapsPath() + "savemaptest.map"));
+        d_MapModel.saveMap(new File(MapUtils.getMapsPath() + "savemaptest.map"), "Domination");
         assertTrue(d_MapUtils.areMapFilesEqual("solar.map", "savemaptest.map"));
     }
 
@@ -194,7 +193,6 @@ public class MapModelTest {
         try {
             d_MapModel.loadOnlyValidMap(l_file);
         } catch (Exception l_e) {
-            l_e.printStackTrace();
             assertFalse(d_MapModel.isMapValid());
         }
         l_file = new File("maps/us.map");

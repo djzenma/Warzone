@@ -5,10 +5,14 @@ import Model.CountryModel;
 import Utils.MapUtils;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.function.Consumer;
 
 public class ConquestMapIO {
 
@@ -38,7 +42,6 @@ public class ConquestMapIO {
         this.d_countries = new LinkedHashMap<>();
         d_mapUtils = new MapUtils();
         Iterator<String> l_iterator;
-        Iterator<String> l_borderIterator;
         String l_fileContent;
         String[] l_fileLines;
         String l_tempLine;
@@ -119,7 +122,64 @@ public class ConquestMapIO {
         }
         return new MapContainer(this.d_continents, this.d_countries);
     }
-    public void saveConquestMap(File p_file) {
+    public void saveConquestMap(File p_file,
+                                LinkedHashMap<String, ContinentModel> p_continents,
+                                LinkedHashMap<String, CountryModel> p_countries) throws IOException {
+        this.d_continents = p_continents;
+        this.d_countries = p_countries;
+        String l_tempLine = null;
+        FileOutputStream l_fos;
 
+        // writes [files] section
+        p_file.createNewFile();
+        l_fos = new FileOutputStream(p_file);
+
+        l_tempLine = "[Map]\n" +
+                "pic " + p_file.getName().split("\\.")[0] + "_pic.jpg\n" +
+                "map " + p_file.getName().split("\\.")[0] + "_map.gif\n" +
+                "crd " + p_file.getName().split("\\.")[0] + ".cards\n\n";
+        l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
+
+        // writes [continents] section
+        l_fos.write("[Continents]\n".getBytes(StandardCharsets.UTF_8));
+
+        // sort continents based on id
+        // write each continent to map file in given format
+        d_continents.values().stream().sorted(Comparator.comparingInt(ContinentModel::getId)).forEach(p_continentModel -> {
+            try {
+                l_fos.write((p_continentModel.getName() + "=" +
+                        p_continentModel.getControlValue() + "\n"
+                ).getBytes(StandardCharsets.UTF_8));
+            } catch (IOException l_e) {
+                l_e.printStackTrace();
+            }
+        });
+
+        // writes [countries] section
+        l_fos.write("\n[Territories]\n".getBytes(StandardCharsets.UTF_8));
+
+        // sort countries based on id
+        // write each country to map file in given format
+        d_countries.values().stream().sorted(Comparator.comparingInt(CountryModel::getId)).forEach(new Consumer<CountryModel>() {
+            @Override
+            public void accept(CountryModel p_countryModel) {
+                try {
+                    l_fos.write((p_countryModel.getName() + "," +
+                            p_countryModel.getXCoordinate() + "," +
+                            p_countryModel.getYCoordinate() + "," +
+                            p_countryModel.getContinentId() + ","
+                    ).getBytes(StandardCharsets.UTF_8));
+
+                    for(CountryModel l_neighbor: p_countryModel.getNeighbors().values()) {
+                        l_fos.write((l_neighbor.getName() + ",").getBytes(StandardCharsets.UTF_8));
+                    }
+                    l_fos.write(("\n").getBytes(StandardCharsets.UTF_8));
+                } catch (IOException l_e) {
+                    l_e.printStackTrace();
+                }
+            }
+        });
+        l_fos.flush();
+        l_fos.close();
     }
 }

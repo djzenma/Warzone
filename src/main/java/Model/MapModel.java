@@ -6,12 +6,11 @@ import Adapter.MapContainer;
 import Utils.MapUtils;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
 
 /**
  * Maintains the state of the map in MapEditor <br>
@@ -422,13 +421,9 @@ public class MapModel {
      * @throws Exception If I/O exception of some sort has occurred
      */
     public void editMap(File p_file) throws Exception {
-        try {
-            this.d_mapFileLoaded = true;
-            this.d_currentFileName = p_file.getName();
-            loadMap(p_file);
-        } catch (Exception l_e) {
-            l_e.printStackTrace();
-        }
+        this.d_mapFileLoaded = true;
+        this.d_currentFileName = p_file.getName();
+        loadMap(p_file);
     }
 
     /**
@@ -589,90 +584,17 @@ public class MapModel {
      * @param p_file File object where the current map should be saved
      * @throws IOException If I/O exception of some sort has occurred
      */
-    public void saveMap(File p_file) throws IOException {
-        String l_tempLine = null;
-        FileOutputStream l_fos;
-
-        // writes [files] section
-        p_file.createNewFile();
-        l_fos = new FileOutputStream(p_file);
-
-        l_tempLine = "[files]\n" +
-                "pic " + p_file.getName().split("\\.")[0] + "_pic.jpg\n" +
-                "map " + p_file.getName().split("\\.")[0] + "_map.gif\n" +
-                "crd " + p_file.getName().split("\\.")[0] + ".cards\n\n";
-        l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
-
-        // writes [continents] section
-        l_fos.write("[continents]\n".getBytes(StandardCharsets.UTF_8));
-
-        // sort continents based on id
-        // write each continent to map file in given format
-        d_continents.values().stream().sorted(Comparator.comparingInt(ContinentModel::getId)).forEach(p_continentModel -> {
-            try {
-                l_fos.write((p_continentModel.getName() + " " +
-                        p_continentModel.getControlValue() + " " +
-                        p_continentModel.getColor() + "\n"
-                ).getBytes(StandardCharsets.UTF_8));
-            } catch (IOException l_e) {
-                l_e.printStackTrace();
-            }
-        });
-
-        // writes [countries] section
-        l_fos.write("\n[countries]\n".getBytes(StandardCharsets.UTF_8));
-
-        // sort countries based on id
-        // write each country to map file in given format
-        d_countries.values().stream().sorted(Comparator.comparingInt(CountryModel::getId)).forEach(new Consumer<CountryModel>() {
-            @Override
-            public void accept(CountryModel p_countryModel) {
-                try {
-                    l_fos.write((p_countryModel.getId() + " " +
-                            p_countryModel.getName() + " " +
-                            this.getContinentId(p_countryModel.getContinentId()) + " " +
-                            p_countryModel.getXCoordinate() + " " +
-                            p_countryModel.getYCoordinate() + "\n"
-                    ).getBytes(StandardCharsets.UTF_8));
-                } catch (IOException l_e) {
-                    l_e.printStackTrace();
-                }
-            }
-
-            // fetches the id of the specified continent
-            public String getContinentId(String p_continentName) {
-                int[] l_continentId = new int[1];
-                d_continents.values().forEach(p_continentModel -> {
-                    if (p_continentModel.getName().trim().equals(p_continentName.trim())) {
-                        l_continentId[0] = p_continentModel.getId();
-                    }
-                });
-                return String.valueOf(l_continentId[0]);
-            }
-        });
-
-        // writes [borders] section
-        l_fos.write("\n[borders]\n".getBytes(StandardCharsets.UTF_8));
-
-        // get the ids of all the neighbor countries and writes them in map format
-        d_countries.values().forEach(new Consumer<CountryModel>() {
-            String l_tempLine = "";
-
-            @Override
-            public void accept(CountryModel p_countryModel) {
-                l_tempLine += p_countryModel.getId() + " ";
-                p_countryModel.getNeighbors().values().forEach(p_inCountryModel -> l_tempLine += p_inCountryModel.getId() + " ");
-                l_tempLine = l_tempLine.trim();
-                l_tempLine += "\n";
-                try {
-                    l_fos.write(l_tempLine.getBytes(StandardCharsets.UTF_8));
-                    l_tempLine = "";
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        l_fos.flush();
-        l_fos.close();
+    public void saveMap(File p_file, String p_mapType) throws Exception {
+        switch(p_mapType.trim()) {
+            case "Domination":
+                DominationMapIO l_dominationMapIO = new DominationMapIO();
+                l_dominationMapIO.saveMap(p_file, this.d_continents, this.d_countries);
+                break;
+            case "Conquest":
+                d_mapAdapter.saveMap(p_file, this.d_continents, this.d_countries);
+                break;
+            default:
+                throw new Exception("Invalid map type");
+        }
     }
 }
