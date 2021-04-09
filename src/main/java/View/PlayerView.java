@@ -2,6 +2,7 @@ package View;
 
 import Utils.CommandsParser;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -9,7 +10,8 @@ import java.util.Scanner;
 /**
  * Interacts with the user if anything is wrong while issuing orders
  */
-public class PlayerView {
+public class PlayerView implements Serializable {
+    private static final long serialversionUID = 129348938L;
 
     private void reconstructDeploy(HashMap<String, List<String>> p_args) {
         System.out.println("Command: deploy " + p_args.get("country_name").get(0) + " " + p_args.get("reinforcements_num").get(0));
@@ -200,4 +202,5 @@ public class PlayerView {
 
         return l_args;
     }
+
 }

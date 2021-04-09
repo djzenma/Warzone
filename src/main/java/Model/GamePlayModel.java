@@ -1,6 +1,7 @@
 package Model;
 
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,13 @@ import static java.lang.Math.floor;
  *     <li> Executes the Orders issued by the players </li>
  * </ul>
  */
-public class GamePlayModel {
+public class GamePlayModel implements Serializable {
+    private static final long serialversionUID = 129348938L;
+
+    public int l_turnNumber;
+    public int d_curPlayerNum;
+    public boolean skipAssignReinforcements;
+
     /**
      * HashMap of the players
      */
@@ -48,6 +55,9 @@ public class GamePlayModel {
         this.d_countries = new HashMap<>();
         this.d_endGame = false;
         this.d_winner = null;
+        this.l_turnNumber = 1;
+        this.d_curPlayerNum = 0;
+        this.skipAssignReinforcements = false;
     }
 
     /**

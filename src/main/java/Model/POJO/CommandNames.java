@@ -141,4 +141,17 @@ public class CommandNames {
      */
     @SerializedName(value = "showcards")
     public String d_showcards;
+
+
+    /**
+     * Name of the command
+     */
+    @SerializedName(value = "loadgame")
+    public String d_loadgame;
+
+    /**
+     * Name of the command
+     */
+    @SerializedName(value = "savegame")
+    public String d_savegame;
 }

@@ -1,11 +1,14 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
 /**
  * Maintains the state of a continent
  */
-public class ContinentModel {
+public class ContinentModel implements Serializable {
+    private static final long serialversionUID = 129348938L;
+
     /**
      * LinkedHashMap of the countries
      */

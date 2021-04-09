@@ -4,6 +4,7 @@ import Model.ContinentModel;
 import Model.CountryModel;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -12,8 +13,8 @@ import java.util.Scanner;
 /**
  * Listens for commands from user and displays the output
  */
-public class MapView {
-    Scanner d_scanner = new Scanner(System.in);
+public class MapView implements Serializable {
+    private static final long serialversionUID = 129348938L;
 
     /**
      * Listens for commands from user
@@ -22,6 +23,8 @@ public class MapView {
      */
     public String[] listenForCommands() {
         System.out.print("\n>> ");
+
+        Scanner d_scanner = new Scanner(System.in);
 
         // take the command
         String l_command = d_scanner.nextLine().trim();

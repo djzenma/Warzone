@@ -4,9 +4,10 @@ import Model.CountryModel;
 import Model.OrderModel;
 import Model.Player;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public abstract class Strategy {
+public abstract class Strategy implements Serializable {
 
     Player d_player;
     HashMap<String, CountryModel> d_countries;
@@ -59,6 +60,14 @@ public abstract class Strategy {
 
             case "airlift":
                 l_order = this.d_player.getCurrentPhase().airlift(p_args, this.d_player);
+                break;
+
+            case "savegame":
+                this.d_player.getCurrentPhase().saveGame(p_args);
+                break;
+
+            case "loadgame":
+                this.d_player.getCurrentPhase().loadGame(p_args);
                 break;
 
             case "showmap":

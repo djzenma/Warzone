@@ -6,6 +6,7 @@ import Model.Player;
 import Utils.CommandsParser;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -14,8 +15,8 @@ import java.util.function.Consumer;
 /**
  * View of the Game Play
  */
-public class GamePlayView {
-
+public class GamePlayView implements Serializable {
+    private static final long serialversionUID = 129348938L;
 
     /**
      * Prints the exception
@@ -325,5 +326,13 @@ public class GamePlayView {
         } while (!CommandsParser.isValidCommand(l_args));
 
         return l_args;
+    }
+
+    public void savedCheckpoint() {
+        System.out.println("Checkpoint created!");
+    }
+
+    public void loadedCheckpoint() {
+        System.out.println("Checkpoint loaded!");
     }
 }

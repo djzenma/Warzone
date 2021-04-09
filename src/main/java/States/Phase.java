@@ -6,15 +6,21 @@ import EventListener.LogEntryBuffer;
 import EventListener.Observable;
 import Model.OrderModel;
 import Model.Player;
+import Utils.CommandsParser;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Main Phase
  * It extend the observable
  */
-public abstract class Phase extends Observable {
+public abstract class Phase extends Observable implements Serializable {
+    private static final long serialversionUID = 129348938L;
     /**
      * Object of the gamengine
      */
@@ -291,6 +297,15 @@ public abstract class Phase extends Observable {
         return null;
     }
 
+    public void saveGame(String[] p_args) {
+        printInvalidCommandMessage();
+    }
+
+    public GameEngine loadGame(String[] p_args) {
+        printInvalidCommandMessage();
+        return null;
+    }
+
     /**
      * Ends the game
      */
@@ -323,5 +338,15 @@ public abstract class Phase extends Observable {
     public void triggerEvent(String[] p_command, String p_phase) {
         LogEntryBuffer l_entryBuffer = new LogEntryBuffer(p_command, p_phase);
         notifyObservers(l_entryBuffer);
+    }
+
+    void serialize(String[] p_args) throws IOException {
+        HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
+        FileOutputStream fileOut = new FileOutputStream("checkpoint/" + l_args.get("filename").get(0) + ".ser");
+        ObjectOutputStream out = new ObjectOutputStream(fileOut);
+        out.writeObject(this.d_gameEngine);
+        out.close();
+        fileOut.close();
+        this.d_gameEngine.d_gamePlayView.savedCheckpoint();
     }
 }

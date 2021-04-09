@@ -7,6 +7,7 @@ import Utils.MapUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Scanner;
@@ -16,7 +17,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Maintains the state of the map in MapEditor <br>
  * Implements methods to handle MapEditor commands
  */
-public class MapModel {
+public class MapModel implements Serializable {
+    private static final long serialversionUID = 129348938L;
+
     /**
      * Object of the MapUtils
      */

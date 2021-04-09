@@ -8,11 +8,15 @@ import View.MapView;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Controller for the game engine
  */
-public class GameEngine {
+public class GameEngine implements Serializable {
+    private static final long serialversionUID = 129348938L;
+
+
     /**
      * Object of the gameplay view
      */

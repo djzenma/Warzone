@@ -5,6 +5,7 @@ import States.Phase;
 import Strategy.Strategy;
 import View.PlayerView;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
@@ -12,7 +13,8 @@ import java.util.*;
  * Maintains the HashMap of the countries, the reinforcements it owns for the current turn
  * and the armies that this player owns in each country
  */
-public class Player extends Observable {
+public class Player extends Observable implements Serializable {
+    private static final long serialversionUID = 129348938L;
     /**
      * Object of the playerview
      */

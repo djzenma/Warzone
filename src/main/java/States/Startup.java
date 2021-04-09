@@ -141,7 +141,7 @@ public class Startup extends GamePlayPhase {
      */
     @Override
     public void next() {
-        d_gameEngine.setPhase(new AssignReinforcements(d_gameEngine));
+        this.d_gameEngine.setPhase(new AssignReinforcements(this.d_gameEngine));
     }
 
 

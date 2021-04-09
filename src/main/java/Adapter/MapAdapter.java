@@ -5,9 +5,11 @@ import Model.CountryModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
-public class MapAdapter extends DominationMapIO{
+public class MapAdapter extends DominationMapIO implements Serializable {
+    private static final long serialversionUID = 129348938L;
 
     // TODO :: Add tests
 

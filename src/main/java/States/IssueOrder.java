@@ -7,6 +7,7 @@ import Model.Orders.*;
 import Model.Player;
 import Utils.CommandsParser;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,9 +36,17 @@ public class IssueOrder extends GamePlayPhase {
         boolean l_isValidOrder;
         boolean l_moveToNextPhase = true;
 
-        for (Player l_player : this.d_gameEngine.d_gamePlayModel.getPlayers().values()) {
-            if (l_player.getName().equals("Neutral"))
+
+        Object[] l_players = this.d_gameEngine.d_gamePlayModel.getPlayers().values().toArray();
+
+        while (d_gameEngine.d_gamePlayModel.d_curPlayerNum < l_players.length) {
+
+            Player l_player = (Player) l_players[d_gameEngine.d_gamePlayModel.d_curPlayerNum];
+
+            if (l_player.getName().equals("Neutral")) {
+                d_gameEngine.d_gamePlayModel.d_curPlayerNum++;
                 continue;
+            }
 
             l_player.flushActiveNegotiators();
             String l_cardName = l_player.assignCards();
@@ -53,7 +62,11 @@ public class IssueOrder extends GamePlayPhase {
             // if the player issued an order
             if (!CommandsParser.isPass(l_player.getLastIssuedOrder().getCmdName()))
                 l_moveToNextPhase = false;
+
+            this.d_gameEngine.d_gamePlayModel.d_curPlayerNum++;
         }
+        this.d_gameEngine.d_gamePlayModel.d_curPlayerNum = 0;
+
         return !l_moveToNextPhase;
     }
 
@@ -290,4 +303,16 @@ public class IssueOrder extends GamePlayPhase {
     public void next() {
         d_gameEngine.setPhase(new ExecuteOrders(d_gameEngine));
     }
+
+
+    @Override
+    public void saveGame(String[] p_args) {
+        try {
+            this.d_gameEngine.d_gamePlayModel.skipAssignReinforcements = true;
+            serialize(p_args);
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
 }

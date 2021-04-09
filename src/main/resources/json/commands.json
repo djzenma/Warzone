@@ -196,6 +196,22 @@
     {
       "name": "showcards",
       "args": []
+    },
+    {
+      "name": "savegame",
+      "args": [
+        {
+          "name": "filename"
+        }
+      ]
+    },
+    {
+      "name": "loadgame",
+      "args": [
+        {
+          "name": "filename"
+        }
+      ]
     }
   ],
 
@@ -222,7 +238,9 @@
     "bomb": "bomb",
     "blockade": "blockade",
     "negotiate": "negotiate",
-    "showcards": "showcards"
+    "showcards": "showcards",
+    "savegame": "savegame",
+    "loadgame": "loadgame"
   }
 }
 

@@ -1,11 +1,13 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 
 /**
  * Maintains the state of a country
  */
-public class CountryModel {
+public class CountryModel implements Serializable {
+    private static final long serialversionUID = 129348938L;
     /**
      * Name of the country
      */

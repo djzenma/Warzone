@@ -1,9 +1,6 @@
 package Utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -14,9 +11,9 @@ import java.util.Arrays;
 /**
  * Utility class for Maps
  */
-public class MapUtils {
+public class MapUtils implements Serializable {
+    private static final long serialversionUID = 129348938L;
 
-    FileInputStream d_fis;
     byte[] d_data;
 
     /**
@@ -26,6 +23,7 @@ public class MapUtils {
      * @throws IOException If I/O exception of some sort has occurred
      */
     public String readMapFile(File p_file) throws IOException {
+        FileInputStream d_fis;
         d_fis = new FileInputStream(p_file);
         d_data = new byte[(int) p_file.length()];
         d_fis.read(d_data);

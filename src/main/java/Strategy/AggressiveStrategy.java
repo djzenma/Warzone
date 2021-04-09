@@ -54,7 +54,14 @@ public class AggressiveStrategy extends Strategy {
 
         List<CountryModel> l_list = new ArrayList<CountryModel>(Arrays.asList(l_countriesList));
         l_list.sort(new SortCountries.SortCountriesDescending());
-        return l_list.get(0);
+
+        int l_i = 0;
+        while (l_i < l_list.size()) {
+            if (l_list.get(l_i).getOwnerName() == this.d_player.getName())
+                return l_list.get(l_i);
+            l_i++;
+        }
+        return null;
     }
 
     @Override
@@ -81,16 +88,21 @@ public class AggressiveStrategy extends Strategy {
                             attackFrom().getName(),
                             attackTo().getName(),
                             String.valueOf(attackFrom().getArmies())};
-                    d_counter = (d_counter + 1) % 4;
-                    break;
+                } else {
+                    cmd = new String[]{"pass"};
                 }
                 d_counter = (d_counter + 1) % 4;
+                break;
             case 2:
-                cmd = new String[]{
-                        "advance",
-                        moveFrom().getName(),
-                        defend().getName(),
-                        String.valueOf(moveFrom().getArmies())};
+                if (moveFrom() != null) {
+                    cmd = new String[]{
+                            "advance",
+                            moveFrom().getName(),
+                            defend().getName(),
+                            String.valueOf(moveFrom().getArmies())};
+                } else {
+                    cmd = new String[]{"pass"};
+                }
                 d_counter = (d_counter + 1) % 4;
                 break;
             case 3:

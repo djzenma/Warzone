@@ -5,6 +5,7 @@ import EventListener.LogEntryBuffer;
 import EventListener.Observable;
 import Utils.CommandsParser;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,7 +13,8 @@ import java.util.List;
  * Parent OrderModel class for all the orders
  * Every new order will implement the abstract execute method
  */
-public abstract class OrderModel extends Observable {
+public abstract class OrderModel extends Observable implements Serializable {
+    private static final long serialversionUID = 129348938L;
     /**
      * Name of the command
      */
