@@ -154,4 +154,22 @@ public class CommandNames {
      */
     @SerializedName(value = "savegame")
     public String d_savegame;
+
+    /**
+     * Name of the command
+     */
+    @SerializedName(value = "singlegame")
+    public String d_singlegame;
+
+    /**
+     * Name of the command
+     */
+    @SerializedName(value = "tournamentmode")
+    public String d_tournamentmode;
+
+    /**
+     * Name of the command
+     */
+    @SerializedName(value = "tournament")
+    public String d_tournament;
 }

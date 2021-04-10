@@ -7,6 +7,7 @@ import Utils.CommandsParser;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -24,7 +25,9 @@ public class GamePlayView implements Serializable {
      * @param p_message Exception message
      */
     public void exception(String p_message) {
+        System.out.println();
         System.out.println(p_message);
+        System.out.println();
     }
 
     /**
@@ -334,5 +337,24 @@ public class GamePlayView implements Serializable {
 
     public void loadedCheckpoint() {
         System.out.println("Checkpoint loaded!");
+    }
+
+    public void modeSelection() {
+        System.out.println("\n======Mode Selection======\n");
+        System.out.println("1. Single Game Mode (enter singlegame)");
+        System.out.println("2. Tournament Mode (enter tournament command)");
+    }
+
+    public void showTournamentResults(ArrayList<String> p_maps, int p_numGames, HashMap<String, ArrayList<String>> p_winners) {
+        System.out.println("\n\n===== Tournament Results =====\n");
+        for (String l_map : p_maps) {
+            for (int l_gameNum = 0; l_gameNum < p_numGames; l_gameNum++) {
+                System.out.println(l_map + ", Game " + l_gameNum + ": " + p_winners.get(l_map).get(l_gameNum));
+            }
+        }
+    }
+
+    public void invalidMode() {
+        System.out.println("\n Invalid Mode Selected, Please select again!!\n");
     }
 }

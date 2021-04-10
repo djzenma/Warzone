@@ -2,7 +2,9 @@ package Controller;
 
 import Model.GamePlayModel;
 import Model.MapModel;
+import Model.TournamentModel;
 import States.Phase;
+import Utils.CommandsParser;
 import View.GamePlayView;
 import View.MapView;
 
@@ -16,7 +18,6 @@ import java.io.Serializable;
 public class GameEngine implements Serializable {
     private static final long serialversionUID = 129348938L;
 
-
     /**
      * Object of the gameplay view
      */
@@ -25,6 +26,10 @@ public class GameEngine implements Serializable {
      * Object of the gameplay model
      */
     public final GamePlayModel d_gamePlayModel;
+    /**
+     * Object of the tournament model
+     */
+    public final TournamentModel d_tournamentModel;
     /**
      * Object of the map model
      */
@@ -46,6 +51,7 @@ public class GameEngine implements Serializable {
         this.d_gamePlayModel = new GamePlayModel();
         this.d_mapModel = new MapModel();
         this.d_mapView = new MapView();
+        this.d_tournamentModel = new TournamentModel();
     }
 
     /**
@@ -66,8 +72,28 @@ public class GameEngine implements Serializable {
         MapController l_mapController = new MapController(this);
         l_mapController.run();
 
-        GamePlayController l_gamePlayController = new GamePlayController(this);
-        l_gamePlayController.run();
+        while (true) {
+            this.d_gamePlayView.modeSelection();
+            // Ask for mode specific commands
+            String[] l_args = this.d_gamePlayView.takeCommand();
+
+            try {
+                switch (l_args[0]) {
+                    case "singlegame":
+                        GamePlayController l_gamePlayController = new GamePlayController(this);
+                        l_gamePlayController.run();
+                        break;
+                    case "tournament":
+                        TournamentController l_tournamentController = new TournamentController(this, CommandsParser.getArguments(l_args));
+                        l_tournamentController.run();
+                        break;
+                    default:
+                        this.d_gamePlayView.invalidMode();
+                }
+            } catch (Exception l_e) {
+                this.d_gamePlayView.exception(l_e.getMessage());
+            }
+        }
     }
 
     /**

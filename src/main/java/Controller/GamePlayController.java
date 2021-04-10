@@ -20,7 +20,6 @@ public class GamePlayController {
      */
     private GameEngine d_gameEngine;
 
-
     /**
      * Initialises GamePlayModel, GamePlayView and MapModel
      *

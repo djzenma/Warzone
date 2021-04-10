@@ -247,4 +247,5 @@ public class CommandsParser {
     public static boolean isLoadGame(String[] l_args) {
         return l_args[0].equals(d_commands.d_commandNames.d_loadgame);
     }
+
 }

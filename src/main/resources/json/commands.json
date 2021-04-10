@@ -149,22 +149,48 @@
       "name": "showcontinents",
       "args": []
     },
-
     {
       "name": "showcountries",
       "args": []
     },
-
     {
       "name": "exit",
       "args": []
     },
-
+    {
+      "name": "singlegame",
+      "args": []
+    },
+    {
+      "name": "tournamentmode",
+      "args": []
+    },
+    {
+      "name": "tournament",
+      "args": [],
+      "namedArgs": [
+        {
+          "name": "M",
+          "argsNum": 2
+        },
+        {
+          "name": "P",
+          "argsNum": 2
+        },
+        {
+          "name": "G",
+          "argsNum": 1
+        },
+        {
+          "name": "D",
+          "argsNum": 1
+        }
+      ]
+    },
     {
       "name": "showcommands",
       "args": []
     },
-
     {
       "name": "listmaps",
       "args": []
@@ -228,6 +254,9 @@
     "showcountries": "showcountries",
     "showcommands": "showcommands",
     "exit": "exit",
+    "singlegame": "singlegame",
+    "tournamentmode": "tournamentmode",
+    "tournament": "tournament",
     "loadmap": "loadmap",
     "gameplayer": "gameplayer",
     "assigncountries": "assigncountries",

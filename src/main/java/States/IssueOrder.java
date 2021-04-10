@@ -36,7 +36,6 @@ public class IssueOrder extends GamePlayPhase {
         boolean l_isValidOrder;
         boolean l_moveToNextPhase = true;
 
-
         Object[] l_players = this.d_gameEngine.d_gamePlayModel.getPlayers().values().toArray();
 
         while (d_gameEngine.d_gamePlayModel.d_curPlayerNum < l_players.length) {
