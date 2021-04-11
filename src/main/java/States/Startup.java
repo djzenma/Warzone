@@ -170,6 +170,10 @@ public class Startup extends GamePlayPhase {
                 return new AggressiveStrategy(p_player,
                         this.d_gameEngine.d_gamePlayModel.getCountries(),
                         this.d_gameEngine.d_gamePlayModel.getPlayers());
+            case "cheater":
+                return new CheaterStrategy(p_player,
+                        this.d_gameEngine.d_gamePlayModel.getCountries(),
+                        this.d_gameEngine.d_gamePlayModel.getPlayers());
             default:
                 return null;
         }
