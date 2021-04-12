@@ -21,23 +21,23 @@ public class GameEngine implements Serializable {
     /**
      * Object of the gameplay view
      */
-    public final GamePlayView d_gamePlayView;
+    public GamePlayView d_gamePlayView;
     /**
      * Object of the gameplay model
      */
-    public final GamePlayModel d_gamePlayModel;
+    public GamePlayModel d_gamePlayModel;
     /**
      * Object of the tournament model
      */
-    public final TournamentModel d_tournamentModel;
+    public TournamentModel d_tournamentModel;
     /**
      * Object of the map model
      */
-    public final MapModel d_mapModel;
+    public MapModel d_mapModel;
     /**
      * Object of the map view
      */
-    public final MapView d_mapView;
+    public MapView d_mapView;
     /**
      * Object of the phase
      */
@@ -52,6 +52,15 @@ public class GameEngine implements Serializable {
         this.d_mapModel = new MapModel();
         this.d_mapView = new MapView();
         this.d_tournamentModel = new TournamentModel();
+    }
+
+    public void reset(GameEngine p_newGameEngine) {
+        this.d_gamePlayView = p_newGameEngine.d_gamePlayView;
+        this.d_gamePlayModel = p_newGameEngine.d_gamePlayModel;
+        this.d_mapModel = p_newGameEngine.d_mapModel;
+        this.d_mapView = p_newGameEngine.d_mapView;
+        this.d_tournamentModel = p_newGameEngine.d_tournamentModel;
+        this.d_currentPhase = p_newGameEngine.d_currentPhase;
     }
 
     /**

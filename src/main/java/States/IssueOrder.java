@@ -58,6 +58,14 @@ public class IssueOrder extends GamePlayPhase {
                 l_isValidOrder = l_player.issueOrder();
             }
 
+            // TODO:
+            /*
+            if(CommandsParser.isLoadGame(new String[]{l_player.getLastIssuedOrder().getCmdName()})) {
+                d_gameEngine.reset(d_gameEngine.d_currentPhase.loadGame(l_player.getLastIssuedOrder().getCmd()));
+                d_gameEngine.setPhase(new IssueOrder(d_gameEngine));
+                //l_moveToNextPhase = false;
+            }*/
+
             // if the player issued an order
             if (!CommandsParser.isPass(l_player.getLastIssuedOrder().getCmdName()))
                 l_moveToNextPhase = false;
@@ -279,6 +287,11 @@ public class IssueOrder extends GamePlayPhase {
             return null; // impossible command
         }
         return new PassModel(p_player, p_args);
+    }
+
+    @Override
+    public OrderModel loadgame(String[] p_args, Player p_player) {
+        return new LoadGameModel(p_player, p_args);
     }
 
     /**

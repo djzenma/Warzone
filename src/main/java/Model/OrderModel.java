@@ -26,7 +26,7 @@ public abstract class OrderModel extends Observable implements Serializable {
     /**
      * String array of teh command arguments
      */
-    private final String[] d_command;
+    protected final String[] d_command;
     /**
      * Object of the current player
      */
@@ -90,6 +90,11 @@ public abstract class OrderModel extends Observable implements Serializable {
      */
     public String getCmdName() {
         return this.d_cmdName;
+    }
+
+
+    public String[] getCmd() {
+        return this.d_command;
     }
 
     /**

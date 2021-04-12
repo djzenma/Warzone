@@ -74,12 +74,16 @@ public class GamePlayController {
                 // if the command entered is assigncountries
                 else if (CommandsParser.isAssignCountries(l_args)) {
                     l_end = d_gameEngine.d_currentPhase.assignCountries();
-                } else if (CommandsParser.isLoadGame(l_args)) {
+                }
+
+                else if (CommandsParser.isLoadGame(l_args)) {
                     d_gameEngine = d_gameEngine.d_currentPhase.loadGame(l_args);
                     d_gameEngine.setPhase(new Startup(this.d_gameEngine));
                     l_isMapLoaded = true;
                     l_end = true;
-                } else {
+                }
+
+                else {
                     this.d_gameEngine.d_gamePlayView.isMapEditorCommand();
                 }
 
@@ -108,6 +112,7 @@ public class GamePlayController {
             d_gameEngine.d_currentPhase.assignReinforcements();
 
             while (d_gameEngine.d_currentPhase.issueOrders()) ;
+
             d_gameEngine.d_currentPhase.next();
 
             while (d_gameEngine.d_currentPhase.executeOrders()) ;

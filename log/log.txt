@@ -1,0 +1,87 @@
+
+STARTUP PHASE
+asia.map is loaded
+
+STARTUP PHASE
+Player(s) added: a aggressive b human
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+a issued: deploy China 11
+
+GAME PLAY PHASE
+b issued: deploy Egypt 16
+
+GAME PLAY PHASE
+a issued: advance China Canada 0
+
+GAME PLAY PHASE
+b issued: pass
+
+GAME PLAY PHASE
+a issued: advance India China 0
+
+GAME PLAY PHASE
+b issued: pass
+
+GAME PLAY PHASE
+a issued: pass
+
+GAME PLAY PHASE
+b issued: pass
+
+GAME PLAY PHASE
+a deployed 11 armies on China
+
+GAME PLAY PHASE
+b deployed 16 armies on Egypt
+
+GAME PLAY PHASE
+a advanced 0 armies from China to Canada
+
+GAME PLAY PHASE
+a advanced 0 armies from India to China
+
+GAME PLAY PHASE
+a issued: deploy China 11
+
+GAME PLAY PHASE
+b issued: deploy Egypt 16
+
+GAME PLAY PHASE
+a issued: advance China Canada 11
+
+GAME PLAY PHASE
+b issued: pass
+
+GAME PLAY PHASE
+a issued: advance India China 0
+
+GAME PLAY PHASE
+b issued: pass
+
+GAME PLAY PHASE
+a issued: pass
+
+GAME PLAY PHASE
+b issued: pass
+
+GAME PLAY PHASE
+a deployed 11 armies on China
+
+GAME PLAY PHASE
+b deployed 16 armies on Egypt
+
+GAME PLAY PHASE
+a advanced 11 armies from China to Canada
+
+GAME PLAY PHASE
+a advanced 0 armies from India to China
+
+ISSUE CARDS
+a obtained bomb!!
+
+GAME PLAY PHASE
+a issued: deploy Canada 0

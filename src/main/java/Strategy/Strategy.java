@@ -2,6 +2,7 @@ package Strategy;
 
 import Model.CountryModel;
 import Model.OrderModel;
+import Model.Orders.LoadGameModel;
 import Model.Player;
 
 import java.io.Serializable;
@@ -67,7 +68,8 @@ public abstract class Strategy implements Serializable {
                 break;
 
             case "loadgame":
-                this.d_player.getCurrentPhase().loadGame(p_args);
+                // TODO: this.d_player.getCurrentPhase().loadGame(p_args);
+                l_order = this.d_player.getCurrentPhase().loadgame(p_args, this.d_player);
                 break;
 
             case "showmap":

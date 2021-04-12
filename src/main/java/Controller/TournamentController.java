@@ -4,10 +4,11 @@ import Model.Player;
 import Strategy.*;
 import View.PlayerView;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class TournamentController {
+public class TournamentController implements Serializable {
     /**
      * Object of the gameEngine
      */

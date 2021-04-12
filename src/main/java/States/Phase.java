@@ -301,6 +301,11 @@ public abstract class Phase extends Observable implements Serializable {
         printInvalidCommandMessage();
     }
 
+    public OrderModel loadgame(String[] p_args, Player p_player) {
+        printInvalidCommandMessage();
+        return null;
+    }
+
     public GameEngine loadGame(String[] p_args) {
         printInvalidCommandMessage();
         return null;
