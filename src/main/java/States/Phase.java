@@ -191,10 +191,12 @@ public abstract class Phase extends Observable implements Serializable {
      * Adds the game player
      *
      * @param l_args Array of the command arguments
+     * @return
      * @throws Exception throws some kind of exception
      */
-    public void gameplayer(String[] l_args) throws Exception {
+    public boolean gameplayer(String[] l_args) throws Exception {
         printInvalidCommandMessage();
+        return false;
     }
 
     /**

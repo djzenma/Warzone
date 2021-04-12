@@ -57,7 +57,7 @@ public class AggressiveStrategy extends Strategy {
 
         int l_i = 0;
         while (l_i < l_list.size()) {
-            if (l_list.get(l_i).getOwnerName() == this.d_player.getName())
+            if (l_list.get(l_i).getOwnerName().equals(this.d_player.getName()))
                 return l_list.get(l_i);
             l_i++;
         }
@@ -74,41 +74,56 @@ public class AggressiveStrategy extends Strategy {
     @Override
     public OrderModel createOrder() {
         String[] cmd = new String[0];
+
+        CountryModel l_moveFromCountry;
+        CountryModel l_attackFromCountry;
+        CountryModel l_attackToCountry;
+
         switch (d_counter) {
             case 0:
+                l_attackToCountry = attackTo();
+                if (this.d_player.getCards().get("bomb") != 0 && l_attackToCountry != null) {
+                    cmd = new String[]{"bomb", l_attackToCountry.getName()};
+                    d_counter = (d_counter + 1) % 5;
+                    break;
+                } else
+                    d_counter = (d_counter + 1) % 5;
+            case 1:
                 cmd = new String[]{"deploy",
                         defend().getName(),
                         String.valueOf(this.d_player.getReinforcements())};
-                d_counter = (d_counter + 1) % 4;
-                break;
-            case 1:
-                if (attackTo() != null) {
-                    cmd = new String[]{
-                            "advance",
-                            attackFrom().getName(),
-                            attackTo().getName(),
-                            String.valueOf(attackFrom().getArmies())};
-                } else {
-                    cmd = new String[]{"pass"};
-                }
-                d_counter = (d_counter + 1) % 4;
+                d_counter = (d_counter + 1) % 5;
                 break;
             case 2:
-                if (moveFrom() != null) {
+                l_attackFromCountry = attackFrom();
+                l_attackToCountry = attackTo();
+                if (l_attackToCountry != null) {
                     cmd = new String[]{
                             "advance",
-                            moveFrom().getName(),
-                            defend().getName(),
-                            String.valueOf(moveFrom().getArmies())};
-                } else {
-                    cmd = new String[]{"pass"};
-                }
-                d_counter = (d_counter + 1) % 4;
-                break;
+                            l_attackFromCountry.getName(),
+                            l_attackToCountry.getName(),
+                            String.valueOf(l_attackFromCountry.getArmies())};
+                    d_counter = (d_counter + 1) % 5;
+                    break;
+                } else
+                    d_counter = (d_counter + 1) % 5;
             case 3:
+                l_moveFromCountry = moveFrom();
+                if (l_moveFromCountry != null) {
+                    cmd = new String[]{
+                            "advance",
+                            l_moveFromCountry.getName(),
+                            defend().getName(),
+                            String.valueOf(l_moveFromCountry.getArmies())};
+                    d_counter = (d_counter + 1) % 5;
+                    break;
+                } else
+                    d_counter = (d_counter + 1) % 5;
+            case 4:
                 cmd = new String[]{"pass"};
-                d_counter = (d_counter + 1) % 4;
+                d_counter = (d_counter + 1) % 5;
                 break;
+
             default:
                 System.out.println("Invalid counter! (this will never happen)");
         }

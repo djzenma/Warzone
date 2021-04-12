@@ -25,7 +25,7 @@ public class GameEngine implements Serializable {
     /**
      * Object of the gameplay model
      */
-    public final GamePlayModel d_gamePlayModel;
+    public GamePlayModel d_gamePlayModel;
     /**
      * Object of the tournament model
      */
@@ -33,7 +33,7 @@ public class GameEngine implements Serializable {
     /**
      * Object of the map model
      */
-    public final MapModel d_mapModel;
+    public MapModel d_mapModel;
     /**
      * Object of the map view
      */
@@ -82,11 +82,11 @@ public class GameEngine implements Serializable {
                     case "singlegame":
                         GamePlayController l_gamePlayController = new GamePlayController(this);
                         l_gamePlayController.run();
-                        break;
+                        return;
                     case "tournament":
                         TournamentController l_tournamentController = new TournamentController(this, CommandsParser.getArguments(l_args));
                         l_tournamentController.run();
-                        break;
+                        return;
                     default:
                         this.d_gamePlayView.invalidMode();
                 }

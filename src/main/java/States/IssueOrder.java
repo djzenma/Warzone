@@ -307,7 +307,6 @@ public class IssueOrder extends GamePlayPhase {
     @Override
     public void saveGame(String[] p_args) {
         try {
-            this.d_gameEngine.d_gamePlayModel.skipAssignReinforcements = true;
             serialize(p_args);
         } catch (IOException i) {
             i.printStackTrace();

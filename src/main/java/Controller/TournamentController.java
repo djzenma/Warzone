@@ -1,13 +1,13 @@
 package Controller;
 
-import Model.Player;
-import Strategy.*;
-import View.PlayerView;
+import Model.GamePlayModel;
+import Model.MapModel;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
-public class TournamentController {
+public class TournamentController implements Serializable {
     /**
      * Object of the gameEngine
      */
@@ -71,6 +71,9 @@ public class TournamentController {
                         ((d_gameEngine.d_gamePlayModel.getWinner() != null) ?
                                 d_gameEngine.d_gamePlayModel.getWinner().getName() :
                                 "Draw"));
+
+                this.d_gameEngine.d_gamePlayModel = new GamePlayModel();
+                this.d_gameEngine.d_mapModel = new MapModel();
             }
         }
 
@@ -87,50 +90,12 @@ public class TournamentController {
 
         // Add Players to the current Game
         for (String l_strategyName : this.d_gameEngine.d_tournamentModel.getPlayerStrategies()) {
-
-            Player l_player = new Player(l_strategyName, new PlayerView());
-            Strategy l_strategy = getStrategy(l_strategyName, l_player);
-            // invalid strategy
-            if (l_strategy == null)
-                this.d_gameEngine.d_gamePlayView.invalidStrategy(l_strategyName);
-            else {
-                l_player.setStrategy(l_strategy);
-                this.d_gameEngine.d_gamePlayModel.addPlayer(l_player);
-            }
+            if (!this.d_gameEngine.d_currentPhase.gameplayer(new String[]{"gameplayer", "add", l_strategyName, l_strategyName}))
+                throw new Exception("Invalid Strategy!");
         }
 
         // Assign countries
         if (d_gameEngine.d_currentPhase.assignCountries())
             d_gameEngine.d_currentPhase.next();
-    }
-
-    /**
-     * Convert entered string strategy to its corresponding strategy object
-     *
-     * @param p_strategyName the strategy name
-     * @param p_player       the player that will be assigned the strategy
-     * @return
-     */
-    private Strategy getStrategy(String p_strategyName, Player p_player) throws Exception {
-        switch (p_strategyName.toLowerCase()) {
-            case "human":
-                return new HumanStrategy(p_player,
-                        this.d_gameEngine.d_gamePlayModel.getCountries(),
-                        this.d_gameEngine.d_gamePlayModel.getPlayers());
-            case "random":
-                return new RandomStrategy(p_player,
-                        this.d_gameEngine.d_gamePlayModel.getCountries(),
-                        this.d_gameEngine.d_gamePlayModel.getPlayers());
-            case "benevolent":
-                return new BenevolentStrategy(p_player,
-                        this.d_gameEngine.d_gamePlayModel.getCountries(),
-                        this.d_gameEngine.d_gamePlayModel.getPlayers());
-            case "aggressive":
-                return new AggressiveStrategy(p_player,
-                        this.d_gameEngine.d_gamePlayModel.getCountries(),
-                        this.d_gameEngine.d_gamePlayModel.getPlayers());
-            default:
-                throw new Exception("Invalid Strategy Entered!");
-        }
     }
 }

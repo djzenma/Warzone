@@ -1,10 +1,11 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TournamentModel {
+public class TournamentModel implements Serializable {
 
     private final HashMap<String, ArrayList<String>> d_winners;
     private ArrayList<String> d_maps;

@@ -22,8 +22,8 @@ public class AssignReinforcements extends GamePlayPhase {
      */
     @Override
     public void assignReinforcements() {
-        if (this.d_gameEngine.d_gamePlayModel.skipAssignReinforcements) {
-            this.d_gameEngine.d_gamePlayModel.skipAssignReinforcements = false;
+        if (this.d_gameEngine.d_gamePlayModel.isLoadedGame) {
+            this.d_gameEngine.d_gamePlayModel.isLoadedGame = false;
             d_gameEngine.setPhase(new IssueOrder(d_gameEngine));
             return;
         }

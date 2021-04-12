@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class RandomStrategy extends Strategy {
-    private Random d_rand;
+    private final Random d_rand;
 
     public RandomStrategy(Player p_player,
                           HashMap<String, CountryModel> p_countries,
@@ -24,14 +24,17 @@ public class RandomStrategy extends Strategy {
 
     @Override
     protected CountryModel attackTo() {
-        while (true) {
+        int l_limit = 0;
+        while (l_limit < 100) {
             CountryModel l_randOwnedCountry = moveFrom();
             Object[] l_neighbors = l_randOwnedCountry.getNeighbors().values().toArray();
             CountryModel l_randomNeighbor = (CountryModel) l_neighbors[d_rand.nextInt(l_neighbors.length)];
             // attack this neighbor if it is owned by an enemy
             if (!l_randomNeighbor.getOwnerName().equals(this.d_player.getName()))
                 return l_randomNeighbor;
+            l_limit++;
         }
+        return null;
     }
 
     @Override
@@ -49,26 +52,47 @@ public class RandomStrategy extends Strategy {
         String[] cmd = new String[0];
         int l_randCmdNumber = d_rand.nextInt(8);
 
+        CountryModel l_moveFromCountry;
+        CountryModel l_attackFromCountry;
+        CountryModel l_attackToCountry;
+
         switch (l_randCmdNumber) {
             case 0:
+                l_moveFromCountry = moveFrom();
                 cmd = new String[]{"advance",
-                        moveFrom().getName(),
+                        l_moveFromCountry.getName(),
                         defend().getName(),
-                        String.valueOf(d_rand.nextInt(moveFrom().getArmies() + 1))};
+                        String.valueOf(d_rand.nextInt(l_moveFromCountry.getArmies() + 1))};
                 break;
             case 1:
-                cmd = new String[]{"advance",
-                        attackFrom().getName(),
-                        attackTo().getName(),
-                        String.valueOf(d_rand.nextInt(attackFrom().getArmies() + 1))};
+                l_attackFromCountry = attackFrom();
+                l_attackToCountry = attackTo();
+                if (l_attackToCountry != null)
+                    cmd = new String[]{"advance",
+                            l_attackFromCountry.getName(),
+                            l_attackToCountry.getName(),
+                            String.valueOf(d_rand.nextInt(l_attackFromCountry.getArmies() + 1))};
+                else
+                    cmd = new String[]{"pass"};
                 break;
             case 2:
-                cmd = new String[]{"bomb", attackTo().getName()};
+                l_attackToCountry = attackTo();
+                if (l_attackToCountry != null)
+                    cmd = new String[]{"bomb", l_attackToCountry.getName()};
+                else
+                    cmd = new String[]{"pass"};
                 break;
             case 3:
                 Object[] l_players = this.d_players.values().toArray();
-                Player l_randomPlayer = (Player) l_players[d_rand.nextInt(l_players.length)];
-                // TODO:: error? negotiate with himself
+
+                // choose a random player that is not itself
+                int l_limit = 0;
+                Player l_randomPlayer;
+                do {
+                    l_randomPlayer = (Player) l_players[d_rand.nextInt(l_players.length)];
+                    l_limit++;
+                } while (l_limit < 20 && !l_randomPlayer.getName().equals(this.d_player.getName()));
+
                 cmd = new String[]{"negotiate", l_randomPlayer.getName()};
                 break;
             case 4:
@@ -80,10 +104,11 @@ public class RandomStrategy extends Strategy {
                 cmd = new String[]{"blockade", moveFrom().getName()};
                 break;
             case 6:
+                l_moveFromCountry = moveFrom();
                 cmd = new String[]{"airlift",
-                        moveFrom().getName(),
+                        l_moveFromCountry.getName(),
                         defend().getName(),
-                        String.valueOf(d_rand.nextInt(moveFrom().getArmies() + 1))};
+                        String.valueOf(d_rand.nextInt(l_moveFromCountry.getArmies() + 1))};
                 break;
 
             case 7:

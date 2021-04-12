@@ -1,13 +1,9 @@
 package States;
 
 import Controller.GameEngine;
-import Utils.CommandsParser;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Game Play Phase
@@ -84,28 +80,6 @@ public class GamePlayPhase extends Phase {
             serialize(p_args);
         } catch (IOException i) {
             i.printStackTrace();
-        }
-    }
-
-    @Override
-    public GameEngine loadGame(String[] p_args) {
-        HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
-        try {
-            FileInputStream fileIn = new FileInputStream("checkpoint/" + l_args.get("filename").get(0) + ".ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            d_gameEngine = (GameEngine) in.readObject();
-            in.close();
-            fileIn.close();
-            d_gameEngine.d_gamePlayView.loadedCheckpoint();
-
-            return d_gameEngine;
-        } catch (IOException i) {
-            i.printStackTrace();
-            return null;
-        } catch (ClassNotFoundException c) {
-            System.out.println("GameEngine class not found!");
-            c.printStackTrace();
-            return null;
         }
     }
 }

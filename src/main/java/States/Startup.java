@@ -9,6 +9,9 @@ import Utils.MapUtils;
 import View.PlayerView;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -49,10 +52,11 @@ public class Startup extends GamePlayPhase {
      * Adds/removes the gameplayer
      *
      * @param l_args Array of the command arguments
+     * @return
      * @throws Exception Throws if there is some kind of exception
      */
     @Override
-    public void gameplayer(String[] l_args) throws Exception {
+    public boolean gameplayer(String[] l_args) throws Exception {
         triggerEvent(l_args, "Startup Phase");
         // get the players to be added or removed
         HashMap<String, List<String>> l_gameplayerArgs = CommandsParser.getArguments(l_args);
@@ -85,9 +89,10 @@ public class Startup extends GamePlayPhase {
                     Player l_player = new Player(l_playerName, new PlayerView());
                     Strategy l_strategy = getStrategy(l_strategyName, l_player);
                     // invalid strategy
-                    if (l_strategy == null)
+                    if (l_strategy == null) {
                         this.d_gameEngine.d_gamePlayView.invalidStrategy(l_strategyName);
-                    else {
+                        return false;
+                    } else {
                         l_player.setStrategy(l_strategy);
                         this.d_gameEngine.d_gamePlayModel.addPlayer(l_player);
                     }
@@ -108,6 +113,7 @@ public class Startup extends GamePlayPhase {
                     }
                 }
         }
+        return true;
     }
 
 
@@ -176,6 +182,29 @@ public class Startup extends GamePlayPhase {
                         this.d_gameEngine.d_gamePlayModel.getPlayers());
             default:
                 return null;
+        }
+    }
+
+
+    @Override
+    public GameEngine loadGame(String[] p_args) {
+        HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
+        try {
+            FileInputStream fileIn = new FileInputStream("checkpoint/" + l_args.get("filename").get(0) + ".ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            d_gameEngine = (GameEngine) in.readObject();
+            in.close();
+            fileIn.close();
+            d_gameEngine.d_gamePlayView.loadedCheckpoint();
+            this.d_gameEngine.d_gamePlayModel.isLoadedGame = true;
+            return d_gameEngine;
+        } catch (IOException i) {
+            i.printStackTrace();
+            return null;
+        } catch (ClassNotFoundException c) {
+            System.out.println("GameEngine class not found!");
+            c.printStackTrace();
+            return null;
         }
     }
 }

@@ -24,11 +24,13 @@ public class GamePlayModel implements Serializable {
     public int l_turnNumber;
     public int d_curPlayerNum;
     public boolean skipAssignReinforcements;
+    public boolean isLoadedGame;
 
     /**
      * HashMap of the players
      */
     private final HashMap<String, Player> d_players;
+
     /**
      * HashMap of the countries
      */
@@ -58,6 +60,7 @@ public class GamePlayModel implements Serializable {
         this.l_turnNumber = 1;
         this.d_curPlayerNum = 0;
         this.skipAssignReinforcements = false;
+        this.isLoadedGame = false;
     }
 
     /**
