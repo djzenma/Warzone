@@ -164,12 +164,6 @@ public class CommandNames {
     /**
      * Name of the command
      */
-    @SerializedName(value = "tournamentmode")
-    public String d_tournamentmode;
-
-    /**
-     * Name of the command
-     */
     @SerializedName(value = "tournament")
     public String d_tournament;
 }

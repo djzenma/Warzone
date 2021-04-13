@@ -118,6 +118,9 @@
       "args": [
         {
           "name": "filename"
+        },
+        {
+          "name": "filetype"
         }
       ]
     },
@@ -155,10 +158,6 @@
     },
     {
       "name": "singlegame",
-      "args": []
-    },
-    {
-      "name": "tournamentmode",
       "args": []
     },
     {
@@ -250,7 +249,6 @@
     "showcommands": "showcommands",
     "exit": "exit",
     "singlegame": "singlegame",
-    "tournamentmode": "tournamentmode",
     "tournament": "tournament",
     "loadmap": "loadmap",
     "gameplayer": "gameplayer",

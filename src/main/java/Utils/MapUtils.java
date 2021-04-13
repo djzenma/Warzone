@@ -50,7 +50,7 @@ public class MapUtils implements Serializable {
      * @throws Exception If the file is not .map file
      */
     public static String getValidFileName(String[] p_args) throws Exception {
-        String l_fileName = String.join(" ", Arrays.copyOfRange(p_args, 1, p_args.length));
+        String l_fileName = String.join(" ", Arrays.copyOfRange(p_args, 1, 2));
         String l_fileExt = l_fileName.split("\\.")[l_fileName.split("\\.").length - 1].trim();
         if (!(l_fileExt.equals("map"))) {
             throw new Exception("." + l_fileExt + " files are not acceptable! Please enter .map filename.");

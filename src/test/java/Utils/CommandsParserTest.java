@@ -34,12 +34,15 @@ public class CommandsParserTest {
         String[] l_cmd4 = {"pass"};
         String[] l_cmd5 = {"deploy", "canada", "5"};
         String[] l_cmd6 = {"gameplayer", "add", "Mazen", "Human", "add", "Aman", "Human"};
+        String[] l_cmd7 = {"tournament", "M", "solar.map", "test.map", "P", "Cheater", "Human", "G", "5", "D", "50"};
         assertTrue(CommandsParser.isValidCommand(l_cmd1));
         assertTrue(CommandsParser.isValidCommand(l_cmd2));
         assertTrue(CommandsParser.isValidCommand(l_cmd3));
         assertTrue(CommandsParser.isValidCommand(l_cmd4));
         assertTrue(CommandsParser.isValidCommand(l_cmd5));
         assertTrue(CommandsParser.isValidCommand(l_cmd6));
+        // TODO::
+        // assertTrue(CommandsParser.isValidCommand(l_cmd7));
 
         // invalidK
         String[] l_cmd10 = {"gameplayer", "add"};
@@ -70,7 +73,7 @@ public class CommandsParserTest {
         String[] l_mCmd1 = {"editcontinent", "add", "Australia", "5", "remove", "Europe"};
         String[] l_mCmd2 = {"editcountry", "add", "Australia", "Australia", "remove", "Nepal"};
         String[] l_mCmd3 = {"editneighbor", "add", "India", "Pakistan", "remove", "Russia", "Spain"};
-        String[] l_mCmd4 = {"savemap", "solar.map"};
+        String[] l_mCmd4 = {"savemap", "solar.map", "Conquest"};
         String[] l_mCmd5 = {"showmap"};
         String[] l_mCmd6 = {"validatemap"};
         String[] l_mCmd7 = {"editcontinent", "add", "Australia", "5", "remove", "Europe", "add", "South America", "3"};
