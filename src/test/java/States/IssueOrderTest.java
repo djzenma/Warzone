@@ -51,7 +51,7 @@ public class IssueOrderTest {
     }
 
     @Test
-    public void saveAndLoadGame(){
+    public void saveAndLoadGame() {
         init();
         d_GameEngine.d_currentPhase.loadGame(new String[]{"loadgame", "checkpointtest"});
 
