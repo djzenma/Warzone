@@ -1,0 +1,396 @@
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Player(s) added: mazen human aman cheater
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+mazen issued: deploy Venus-North 46
+
+GAME PLAY PHASE
+aman issued: deploy Earth-Pacific 30
+
+GAME PLAY PHASE
+mazen issued: pass
+
+GAME PLAY PHASE
+aman issued: pass
+
+GAME PLAY PHASE
+aman deployed 30 armies on Earth-Pacific
+
+GAME PLAY PHASE
+mazen issued: deploy Mercury-East 3
+
+GAME PLAY PHASE
+aman issued: deploy Earth-NorthPacific 82
+
+GAME PLAY PHASE
+mazen issued: pass
+
+GAME PLAY PHASE
+aman issued: pass
+
+GAME PLAY PHASE
+aman deployed 82 armies on Earth-NorthPacific
+
+STARTUP PHASE
+asia.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+a issued: deploy India 5
+
+GAME PLAY PHASE
+a issued: deploy China 6
+
+GAME PLAY PHASE
+b issued: deploy Egypt 1
+
+GAME PLAY PHASE
+a issued: advance India Egypt 5
+
+GAME PLAY PHASE
+a issued: advance China Canada 6
+
+GAME PLAY PHASE
+a deployed 5 armies on India
+
+GAME PLAY PHASE
+b deployed 1 armies on Egypt
+
+GAME PLAY PHASE
+a deployed 6 armies on China
+
+GAME PLAY PHASE
+a advanced 5 armies from India to Egypt
+
+GAME PLAY PHASE
+a advanced 6 armies from China to Canada
+
+STARTUP PHASE
+solar.map is loaded
+
+GAME PLAY PHASE
+Mazen issued: deploy Comet-Tail 44
+
+GAME PLAY PHASE
+Mazen issued: deploy Comet-Tail 2
+
+STARTUP PHASE
+solar.map is loaded
+
+GAME PLAY PHASE
+Mazen issued: deploy Comet-Tail 44
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Adeetya issued: deploy Venus-North 46
+
+GAME PLAY PHASE
+Adeetya deployed 46 armies on Venus-North
+
+GAME PLAY PHASE
+Mazen issued: deploy Saturn-South 10
+
+GAME PLAY PHASE
+Mazen deployed 10 armies on Saturn-South
+
+GAME PLAY PHASE
+Adeetya issued: advance Venus-North Saturn-South 46
+
+GAME PLAY PHASE
+Adeetya advanced 46 armies from Venus-North to Saturn-South
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Mazen issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Mazen deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen issued: advance Saturn-South Saturn-Southeast 20
+
+GAME PLAY PHASE
+Mazen advanced 20 armies from Saturn-South to Saturn-Southeast
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Mazen issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Mazen deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen issued: advance Pluto-West Saturn-South 20
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Mazen issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Mazen deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen issued: advance Saturn-South Pluto-West 20
+
+GAME PLAY PHASE
+Mazen issued: advance Comet-Head Comet-Tail 20
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Mazen issued: deploy Venus-North 46
+
+GAME PLAY PHASE
+Mazen deployed 46 armies on Venus-North
+
+GAME PLAY PHASE
+Aman issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Aman deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen issued: airlift Venus-North Comet-Head 20
+
+GAME PLAY PHASE
+Mazen airlifted 20 armies from Venus-North to Comet-Head
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Mazen issued: deploy Venus-North 46
+
+GAME PLAY PHASE
+Mazen deployed 46 armies on Venus-North
+
+GAME PLAY PHASE
+Aman issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Aman deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen issued: airlift Venus-North Saturn-South 20
+
+GAME PLAY PHASE
+Mazen airlifted 20 armies from Venus-North to Saturn-South
+
+GAME PLAY PHASE
+Mazen issued: airlift Saturn-South Venus-North 20
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Aman issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Mazen issued: deploy Venus-North 46
+
+GAME PLAY PHASE
+Aman deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen deployed 46 armies on Venus-North
+
+GAME PLAY PHASE
+Aman issued: blockade Saturn-South
+
+GAME PLAY PHASE
+Aman blockaded Saturn-South
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Aman issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Mazen issued: deploy Venus-North 46
+
+GAME PLAY PHASE
+Aman deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen deployed 46 armies on Venus-North
+
+GAME PLAY PHASE
+Aman issued: blockade Venus-North
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Aman issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Mazen issued: deploy Venus-North 46
+
+GAME PLAY PHASE
+Aman deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen deployed 46 armies on Venus-North
+
+GAME PLAY PHASE
+Aman issued: bomb Venus-North
+
+GAME PLAY PHASE
+Aman bombed Venus-North
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+Aman issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+Mazen issued: deploy Venus-North 46
+
+GAME PLAY PHASE
+Aman deployed 30 armies on Saturn-South
+
+GAME PLAY PHASE
+Mazen deployed 46 armies on Venus-North
+
+GAME PLAY PHASE
+Aman issued: bomb Saturn-South
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+B issued: deploy Saturn-South 30
+
+GAME PLAY PHASE
+B deployed 30 armies on Saturn-South
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+A issued: deploy Venus-North 50
+
+GAME PLAY PHASE
+A issued: deploy Saturn-South 10
+
+GAME PLAY PHASE
+A issued: deploy Venus-North 50
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+A issued: negotiate B
+
+GAME PLAY PHASE
+A negotiated with B
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+GAME PLAY PHASE
+A issued: negotiate B
+
+GAME PLAY PHASE
+A negotiated with B
+
+GAME PLAY PHASE
+A issued: advance Venus-North Saturn-South 46
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
+
+STARTUP PHASE
+solar.map is loaded
+
+STARTUP PHASE
+Countries are assigned to the players
