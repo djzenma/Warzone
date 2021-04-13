@@ -73,7 +73,6 @@
     },
     {
       "name": "editcontinent",
-      "args": [],
       "namedArgs": [
         {
           "name": "add",
@@ -88,7 +87,6 @@
 
     {
       "name": "editcountry",
-      "args": [],
       "namedArgs": [
         {
           "name": "add",
@@ -103,7 +101,6 @@
 
     {
       "name": "editneighbor",
-      "args": [],
       "namedArgs": [
         {
           "name": "add",

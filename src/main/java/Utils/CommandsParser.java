@@ -81,7 +81,7 @@ public class CommandsParser {
                             else
                                 l_i += l_num + 1;
                         } else
-                            l_i++;
+                            return false;
                     }
                 }
 
