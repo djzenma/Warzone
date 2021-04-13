@@ -91,6 +91,7 @@ public class GameEngine implements Serializable {
                         this.d_gamePlayView.invalidMode();
                 }
             } catch (Exception l_e) {
+                l_e.printStackTrace();
                 this.d_gamePlayView.exception(l_e.getMessage());
             }
         }

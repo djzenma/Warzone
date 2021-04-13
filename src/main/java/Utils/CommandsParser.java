@@ -1,9 +1,6 @@
 package Utils;
 
-import Model.POJO.Argument;
-import Model.POJO.Command;
-import Model.POJO.Commands;
-import Model.POJO.NamedArgument;
+import Model.POJO.*;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -46,7 +43,7 @@ public class CommandsParser {
             // check for command name
             if (l_command.d_name.equals(p_cmdArgs[0])) {
 
-                if (l_command.d_args == null && l_command.d_namedArgs == null)
+                if (l_command.d_args == null && l_command.d_namedArgs == null && l_command.d_varArgs == null)
                     return true;
 
                 // check if the cmd has named args
@@ -57,18 +54,18 @@ public class CommandsParser {
 
                 // check if the cmd has args
                 if (l_command.d_args != null) {
-                    if (p_cmdArgs.length - 1 == l_command.d_args.length)
-                        return true;
+                    if (p_cmdArgs.length - 1 != l_command.d_args.length)
+                        return false;
                 }
+
 
                 // check if the cmd has named args
                 if (l_command.d_namedArgs != null) {
                     l_i = 1;
 
                     while (l_i < p_cmdArgs.length) {
-
                         // ensure that the argument name is valid
-                        if (isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
+                        if (isNamedArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
 
                             // ensure that the correct number of arguments is passed for this argument name
                             int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_i]);
@@ -84,11 +81,40 @@ public class CommandsParser {
                             else
                                 l_i += l_num + 1;
                         } else
-                            return false;
+                            l_i++;
                     }
-                    return true;
                 }
 
+
+                // check if the cmd has variable args
+                if (l_command.d_varArgs != null) {
+                    boolean l_argFound;
+                    // iterate over the variable args that should be there
+                    for (VarArgument l_varArg : l_command.d_varArgs) {
+                        l_argFound = false;
+                        // look for this vararg inside the entered command
+                        l_i = 1;
+                        while (l_i < p_cmdArgs.length) {
+                            // if the varArg name is found
+                            if (p_cmdArgs[l_i].equals(l_varArg.d_name)) {
+                                // if no values passed to this argument name
+                                if (((l_i + 1) < p_cmdArgs.length && isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i + 1])) ||
+                                        (l_i + 1) >= (p_cmdArgs.length - 1))
+                                    return false;
+                                l_argFound = true;
+                                break;
+                            } else
+                                l_i++;
+                        }
+
+                        // the current varArg is not found, return false immediately because at least 1 varArg is missing
+                        if (!l_argFound)
+                            return false;
+                    }
+                    // all varArgs are found
+                }
+
+                return true;
             }
         }
 
@@ -121,13 +147,45 @@ public class CommandsParser {
      * @param p_cmdArg  arguments entered after the name of the command
      * @return true if the name of the argument is valid; otherwise false
      */
+    private static boolean isNamedArgName(String p_cmdName, String p_cmdArg) {
+        for (Command l_command : d_commands.d_commands) {
+            if (l_command.d_name.equals(p_cmdName)) {
+
+                if (l_command.d_namedArgs != null) {
+                    for (NamedArgument l_namedArg : l_command.d_namedArgs) {
+                        if (l_namedArg.d_name.equals(p_cmdArg))
+                            return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Validates the name of the arguments in the commands entered by the user
+     *
+     * @param p_cmdName name of the command
+     * @param p_cmdArg  arguments entered after the name of the command
+     * @return true if the name of the argument is valid; otherwise false
+     */
     private static boolean isValidArgName(String p_cmdName, String p_cmdArg) {
         for (Command l_command : d_commands.d_commands) {
             if (l_command.d_name.equals(p_cmdName)) {
 
-                for (NamedArgument namedArg : l_command.d_namedArgs) {
-                    if (namedArg.d_name.equals(p_cmdArg))
-                        return true;
+                if (l_command.d_namedArgs != null) {
+                    for (NamedArgument l_namedArg : l_command.d_namedArgs) {
+                        if (l_namedArg.d_name.equals(p_cmdArg))
+                            return true;
+                    }
+                }
+
+                if (l_command.d_varArgs != null) {
+                    for (VarArgument l_varArg : l_command.d_varArgs) {
+                        if (l_varArg.d_name.equals(p_cmdArg))
+                            return true;
+                    }
                 }
             }
         }
@@ -148,8 +206,9 @@ public class CommandsParser {
         for (Command l_command : d_commands.d_commands) {
             if (l_command.d_name.equals(l_cmdName)) {
                 if (l_command.d_namedArgs != null) {
-                    for (NamedArgument namedArg : l_command.d_namedArgs) {
-                        for (int i = 1; i < p_cmd.length; i++) {
+
+                    for (int i = 1; i < p_cmd.length; i++) {
+                        for (NamedArgument namedArg : l_command.d_namedArgs) {
                             if (namedArg.d_name.equals(p_cmd[i])) {
                                 // read old list
                                 List<String> l_currentList = l_args.get(namedArg.d_name);
@@ -162,6 +221,8 @@ public class CommandsParser {
                                 }
                                 // write it
                                 l_args.put(namedArg.d_name, l_currentList);
+
+                                break;
                             }
                         }
                     }
@@ -173,6 +234,36 @@ public class CommandsParser {
                         l_currentList.add(p_cmd[l_i]);
                         l_args.put(unnamedArg.d_name, l_currentList);
                         l_i++;
+                    }
+                }
+
+
+                // check if the cmd has variable args
+                if (l_command.d_varArgs != null) {
+                    // iterate over the variable args that should be there
+                    for (VarArgument l_varArg : l_command.d_varArgs) {
+                        // look for this vararg inside the entered command
+                        int l_i = 1;
+                        while (l_i < p_cmd.length) {
+                            // if the varArg name is found
+                            if (p_cmd[l_i].equals(l_varArg.d_name)) {
+                                // store the values of the argument until you find a new varArg name or end of the command
+                                int l_j = l_i + 1;
+                                while ((l_j < p_cmd.length) && !isValidArgName(p_cmd[0], p_cmd[l_j])) {
+                                    List<String> l_currentList;
+                                    if (l_args.get(l_varArg.d_name) == null) {
+                                        l_currentList = new ArrayList<>();
+                                    } else {
+                                        l_currentList = l_args.get(l_varArg.d_name);
+                                    }
+                                    l_currentList.add(p_cmd[l_j]);
+                                    l_args.put(l_varArg.d_name, l_currentList);
+                                    l_j++;
+                                }
+                                break;
+                            } else
+                                l_i++;
+                        }
                     }
                 }
             }

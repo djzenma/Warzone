@@ -29,15 +29,18 @@ public class AggressiveStrategy extends Strategy {
     protected CountryModel attackTo() {
         int l_count = 0;
         CountryModel l_ownedCountry = attackFrom();
-        while (l_count < l_ownedCountry.getNeighbors().size()) {
-            Object[] l_neighbors = l_ownedCountry.getNeighbors().values().toArray();
-            CountryModel l_randomNeighbor = (CountryModel) l_neighbors[l_count];
-            // attack this neighbor if it is owned by an enemy
-            if (!l_randomNeighbor.getOwnerName().equals(this.d_player.getName()))
-                return l_randomNeighbor;
-            l_count++;
-        }
-        return null;
+        if (l_ownedCountry != null) {
+            while (l_count < l_ownedCountry.getNeighbors().size()) {
+                Object[] l_neighbors = l_ownedCountry.getNeighbors().values().toArray();
+                CountryModel l_randomNeighbor = (CountryModel) l_neighbors[l_count];
+                // attack this neighbor if it is owned by an enemy
+                if (!l_randomNeighbor.getOwnerName().equals(this.d_player.getName()))
+                    return l_randomNeighbor;
+                l_count++;
+            }
+            return null;
+        } else
+            return null;
     }
 
     /**
@@ -47,28 +50,35 @@ public class AggressiveStrategy extends Strategy {
      */
     @Override
     protected CountryModel moveFrom() {
-        Object[] l_countries = defend().getNeighbors().values().toArray();
-        CountryModel[] l_countriesList = Arrays.copyOf(l_countries,
-                l_countries.length,
-                CountryModel[].class);
+        CountryModel l_defendCountry = defend();
+        if (l_defendCountry != null) {
+            Object[] l_countries = l_defendCountry.getNeighbors().values().toArray();
+            CountryModel[] l_countriesList = Arrays.copyOf(l_countries,
+                    l_countries.length,
+                    CountryModel[].class);
 
-        List<CountryModel> l_list = new ArrayList<CountryModel>(Arrays.asList(l_countriesList));
-        l_list.sort(new SortCountries.SortCountriesDescending());
+            List<CountryModel> l_list = new ArrayList<CountryModel>(Arrays.asList(l_countriesList));
+            l_list.sort(new SortCountries.SortCountriesDescending());
 
-        int l_i = 0;
-        while (l_i < l_list.size()) {
-            if (l_list.get(l_i).getOwnerName().equals(this.d_player.getName()))
-                return l_list.get(l_i);
-            l_i++;
-        }
-        return null;
+            int l_i = 0;
+            while (l_i < l_list.size()) {
+                if (l_list.get(l_i).getOwnerName().equals(this.d_player.getName()))
+                    return l_list.get(l_i);
+                l_i++;
+            }
+            return null;
+        } else
+            return null;
     }
 
     @Override
     protected CountryModel defend() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
-        l_countries.sort(new SortCountries.SortCountriesDescending());
-        return l_countries.get(0);
+        if (l_countries.size() != 0) {
+            l_countries.sort(new SortCountries.SortCountriesDescending());
+            return l_countries.get(0);
+        } else
+            return null;
     }
 
     @Override
@@ -78,6 +88,7 @@ public class AggressiveStrategy extends Strategy {
         CountryModel l_moveFromCountry;
         CountryModel l_attackFromCountry;
         CountryModel l_attackToCountry;
+        CountryModel l_defendCountry;
 
         switch (d_counter) {
             case 0:
@@ -89,15 +100,19 @@ public class AggressiveStrategy extends Strategy {
                 } else
                     d_counter = (d_counter + 1) % 5;
             case 1:
-                cmd = new String[]{"deploy",
-                        defend().getName(),
-                        String.valueOf(this.d_player.getReinforcements())};
-                d_counter = (d_counter + 1) % 5;
-                break;
+                l_defendCountry = defend();
+                if (l_defendCountry != null) {
+                    cmd = new String[]{"deploy",
+                            l_defendCountry.getName(),
+                            String.valueOf(this.d_player.getReinforcements())};
+                    d_counter = (d_counter + 1) % 5;
+                    break;
+                } else
+                    d_counter = (d_counter + 1) % 5;
             case 2:
                 l_attackFromCountry = attackFrom();
                 l_attackToCountry = attackTo();
-                if (l_attackToCountry != null) {
+                if (l_attackToCountry != null && l_attackFromCountry != null) {
                     cmd = new String[]{
                             "advance",
                             l_attackFromCountry.getName(),
@@ -109,11 +124,12 @@ public class AggressiveStrategy extends Strategy {
                     d_counter = (d_counter + 1) % 5;
             case 3:
                 l_moveFromCountry = moveFrom();
-                if (l_moveFromCountry != null) {
+                l_defendCountry = defend();
+                if (l_moveFromCountry != null && l_defendCountry != null) {
                     cmd = new String[]{
                             "advance",
                             l_moveFromCountry.getName(),
-                            defend().getName(),
+                            l_defendCountry.getName(),
                             String.valueOf(l_moveFromCountry.getArmies())};
                     d_counter = (d_counter + 1) % 5;
                     break;

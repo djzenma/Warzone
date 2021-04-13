@@ -11,6 +11,7 @@ public class NamedArgument {
      */
     @SerializedName(value = "name")
     public String d_name;
+
     /**
      * Number of arguments in the NamedArguments
      */

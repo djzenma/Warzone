@@ -27,11 +27,13 @@ public class RandomStrategy extends Strategy {
         int l_limit = 0;
         while (l_limit < 100) {
             CountryModel l_randOwnedCountry = moveFrom();
-            Object[] l_neighbors = l_randOwnedCountry.getNeighbors().values().toArray();
-            CountryModel l_randomNeighbor = (CountryModel) l_neighbors[d_rand.nextInt(l_neighbors.length)];
-            // attack this neighbor if it is owned by an enemy
-            if (!l_randomNeighbor.getOwnerName().equals(this.d_player.getName()))
-                return l_randomNeighbor;
+            if (l_randOwnedCountry != null) {
+                Object[] l_neighbors = l_randOwnedCountry.getNeighbors().values().toArray();
+                CountryModel l_randomNeighbor = (CountryModel) l_neighbors[d_rand.nextInt(l_neighbors.length)];
+                // attack this neighbor if it is owned by an enemy
+                if (!l_randomNeighbor.getOwnerName().equals(this.d_player.getName()))
+                    return l_randomNeighbor;
+            }
             l_limit++;
         }
         return null;
@@ -39,7 +41,10 @@ public class RandomStrategy extends Strategy {
 
     @Override
     protected CountryModel moveFrom() {
-        return this.d_player.getCountries().get(d_rand.nextInt(this.d_player.getCountries().size()));
+        if (this.d_player.getCountries().size() != 0)
+            return this.d_player.getCountries().get(d_rand.nextInt(this.d_player.getCountries().size()));
+        else
+            return null;
     }
 
     @Override
@@ -59,15 +64,17 @@ public class RandomStrategy extends Strategy {
         switch (l_randCmdNumber) {
             case 0:
                 l_moveFromCountry = moveFrom();
-                cmd = new String[]{"advance",
-                        l_moveFromCountry.getName(),
-                        defend().getName(),
-                        String.valueOf(d_rand.nextInt(l_moveFromCountry.getArmies() + 1))};
-                break;
+                if (l_moveFromCountry != null) {
+                    cmd = new String[]{"advance",
+                            l_moveFromCountry.getName(),
+                            defend().getName(),
+                            String.valueOf(d_rand.nextInt(l_moveFromCountry.getArmies() + 1))};
+                    break;
+                }
             case 1:
                 l_attackFromCountry = attackFrom();
                 l_attackToCountry = attackTo();
-                if (l_attackToCountry != null)
+                if (l_attackToCountry != null && l_attackFromCountry != null)
                     cmd = new String[]{"advance",
                             l_attackFromCountry.getName(),
                             l_attackToCountry.getName(),

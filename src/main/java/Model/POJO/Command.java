@@ -17,11 +17,18 @@ public class Command {
      */
     @SerializedName(value = "args")
     public Argument[] d_args;
+
     /**
      * Array of the named arguments
      */
     @SerializedName(value = "namedArgs")
     public NamedArgument[] d_namedArgs;
+
+    /**
+     * Array of the variable arguments
+     */
+    @SerializedName(value = "varArgs")
+    public VarArgument[] d_varArgs;
 }
 
 

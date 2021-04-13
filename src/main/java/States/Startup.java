@@ -61,14 +61,24 @@ public class Startup extends GamePlayPhase {
         // get the players to be added or removed
         HashMap<String, List<String>> l_gameplayerArgs = CommandsParser.getArguments(l_args);
 
+
+        boolean l_added = addPlayers(l_gameplayerArgs);
+        if (!l_added)
+            return false;
+
+        removePlayers(l_gameplayerArgs);
+        return true;
+    }
+
+    private boolean addPlayers(HashMap<String, List<String>> p_gameplayerArgs) {
         // add all the players specified in the command
-        if (l_gameplayerArgs.get("add") != null) {
+        if (p_gameplayerArgs.get("add") != null) {
             String l_playerName = null;
 
-            for (int l_i = 0; l_i < l_gameplayerArgs.get("add").size(); l_i++) {
+            for (int l_i = 0; l_i < p_gameplayerArgs.get("add").size(); l_i++) {
                 // get name
                 if (l_i % 2 == 0) {
-                    l_playerName = l_gameplayerArgs.get("add").get(l_i);
+                    l_playerName = p_gameplayerArgs.get("add").get(l_i);
 
                     if (l_playerName.equals("Neutral")) {
                         this.d_gameEngine.d_gamePlayView.invalidPlayerName();
@@ -84,7 +94,7 @@ public class Startup extends GamePlayPhase {
                 }
                 // get strategy
                 else {
-                    String l_strategyName = l_gameplayerArgs.get("add").get(l_i);
+                    String l_strategyName = p_gameplayerArgs.get("add").get(l_i);
 
                     Player l_player = new Player(l_playerName, new PlayerView());
                     Strategy l_strategy = getStrategy(l_strategyName, l_player);
@@ -100,9 +110,13 @@ public class Startup extends GamePlayPhase {
             }
         }
 
+        return true;
+    }
+
+    private void removePlayers(HashMap<String, List<String>> p_gameplayerArgs) throws Exception {
         // remove all the players specified in the command
-        if (l_gameplayerArgs.get("remove") != null) {
-            for (String l_player : l_gameplayerArgs.get("remove"))
+        if (p_gameplayerArgs.get("remove") != null) {
+            for (String l_player : p_gameplayerArgs.get("remove"))
                 if (l_player.equals("Neutral")) {
                     this.d_gameEngine.d_gamePlayView.invalidPlayerName();
                 } else {
@@ -113,7 +127,6 @@ public class Startup extends GamePlayPhase {
                     }
                 }
         }
-        return true;
     }
 
 

@@ -2,7 +2,6 @@
   "commands": [
     {
       "name": "gameplayer",
-      "args": [],
       "namedArgs": [
         {
           "name": "add",
@@ -167,16 +166,15 @@
     },
     {
       "name": "tournament",
-      "args": [],
+      "varArgs": [
+        {
+          "name": "M"
+        },
+        {
+          "name": "P"
+        }
+      ],
       "namedArgs": [
-        {
-          "name": "M",
-          "argsNum": 1
-        },
-        {
-          "name": "P",
-          "argsNum": 2
-        },
         {
           "name": "G",
           "argsNum": 1

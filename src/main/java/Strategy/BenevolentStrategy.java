@@ -29,41 +29,63 @@ public class BenevolentStrategy extends Strategy {
     @Override
     protected CountryModel moveFrom() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
-        l_countries.sort(new SortCountries.SortCountriesDescending());
-        return l_countries.get(0);
+        if (l_countries.size() > 0) {
+            l_countries.sort(new SortCountries.SortCountriesDescending());
+            return l_countries.get(0);
+        } else
+            return null;
     }
 
     @Override
     protected CountryModel defend() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
-        l_countries.sort(new SortCountries.SortCountriesAscending());
-        return l_countries.get(0);
+        if (l_countries.size() > 0) {
+            l_countries.sort(new SortCountries.SortCountriesAscending());
+            return l_countries.get(0);
+        } else
+            return null;
     }
 
     private CountryModel moveTo() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
-        l_countries.sort(new SortCountries.SortCountriesAscending());
-        return l_countries.get(1);
+        if (l_countries.size() > 1) {
+            l_countries.sort(new SortCountries.SortCountriesAscending());
+            return l_countries.get(1);
+        } else
+            return null;
     }
 
     @Override
     public OrderModel createOrder() {
         String[] cmd = new String[0];
+
+        CountryModel l_defendCountry;
+        CountryModel l_moveFromCountry;
+        CountryModel l_moveToCountry;
         switch (d_counter) {
             case 0:
-                cmd = new String[]{"deploy",
-                        defend().getName(),
-                        String.valueOf(this.d_player.getReinforcements())};
-                d_counter = (d_counter + 1) % 3;
-                break;
+                l_defendCountry = defend();
+                if (l_defendCountry != null) {
+                    cmd = new String[]{"deploy",
+                            l_defendCountry.getName(),
+                            String.valueOf(this.d_player.getReinforcements())};
+                    d_counter = (d_counter + 1) % 3;
+                    break;
+                } else
+                    d_counter = (d_counter + 1) % 3;
             case 1:
-                cmd = new String[]{
-                        "advance",
-                        moveFrom().getName(),
-                        moveTo().getName(),
-                        String.valueOf((moveFrom().getArmies() - moveTo().getArmies()) / 2)};
-                d_counter = (d_counter + 1) % 3;
-                break;
+                l_moveFromCountry = moveFrom();
+                l_moveToCountry = moveTo();
+                if (l_moveFromCountry != null && l_moveToCountry != null) {
+                    cmd = new String[]{
+                            "advance",
+                            l_moveFromCountry.getName(),
+                            l_moveToCountry.getName(),
+                            String.valueOf((l_moveFromCountry.getArmies() - l_moveToCountry.getArmies()) / 2)};
+                    d_counter = (d_counter + 1) % 3;
+                    break;
+                } else
+                    d_counter = (d_counter + 1) % 3;
             case 2:
                 cmd = new String[]{"pass"};
                 d_counter = (d_counter + 1) % 3;
