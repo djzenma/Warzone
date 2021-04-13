@@ -94,6 +94,15 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
+     * Accessor for the strategy of the player
+     *
+     * @return Strategy of the player
+     */
+    public Strategy getStrategy() {
+        return d_strategy;
+    }
+
+    /**
      * Accesses the number of cards player has given the type of a card
      *
      * @param p_cardType Type of a card
