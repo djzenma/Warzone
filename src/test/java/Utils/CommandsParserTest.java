@@ -34,33 +34,64 @@ public class CommandsParserTest {
         String[] l_cmd4 = {"pass"};
         String[] l_cmd5 = {"deploy", "canada", "5"};
         String[] l_cmd6 = {"gameplayer", "add", "Mazen", "Human", "add", "Aman", "Human"};
-        String[] l_cmd7 = {"tournament", "M", "solar.map", "test.map", "P", "Cheater", "Human", "G", "5", "D", "50"};
+        String[] l_cmd7 = {"tournament", "M", "solar.map", "asia.map", "P", "Cheater", "Aggressive", "G", "2", "D", "10"};
+        String[] l_cmd8 = {"tournament", "M", "solar.map", "asia.map", "test.map", "P", "Cheater", "Aggressive", "Random", "G", "2", "D", "10"};
+        String[] l_cmd9 = {"tournament", "P", "Cheater", "Aggressive", "Random", "M", "solar.map", "asia.map", "test.map", "G", "2", "D", "10"};
+        String[] l_cmd10 = {"tournament", "G", "2", "P", "Cheater", "Aggressive", "Random", "M", "solar.map", "asia.map", "test.map", "D", "10"};
+        String[] l_cmd11 = {"bomb", "canada"};
+        String[] l_cmd12 = {"airlift", "egypt", "canada", "5"};
+        String[] l_cmd13 = {"negotiate", "Aman"};
+        String[] l_cmd14 = {"advance", "egpyt", "canada", "10"};
+        String[] l_cmd15 = {"blockade", "egpyt"};
         assertTrue(CommandsParser.isValidCommand(l_cmd1));
         assertTrue(CommandsParser.isValidCommand(l_cmd2));
         assertTrue(CommandsParser.isValidCommand(l_cmd3));
         assertTrue(CommandsParser.isValidCommand(l_cmd4));
         assertTrue(CommandsParser.isValidCommand(l_cmd5));
         assertTrue(CommandsParser.isValidCommand(l_cmd6));
-        // TODO::
-        // assertTrue(CommandsParser.isValidCommand(l_cmd7));
+        assertTrue(CommandsParser.isValidCommand(l_cmd7));
+        assertTrue(CommandsParser.isValidCommand(l_cmd8));
+        assertTrue(CommandsParser.isValidCommand(l_cmd9));
+        assertTrue(CommandsParser.isValidCommand(l_cmd10));
+        assertTrue(CommandsParser.isValidCommand(l_cmd11));
+        assertTrue(CommandsParser.isValidCommand(l_cmd12));
+        assertTrue(CommandsParser.isValidCommand(l_cmd13));
+        assertTrue(CommandsParser.isValidCommand(l_cmd14));
+        assertTrue(CommandsParser.isValidCommand(l_cmd15));
 
-        // invalidK
-        String[] l_cmd10 = {"gameplayer", "add"};
-        String[] l_cmd11 = {"assigncountries", "remove"};
-        String[] l_cmd12 = {"pass", "add"};
-        String[] l_cmd13 = {"deploy", "5"};
-        String[] l_cmd14 = {"gameplayer", "add", "Aman", "Human", "remove"};
-        String[] l_cmd15 = {"gameplayer", "add", "Mazen", "Human", "Aman"};
-        String[] l_cmd16 = {"dsaifbsafa", "afsnsajbfaf"};
-        String[] l_cmd17 = {"gameplayer", "Adeetya", "Adeetya", "remove", "Aman"};
-        assertFalse(CommandsParser.isValidCommand(l_cmd10));
-        assertFalse(CommandsParser.isValidCommand(l_cmd11));
-        assertFalse(CommandsParser.isValidCommand(l_cmd12));
-        assertFalse(CommandsParser.isValidCommand(l_cmd13));
-        assertFalse(CommandsParser.isValidCommand(l_cmd14));
-        assertFalse(CommandsParser.isValidCommand(l_cmd15));
-        assertFalse(CommandsParser.isValidCommand(l_cmd16));
-        assertFalse(CommandsParser.isValidCommand(l_cmd17));
+        // invalid
+        String[] l_cmd20 = {"gameplayer", "add"};
+        String[] l_cmd21 = {"assigncountries", "remove"};
+        String[] l_cmd22 = {"pass", "add"};
+        String[] l_cmd23 = {"deploy", "5"};
+        String[] l_cmd24 = {"gameplayer", "add", "Aman", "Human", "remove"};
+        String[] l_cmd25 = {"gameplayer", "add", "Mazen", "Human", "Aman"};
+        String[] l_cmd26 = {"dsaifbsafa", "afsnsajbfaf"};
+        String[] l_cmd27 = {"gameplayer", "Adeetya", "Adeetya", "remove", "Aman"};
+        String[] l_cmd28 = {"tournament", "M", "solar.map", "asia.map" ,"P", "G", "2", "D", "10"};
+        String[] l_cmd29 = {"tournament", "P", "Cheater", "G", "2", "D", "10"};
+        String[] l_cmd30 = {"tournament", "M", "solar.map", "asia.map", "P", "Cheater", "D", "10"};
+        String[] l_cmd31 = {"bomb", "canada", "egypt"};
+        String[] l_cmd32 = {"airlift", "egypt", "canada"};
+        String[] l_cmd33 = {"negotiate"};
+        String[] l_cmd34 = {"advance", "egpyt", "canada", "10", "s"};
+        String[] l_cmd35 = {"blockade", "egpyt", "canada"};
+        assertFalse(CommandsParser.isValidCommand(l_cmd20));
+        assertFalse(CommandsParser.isValidCommand(l_cmd21));
+        assertFalse(CommandsParser.isValidCommand(l_cmd22));
+        assertFalse(CommandsParser.isValidCommand(l_cmd23));
+        assertFalse(CommandsParser.isValidCommand(l_cmd24));
+        assertFalse(CommandsParser.isValidCommand(l_cmd25));
+        assertFalse(CommandsParser.isValidCommand(l_cmd26));
+        assertFalse(CommandsParser.isValidCommand(l_cmd27));
+        assertFalse(CommandsParser.isValidCommand(l_cmd28));
+        assertFalse(CommandsParser.isValidCommand(l_cmd29));
+        assertFalse(CommandsParser.isValidCommand(l_cmd30));
+        assertFalse(CommandsParser.isValidCommand(l_cmd31));
+        assertFalse(CommandsParser.isValidCommand(l_cmd32));
+        assertFalse(CommandsParser.isValidCommand(l_cmd33));
+        assertFalse(CommandsParser.isValidCommand(l_cmd34));
+        assertFalse(CommandsParser.isValidCommand(l_cmd35));
     }
 
     /**
@@ -73,7 +104,7 @@ public class CommandsParserTest {
         String[] l_mCmd1 = {"editcontinent", "add", "Australia", "5", "remove", "Europe"};
         String[] l_mCmd2 = {"editcountry", "add", "Australia", "Australia", "remove", "Nepal"};
         String[] l_mCmd3 = {"editneighbor", "add", "India", "Pakistan", "remove", "Russia", "Spain"};
-        String[] l_mCmd4 = {"savemap", "solar.map", "Conquest"};
+        String[] l_mCmd4 = {"savemap", "solar.map", "Domination"};
         String[] l_mCmd5 = {"showmap"};
         String[] l_mCmd6 = {"validatemap"};
         String[] l_mCmd7 = {"editcontinent", "add", "Australia", "5", "remove", "Europe", "add", "South America", "3"};

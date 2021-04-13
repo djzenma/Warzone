@@ -61,26 +61,15 @@ public class CommandsParser {
 
                 // check if the cmd has named args
                 if (l_command.d_namedArgs != null) {
-                    l_i = 1;
-
-                    while (l_i < p_cmdArgs.length) {
-                        // ensure that the argument name is valid
-                        if (isNamedArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
-
-                            // ensure that the correct number of arguments is passed for this argument name
-                            int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_i]);
-
-                            // handles when the required argument is NOT passed
-                            if (l_i + l_num >= p_cmdArgs.length)
-                                return false;
-
-                                // handles when more arguments are passed than the number required
-                            else if (l_i + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i + l_num + 1]))
-                                return false;
-
-                            else
-                                l_i += l_num + 1;
-                        } else
+                    boolean isValid;
+                    if(l_command.d_varArgs == null) {
+                        isValid = isValidOnlyNamedCommand(p_cmdArgs, l_command);
+                        if(!isValid)
+                            return false;
+                    }
+                    else {
+                        isValid = isValidMixedNamedCommand(p_cmdArgs, l_command);
+                        if(!isValid)
                             return false;
                     }
                 }
@@ -121,6 +110,65 @@ public class CommandsParser {
         return false;
     }
 
+    private static boolean isValidMixedNamedCommand(String[] p_cmdArgs, Command p_command) {
+        int l_numNamedArgs = 0;
+        int l_i = 1;
+        while (l_i < p_cmdArgs.length) {
+            // ensure that the argument name is valid
+            if (isNamedArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
+
+                // ensure that the correct number of arguments is passed for this argument name
+                int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_i]);
+
+                // handles when the required argument is NOT passed
+                if (l_i + l_num >= p_cmdArgs.length)
+                    return false;
+
+                    // handles when more arguments are passed than the number required
+                else if (l_i + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i + l_num + 1]))
+                    return false;
+
+                else {
+                    l_i += l_num + 1;
+                    l_numNamedArgs++;
+                }
+            }
+            else
+                l_i++;
+        }
+        if(l_numNamedArgs != p_command.d_namedArgs.length)
+            return false;
+        return true;
+    }
+
+    private static boolean isValidOnlyNamedCommand(String[] p_cmdArgs, Command p_command) {
+        int l_i = 1;
+        while (l_i < p_cmdArgs.length) {
+            // ensure that the argument name is valid
+            if (isNamedArgName(p_cmdArgs[0], p_cmdArgs[l_i])) {
+
+                // ensure that the correct number of arguments is passed for this argument name
+                int l_num = getNumberOfArguments(p_cmdArgs[0], p_cmdArgs[l_i]);
+
+                // handles when the required argument is NOT passed
+                if (l_i + l_num >= p_cmdArgs.length)
+                    return false;
+
+                    // handles when more arguments are passed than the number required
+                else if (l_i + l_num + 1 < p_cmdArgs.length && !isValidArgName(p_cmdArgs[0], p_cmdArgs[l_i + l_num + 1]))
+                    return false;
+
+                else {
+                    l_i += l_num + 1;
+                }
+            }
+            else
+                return false;
+        }
+        return true;
+    }
+
+
     /**
      * Accessor for the number of arguments in a command
      *
@@ -139,6 +187,8 @@ public class CommandsParser {
         }
         return 0;
     }
+
+
 
     /**
      * Validates the name of the arguments in the commands entered by the user
