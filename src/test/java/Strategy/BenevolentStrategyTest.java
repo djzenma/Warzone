@@ -10,6 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Tests the aggressive strategy
+ */
 public class BenevolentStrategyTest {
 
     /**
@@ -47,16 +50,25 @@ public class BenevolentStrategyTest {
         d_GameEngine.d_gamePlayModel.assignReinforcements();
     }
 
+    /**
+     * Tests the attack from
+     */
     @Test
     public void testAttackFrom() {
         assertNull(d_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya").getStrategy().attackFrom());
     }
 
+    /**
+     * Tests the attack to
+     */
     @Test
     public void testAttackTo() {
         assertNull(d_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya").getStrategy().attackTo());
     }
 
+    /**
+     * Tests the move from
+     */
     @Test
     public void testMoveFrom() {
         DeployModel l_deployModel_1 = new DeployModel(
@@ -68,6 +80,9 @@ public class BenevolentStrategyTest {
         assertEquals("Mars-Central", d_GameEngine.d_gamePlayModel.getPlayers().get("Adeetya").getStrategy().moveFrom().getName());
     }
 
+    /**
+     * Tests the defend
+     */
     @Test
     public void testDefend() {
         DeployModel l_deployModel_1 = new DeployModel(

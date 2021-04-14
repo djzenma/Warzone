@@ -24,6 +24,11 @@ public class TournamentController implements Serializable {
         this.d_args = p_args;
     }
 
+    /**
+     * Loads the tournament mode and loops over the gameplay phase
+     *
+     * @throws Exception If some sort of exception occurred
+     */
     public void run() throws Exception {
 
         this.d_gameEngine.d_tournamentModel.prepareTournament(this.d_args);
@@ -86,6 +91,12 @@ public class TournamentController implements Serializable {
                 this.d_gameEngine.d_tournamentModel.getWinners());
     }
 
+    /**
+     * Startup Phase of the tournament mode
+     *
+     * @param p_mapName name of the map file
+     * @throws Exception If some sort of exception occurred
+     */
     private void startup(String p_mapName) throws Exception {
 
         d_gameEngine.d_currentPhase.startup();

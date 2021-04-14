@@ -16,6 +16,9 @@ import java.io.Serializable;
  * Controller for the game engine
  */
 public class GameEngine implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
 
     /**

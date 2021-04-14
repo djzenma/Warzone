@@ -7,6 +7,9 @@ import java.util.LinkedHashMap;
  * Maintains the state of a continent
  */
 public class ContinentModel implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
 
     /**

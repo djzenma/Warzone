@@ -14,6 +14,9 @@ import java.util.List;
  * Every new order will implement the abstract execute method
  */
 public abstract class OrderModel extends Observable implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
     /**
      * Name of the command

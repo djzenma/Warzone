@@ -20,6 +20,9 @@ import java.util.List;
  * It extend the observable
  */
 public abstract class Phase extends Observable implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
     /**
      * Object of the gamengine
@@ -39,7 +42,6 @@ public abstract class Phase extends Observable implements Serializable {
     /**
      * Shows the edited map
      */
-    // Map editor
     public void showMap() {
         printInvalidCommandMessage();
     }
@@ -152,7 +154,6 @@ public abstract class Phase extends Observable implements Serializable {
     /**
      * Startup Phase
      */
-    // Gameplay
     public void startup() {
         printInvalidCommandMessage();
     }
@@ -349,6 +350,12 @@ public abstract class Phase extends Observable implements Serializable {
         notifyObservers(l_entryBuffer);
     }
 
+    /**
+     * Serializes the save and load game
+     *
+     * @param p_args command arguments
+     * @throws IOException If some sort of IOException occurred
+     */
     void serialize(String[] p_args) throws IOException {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
         FileOutputStream fileOut = new FileOutputStream("checkpoint/" + l_args.get("filename").get(0) + ".ser");

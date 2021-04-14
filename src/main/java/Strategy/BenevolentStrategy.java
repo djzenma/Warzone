@@ -8,24 +8,52 @@ import Utils.SortCountries;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Benevolent player strategy
+ */
 public class BenevolentStrategy extends Strategy {
+    /**
+     * Counter for the orders
+     */
     private int d_counter;
 
+    /**
+     * Initialises player, hashmap of countries, hashmap of players
+     *
+     * @param p_player player object
+     * @param p_countries hashmap of countries
+     * @param p_players hashmap of players
+     */
     public BenevolentStrategy(Player p_player, HashMap<String, CountryModel> p_countries, HashMap<String, Player> p_players) {
         super(p_player, p_countries, p_players);
         d_counter = 0;
     }
 
+    /**
+     * Attacking country
+     *
+     * @return CountryModel
+     */
     @Override
     protected CountryModel attackFrom() {
         return null;
     }
 
+    /**
+     * Target country
+     *
+     * @return CountryModel of the target country
+     */
     @Override
     protected CountryModel attackTo() {
         return null;
     }
 
+    /**
+     * Returns the strongest neighbor of the strongest country
+     *
+     * @return CountryModel of the strongest neighbor of the strongest country
+     */
     @Override
     protected CountryModel moveFrom() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
@@ -36,6 +64,11 @@ public class BenevolentStrategy extends Strategy {
             return null;
     }
 
+    /**
+     * The country to defend
+     *
+     * @return the defending country
+     */
     @Override
     protected CountryModel defend() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
@@ -46,6 +79,11 @@ public class BenevolentStrategy extends Strategy {
             return null;
     }
 
+    /**
+     * The country to move to
+     *
+     * @return the country to move to
+     */
     private CountryModel moveTo() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
         if (l_countries.size() > 1) {
@@ -55,6 +93,11 @@ public class BenevolentStrategy extends Strategy {
             return null;
     }
 
+    /**
+     * Creates the orders
+     *
+     * @return orders
+     */
     @Override
     public OrderModel createOrder() {
         String[] cmd = new String[0];

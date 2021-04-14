@@ -13,6 +13,9 @@ import java.util.*;
  */
 public class CommandsParser {
 
+    /**
+     * Commands object
+     */
     private static Commands d_commands;
 
     /**
@@ -110,6 +113,13 @@ public class CommandsParser {
         return false;
     }
 
+    /**
+     * Checks the validity of the mixed named command
+     *
+     * @param p_cmdArgs command arguments
+     * @param p_command command
+     * @return true if it is a valid mixed named command; otherwise false
+     */
     private static boolean isValidMixedNamedCommand(String[] p_cmdArgs, Command p_command) {
         int l_numNamedArgs = 0;
         int l_i = 1;
@@ -141,6 +151,13 @@ public class CommandsParser {
         return true;
     }
 
+    /**
+     * Checks the validity of the named command
+     *
+     * @param p_cmdArgs command arguments
+     * @param p_command command
+     * @return true if it is a valid named command; otherwise false
+     */
     private static boolean isValidOnlyNamedCommand(String[] p_cmdArgs, Command p_command) {
         int l_i = 1;
         while (l_i < p_cmdArgs.length) {
@@ -168,7 +185,6 @@ public class CommandsParser {
         return true;
     }
 
-
     /**
      * Accessor for the number of arguments in a command
      *
@@ -187,8 +203,6 @@ public class CommandsParser {
         }
         return 0;
     }
-
-
 
     /**
      * Validates the name of the arguments in the commands entered by the user
@@ -211,7 +225,6 @@ public class CommandsParser {
         }
         return false;
     }
-
 
     /**
      * Validates the name of the arguments in the commands entered by the user
@@ -381,12 +394,23 @@ public class CommandsParser {
         return l_args[0].equals(d_commands.d_commandNames.d_deploy);
     }
 
+    /**
+     * Checks if the command entered is to show cards
+     *
+     * @param l_args array of the arguments in a command
+     * @return true if the name is valid; otherwise false
+     */
     public static boolean isShowCards(String[] l_args) {
         return l_args[0].equals(d_commands.d_commandNames.d_showcards);
     }
 
+    /**
+     * Checks if the command entered is to load game
+     *
+     * @param l_args array of the arguments in a command
+     * @return true if the name is valid; otherwise false
+     */
     public static boolean isLoadGame(String[] l_args) {
         return l_args[0].equals(d_commands.d_commandNames.d_loadgame);
     }
-
 }

@@ -3,7 +3,7 @@ package Model.POJO;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Model.POJO class for a Command
+ * POJO class for a Command
  */
 public class Command {
     /**

@@ -69,6 +69,12 @@ public class Startup extends GamePlayPhase {
         return true;
     }
 
+    /**
+     * Adds the players specified in the command entered
+     *
+     * @param p_gameplayerArgs hashmap of game player arguments
+     * @return true if the players are added successfully; otherwise false
+     */
     private boolean addPlayers(HashMap<String, List<String>> p_gameplayerArgs) {
         // add all the players specified in the command
         if (p_gameplayerArgs.get("add") != null) {
@@ -108,10 +114,15 @@ public class Startup extends GamePlayPhase {
                 }
             }
         }
-
         return true;
     }
 
+    /**
+     * Removes the players specified in the entered command
+     *
+     * @param p_gameplayerArgs hashmap of game player arguments
+     * @throws Exception If some sort of exception occurred
+     */
     private void removePlayers(HashMap<String, List<String>> p_gameplayerArgs) throws Exception {
         // remove all the players specified in the command
         if (p_gameplayerArgs.get("remove") != null) {
@@ -127,7 +138,6 @@ public class Startup extends GamePlayPhase {
                 }
         }
     }
-
 
     /**
      * Assign the countries to the players
@@ -161,7 +171,6 @@ public class Startup extends GamePlayPhase {
     public void next() {
         this.d_gameEngine.setPhase(new AssignReinforcements(this.d_gameEngine));
     }
-
 
     /**
      * Convert entered string strategy to its corresponding strategy object
@@ -197,7 +206,12 @@ public class Startup extends GamePlayPhase {
         }
     }
 
-
+    /**
+     * Loads the game from the serialised object file
+     *
+     * @param p_args arguments of the command
+     * @return
+     */
     @Override
     public GameEngine loadGame(String[] p_args) {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);

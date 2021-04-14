@@ -11,13 +11,15 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * Tests the aggressive strategy
+ */
 public class AggressiveStrategyTest {
 
     /**
      * Object of the Gameengine
      */
     private static GameEngine d_GameEngine;
-
 
     /**
      * Initialise the context of the test
@@ -48,6 +50,9 @@ public class AggressiveStrategyTest {
         d_GameEngine.d_gamePlayModel.assignReinforcements();
     }
 
+    /**
+     * Tests the attack from
+     */
     @Test
     public void attackFrom() {
         DeployModel l_deployModel_1 = new DeployModel(
@@ -59,6 +64,9 @@ public class AggressiveStrategyTest {
         assertEquals("Pluto-West", d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getStrategy().attackFrom().getName());
     }
 
+    /**
+     * Tests the attack to
+     */
     @Test
     public void attackTo() {
         DeployModel l_deployModel_1 = new DeployModel(
@@ -70,6 +78,9 @@ public class AggressiveStrategyTest {
         assertEquals("Venus-North", d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getStrategy().attackTo().getName());
     }
 
+    /**
+     * Tests the move from
+     */
     @Test
     public void moveFrom() {
         DeployModel l_deployModel_1 = new DeployModel(
@@ -89,6 +100,9 @@ public class AggressiveStrategyTest {
         assertEquals("Saturn-Southeast", d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen").getStrategy().moveFrom().getName());
     }
 
+    /**
+     * Tests the defend
+     */
     @Test
     public void defend() {
         DeployModel l_deployModel_1 = new DeployModel(

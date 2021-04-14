@@ -74,6 +74,11 @@ public class GamePlayPhase extends Phase {
         this.d_gameEngine.d_gamePlayView.showCards(p_cards);
     }
 
+    /**
+     * Saves the game
+     *
+     * @param p_args command arguments
+     */
     @Override
     public void saveGame(String[] p_args) {
         try {

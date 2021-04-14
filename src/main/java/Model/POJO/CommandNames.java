@@ -2,7 +2,9 @@ package Model.POJO;
 
 import com.google.gson.annotations.SerializedName;
 
-
+/**
+ * POJO for Name of the Commands
+ */
 public class CommandNames {
     /**
      * Name of the command

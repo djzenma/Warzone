@@ -14,6 +14,9 @@ import java.util.*;
  * and the armies that this player owns in each country
  */
 public class Player extends Observable implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
     /**
      * Object of the playerview

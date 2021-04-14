@@ -7,6 +7,9 @@ import java.util.LinkedHashMap;
  * Maintains the state of a country
  */
 public class CountryModel implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
     /**
      * Name of the country

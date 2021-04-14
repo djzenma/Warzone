@@ -18,6 +18,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Implements methods to handle MapEditor commands
  */
 public class MapModel implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
 
     /**

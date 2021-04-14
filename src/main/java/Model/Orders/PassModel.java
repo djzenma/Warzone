@@ -6,6 +6,10 @@ import Model.Player;
 
 import java.util.HashMap;
 
+/**
+ * Model for Pass Command
+ * It inherits the OrderModel and overwrites the abstract execute method
+ */
 public class PassModel extends OrderModel {
     /**
      * Constructor of the OrderModel
@@ -17,6 +21,12 @@ public class PassModel extends OrderModel {
         super("pass", p_player, p_args);
     }
 
+    /**
+     * Executes the advance command by placing the armies in the specified country
+     *
+     * @param p_countries HashMap of the countries
+     * @return true
+     */
     @Override
     public boolean execute(HashMap<String, CountryModel> p_countries) {
         return true;

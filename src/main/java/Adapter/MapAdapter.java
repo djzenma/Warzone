@@ -8,17 +8,37 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 
+/**
+ * Map Adapter is a child class of DominationMapIO
+ * It overrides the loadmap and savemap
+ */
 public class MapAdapter extends DominationMapIO implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
 
-    // TODO :: Add tests
-
+    /**
+     * Loads the map from the memory
+     *
+     * @param p_file .map file object from which the map file is being loaded
+     * @return MapContainer object
+     * @throws IOException If I/O exception of some sort has occurred
+     */
     @Override
     public MapContainer loadMap(File p_file) throws IOException {
         ConquestMapIO l_conquestMapIO = new ConquestMapIO();
         return l_conquestMapIO.loadConquestMap(p_file);
     }
 
+    /**
+     * Saves the map to the memory
+     *
+     * @param p_file conquest map file
+     * @param p_continents continents map
+     * @param p_countries countries map
+     * @throws IOException If I/O exception of some sort has occurred
+     */
     @Override
     public void saveMap(File p_file,
                         LinkedHashMap<String, ContinentModel> p_continents,

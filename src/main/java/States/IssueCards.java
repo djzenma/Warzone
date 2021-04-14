@@ -4,6 +4,10 @@ import Controller.GameEngine;
 import EventListener.LogEntryBuffer;
 import Model.Player;
 
+/**
+ * Issues the cards
+ * It extends the GamePlayPhase
+ */
 public class IssueCards extends GamePlayPhase {
     /**
      * Constructor
@@ -14,6 +18,9 @@ public class IssueCards extends GamePlayPhase {
         super(p_gameEngine);
     }
 
+    /**
+     * Issues the cards
+     */
     @Override
     public void issueCards() {
         for (Player l_player : this.d_gameEngine.d_gamePlayModel.getPlayers().values()) {
@@ -51,6 +58,4 @@ public class IssueCards extends GamePlayPhase {
             notifyObservers(l_entryBuffer);
         }
     }
-
-
 }

@@ -12,8 +12,13 @@ import java.util.Arrays;
  * Utility class for Maps
  */
 public class MapUtils implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
-
+    /**
+     * data
+     */
     byte[] d_data;
 
     /**
@@ -163,6 +168,5 @@ public class MapUtils implements Serializable {
             default:
                 return "Domination";
         }
-
     }
 }

@@ -9,6 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+/**
+ * Test the IssueOrder
+ */
 public class IssueOrderTest {
     /**
      * Object of the Gameengine
@@ -45,11 +48,17 @@ public class IssueOrderTest {
         d_GameEngine.d_currentPhase.saveGame(new String[]{"savegame", "checkpointtest"});
     }
 
+    /**
+     * Initialises the context
+     */
     public void init(){
         CommandsParser.parseJson();
         d_GameEngine.setPhase(new Startup(d_GameEngine));
     }
 
+    /**
+     * Tests the Save and Load game
+     */
     @Test
     public void saveAndLoadGame() {
         init();

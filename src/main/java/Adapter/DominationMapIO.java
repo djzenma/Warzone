@@ -14,8 +14,10 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.function.Consumer;
 
+/**
+ * Read and Write the Domination Map
+ */
 public class DominationMapIO {
-
     /**
      * LinkedHashMap of the continents
      */
@@ -141,6 +143,14 @@ public class DominationMapIO {
         return new MapContainer(this.d_continents, this.d_countries);
     }
 
+    /**
+     * Saves the domination map to the memory
+     *
+     * @param p_file conquest map file
+     * @param p_continents continents map
+     * @param p_countries countries map
+     * @throws IOException throws exception if unable to write to the file
+     */
     public void saveMap(File p_file,
                         LinkedHashMap<String, ContinentModel> p_continents,
                         LinkedHashMap<String, CountryModel> p_countries) throws IOException {

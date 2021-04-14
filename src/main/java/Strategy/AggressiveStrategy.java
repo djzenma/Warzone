@@ -10,21 +10,43 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Aggressive player strategy
+ */
 public class AggressiveStrategy extends Strategy {
-
+    /**
+     * Counter for the orders
+     */
     private int d_counter;
 
+    /**
+     * Initialises player, hashmap of countries, hashmap of players, counter
+     *
+     * p_player player object
+     * @param p_countries hashmap of countries
+     * @param p_players hashmap of players
+     */
     public AggressiveStrategy(Player p_player, HashMap<String, CountryModel> p_countries, HashMap<String, Player> p_players) {
         super(p_player, p_countries, p_players);
 
         d_counter = 0;
     }
 
+    /**
+     * Attacking country
+     *
+     * @return CountryModel
+     */
     @Override
     protected CountryModel attackFrom() {
         return defend();
     }
 
+    /**
+     * Target country
+     *
+     * @return CountryModel of the target country
+     */
     @Override
     protected CountryModel attackTo() {
         int l_count = 0;
@@ -71,6 +93,11 @@ public class AggressiveStrategy extends Strategy {
             return null;
     }
 
+    /**
+     * The country to defend
+     *
+     * @return the defending country
+     */
     @Override
     protected CountryModel defend() {
         ArrayList<CountryModel> l_countries = this.d_player.getCountries();
@@ -81,6 +108,11 @@ public class AggressiveStrategy extends Strategy {
             return null;
     }
 
+    /**
+     * Creates the orders
+     *
+     * @return orders
+     */
     @Override
     public OrderModel createOrder() {
         String[] cmd = new String[0];

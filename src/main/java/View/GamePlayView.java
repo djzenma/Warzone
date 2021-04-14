@@ -17,6 +17,9 @@ import java.util.function.Consumer;
  * View of the Game Play
  */
 public class GamePlayView implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
 
     /**
@@ -331,20 +334,36 @@ public class GamePlayView implements Serializable {
         return l_args;
     }
 
+    /**
+     * Saves the checkpoint
+     */
     public void savedCheckpoint() {
         System.out.println("Checkpoint created!");
     }
 
+    /**
+     * Loads the checkpoint
+     */
     public void loadedCheckpoint() {
         System.out.println("Checkpoint loaded!");
     }
 
+    /**
+     * Asks to selects the mode
+     */
     public void modeSelection() {
         System.out.println("\n======Mode Selection======\n");
         System.out.println("1. Single Game Mode (enter singlegame)");
         System.out.println("2. Tournament Mode (enter tournament command)");
     }
 
+    /**
+     * Displays the tournament results
+     *
+     * @param p_maps arraylist of maps
+     * @param p_numGames number of games
+     * @param p_winners hashmap of winners
+     */
     public void showTournamentResults(ArrayList<String> p_maps, int p_numGames, HashMap<String, ArrayList<String>> p_winners) {
         System.out.println("\n\n===== Tournament Results =====\n");
         for (String l_map : p_maps) {
@@ -354,6 +373,9 @@ public class GamePlayView implements Serializable {
         }
     }
 
+    /**
+     * Invalid Mode message
+     */
     public void invalidMode() {
         System.out.println("\n Invalid Mode Selected, Please select again!!\n");
     }

@@ -299,5 +299,4 @@ public class IssueOrder extends GamePlayPhase {
             i.printStackTrace();
         }
     }
-
 }

@@ -19,6 +19,9 @@ import static java.lang.Math.floor;
  * </ul>
  */
 public class GamePlayModel implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
 
     public int l_turnNumber;

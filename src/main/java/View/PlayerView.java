@@ -11,8 +11,16 @@ import java.util.Scanner;
  * Interacts with the user if anything is wrong while issuing orders
  */
 public class PlayerView implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
 
+    /**
+     * Reconstructs deploy
+     *
+     * @param p_args hashmap of command arguments
+     */
     private void reconstructDeploy(HashMap<String, List<String>> p_args) {
         System.out.println("Command: deploy " + p_args.get("country_name").get(0) + " " + p_args.get("reinforcements_num").get(0));
     }
@@ -178,7 +186,6 @@ public class PlayerView implements Serializable {
         }
         return l_commandArgs;
     }
-
 
     /**
      * Prints a statement for the invalid command

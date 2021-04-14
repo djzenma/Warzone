@@ -14,6 +14,9 @@ import java.util.Scanner;
  * Listens for commands from user and displays the output
  */
 public class MapView implements Serializable {
+    /**
+     * serial version id
+     */
     private static final long serialversionUID = 129348938L;
 
     /**

@@ -1,11 +1,11 @@
 package States;
 
+import Controller.GameEngine;
+
 /**
  * Depicts the end of the game
  * It extends the gameplay phase
  */
-import Controller.GameEngine;
-
 public class EndGame extends GamePlayPhase {
     /**
      * Constructor

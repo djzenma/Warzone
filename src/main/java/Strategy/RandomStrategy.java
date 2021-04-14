@@ -7,9 +7,22 @@ import Model.Player;
 import java.util.HashMap;
 import java.util.Random;
 
+/**
+ * Random player strategy
+ */
 public class RandomStrategy extends Strategy {
+    /**
+     * Random number
+     */
     private final Random d_rand;
 
+    /**
+     * Initialises player, hashmap of countries, hashmap of players, random number
+     *
+     * @param p_player player object
+     * @param p_countries hashmap of countries
+     * @param p_players hashmap of players
+     */
     public RandomStrategy(Player p_player,
                           HashMap<String, CountryModel> p_countries,
                           HashMap<String, Player> p_players) {
@@ -17,11 +30,21 @@ public class RandomStrategy extends Strategy {
         this.d_rand = new Random();
     }
 
+    /**
+     * Attacking country
+     *
+     * @return CountryModel
+     */
     @Override
     protected CountryModel attackFrom() {
         return moveFrom();
     }
 
+    /**
+     * Target country
+     *
+     * @return CountryModel of the target country
+     */
     @Override
     protected CountryModel attackTo() {
         int l_limit = 0;
@@ -39,6 +62,11 @@ public class RandomStrategy extends Strategy {
         return null;
     }
 
+    /**
+     * Returns the strongest neighbor of the strongest country
+     *
+     * @return CountryModel of the strongest neighbor of the strongest country
+     */
     @Override
     protected CountryModel moveFrom() {
         if (this.d_player.getCountries().size() != 0)
@@ -47,11 +75,21 @@ public class RandomStrategy extends Strategy {
             return null;
     }
 
+    /**
+     * The country to defend
+     *
+     * @return the defending country
+     */
     @Override
     protected CountryModel defend() {
         return moveFrom();
     }
 
+    /**
+     * Creates the orders
+     *
+     * @return orders
+     */
     @Override
     public OrderModel createOrder() {
         String[] cmd = new String[0];
