@@ -31,6 +31,14 @@ public class IssueCards extends GamePlayPhase {
     }
 
     /**
+     * Depicts the end of the game
+     */
+    @Override
+    public void endGame() {
+        d_gameEngine.setPhase(new EndGame(d_gameEngine));
+    }
+    
+    /**
      * Loads the log entry buffer with the current order object
      * Notifies about the state change
      *
@@ -43,4 +51,6 @@ public class IssueCards extends GamePlayPhase {
             notifyObservers(l_entryBuffer);
         }
     }
+
+
 }

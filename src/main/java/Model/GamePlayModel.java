@@ -279,6 +279,7 @@ public class GamePlayModel implements Serializable {
             l_end = true;
             this.d_endGame = true;
         }
+
         return !l_end;
     }
 }

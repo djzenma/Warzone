@@ -87,6 +87,7 @@ public class TournamentController implements Serializable {
     }
 
     private void startup(String p_mapName) throws Exception {
+
         d_gameEngine.d_currentPhase.startup();
         // load map
         d_gameEngine.d_currentPhase.loadMap(new String[]{"loadmap", p_mapName});

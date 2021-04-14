@@ -34,12 +34,4 @@ public class ExecuteOrders extends GamePlayPhase {
         d_gameEngine.setPhase(new IssueCards(d_gameEngine));
     }
 
-    /**
-     * Depicts the end of the game
-     */
-    @Override
-    public void endGame() {
-        d_gameEngine.setPhase(new EndGame(d_gameEngine));
-    }
-
 }

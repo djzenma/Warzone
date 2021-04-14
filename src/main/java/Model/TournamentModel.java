@@ -1,9 +1,7 @@
 package Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class TournamentModel implements Serializable {
 
@@ -49,11 +47,19 @@ public class TournamentModel implements Serializable {
 
     public void prepareTournament(HashMap<String, List<String>> p_args) throws Exception {
         d_maps = (ArrayList<String>) p_args.get("M");
-        d_playerStrategies = (ArrayList<String>) p_args.get("P");
+        addPlayers(p_args.get("P"));
         d_numGames = Integer.parseInt(p_args.get("G").get(0));
         d_maxTurns = Integer.parseInt(p_args.get("D").get(0));
         initializeWinners();
         validateTournament();
+    }
+
+    private void addPlayers(List<String> p_playerStrategies) {
+        for (String l_playerStrategy : p_playerStrategies) {
+            if(!this.d_playerStrategies.contains(l_playerStrategy)) {
+                this.d_playerStrategies.add(l_playerStrategy);
+            }
+        }
     }
 
     private void validateTournament() throws Exception {
