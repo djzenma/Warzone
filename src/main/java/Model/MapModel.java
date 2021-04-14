@@ -259,6 +259,9 @@ public class MapModel implements Serializable {
             if (l_option.equals("add")) {
                 l_tempCountryName = l_sc.next();
 
+                if(this.d_countries.containsKey(l_tempCountryName))
+                    throw new Exception(l_tempCountryName + " already exists on the map!");
+
                 // ensures that entered country name is a string
                 if (this.isNameNumber(l_tempCountryName)) {
                     throw new Exception("Country name cannot be a number!");
