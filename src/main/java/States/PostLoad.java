@@ -24,9 +24,9 @@ public class PostLoad extends PreLoad {
      */
     @Override
     public void editContinent(String[] l_args) throws Exception {
-        triggerEvent(l_args, "Map Editor Phase");
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
         d_gameEngine.d_mapModel.editContinent(l_commandArgs);
+        triggerEvent(l_args, "Map Editor Phase");
     }
 
     /**
@@ -37,9 +37,9 @@ public class PostLoad extends PreLoad {
      */
     @Override
     public void editCountry(String[] l_args) throws Exception {
-        triggerEvent(l_args, "Map Editor Phase");
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
         d_gameEngine.d_mapModel.editCountry(l_commandArgs);
+        triggerEvent(l_args, "Map Editor Phase");
     }
 
     /**
@@ -50,10 +50,10 @@ public class PostLoad extends PreLoad {
      */
     @Override
     public void editNeighbor(String[] l_args) throws Exception {
-        triggerEvent(l_args, "Map Editor Phase");
         // TODO: Refactor to have command parser method
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
         d_gameEngine.d_mapModel.editNeighbor(l_commandArgs);
+        triggerEvent(l_args, "Map Editor Phase");
     }
 
     /**
@@ -61,9 +61,9 @@ public class PostLoad extends PreLoad {
      */
     @Override
     public void showMap() {
-        triggerEvent(new String[]{"showmap"}, "Map Editor Phase");
         d_gameEngine.d_mapView.showMap(d_gameEngine.d_mapModel.getContinents(),
                 d_gameEngine.d_mapModel.getCountries());
+        triggerEvent(new String[]{"showmap"}, "Map Editor Phase");
     }
 
     /**
@@ -90,9 +90,9 @@ public class PostLoad extends PreLoad {
      */
     @Override
     public void validateMap(String[] l_args) {
-        triggerEvent(l_args, "Map Editor Phase");
         d_gameEngine.d_mapModel.validateMap();
         d_gameEngine.d_mapView.validMap(d_gameEngine.d_mapModel.isMapValid());
+        triggerEvent(l_args, "Map Editor Phase");
     }
 
     /**
@@ -103,7 +103,6 @@ public class PostLoad extends PreLoad {
      */
     @Override
     public boolean saveMap(String[] p_args) throws Exception {
-        triggerEvent(p_args, "Map Editor Phase");
         d_gameEngine.d_mapModel.validateMap();
 
         // if the currently loaded map is invalid, ask for user input
@@ -117,6 +116,7 @@ public class PostLoad extends PreLoad {
         ArrayList l_fileData = MapUtils.getMapFile(l_fileName, false);
         this.saveMapWarning(l_fileName, l_fileData);
         d_gameEngine.d_mapModel.saveMap((File) l_fileData.get(0), p_args[2]);
+        triggerEvent(p_args, "Map Editor Phase");
         return false;
     }
 

@@ -245,7 +245,7 @@ public class GamePlayView implements Serializable {
      * @param p_player name of the player
      */
     public void duplicatePlayer(String p_player) {
-        System.out.println(p_player + "is already in the game, can't add again.");
+        System.out.println(p_player + " is already in the game, can't add again.");
     }
 
     /**
@@ -254,7 +254,7 @@ public class GamePlayView implements Serializable {
      * @param p_player name of the player
      */
     public void noPlayerFound(String p_player) {
-        System.out.println(p_player + "is not in the game, hence can't be removed");
+        System.out.println(p_player + " is not in the game, hence can't be removed");
     }
 
     /**

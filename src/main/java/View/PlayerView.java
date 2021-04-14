@@ -46,7 +46,7 @@ public class PlayerView implements Serializable {
      * @param p_countryName the country name
      */
     public void invalidCountry(String p_player, String p_countryName) {
-        System.out.println(p_player + " don't own " + p_countryName + "!");
+        System.out.println(p_player + ", You don't own " + p_countryName + "!");
     }
 
     /**

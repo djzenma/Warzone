@@ -23,7 +23,6 @@ public class PreLoad extends MapEditor {
      */
     @Override
     public void editMap(String[] l_args) throws Exception {
-        triggerEvent(l_args, "Map Editor Phase");
         String l_fileName = MapUtils.getValidFileName(l_args);
         ArrayList l_fileData = MapUtils.getMapFile(l_fileName, false);
         if ((boolean) l_fileData.get(1))
@@ -36,6 +35,7 @@ public class PreLoad extends MapEditor {
             d_gameEngine.d_mapModel.validateMap();
             d_gameEngine.d_mapView.validMap(d_gameEngine.d_mapModel.isMapValid());
         }
+        triggerEvent(l_args, "Map Editor Phase");
         this.next();
     }
 
