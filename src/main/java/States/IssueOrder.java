@@ -61,6 +61,8 @@ public class IssueOrder extends GamePlayPhase {
             if (!CommandsParser.isPass(l_player.getLastIssuedOrder().getCmdName()))
                 l_moveToNextPhase = false;
 
+            this.d_gameEngine.d_gamePlayModel.gameTermination();
+
             this.d_gameEngine.d_gamePlayModel.d_curPlayerNum++;
         }
         this.d_gameEngine.d_gamePlayModel.d_curPlayerNum = 0;
@@ -273,7 +275,7 @@ public class IssueOrder extends GamePlayPhase {
     @Override
     public OrderModel pass(String[] p_args, Player p_player) {
         // checks if the player is trying to pass/skip the turn
-        if (p_player.getReinforcements() != 0) {
+        if (p_player.getReinforcements() != 0 && p_player.getCountries().size() != 0) {
             p_player.getView().reinforcementsRemain(p_player.getReinforcements());
             return null; // impossible command
         }
@@ -293,6 +295,7 @@ public class IssueOrder extends GamePlayPhase {
     public void saveGame(String[] p_args) {
         try {
             serialize(p_args);
+            triggerEvent(p_args, "Game Play Phase");
         } catch (IOException i) {
             i.printStackTrace();
         }

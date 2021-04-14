@@ -240,7 +240,6 @@ public class GamePlayModel implements Serializable {
      */
     public boolean executeOrders() {
         boolean l_end = true;
-        ArrayList<Player> l_playersToBeRemoved = new ArrayList<>();
 
         for (Player l_player : this.d_players.values()) {
             if (l_player.getName().equals("Neutral"))
@@ -251,6 +250,14 @@ public class GamePlayModel implements Serializable {
                 l_end = false;
             }
         }
+        l_end = gameTermination();
+
+        return !l_end;
+    }
+
+    public boolean gameTermination(){
+        boolean l_end = true;
+        ArrayList<Player> l_playersToBeRemoved = new ArrayList<>();
 
         for (Player l_player : this.getPlayers().values()) {
             try {
@@ -279,7 +286,6 @@ public class GamePlayModel implements Serializable {
             l_end = true;
             this.d_endGame = true;
         }
-
-        return !l_end;
+        return l_end;
     }
 }

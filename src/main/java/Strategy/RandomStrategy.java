@@ -60,17 +60,21 @@ public class RandomStrategy extends Strategy {
         CountryModel l_moveFromCountry;
         CountryModel l_attackFromCountry;
         CountryModel l_attackToCountry;
+        CountryModel l_defendCountry;
 
         switch (l_randCmdNumber) {
             case 0:
                 l_moveFromCountry = moveFrom();
-                if (l_moveFromCountry != null) {
+                l_defendCountry = defend();
+                if (l_moveFromCountry != null && l_defendCountry != null) {
                     cmd = new String[]{"advance",
                             l_moveFromCountry.getName(),
-                            defend().getName(),
+                            l_defendCountry.getName(),
                             String.valueOf(d_rand.nextInt(l_moveFromCountry.getArmies() + 1))};
-                    break;
                 }
+                else
+                    cmd = new String[]{"pass"};
+                break;
             case 1:
                 l_attackFromCountry = attackFrom();
                 l_attackToCountry = attackTo();
@@ -91,33 +95,50 @@ public class RandomStrategy extends Strategy {
                 break;
             case 3:
                 Object[] l_players = this.d_players.values().toArray();
+                if(l_players.length != 0) {
+                    // choose a random player that is not itself
+                    int l_limit = 0;
+                    Player l_randomPlayer;
+                    do {
+                        l_randomPlayer = (Player) l_players[d_rand.nextInt(l_players.length)];
+                        l_limit++;
+                    } while (l_limit < 20 && !l_randomPlayer.getName().equals(this.d_player.getName()));
 
-                // choose a random player that is not itself
-                int l_limit = 0;
-                Player l_randomPlayer;
-                do {
-                    l_randomPlayer = (Player) l_players[d_rand.nextInt(l_players.length)];
-                    l_limit++;
-                } while (l_limit < 20 && !l_randomPlayer.getName().equals(this.d_player.getName()));
-
-                cmd = new String[]{"negotiate", l_randomPlayer.getName()};
+                    cmd = new String[]{"negotiate", l_randomPlayer.getName()};
+                }
+                else
+                    cmd = new String[]{"pass"};
                 break;
             case 4:
-                cmd = new String[]{"deploy",
-                        defend().getName(),
-                        String.valueOf(d_rand.nextInt(this.d_player.getReinforcements() + 1))};
+                l_defendCountry = defend();
+                if (l_defendCountry != null) {
+                    cmd = new String[]{"deploy",
+                            l_defendCountry.getName(),
+                            String.valueOf(d_rand.nextInt(this.d_player.getReinforcements() + 1))};
+                }
+                else
+                    cmd = new String[]{"pass"};
                 break;
             case 5:
-                cmd = new String[]{"blockade", moveFrom().getName()};
+                l_moveFromCountry = moveFrom();
+                if (l_moveFromCountry != null) {
+                    cmd = new String[]{"blockade", l_moveFromCountry.getName()};
+                }
+                else
+                    cmd = new String[]{"pass"};
                 break;
             case 6:
                 l_moveFromCountry = moveFrom();
-                cmd = new String[]{"airlift",
-                        l_moveFromCountry.getName(),
-                        defend().getName(),
-                        String.valueOf(d_rand.nextInt(l_moveFromCountry.getArmies() + 1))};
+                l_defendCountry = defend();
+                if (l_moveFromCountry != null && l_defendCountry != null) {
+                    cmd = new String[]{"airlift",
+                            l_moveFromCountry.getName(),
+                            l_defendCountry.getName(),
+                            String.valueOf(d_rand.nextInt(l_moveFromCountry.getArmies() + 1))};
+                }
+                else
+                    cmd = new String[]{"pass"};
                 break;
-
             case 7:
                 cmd = new String[]{"pass"};
                 break;

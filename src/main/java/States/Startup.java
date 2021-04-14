@@ -33,10 +33,10 @@ public class Startup extends GamePlayPhase {
      */
     @Override
     public void loadMap(String[] l_args) throws Exception {
-        triggerEvent(l_args, "Startup Phase");
         this.d_gameEngine.d_mapModel.loadOnlyValidMap(new File(new MapUtils().getMapsPath() + l_args[1]));
         this.d_gameEngine.d_gamePlayModel.setContinents(new ArrayList<ContinentModel>(this.d_gameEngine.d_mapModel.getContinents().values()));
         this.d_gameEngine.d_gamePlayModel.setCountries(this.d_gameEngine.d_mapModel.getCountries());
+        triggerEvent(l_args, "Startup Phase");
     }
 
     /**
@@ -44,8 +44,8 @@ public class Startup extends GamePlayPhase {
      */
     @Override
     public void showMap() {
-        triggerEvent(new String[]{"showmap"}, "Startup Phase");
         this.d_gameEngine.d_gamePlayView.showMap(this.d_gameEngine.d_mapModel.getContinents(), this.d_gameEngine.d_mapModel.getCountries());
+        triggerEvent(new String[]{"showmap"}, "Startup Phase");
     }
 
     /**
@@ -57,16 +57,15 @@ public class Startup extends GamePlayPhase {
      */
     @Override
     public boolean gameplayer(String[] l_args) throws Exception {
-        triggerEvent(l_args, "Startup Phase");
         // get the players to be added or removed
         HashMap<String, List<String>> l_gameplayerArgs = CommandsParser.getArguments(l_args);
-
 
         boolean l_added = addPlayers(l_gameplayerArgs);
         if (!l_added)
             return false;
 
         removePlayers(l_gameplayerArgs);
+        triggerEvent(l_args, "Startup Phase");
         return true;
     }
 
@@ -137,7 +136,6 @@ public class Startup extends GamePlayPhase {
      */
     @Override
     public boolean assignCountries() {
-        triggerEvent(new String[]{"assigncountries"}, "Startup Phase");
         if (this.d_gameEngine.d_gamePlayModel.isInValidCommand()) {
             this.d_gameEngine.d_gamePlayView.isInvalidAssignment();
             return false;
@@ -151,6 +149,7 @@ public class Startup extends GamePlayPhase {
                             this.d_gameEngine.d_gamePlayModel.getCountries(),
                             this.d_gameEngine.d_gamePlayModel.getPlayers()));
             this.d_gameEngine.d_gamePlayModel.addPlayer(l_neutralPlayer);
+            triggerEvent(new String[]{"assigncountries"}, "Startup Phase");
             return true;
         }
     }
@@ -210,6 +209,7 @@ public class Startup extends GamePlayPhase {
             fileIn.close();
             d_gameEngine.d_gamePlayView.loadedCheckpoint();
             this.d_gameEngine.d_gamePlayModel.isLoadedGame = true;
+            triggerEvent(p_args, "Startup Phase");
             return d_gameEngine;
         } catch (IOException i) {
             i.printStackTrace();

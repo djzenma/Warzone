@@ -89,7 +89,7 @@ public class EventListener extends Observer {
                         }
                     }
                     if (d_args.get("remove") != null) {
-                        l_event += "Player(s) removed:";
+                        l_event += "\nPlayer(s) removed:";
                         for (String l_player : d_args.get("remove")) {
                             l_event += " " + l_player;
                         }
@@ -120,7 +120,7 @@ public class EventListener extends Observer {
                         }
                     }
                     if (d_args.get("remove") != null) {
-                        l_event += "Continent(s) removed:";
+                        l_event += "\nContinent(s) removed:";
                         for (String l_continent : d_args.get("remove")) {
                             l_event += " " + l_continent;
                         }
@@ -134,7 +134,7 @@ public class EventListener extends Observer {
                         }
                     }
                     if (d_args.get("remove") != null) {
-                        l_event += "Country(s) removed:";
+                        l_event += "\nCountry(s) removed:";
                         for (String l_country : d_args.get("remove")) {
                             l_event += " " + l_country;
                         }
@@ -148,7 +148,7 @@ public class EventListener extends Observer {
                         }
                     }
                     if (d_args.get("remove") != null) {
-                        l_event += "Neighbor(s) removed:";
+                        l_event += "\nNeighbor(s) removed:";
                         for (String l_neighbor : d_args.get("remove")) {
                             l_event += " " + l_neighbor;
                         }
