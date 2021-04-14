@@ -1,6 +1,6 @@
 package Controller;
 
-import org.junit.Test;
+import org.junit.Ignore;
 
 /**
  * Test for GameEngineController
@@ -9,7 +9,7 @@ public class GameEngineControllerTest {
     /**
      * Initial test
      */
-    @Test
+    @Ignore
     public void init() {
 
     }

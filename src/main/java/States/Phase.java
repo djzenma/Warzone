@@ -217,6 +217,13 @@ public abstract class Phase extends Observable implements Serializable {
     }
 
     /**
+     * Assigns the Cards
+     */
+    public void issueCards() {
+        printInvalidCommandMessage();
+    }
+
+    /**
      * Deploy command
      *
      * @param p_args   Array of the command arguments

@@ -34,7 +34,7 @@ public class TournamentController implements Serializable {
             // play num of games for selected map
             for (int l_gameNum = 0; l_gameNum < this.d_gameEngine.d_tournamentModel.getNumGames(); l_gameNum++) {
 
-                this.d_gameEngine.d_gamePlayModel.l_turnNumber = 0;
+                this.d_gameEngine.d_gamePlayModel.l_turnNumber = 1;
 
                 // Startup Phase
                 d_gameEngine.d_gamePlayView.startupPhase();
@@ -52,6 +52,9 @@ public class TournamentController implements Serializable {
                     d_gameEngine.d_currentPhase.next();
 
                     while (d_gameEngine.d_currentPhase.executeOrders()) ;
+
+                    d_gameEngine.d_currentPhase.next();
+                    d_gameEngine.d_currentPhase.issueCards();
 
                     if (d_gameEngine.d_gamePlayModel.isEndGame()) {
                         d_gameEngine.d_gamePlayView.winnerWinnerChickenDinner(

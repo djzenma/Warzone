@@ -112,6 +112,9 @@ public class GamePlayController {
 
             while (d_gameEngine.d_currentPhase.executeOrders()) ;
 
+            d_gameEngine.d_currentPhase.next();
+            d_gameEngine.d_currentPhase.issueCards();
+
             if (d_gameEngine.d_gamePlayModel.isEndGame()) {
                 d_gameEngine.d_gamePlayView.winnerWinnerChickenDinner(
                         d_gameEngine.d_gamePlayModel.getWinner().getName()

@@ -48,8 +48,7 @@ public class IssueOrder extends GamePlayPhase {
             }
 
             l_player.flushActiveNegotiators();
-            String l_cardName = l_player.assignCards();
-            triggerEvent(l_player, l_cardName);
+
             this.d_gameEngine.d_gamePlayView.currentPlayer(l_player);
             l_isValidOrder = false;
 
@@ -279,20 +278,6 @@ public class IssueOrder extends GamePlayPhase {
             return null; // impossible command
         }
         return new PassModel(p_player, p_args);
-    }
-
-    /**
-     * Loads the log entry buffer with the current order object
-     * Notifies about the state change
-     *
-     * @param p_currentPlayer Object of the player
-     * @param l_cardName      name of the card
-     */
-    private void triggerEvent(Player p_currentPlayer, String l_cardName) {
-        if (l_cardName != null) {
-            LogEntryBuffer l_entryBuffer = new LogEntryBuffer(p_currentPlayer, l_cardName, "Issue Cards");
-            notifyObservers(l_entryBuffer);
-        }
     }
 
     /**

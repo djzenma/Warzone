@@ -47,12 +47,31 @@ public class TournamentModel implements Serializable {
         }
     }
 
-    public void prepareTournament(HashMap<String, List<String>> p_args) {
+    public void prepareTournament(HashMap<String, List<String>> p_args) throws Exception {
         d_maps = (ArrayList<String>) p_args.get("M");
         d_playerStrategies = (ArrayList<String>) p_args.get("P");
         d_numGames = Integer.parseInt(p_args.get("G").get(0));
         d_maxTurns = Integer.parseInt(p_args.get("D").get(0));
         initializeWinners();
+        validateTournament();
+    }
+
+    private void validateTournament() throws Exception {
+        if(d_maps.size() < 1 || d_maps.size() > 5) {
+            throw new Exception("Num of maps entered must be between 1 to 5.");
+        }
+
+        if(d_playerStrategies.size() < 2 || d_playerStrategies.size() > 4) {
+            throw new Exception("Num of players entered must be between 2 to 4.");
+        }
+
+        if(d_numGames < 1 || d_numGames > 5) {
+            throw new Exception("Num of games entered must be between 1 to 5.");
+        }
+
+        if(d_maxTurns < 10 || d_maxTurns > 50) {
+            throw new Exception("Num of maximum turns entered must be between 10 to 50.");
+        }
     }
 
     public void recordWinner(String p_map, int p_gameNum, String p_playerName) {

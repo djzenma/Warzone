@@ -31,7 +31,7 @@ public class ExecuteOrders extends GamePlayPhase {
      */
     @Override
     public void next() {
-        d_gameEngine.setPhase(new AssignReinforcements(d_gameEngine));
+        d_gameEngine.setPhase(new IssueCards(d_gameEngine));
     }
 
     /**

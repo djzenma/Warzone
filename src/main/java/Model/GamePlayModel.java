@@ -251,6 +251,7 @@ public class GamePlayModel implements Serializable {
                 l_end = false;
             }
         }
+
         for (Player l_player : this.getPlayers().values()) {
             try {
                 if (l_player.getCountries().size() == 0 && !(l_player.getName().equals("Neutral"))) {
