@@ -64,8 +64,10 @@ public class ConquestMapIO {
                     if (l_tempLine.isEmpty())
                         break;
                     l_tempData = l_tempLine.split("=");
-                    d_continents.put(l_tempData[0].trim(), new ContinentModel(d_continents.size() + 1,
-                            l_tempData[0].trim(), Integer.parseInt(l_tempData[1].trim()), "yellow"));
+
+                    String l_continentName = l_tempData[0].trim().replace(" ", "-");
+                    d_continents.put(l_continentName, new ContinentModel(d_continents.size() + 1,
+                            l_continentName, Integer.parseInt(l_tempData[1].trim()), "yellow"));
                     l_tempLine = l_iterator.next().trim();
                 }
             }
@@ -81,14 +83,16 @@ public class ConquestMapIO {
                     }
                     l_tempData = l_tempLine.split(",");
 
-                    d_countries.put(l_tempData[0].trim(), new CountryModel(
+                    String l_countryName = l_tempData[0].trim().replace(" ", "-");
+                    String l_continentName = l_tempData[3].trim().replace(" ", "-");
+                    d_countries.put(l_countryName, new CountryModel(
                             d_countries.size() + 1,
-                            l_tempData[0].trim(),
-                            l_tempData[3].trim(),
+                            l_countryName,
+                            l_continentName,
                             l_tempData[1],
                             l_tempData[2]));
 
-                    this.d_continents.get(l_tempData[3]).addCountry(this.d_countries.get(l_tempData[0].trim()));
+                    this.d_continents.get(l_continentName).addCountry(this.d_countries.get(l_countryName));
                     l_tempLine = l_iterator.next().trim();
                 }
             }
@@ -110,10 +114,12 @@ public class ConquestMapIO {
                     }
                     l_tempData = l_tempLine.split(",");
 
-
+                    String l_mainCountryName = l_tempData[0].trim().replace(" ", "-");
+                    String l_neighborCountry;
                     for(int l_i = 0; l_i < l_tempData.length - 4; l_i++) {
-                        this.d_countries.get(l_tempData[0].trim()).addNeighbor(
-                                this.d_countries.get(l_tempData[l_i+4])
+                        l_neighborCountry = l_tempData[l_i+4].trim().replace(" ", "-");
+                        this.d_countries.get(l_mainCountryName).addNeighbor(
+                                this.d_countries.get(l_neighborCountry)
                         );
                     }
                     l_tempLine = l_iterator.next().trim();

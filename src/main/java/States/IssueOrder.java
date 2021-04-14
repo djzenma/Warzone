@@ -1,7 +1,6 @@
 package States;
 
 import Controller.GameEngine;
-import EventListener.LogEntryBuffer;
 import Model.OrderModel;
 import Model.Orders.*;
 import Model.Player;
@@ -61,7 +60,7 @@ public class IssueOrder extends GamePlayPhase {
             if (!CommandsParser.isPass(l_player.getLastIssuedOrder().getCmdName()))
                 l_moveToNextPhase = false;
 
-            this.d_gameEngine.d_gamePlayModel.gameTermination();
+            this.d_gameEngine.d_gamePlayModel.gameTermination(false);
 
             this.d_gameEngine.d_gamePlayModel.d_curPlayerNum++;
         }

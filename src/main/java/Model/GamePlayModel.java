@@ -250,13 +250,13 @@ public class GamePlayModel implements Serializable {
                 l_end = false;
             }
         }
-        l_end = gameTermination();
+        l_end = gameTermination(l_end);
 
         return !l_end;
     }
 
-    public boolean gameTermination(){
-        boolean l_end = true;
+    public boolean gameTermination(boolean p_end){
+        boolean l_end = p_end;
         ArrayList<Player> l_playersToBeRemoved = new ArrayList<>();
 
         for (Player l_player : this.getPlayers().values()) {

@@ -99,7 +99,6 @@ public class GamePlayControllerTest {
         d_GameEngine.d_currentPhase.next();
         while (d_GameEngine.d_currentPhase.executeOrders()) ;
 
-        //TODO::
-        assertFalse(d_GameEngine.d_gamePlayModel.isEndGame());
+        assertTrue(d_GameEngine.d_gamePlayModel.isEndGame());
     }
 }
