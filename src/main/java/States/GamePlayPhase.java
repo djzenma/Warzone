@@ -10,7 +10,6 @@ import java.util.HashMap;
  * It extends the main phase
  */
 public class GamePlayPhase extends Phase {
-
     /**
      * Constructor
      *

@@ -3,8 +3,7 @@ package Model;
 import EventListener.EventListener;
 import EventListener.LogEntryBuffer;
 import EventListener.Observable;
-import Utils.CommandsParser;
-
+import Utils.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -15,9 +14,9 @@ import java.util.List;
  */
 public abstract class OrderModel extends Observable implements Serializable {
     /**
-     * serial version id
+     * Serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
     /**
      * Name of the command
      */

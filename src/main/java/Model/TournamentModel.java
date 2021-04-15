@@ -7,7 +7,6 @@ import java.util.*;
  * Model for the tournament mode
  */
 public class TournamentModel implements Serializable {
-
     /**
      * Hashmap of the winners
      */

@@ -3,9 +3,8 @@ package View;
 import Model.ContinentModel;
 import Model.CountryModel;
 import Model.Player;
-import Utils.CommandsParser;
+import Utils.*;
 import org.apache.commons.lang3.StringUtils;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class GamePlayView implements Serializable {
     /**
      * serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
 
     /**
      * Prints the exception
@@ -112,7 +111,7 @@ public class GamePlayView implements Serializable {
      * @param p_continents Hashmap of the continents
      * @param p_countries Hashmap of the countries
      */
-    public void showMap(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) { //TODO:: 13Refactor: Lambda expressions
+    public void showMap(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
         // Number of Entries  = Number of Neighbors of every country or 1 if it has none
         int l_rowsNum = p_countries
                 .values()

@@ -11,6 +11,11 @@ import java.util.ArrayList;
  * It extend the mapeditor
  */
 public class PreLoad extends MapEditor {
+    /**
+     * Constructor
+     *
+     * @param p_gameEngine Object for game engine controller
+     */
     public PreLoad(GameEngine p_gameEngine) {
         super(p_gameEngine);
     }

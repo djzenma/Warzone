@@ -10,7 +10,7 @@ public class ContinentModel implements Serializable {
     /**
      * serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
 
     /**
      * LinkedHashMap of the countries
@@ -127,7 +127,7 @@ public class ContinentModel implements Serializable {
     /**
      * Removes the country from list of countries of a continent
      *
-     * @param p_countryName
+     * @param p_countryName Name of the country
      */
     public void removeCountry(String p_countryName) {
         this.d_countries.remove(p_countryName);

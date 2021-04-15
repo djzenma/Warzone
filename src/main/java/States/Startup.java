@@ -4,10 +4,9 @@ import Controller.GameEngine;
 import Model.ContinentModel;
 import Model.Player;
 import Strategy.*;
-import Utils.CommandsParser;
+import Utils.*;
 import Utils.MapUtils;
 import View.PlayerView;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -21,6 +20,11 @@ import java.util.List;
  * It extend the gameplay phase
  */
 public class Startup extends GamePlayPhase {
+    /**
+     * Constructor
+     *
+     * @param p_gameEngine Object for game engine controller
+     */
     public Startup(GameEngine p_gameEngine) {
         super(p_gameEngine);
     }
@@ -52,7 +56,7 @@ public class Startup extends GamePlayPhase {
      * Adds/removes the gameplayer
      *
      * @param l_args Array of the command arguments
-     * @return
+     * @return true if the command is game player; otherwise false
      * @throws Exception Throws if there is some kind of exception
      */
     @Override
@@ -210,7 +214,7 @@ public class Startup extends GamePlayPhase {
      * Loads the game from the serialised object file
      *
      * @param p_args arguments of the command
-     * @return
+     * @return GameEngine object
      */
     @Override
     public GameEngine loadGame(String[] p_args) {

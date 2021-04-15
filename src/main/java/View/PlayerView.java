@@ -1,7 +1,6 @@
 package View;
 
-import Utils.CommandsParser;
-
+import Utils.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +13,7 @@ public class PlayerView implements Serializable {
     /**
      * serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
 
     /**
      * Reconstructs deploy
@@ -136,14 +135,14 @@ public class PlayerView implements Serializable {
      *
      * @param p_countryName name of the country
      */
-    public void countryInexistant(String p_countryName) {
+    public void countryInExistent(String p_countryName) {
         System.out.println(p_countryName + " does not exist on the map!");
     }
 
     /**
      * Prints all the cards player owns
      *
-     * @param p_cards Hasmap of the cards
+     * @param p_cards HashMap of the cards
      */
     public void showCards(HashMap<String, Integer> p_cards) {
         System.out.println("You have following Cards: \n");
@@ -154,6 +153,8 @@ public class PlayerView implements Serializable {
 
     /**
      * Prints if the player doesn't have the particular card
+     *
+     * @param p_args command arguments
      */
     public void noCardAvailable(String[] p_args) {
         System.out.print("You issued ");

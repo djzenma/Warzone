@@ -10,7 +10,7 @@ public class CountryModel implements Serializable {
     /**
      * serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
     /**
      * Name of the country
      */

@@ -61,7 +61,6 @@ public class CommandsParser {
                         return false;
                 }
 
-
                 // check if the cmd has named args
                 if (l_command.d_namedArgs != null) {
                     boolean isValid;
@@ -76,7 +75,6 @@ public class CommandsParser {
                             return false;
                     }
                 }
-
 
                 // check if the cmd has variable args
                 if (l_command.d_varArgs != null) {
@@ -299,7 +297,6 @@ public class CommandsParser {
                         l_i++;
                     }
                 }
-
 
                 // check if the cmd has variable args
                 if (l_command.d_varArgs != null) {

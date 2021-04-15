@@ -4,7 +4,7 @@ import Model.GamePlayModel;
 import Model.MapModel;
 import Model.TournamentModel;
 import States.Phase;
-import Utils.CommandsParser;
+import Utils.*;
 import View.GamePlayView;
 import View.MapView;
 
@@ -19,7 +19,7 @@ public class GameEngine implements Serializable {
     /**
      * serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
 
     /**
      * Object of the gameplay view
@@ -94,7 +94,6 @@ public class GameEngine implements Serializable {
                         this.d_gamePlayView.invalidMode();
                 }
             } catch (Exception l_e) {
-                l_e.printStackTrace();
                 this.d_gamePlayView.exception(l_e.getMessage());
             }
         }

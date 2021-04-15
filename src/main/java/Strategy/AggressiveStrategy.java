@@ -22,7 +22,7 @@ public class AggressiveStrategy extends Strategy {
     /**
      * Initialises player, hashmap of countries, hashmap of players, counter
      *
-     * p_player player object
+     * @param p_player player object
      * @param p_countries hashmap of countries
      * @param p_players hashmap of players
      */

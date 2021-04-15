@@ -4,8 +4,7 @@ import Controller.GameEngine;
 import Model.OrderModel;
 import Model.Orders.*;
 import Model.Player;
-import Utils.CommandsParser;
-
+import Utils.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +14,6 @@ import java.util.List;
  * It extends the gameplay phase
  */
 public class IssueOrder extends GamePlayPhase {
-
     /**
      * Constructor
      *
@@ -81,7 +79,7 @@ public class IssueOrder extends GamePlayPhase {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name").get(0))) {
-            p_player.getView().countryInexistant(l_args.get("country_name").get(0));
+            p_player.getView().countryInExistent(l_args.get("country_name").get(0));
             return null;
         }
 
@@ -118,11 +116,11 @@ public class IssueOrder extends GamePlayPhase {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name_from").get(0))) {
-            p_player.getView().countryInexistant(l_args.get("country_name_from").get(0));
+            p_player.getView().countryInExistent(l_args.get("country_name_from").get(0));
             return null;
         }
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name_to").get(0))) {
-            p_player.getView().countryInexistant(l_args.get("country_name_to").get(0));
+            p_player.getView().countryInExistent(l_args.get("country_name_to").get(0));
             return null;
         }
 
@@ -147,7 +145,7 @@ public class IssueOrder extends GamePlayPhase {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("target_country").get(0))) {
-            p_player.getView().countryInexistant(l_args.get("target_country").get(0));
+            p_player.getView().countryInExistent(l_args.get("target_country").get(0));
             return null;
         }
 
@@ -177,7 +175,7 @@ public class IssueOrder extends GamePlayPhase {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name").get(0))) {
-            p_player.getView().countryInexistant(l_args.get("country_name").get(0));
+            p_player.getView().countryInExistent(l_args.get("country_name").get(0));
             return null;
         }
 
@@ -208,11 +206,11 @@ public class IssueOrder extends GamePlayPhase {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
 
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name_from").get(0))) {
-            p_player.getView().countryInexistant(l_args.get("country_name_from").get(0));
+            p_player.getView().countryInExistent(l_args.get("country_name_from").get(0));
             return null;
         }
         if (!this.d_gameEngine.d_gamePlayModel.getCountries().containsKey(l_args.get("country_name_to").get(0))) {
-            p_player.getView().countryInexistant(l_args.get("country_name_to").get(0));
+            p_player.getView().countryInExistent(l_args.get("country_name_to").get(0));
             return null;
         }
 

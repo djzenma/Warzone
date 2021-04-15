@@ -15,7 +15,7 @@ public class MapUtils implements Serializable {
     /**
      * serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
     /**
      * data
      */
@@ -157,7 +157,13 @@ public class MapUtils implements Serializable {
         return l_maps.list();
     }
 
-    //TODO
+    /**
+     * Gets the type of map
+     *
+     * @param p_file map file object
+     * @return Conquest or Domination based on map file type
+     * @throws IOException If any sort of IOException occurs
+     */
     public String getMapType(File p_file) throws IOException {
         String l_fileContent = readMapFile(p_file);
         String[] l_fileLines = l_fileContent.split("\n");

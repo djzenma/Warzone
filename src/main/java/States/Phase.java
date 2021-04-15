@@ -6,8 +6,7 @@ import EventListener.LogEntryBuffer;
 import EventListener.Observable;
 import Model.OrderModel;
 import Model.Player;
-import Utils.CommandsParser;
-
+import Utils.*;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -21,9 +20,9 @@ import java.util.List;
  */
 public abstract class Phase extends Observable implements Serializable {
     /**
-     * serial version id
+     * Serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
     /**
      * Object of the gamengine
      */
@@ -48,6 +47,8 @@ public abstract class Phase extends Observable implements Serializable {
 
     /**
      * Shows the available cards
+     *
+     * @param p_cards HashMap of cards
      */
     public void showCards(HashMap<String, Integer> p_cards) {
         printInvalidCommandMessage();
@@ -192,7 +193,7 @@ public abstract class Phase extends Observable implements Serializable {
      * Adds the game player
      *
      * @param l_args Array of the command arguments
-     * @return
+     * @return false if the command is invalid
      * @throws Exception throws some kind of exception
      */
     public boolean gameplayer(String[] l_args) throws Exception {
@@ -299,6 +300,7 @@ public abstract class Phase extends Observable implements Serializable {
     /**
      * Pass command
      *
+     * @param p_args Command arguments
      * @param p_player Object of the player
      * @return true if the command is valid; otherwise false
      */
@@ -356,13 +358,13 @@ public abstract class Phase extends Observable implements Serializable {
      * @param p_args command arguments
      * @throws IOException If some sort of IOException occurred
      */
-    void serialize(String[] p_args) throws IOException {
+    public void serialize(String[] p_args) throws IOException {
         HashMap<String, List<String>> l_args = CommandsParser.getArguments(p_args);
-        FileOutputStream fileOut = new FileOutputStream("checkpoint/" + l_args.get("filename").get(0) + ".ser");
-        ObjectOutputStream out = new ObjectOutputStream(fileOut);
-        out.writeObject(this.d_gameEngine);
-        out.close();
-        fileOut.close();
+        FileOutputStream l_fileOut = new FileOutputStream("checkpoint/" + l_args.get("filename").get(0) + ".ser");
+        ObjectOutputStream l_out = new ObjectOutputStream(l_fileOut);
+        l_out.writeObject(this.d_gameEngine);
+        l_out.close();
+        l_fileOut.close();
         this.d_gameEngine.d_gamePlayView.savedCheckpoint();
     }
 }

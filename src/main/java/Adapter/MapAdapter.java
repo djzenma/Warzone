@@ -16,7 +16,7 @@ public class MapAdapter extends DominationMapIO implements Serializable {
     /**
      * serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
 
     /**
      * Loads the map from the memory

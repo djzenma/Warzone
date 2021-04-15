@@ -15,9 +15,9 @@ import java.util.*;
  */
 public class Player extends Observable implements Serializable {
     /**
-     * serial version id
+     * Serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
     /**
      * Object of the playerview
      */
@@ -63,9 +63,10 @@ public class Player extends Observable implements Serializable {
      * Array of the command arguments
      */
     private String[] d_args;
-
+    /**
+     * Object of strategy
+     */
     private Strategy d_strategy;
-
 
     /**
      * Initialises the name of the player, reinforcements, orders, countries and PlayerView
@@ -373,6 +374,8 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Accessor for the command
+     *
+     * @return Command arguments
      */
     public String[] getCommand() {
         return this.d_args;
@@ -380,6 +383,8 @@ public class Player extends Observable implements Serializable {
 
     /**
      * Accessor for the current phase
+     *
+     * @return current phase
      */
     public Phase getCurrentPhase() {
         return d_currentPhase;
@@ -395,7 +400,9 @@ public class Player extends Observable implements Serializable {
     }
 
     /**
-     * @return
+     * Gets the last order issued
+     *
+     * @return last issued order by the player
      */
     public OrderModel getLastIssuedOrder() {
         List<OrderModel> l_ordersList = new ArrayList<>(this.d_orderQueue);

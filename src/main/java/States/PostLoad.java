@@ -12,6 +12,11 @@ import java.util.Arrays;
  * It extend the preload
  */
 public class PostLoad extends PreLoad {
+    /**
+     * Constructor
+     *
+     * @param p_gameEngine Object for game engine controller
+     */
     public PostLoad(GameEngine p_gameEngine) {
         super(p_gameEngine);
     }
@@ -50,7 +55,6 @@ public class PostLoad extends PreLoad {
      */
     @Override
     public void editNeighbor(String[] l_args) throws Exception {
-        // TODO: Refactor to have command parser method
         String l_commandArgs = String.join(" ", Arrays.copyOfRange(l_args, 1, l_args.length));
         d_gameEngine.d_mapModel.editNeighbor(l_commandArgs);
         triggerEvent(l_args, "Map Editor Phase");

@@ -184,7 +184,6 @@ public class RandomStrategy extends Strategy {
             default:
                 System.out.println("Invalid generated random number! (this will never happen)");
         }
-
         return convertCmdToOrder(cmd);
     }
 }

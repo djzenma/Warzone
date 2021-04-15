@@ -3,7 +3,6 @@ package View;
 import Model.ContinentModel;
 import Model.CountryModel;
 import org.apache.commons.lang3.StringUtils;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -17,7 +16,7 @@ public class MapView implements Serializable {
     /**
      * serial version id
      */
-    private static final long serialversionUID = 129348938L;
+    private static final long SERIAL_VERSION_UID = 129348938L;
 
     /**
      * Listens for commands from user
@@ -231,7 +230,7 @@ public class MapView implements Serializable {
      *
      * @param p_continents Continents to be displayed
      */
-    public void showContinents(HashMap<String, ContinentModel> p_continents) {  //TODO:: 14Refactor: Lambda expressions
+    public void showContinents(HashMap<String, ContinentModel> p_continents) {
 
         int[] l_longestContinentName = {0};
 
@@ -294,7 +293,7 @@ public class MapView implements Serializable {
      * @param p_continents Continents to be displayed
      * @param p_countries  Countries to be displayed
      */
-    public void showCountries(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) { //TODO:: 15Refactor: Lambda expressions
+    public void showCountries(HashMap<String, ContinentModel> p_continents, HashMap<String, CountryModel> p_countries) {
         // Number of Entries  = Number of Neighbors of every country or 1 if it has none
         int l_rowsNum = p_countries
                 .values()

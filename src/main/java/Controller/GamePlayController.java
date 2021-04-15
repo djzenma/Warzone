@@ -2,7 +2,7 @@ package Controller;
 
 import States.GamePlayPhase;
 import States.Startup;
-import Utils.CommandsParser;
+import Utils.*;
 
 /**
  * Controls the game play phase
@@ -87,8 +87,6 @@ public class GamePlayController {
                     d_gameEngine.d_currentPhase.next();
 
             } catch (Exception l_e) {
-                //TODO:: Remove
-                l_e.printStackTrace();
                 this.d_gameEngine.d_gamePlayView.exception(l_e.getMessage());
             }
         }

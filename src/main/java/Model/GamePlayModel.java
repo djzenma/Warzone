@@ -20,20 +20,29 @@ import static java.lang.Math.floor;
  */
 public class GamePlayModel implements Serializable {
     /**
-     * serial version id
+     * Serial version id
      */
-    private static final long serialversionUID = 129348938L;
-
+    private static final long SERIAL_VERSION_UID = 129348938L;
+    /**
+     * Turn number
+     */
     public int l_turnNumber;
+    /**
+     * Current player number
+     */
     public int d_curPlayerNum;
+    /**
+     * Check if to skip teh assignment of reinforcements
+     */
     public boolean skipAssignReinforcements;
+    /**
+     * Check if the game is loaded
+     */
     public boolean isLoadedGame;
-
     /**
      * HashMap of the players
      */
     private final HashMap<String, Player> d_players;
-
     /**
      * HashMap of the countries
      */
@@ -258,6 +267,12 @@ public class GamePlayModel implements Serializable {
         return !l_end;
     }
 
+    /**
+     * Game Termination conditions
+     *
+     * @param p_end end of the execute orders phase
+     * @return true if it is end of the game; otherwise false
+     */
     public boolean gameTermination(boolean p_end){
         boolean l_end = p_end;
         ArrayList<Player> l_playersToBeRemoved = new ArrayList<>();

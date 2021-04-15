@@ -19,10 +19,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class MapModel implements Serializable {
     /**
-     * serial version id
+     * Serial version id
      */
-    private static final long serialversionUID = 129348938L;
-
+    private static final long SERIAL_VERSION_UID = 129348938L;
     /**
      * Object of the MapUtils
      */
@@ -47,11 +46,11 @@ public class MapModel implements Serializable {
      * LinkedHashMap of the countries
      */
     private LinkedHashMap<String, CountryModel> d_countries;
-
     /**
      * Object of the MapAdapter
      */
     private final MapAdapter d_mapAdapter;
+
     /**
      * Initializes countries and continents
      */
@@ -303,7 +302,6 @@ public class MapModel implements Serializable {
                 if (!(this.d_countries.containsKey(l_tempCountryName))) {
                     throw new Exception(l_tempCountryName + " country does not exists");
                 }
-
 
                 // remove country from continent's list as well
                 this.d_continents.get(this.d_countries.get(l_tempCountryName).getContinentId()).removeCountry(l_tempCountryName);
@@ -591,6 +589,7 @@ public class MapModel implements Serializable {
      * Handles savemap command
      *
      * @param p_file File object where the current map should be saved
+     * @param p_mapType Type of the map
      * @throws IOException If I/O exception of some sort has occurred
      */
     public void saveMap(File p_file, String p_mapType) throws Exception {

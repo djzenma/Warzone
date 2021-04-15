@@ -1,7 +1,7 @@
 package Controller;
 
 import States.Startup;
-import Utils.CommandsParser;
+import Utils.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +19,8 @@ public class TournamentControllerTest {
 
     /**
      * Initializes tournament
+     *
+     * @throws Exception If some sort of Exception occurs
      */
     @Before
     public void init() throws Exception {

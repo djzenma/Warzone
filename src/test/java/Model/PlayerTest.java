@@ -6,7 +6,7 @@ import States.ExecuteOrders;
 import States.IssueOrder;
 import States.Startup;
 import Strategy.HumanStrategy;
-import Utils.CommandsParser;
+import Utils.*;
 import View.PlayerView;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -79,21 +79,10 @@ public class PlayerTest {
         d_Player = d_GameEngine.d_gamePlayModel.getPlayers().get("Mazen");
         d_Player.setPhase(d_GameEngine.d_currentPhase);
 
-
-        // TODO::
-        // d_Player.addOrder(new HumanStrategy(d_Player,
-        //          d_GameEngine.d_gamePlayModel.getCountries(),
-        //          d_GameEngine.d_gamePlayModel.getPlayers())
-        //          .convertCmdToOrder(new String[]{"pass"}));
-        // assertFalse(d_Player.issueOrder());
-
-
         d_Player.addOrder(new HumanStrategy(d_Player,
                 d_GameEngine.d_gamePlayModel.getCountries(),
                 d_GameEngine.d_gamePlayModel.getPlayers())
                 .convertCmdToOrder(new String[]{"deploy", "Comet-Tail", "44"}));
-
-        // TODO:: assertTrue(d_Player.issueOrder());
 
         assertEquals(2, d_Player.getReinforcements());
     }
@@ -117,14 +106,10 @@ public class PlayerTest {
                 d_GameEngine.d_gamePlayModel.getPlayers())
                 .convertCmdToOrder(new String[]{l_orderName, l_country, "44"}));
 
-        // assertTrue(d_Player.issueOrder());
-
         d_Player.addOrder(new HumanStrategy(d_Player,
                 d_GameEngine.d_gamePlayModel.getCountries(),
                 d_GameEngine.d_gamePlayModel.getPlayers())
                 .convertCmdToOrder(new String[]{l_orderName, l_country, "2"}));
-
-        // assertTrue(d_Player.issueOrder());
 
         d_GameEngine.setPhase(new ExecuteOrders(d_GameEngine));
         l_nextOrder = (DeployModel) d_Player.nextOrder();

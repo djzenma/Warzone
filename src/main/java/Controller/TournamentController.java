@@ -18,6 +18,7 @@ public class TournamentController implements Serializable {
      * Initialises gameEngine
      *
      * @param p_gameEngine Object of the game engine
+     * @param p_args Command arguments
      */
     public TournamentController(GameEngine p_gameEngine, HashMap<String, List<String>> p_args) {
         this.d_gameEngine = p_gameEngine;
