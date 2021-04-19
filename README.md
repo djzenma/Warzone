@@ -1,6 +1,25 @@
 # Warzone Game
-Advanced Programming Practices Project @ Concordia University
+Advanced Programming Practices Project @ Concordia University, Montreal, Canada.
 
+## Purpose
+This game is a demonstration of the correct usage of the following concepts:
+<ul>
+  <li>The following <strong>Design Patterns</strong>:</li>
+  <ul>
+    <li><strong>Adapter Pattern</strong></li>
+    <li><strong>Command Pattern</strong></li>
+    <li><strong>State **Pattern</strong></li>
+    <li><strong>Observer Pattern</strong></li>
+    <li><strong>MVC</strong></li>
+  </ul>
+  
+  <li><strong>Continuous Integration using Github Actions</strong></li>
+  <li><strong>Agile Development Process & Extreme Programming</strong>:</li>
+  <li><strong>Unit Testing using JUnit</strong></li>
+  <li>Proper <strong>Documentation</strong> using <strong>Javadoc</strong></li>
+</ul>
+
+## The Game
 The game consists of 3 phases: 
 <ul>
   <li> Map Editing which allows the user to create/edit/save a map </li>
@@ -8,9 +27,9 @@ The game consists of 3 phases:
   <li> Gameplay which consists of the actual game </li>
 </ul>
 
-## Commands
+### Commands
 
-### 1. Map Editing Phase
+#### 1. Map Editing Phase
 <ul>
   <li>
   
@@ -70,8 +89,27 @@ The game consists of 3 phases:
   </li>
 </ul>
 
-### 2. Startup Phase
+#### 2. Startup Phase
+Before starting playing, you choose first whether you want to play one game (singlegame) or a tournament.
+
+##### 2.1 Single Game Mode
 <ul>
+  <li>
+  
+  ``` 
+  singlegame
+  ```
+  To create a single game (i.e, not a tournament).
+  </li>
+  
+  <li>
+  
+  ``` 
+  loadgame checkpointName
+  ```
+  If a previous game was saved using the savegame command, this command allows to resume it back on the saved checkpoint.
+  </li>
+   
   <li>
   
   ``` 
@@ -83,9 +121,23 @@ The game consists of 3 phases:
   <li>
   
   ```
-  gameplayer -add playername -remove playername
+  gameplayer -add playername strategy -remove playername
   ```
-  User creates the players
+  User adds players. Every player has a name and a strategy. The strategy is one of the following 4:
+  <ul>
+  <li><strong>Human</strong>: This is a normal human player that enters gameplay commands to play.</li>
+    
+  <li><strong>Aggressive</strong>: This is a computer player strategy that focuses on centralization of forces and then attacks, i.e., it deploys on its strongest 
+country, then always attack with its strongest country, then moves its armies from the weaker countries to the strongest one in order to maximize aggregation of forces in its strongest country.</li>
+    
+  <li><strong>Benevolent</strong>: computer player strategy that focuses on protecting its weak countries (deploys on its weakest country, never 
+attacks, then moves its armies in order to reinforce its weaker country).</li>
+
+  <li><strong>Random</strong>: computer player strategy that deploys on a random country, attacks random neighboring countries, and moves armies 
+randomly between its countries.</li>
+
+  <li><strong>Cheater</strong>: computer player strategy that conquers all the immediate neighboring enemy countries, and then doubles the number of armies on its countries that have enemy neighbors. Note that all of this happens during the issuing of orders, i.e., it doesn't wait until the execution of orders, it executes right away.</li>
+  </ul>
   </li>
   
   <li>
@@ -97,7 +149,18 @@ The game consists of 3 phases:
   </li>
 </ul>
 
-### 3. Gameplay Phase
+##### 2.2 Tournament Mode
+<ul>
+  <li>
+  
+  ``` 
+  tournament -M map1 map2 ... map5 -P strategy1 strategy2 .... strategyM -G numGames -D MaxTurns
+  ```
+  To create a tournament. A tournament starts with the user choosing M = 1 to 5 different maps, P = 2 to 4 different computer players strategies (refer to the gameplayer command in the startup phase to know about what are strategies), G = 1 to 5 games to be played on each map, D = 10 to 50 maximum number of turns for each game. A tournament is then automatically played by playing G games on each of the M different maps between the chosen computer player strategies. In order to minimize run completion time, each game should be declared a draw after D turns. Once started, the tournament plays all the games automatically without user interaction. At the end of the tournament, a report of the results is displayed.
+  </li>
+</ul>
+
+#### 3. Gameplay Phase
 <ul>
   <li>
   
@@ -155,5 +218,13 @@ The game consists of 3 phases:
   Prevent attacks between the current player and another player ("playerID") until the end of the turn </br>
   example usage: negotiate Mazen </br>
   where Mazen is the name of an ennemi player
+  </li>
+  
+  <li>
+  
+  ``` 
+  savegame checkpointName
+  ```
+  This command saves the current game as a checkpoint to be able to resume it later using the loadgame command.
   </li>
 </ul>
