@@ -8,7 +8,7 @@ This game is a demonstration of the correct usage of the following concepts:
   <ul>
     <li><strong>Adapter Pattern</strong></li>
     <li><strong>Command Pattern</strong></li>
-    <li><strong>State **Pattern</strong></li>
+    <li><strong>State Pattern</strong></li>
     <li><strong>Observer Pattern</strong></li>
     <li><strong>MVC</strong></li>
   </ul>
